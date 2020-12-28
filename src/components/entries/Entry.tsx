@@ -1,7 +1,6 @@
 import * as React from "react";
 import Grid from '@material-ui/core/Grid';
-import { User } from "./header/HeaderUsers";
-import { EntryText } from "./EntryText";
+import { User } from "../header/HeaderUsers";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Input } from "@material-ui/core";
@@ -27,15 +26,14 @@ export const Entry: React.FC<Props> = (props) => {
     const [cost, setCost] = useState<number>();
     // const [excludedUsers, setExcludedUsers] = useState<User[]>([]);
     const [note, setNote] = useState("");
-    console.log(123123);
 
     useEffect(() => {
-        if (props.item && props.cost) {
-            console.log("EXISTING ENTRY");
+        if (props.item && props.cost && props.note !== undefined) {
             setItem(props.item);
             setCost(props.cost);
+            setNote(props.note);
         }
-    }, [props.item, props.cost]);
+    }, [props.item, props.cost, props.note]);
 
     return (
         <Grid className={props.id % 2 ? "entry oddId" : "entry evenId"} container spacing={0}>

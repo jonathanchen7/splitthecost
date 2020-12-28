@@ -7,13 +7,25 @@
 
 .headerItem {
   height: 60px;
-  background-color: #3498db;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  background-color: #3498db;
+}
+
+.headerLogo {
+  height: 60px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  background-color: #f4f4f4;
+  border-right: 3px black;
 }
 
 .alignRight {
@@ -47,11 +59,11 @@
 }
 
 .oddId {
-  background-color: #DADADA;
+  background-color: #f4f4f4;
 }
 
 .evenId {
-  background-color: #ffffff;
+  background-color: #DADADA;
 }
 
 .entry {
@@ -64,13 +76,25 @@
           align-items: center;
 }
 
-.entryText {
+.entryHeaderText {
   margin-left: 10px;
   font-size: 17px;
+  font-weight: bold;
 }
 
 .entryItemContainer {
   height: 50px;
+  border-right: 1px solid black;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.entryHeaderItemContainer {
+  height: 35px;
   border-right: 1px solid black;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
