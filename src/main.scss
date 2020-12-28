@@ -98,8 +98,16 @@ $entryHeight: 50px;
 
 .entryItem {
     height: $entryHeight;
-    margin-left: 10px;
-    font-size: 100px;
+    padding-left: 10px;
+    transition: all .5s;
+}
+
+.entryItem:hover {
+    background: rgba(41, 128, 185, .5);
+}
+
+.entryItem:focus-within {
+    background-color: rgba(41, 128, 185, .5);
 }
 
 .addItemContainer {

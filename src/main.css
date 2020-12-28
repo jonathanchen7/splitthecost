@@ -128,8 +128,17 @@
 
 .entryItem {
   height: 50px;
-  margin-left: 10px;
-  font-size: 100px;
+  padding-left: 10px;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+
+.entryItem:hover {
+  background: rgba(41, 128, 185, 0.5);
+}
+
+.entryItem:focus-within {
+  background-color: rgba(41, 128, 185, 0.5);
 }
 
 .addItemContainer {
