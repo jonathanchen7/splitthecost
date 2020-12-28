@@ -1,8 +1,10 @@
 import * as React from "react";
 import Grid from '@material-ui/core/Grid';
-import { User } from "./HeaderUsers";
+import { User } from "./header/HeaderUsers";
 import { EntryText } from "./EntryText";
-import { Box } from "@material-ui/core";
+import { useState } from "react";
+import { useEffect } from "react";
+import { Input } from "@material-ui/core";
 
 export interface EntryItem {
     id: number;
@@ -13,23 +15,59 @@ export interface EntryItem {
 }
 
 interface Props {
-    entry: EntryItem;
+    id: number;
+    item?: string;
+    cost?: number;
+    exclude?: User[] | null;
+    note?: string;
 }
 
 export const Entry: React.FC<Props> = (props) => {
+    const [item, setItem] = useState("");
+    const [cost, setCost] = useState<number>();
+    // const [excludedUsers, setExcludedUsers] = useState<User[]>([]);
+    const [note, setNote] = useState("");
+    console.log(123123);
+
+    useEffect(() => {
+        if (props.item && props.cost) {
+            console.log("EXISTING ENTRY");
+            setItem(props.item);
+            setCost(props.cost);
+        }
+    }, [props.item, props.cost]);
+
     return (
-        <Grid className={props.entry.id % 2 ? "entry oddId" : "entry evenId"} container spacing={0}>
+        <Grid className={props.id % 2 ? "entry oddId" : "entry evenId"} container spacing={0}>
             <Grid className="entryItemContainer" item xs={2}>
-                <EntryText text={props.entry.item} />
+                <Input 
+                    className="entryItem" 
+                    disableUnderline={true} 
+                    fullWidth={true} 
+                    value={item} 
+                    onChange={(e) => setItem(e.target.value)} 
+                />
             </Grid>
             <Grid className="entryItemContainer" item xs={1}>
-                <EntryText text={props.entry.cost} />
+                <Input 
+                    className="entryItem" 
+                    disableUnderline={true} 
+                    fullWidth={true} 
+                    value={cost} 
+                    onChange={(e) => setCost(Number(e.target.value))} 
+                />
             </Grid>
             <Grid className="entryItemContainer" item xs={2}>
-                
+
             </Grid>
             <Grid className="entryItemContainer" item xs={4}>
-                <EntryText text={props.entry.note} />
+                <Input 
+                    className="entryItem" 
+                    disableUnderline={true} 
+                    fullWidth={true} 
+                    value={note} 
+                    onChange={(e) => setNote(e.target.value)} 
+                />
             </Grid>
         </Grid>
     );

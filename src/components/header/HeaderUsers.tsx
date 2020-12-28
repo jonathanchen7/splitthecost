@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AddUser } from "./AddUser";
+import { AddUser } from "../AddUser";
 import { HeaderUser } from "./HeaderUser";
 
 export interface User {

@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Entry, EntryItem } from "./Entry";
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import { EntryInput } from "./EntryInput";
 import { Grid } from "@material-ui/core";
 
 interface Props {
@@ -36,10 +35,12 @@ const test3: EntryItem = {
 
 
 export const Entries: React.FC<Props> = (props) => {
+    const [curId, setcurId] = useState(0);
     const [entries, setEntries] = useState<EntryItem[]>([]);
     entries.push(test1);
     entries.push(test2);
     entries.push(test3);
+    console.log(entries);
 
     function addItem() {
         
@@ -47,9 +48,8 @@ export const Entries: React.FC<Props> = (props) => {
 
     return (
         <div>
-            {entries.map(entry => <Entry entry={entry} />)}
-            <EntryInput id={2}/>
-            <Grid className="entryItemContainer" container spacing={0}>
+            {entries.map(entry => <Entry id={entry.id} item={entry.item} cost={entry.cost} note={entry.note} /> )}
+            {/* <Grid className="entryItemContainer" container spacing={0}>
                 <Grid item xs={2}>
                     <Button 
                     variant="contained" 
@@ -60,7 +60,7 @@ export const Entries: React.FC<Props> = (props) => {
                         Add Item
                     </Button>
                 </Grid>
-            </Grid>
+            </Grid> */}
             
         </div>
     );
