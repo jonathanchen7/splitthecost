@@ -44,10 +44,11 @@ export const Entries: React.FC<Props> = (props) => {
     return (
         <div>
             <EntriesHeader />
-            {entries.map(entry => <Entry id={entry.id} item={entry.item} cost={entry.cost} note={entry.note} /> )}
-            <Grid className="entryItemContainer" container spacing={0}>
-                <Grid item xs={2}>
-                    <Button 
+            {entries.map(entry => <Entry entry={entry} key={entry.id} /> )}
+            <Grid container spacing={0}>
+                <Grid className="addItemContainer" item xs={2}>
+                    <Button
+                    className="addItemButton" 
                     variant="contained" 
                     color="default" 
                     startIcon={<AddIcon />}

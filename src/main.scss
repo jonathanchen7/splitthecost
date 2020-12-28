@@ -50,8 +50,10 @@ $header-height: 60px;
     background-color: #DADADA;
 }
 
+$entry-height: 50px;
+
 .entry {
-    height: 50px;
+    height: $entry-height;
     display: inline-flex;
     align-items: center;
 }
@@ -63,20 +65,34 @@ $header-height: 60px;
 }
 
 .entryItemContainer {
-    height: 50px;
+    height: $entry-height;
     border-right: 1px solid black;
     display: inline-flex;
     align-items: center;
 }
 
 .entryHeaderItemContainer {
-    height: 35px;
+    height: $entry-height;
     border-right: 1px solid black;
     display: inline-flex;
     align-items: center;
 }
 
 .entryItem {
+    height: $entry-height;
     margin-left: 10px;
-    font-size: 17px;
+    font-size: 100px;
+}
+
+.addItemContainer {
+    height: $entry-height;
+    display: inline-flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.addItemButton {
+    margin-top: 20px !important;
+    border-radius: 20px !important;
 }

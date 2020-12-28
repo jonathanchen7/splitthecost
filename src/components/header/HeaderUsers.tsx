@@ -15,7 +15,7 @@ interface Props {
 export const HeaderUsers: React.FC<Props> = (props) => {
     return (
         <div>
-            {props.users.map(user => <HeaderUser user={user} />)}
+            {props.users.map(user => <HeaderUser user={user} key={user.email} />)}
             <AddUser />
         </div>
     );

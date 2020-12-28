@@ -94,7 +94,7 @@
 }
 
 .entryHeaderItemContainer {
-  height: 35px;
+  height: 50px;
   border-right: 1px solid black;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -105,7 +105,28 @@
 }
 
 .entryItem {
+  height: 50px;
   margin-left: 10px;
-  font-size: 17px;
+  font-size: 100px;
+}
+
+.addItemContainer {
+  height: 50px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.addItemButton {
+  margin-top: 20px !important;
+  border-radius: 20px !important;
 }
 /*# sourceMappingURL=main.css.map */
