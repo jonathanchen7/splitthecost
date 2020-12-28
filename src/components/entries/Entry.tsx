@@ -5,25 +5,21 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Input } from "@material-ui/core";
 
-export interface EntryItem {
-    id: number;
-    item: string;
-    cost: number;
-    exclude: User[] | null;
-    note: string;
-}
-
 interface Props {
     id: number;
     item?: string;
-    cost?: number;
+    cost?: string;
     exclude?: User[] | null;
     note?: string;
 }
 
+function validCost(input: string): boolean {
+    return input.charAt(input.length - 1) !== '.' || !isNaN(Number(input));
+}
+
 export const Entry: React.FC<Props> = (props) => {
     const [item, setItem] = useState("");
-    const [cost, setCost] = useState<number>();
+    const [cost, setCost] = useState("");
     // const [excludedUsers, setExcludedUsers] = useState<User[]>([]);
     const [note, setNote] = useState("");
 
@@ -34,6 +30,12 @@ export const Entry: React.FC<Props> = (props) => {
             setNote(props.note);
         }
     }, [props.item, props.cost, props.note]);
+
+    function updateCost(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
+        if (validCost(e.target.value)) {
+            setCost(e.target.value);
+        }
+    }
 
     return (
         <Grid className={props.id % 2 ? "entry oddId" : "entry evenId"} container spacing={0}>
@@ -52,7 +54,7 @@ export const Entry: React.FC<Props> = (props) => {
                     disableUnderline={true} 
                     fullWidth={true} 
                     value={cost} 
-                    onChange={(e) => setCost(Number(e.target.value))} 
+                    onChange={updateCost} 
                 />
             </Grid>
             <Grid className="entryItemContainer" item xs={2}>

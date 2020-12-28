@@ -1,11 +1,20 @@
 import * as React from "react";
 import { useState } from "react";
-import { Entry, EntryItem } from "./Entry";
+import { Entry } from "./Entry";
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import { Grid } from "@material-ui/core";
 import { useEffect } from "react";
 import { EntriesHeader } from "./EntriesHeader";
+import { User } from "../header/HeaderUsers";
+
+export interface EntryItem {
+    id: number;
+    item: string;
+    cost: string;
+    exclude: User[] | null;
+    note: string;
+}
 
 interface Props {
 
@@ -25,7 +34,7 @@ export const Entries: React.FC<Props> = (props) => {
         const newItem: EntryItem = {
             id: curId,
             item: "",
-            cost: 0,
+            cost: "0",
             exclude: null,
             note: ""
         }
