@@ -1,12 +1,23 @@
 .header {
-  height: 60px;
+  height: 65px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
 .headerItem {
-  height: 60px;
+  height: 65px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  background-color: #3498db;
+}
+
+.headerLogoItem {
+  height: 65px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -17,15 +28,25 @@
 }
 
 .headerLogo {
-  height: 60px;
+  margin-left: 10px;
+}
+
+.headerUsersContainer {
+  height: 50px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.headerUsersItem {
+  height: 50px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  background-color: #f4f4f4;
-  border-right: 3px black;
+  background-color: #F4F4F4;
 }
 
 .alignRight {
@@ -35,8 +56,8 @@
 }
 
 .userCircle {
-  height: 45px;
-  width: 45px;
+  height: 40px;
+  width: 40px;
   background-color: #2980b9;
   border-radius: 50%;
   display: -webkit-inline-box;
@@ -51,7 +72,7 @@
   font-size: 20px;
   font-weight: bold;
   color: white;
-  margin: 0px 0px 0px 10px;
+  margin: 0px 0px 0px 13px;
 }
 
 .profileCircle {
@@ -59,11 +80,11 @@
 }
 
 .oddId {
-  background-color: #f4f4f4;
+  background-color: #F4F4F4;
 }
 
 .evenId {
-  background-color: #DADADA;
+  background-color: #DEDEDE;
 }
 
 .entry {
@@ -94,7 +115,8 @@
 }
 
 .entryHeaderItemContainer {
-  height: 50px;
+  background-color: #C9C9C9;
+  height: 35px;
   border-right: 1px solid black;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;

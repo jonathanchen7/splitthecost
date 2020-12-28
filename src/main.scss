@@ -1,23 +1,40 @@
-$header-height: 60px;
+$headerHeight: 65px;
 
 .header {
-    height: $header-height;
+    height: $headerHeight;
     align-items: center;
 }
 
 .headerItem {
-    height: $header-height;
+    height: $headerHeight;
+    align-items: center;
+    display: inline-flex;
+    background-color: #3498db;
+}
+
+.headerLogoItem {
+    height: $headerHeight;
     align-items: center;
     display: inline-flex;
     background-color: #3498db;
 }
 
 .headerLogo {
-    height: $header-height;
+    margin-left: 10px;
+}
+
+$headerUsersHeight: 50px;
+
+.headerUsersContainer {
+    height: $headerUsersHeight;
+    align-items: center;
+}
+
+.headerUsersItem {
+    height: $headerUsersHeight;
     align-items: center;
     display: inline-flex;
-    background-color: #f4f4f4;
-    border-right: 3px black;
+    background-color: #F4F4F4;
 }
 
 .alignRight {
@@ -25,8 +42,8 @@ $header-height: 60px;
 }
 
 .userCircle {
-    height: 45px;
-    width: 45px;
+    height: 40px;
+    width: 40px;
     background-color: #2980b9;
     border-radius: 50%;
     display: inline-flex;
@@ -35,7 +52,7 @@ $header-height: 60px;
     font-size: 20px;
     font-weight: bold;
     color: white;
-    margin: 0px 0px 0px 10px;
+    margin: 0px 0px 0px 13px;
 }
 
 .profileCircle {
@@ -43,17 +60,17 @@ $header-height: 60px;
 }
 
 .oddId {
-    background-color: #f4f4f4;
+    background-color: #F4F4F4;
 }
 
 .evenId {
-    background-color: #DADADA;
+    background-color: #DEDEDE;
 }
 
-$entry-height: 50px;
+$entryHeight: 50px;
 
 .entry {
-    height: $entry-height;
+    height: $entryHeight;
     display: inline-flex;
     align-items: center;
 }
@@ -65,27 +82,28 @@ $entry-height: 50px;
 }
 
 .entryItemContainer {
-    height: $entry-height;
+    height: $entryHeight;
     border-right: 1px solid black;
     display: inline-flex;
     align-items: center;
 }
 
 .entryHeaderItemContainer {
-    height: $entry-height;
+    background-color: #C9C9C9;
+    height: 35px;
     border-right: 1px solid black;
     display: inline-flex;
     align-items: center;
 }
 
 .entryItem {
-    height: $entry-height;
+    height: $entryHeight;
     margin-left: 10px;
     font-size: 100px;
 }
 
 .addItemContainer {
-    height: $entry-height;
+    height: $entryHeight;
     display: inline-flex;
     align-items: center;
     align-content: center;

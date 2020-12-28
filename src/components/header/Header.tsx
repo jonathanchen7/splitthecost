@@ -24,16 +24,21 @@ const users = [user1, user2];
 
 export const Header: React.FC<Props> = (props) => {
     return (
-        <Grid className="header" container spacing={0}>
-            <Grid className="headerLogo" item xs={2}>
-                <img src={logo} alt="logo" height="40px" />
+        <div>
+            <Grid className="header" container spacing={0}>
+                <Grid className="headerLogoItem" item xs={11}>
+                    <img className="headerLogo" src={logo} alt="logo" height="40px" />
+                </Grid>
+                <Grid className="headerItem alignRight" item xs={1}>
+                    <HeaderProfile />
+                </Grid>
             </Grid>
-            <Grid className="headerItem" item xs={7}>
-                <HeaderUsers users={users} />
+            <Grid className="headerUsersContainer" container spacing={0}>
+                <Grid className="headerUsersItem" item xs={12}>
+                        <HeaderUsers users={users} />
+                </Grid>
             </Grid>
-            <Grid className="headerItem alignRight" item xs={3}>
-                <HeaderProfile />
-            </Grid>
-        </Grid>
+        </div>
+                    
     );
 }
