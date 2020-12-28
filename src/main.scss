@@ -45,3 +45,20 @@
     display: inline-flex;
     align-items: center;
 }
+
+.entryText {
+    margin-left: 10px;
+    font-size: 17px;
+}
+
+.entryItemContainer {
+    height: 50px;
+    border-right: 1px solid black;
+    display: inline-flex;
+    align-items: center;
+}
+
+.entryItem {
+    margin-left: 10px;
+    font-size: 17px;
+}

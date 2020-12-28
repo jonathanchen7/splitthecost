@@ -1,6 +1,10 @@
 import * as React from "react";
-import { Entry, EntryItem } from "./Entry";
 import { useState } from "react";
+import { Entry, EntryItem } from "./Entry";
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+import { EntryInput } from "./EntryInput";
+import { Grid } from "@material-ui/core";
 
 interface Props {
 
@@ -37,9 +41,27 @@ export const Entries: React.FC<Props> = (props) => {
     entries.push(test2);
     entries.push(test3);
 
+    function addItem() {
+        
+    }
+
     return (
         <div>
             {entries.map(entry => <Entry entry={entry} />)}
+            <EntryInput id={2}/>
+            <Grid className="entryItemContainer" container spacing={0}>
+                <Grid item xs={2}>
+                    <Button 
+                    variant="contained" 
+                    color="default" 
+                    startIcon={<AddIcon />}
+                    onClick={addItem}
+                    >
+                        Add Item
+                    </Button>
+                </Grid>
+            </Grid>
+            
         </div>
     );
 }
