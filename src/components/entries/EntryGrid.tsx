@@ -6,14 +6,19 @@ import AddIcon from "@material-ui/icons/Add";
 import { Grid } from "@material-ui/core";
 import { useEffect } from "react";
 import { EntriesHeader } from "./EntriesHeader";
-import { Entry } from "../../models/models";
+import { Entry, User } from "../../models/models";
 
 interface Props {
   entries: Entry[];
   setEntries: (entries: Entry[]) => void;
+  curUser: User;
 }
 
-export const EntryGrid: React.FC<Props> = ({ entries, setEntries }) => {
+export const EntryGrid: React.FC<Props> = ({
+  entries,
+  setEntries,
+  curUser,
+}) => {
   const [curId, setcurId] = useState(0);
 
   useEffect(() => {
@@ -29,6 +34,7 @@ export const EntryGrid: React.FC<Props> = ({ entries, setEntries }) => {
       cost: "0",
       exclude: null,
       note: "",
+      createdBy: curUser,
     };
     setEntries(entries.concat(newItem));
   }

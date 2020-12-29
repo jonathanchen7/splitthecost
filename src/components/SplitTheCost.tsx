@@ -6,23 +6,28 @@ import { Sidebar } from "./breakdown/Sidebar";
 import { EntryGrid } from "./entries/EntryGrid";
 import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
+import { v4 as uuidv4 } from "uuid";
 
-const user1: User = {
+const jonathan: User = {
+  id: uuidv4(),
   firstName: "Jonathan",
   lastName: "Chen",
   email: "jonathanschen28@gmail.com",
 };
-const user2: User = {
+const abigail: User = {
+  id: uuidv4(),
   firstName: "Abigail",
   lastName: "Chen",
   email: "abigail.chen@live.com",
 };
-const user3: User = {
+const mom: User = {
+  id: uuidv4(),
   firstName: "Christine",
   lastName: "Liu",
   email: "thechens28@gmail.com",
 };
-const user4: User = {
+const dad: User = {
+  id: uuidv4(),
   firstName: "Hongbo",
   lastName: "Chen",
   email: "bradchen28@gmail.com",
@@ -33,16 +38,28 @@ const entry1: Entry = {
   item: "Hydroflask",
   cost: "35.99",
   note: "keeps ur water cold",
-  exclude: [user1],
+  exclude: [abigail],
+  createdBy: jonathan,
+};
+
+const entry2: Entry = {
+  id: 1,
+  item: "canoe",
+  cost: "65.95",
+  note: "issa boat",
+  exclude: [mom, dad],
+  createdBy: abigail,
 };
 
 export const SplitTheCost: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [entries, setEntries] = useState<Entry[]>([]);
+  const [curUser, setCurUser] = useState<User>(jonathan);
 
   useEffect(() => {
-    setUsers([user1, user2, user3, user4]);
-    setEntries([entry1]);
+    setUsers([jonathan, abigail, mom, dad]);
+    setEntries([entry1, entry2]);
+    setCurUser(jonathan);
   }, []);
 
   return (
@@ -50,7 +67,11 @@ export const SplitTheCost: React.FC = () => {
       <Header users={users} setUsers={setUsers} />
       <UsersBar users={users} setUsers={setUsers} />
       <div style={{ display: "flex" }}>
-        <EntryGrid entries={entries} setEntries={setEntries} />
+        <EntryGrid
+          entries={entries}
+          setEntries={setEntries}
+          curUser={curUser}
+        />
         <Sidebar />
       </div>
     </div>

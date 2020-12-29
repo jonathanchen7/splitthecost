@@ -15,6 +15,7 @@ import { User } from "../../models/models";
 import { useState } from "react";
 import Grow from "@material-ui/core/Grow";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
+import { v4 as uuidv4 } from "uuid";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -96,6 +97,7 @@ export const AddUser: React.FC<Props> = ({ users, setUsers }) => {
 
     // Input is valid! Add new user.
     const tempUser: User = {
+      id: uuidv4(),
       firstName: firstNameVal,
       lastName: lastNameVal,
       email: emailVal,
