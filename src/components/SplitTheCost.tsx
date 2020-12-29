@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import "../App.css";
 import { Entry, User } from "../models/models";
@@ -26,17 +26,26 @@ const user4: User = {
   email: "bradchen28@gmail.com",
 };
 
-var test = [user1, user2, user3, user4];
+const entry1: Entry = {
+  id: 0,
+  item: "Hydroflask",
+  cost: "$35.99",
+  note: "keeps ur water cold",
+  exclude: null,
+};
 
 export const SplitTheCost: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [entries, setEntries] = useState<Entry[]>([]);
 
-  // setUsers([user1, user2, user3, user4]);
+  useEffect(() => {
+    setUsers([user1, user2, user3, user4]);
+    setEntries([entry1]);
+  }, []);
 
   return (
     <div>
-      <Header users={test} setUsers={setUsers} />
+      <Header users={users} setUsers={setUsers} />
       <EntryGrid entries={entries} setEntries={setEntries} />
     </div>
   );
