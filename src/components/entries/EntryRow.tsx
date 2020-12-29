@@ -2,7 +2,8 @@ import * as React from "react";
 import Grid from "@material-ui/core/Grid";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Input } from "@material-ui/core";
+import { Avatar, Input } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 import { Entry } from "../../models/models";
 
 interface Props {
@@ -44,7 +45,7 @@ export const EntryRow: React.FC<Props> = ({ entry }) => {
             : "entryItemContainer evenId"
         }
         item
-        xs={2}
+        xs={3}
       >
         <Input
           className='entryItem'
@@ -79,7 +80,17 @@ export const EntryRow: React.FC<Props> = ({ entry }) => {
         }
         item
         xs={2}
-      ></Grid>
+      >
+        {entry.exclude?.map((user) => (
+          <Avatar className='excludeAvatar'>
+            {user.firstName.charAt(0).toLocaleUpperCase()}
+            {user.lastName.charAt(0).toLocaleUpperCase()}
+          </Avatar>
+        ))}
+        <Avatar className='excludeAvatar'>
+          <AddIcon />
+        </Avatar>
+      </Grid>
       <Grid
         className={
           entry.id % 2
@@ -87,7 +98,7 @@ export const EntryRow: React.FC<Props> = ({ entry }) => {
             : "entryItemContainer evenId"
         }
         item
-        xs={4}
+        xs={6}
       >
         <Input
           className='entryItem'

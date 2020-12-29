@@ -9,14 +9,14 @@ $headerHeight: 65px;
   height: $headerHeight;
   align-items: center;
   display: inline-flex;
-  background-color: #3498db;
+  background-color: #377cab;
 }
 
 .headerLogoItem {
   height: $headerHeight;
   align-items: center;
   display: inline-flex;
-  background-color: #3498db;
+  background-color: #377cab;
 }
 
 .headerLogo {
@@ -45,9 +45,15 @@ $headerUsersHeight: 50px;
   justify-content: flex-end;
 }
 
+.entryGridDiv {
+  width: 75%;
+}
+
+.sidebarDiv {
+  width: 25%;
+}
+
 .userCircle {
-  height: 40px;
-  width: 40px;
   background-color: #c9c9c9;
   border-radius: 50%;
   display: inline-flex;
@@ -108,6 +114,17 @@ $entryHeight: 50px;
   height: $entryHeight;
   padding-left: 10px;
   transition: all 0.5s;
+}
+
+.excludeAvatar {
+  margin-left: 5px;
+  transition: all 0.5s;
+  font-weight: bold;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+  }
 }
 
 .entryItem:hover {

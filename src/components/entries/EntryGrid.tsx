@@ -34,11 +34,12 @@ export const EntryGrid: React.FC<Props> = ({ entries, setEntries }) => {
   }
 
   return (
-    <div>
+    <div className='entryGridDiv'>
       <EntriesHeader />
       {entries.map((entry) => (
         <EntryRow entry={entry} key={entry.id} />
       ))}
+
       <Grid container spacing={0}>
         <Grid className='addItemContainer' item xs={2}>
           <Button

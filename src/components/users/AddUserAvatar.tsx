@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Avatar, Tooltip } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import { useState } from "react";
 import { User } from "../../models/models";
 
 interface Props {

@@ -6,25 +6,25 @@ interface Props {}
 export const EntriesHeader: React.FC<Props> = (props) => {
   return (
     <Grid container spacing={0}>
-      <Grid className='entryHeaderItemContainer' item xs={2}>
+      <Grid className='entryHeaderItemContainer' item xs={3}>
         <span className='entryHeaderText'>ITEM</span>
       </Grid>
       <Grid className='entryHeaderItemContainer' item xs={1}>
         <span className='entryHeaderText'>COST</span>
       </Grid>
       <Grid className='entryHeaderItemContainer' item xs={2}>
-        <span className='entryHeaderText'>EXCLUDE</span>
+        <span className='entryHeaderText'>EXCLUDED USERS</span>
       </Grid>
-      <Grid className='entryHeaderItemContainer' item xs={4}>
+      <Grid className='entryHeaderItemContainer' item xs={6}>
         <span className='entryHeaderText'>NOTES</span>
       </Grid>
-      <Grid className='entryHeaderItemContainer' item xs={1}></Grid>
+      {/* <Grid className='entryHeaderItemContainer' item xs={1}></Grid>
       <Grid className='entryHeaderItemContainer' item xs={1}>
         <span className='entryHeaderText'>SPENT</span>
       </Grid>
       <Grid className='entryHeaderItemContainer' item xs={1}>
         <span className='entryHeaderText'>OWED</span>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };

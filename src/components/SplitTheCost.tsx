@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "../App.css";
 import { Entry, User } from "../models/models";
+import { Sidebar } from "./breakdown/Sidebar";
 import { EntryGrid } from "./entries/EntryGrid";
 import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
@@ -32,7 +33,7 @@ const entry1: Entry = {
   item: "Hydroflask",
   cost: "$35.99",
   note: "keeps ur water cold",
-  exclude: null,
+  exclude: [user1],
 };
 
 export const SplitTheCost: React.FC = () => {
@@ -48,7 +49,10 @@ export const SplitTheCost: React.FC = () => {
     <div>
       <Header users={users} setUsers={setUsers} />
       <UsersBar users={users} setUsers={setUsers} />
-      <EntryGrid entries={entries} setEntries={setEntries} />
+      <div style={{ display: "flex" }}>
+        <EntryGrid entries={entries} setEntries={setEntries} />
+        <Sidebar />
+      </div>
     </div>
   );
 };
