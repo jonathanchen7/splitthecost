@@ -5,35 +5,12 @@ import { HeaderProfile } from "./HeaderProfile";
 import logo from "../../assets/logo.png";
 import { User } from "../../models/models";
 
-interface Props {}
+interface Props {
+  users: User[];
+  setUsers: (users: User[]) => void;
+}
 
-const user1: User = {
-  firstName: "Jonathan",
-  lastName: "Chen",
-  email: "jonathanschen28@gmail.com",
-};
-
-const user2: User = {
-  firstName: "Abigail",
-  lastName: "Chen",
-  email: "abigail.chen@live.com",
-};
-
-const user3: User = {
-  firstName: "Christine",
-  lastName: "Liu",
-  email: "thechens28@gmail.com",
-};
-
-const user4: User = {
-  firstName: "Hongbo",
-  lastName: "Chen",
-  email: "bradchen28@gmail.com",
-};
-
-const users = [user1, user2, user3, user4];
-
-export const Header: React.FC<Props> = (props) => {
+export const Header: React.FC<Props> = ({ users, setUsers }) => {
   return (
     <div>
       <Grid className='header' container spacing={0}>

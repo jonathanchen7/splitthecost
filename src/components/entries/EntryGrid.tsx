@@ -6,11 +6,15 @@ import AddIcon from "@material-ui/icons/Add";
 import { Grid } from "@material-ui/core";
 import { useEffect } from "react";
 import { EntriesHeader } from "./EntriesHeader";
-import { Entry } from "../../models/models";
+import { Entry, User } from "../../models/models";
 
-export const Entries: React.FC = () => {
+interface Props {
+  entries: Entry[];
+  setEntries: (entries: Entry[]) => void;
+}
+
+export const EntryGrid: React.FC<Props> = ({ entries, setEntries }) => {
   const [curId, setcurId] = useState(0);
-  const [entries, setEntries] = useState<Entry[]>([]);
 
   useEffect(() => {
     addItem();
