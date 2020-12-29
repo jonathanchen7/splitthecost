@@ -1,5 +1,6 @@
 import * as React from "react";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { Avatar } from "@material-ui/core";
 
 interface Props {
     
@@ -7,8 +8,8 @@ interface Props {
 
 export const HeaderProfile: React.FC<Props> = (props) => {
     return (
-        <div className="userCircle profileCircle">
+        <Avatar className="userCircle profileCircle">
             <AccountCircleIcon />
-        </div>
+        </Avatar>
     );
 }
