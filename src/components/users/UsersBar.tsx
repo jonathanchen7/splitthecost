@@ -22,7 +22,7 @@ export const UsersBar: React.FC<Props> = ({ users, setUsers }) => {
               key={user.email}
             />
           ))}
-          <AddUserAvatar users={users} />
+          <AddUserAvatar users={users} setUsers={setUsers} />
         </div>
       </Grid>
     </Grid>

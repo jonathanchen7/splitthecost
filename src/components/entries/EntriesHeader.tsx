@@ -13,7 +13,7 @@ export const EntriesHeader: React.FC<Props> = (props) => {
         <span className='entryHeaderText'>COST</span>
       </Grid>
       <Grid className='entryHeaderItemContainer' item xs={2}>
-        <span className='entryHeaderText'>EXCLUDED USERS</span>
+        <span className='entryHeaderText'>EXCLUDE</span>
       </Grid>
       <Grid className='entryHeaderItemContainer' item xs={6}>
         <span className='entryHeaderText'>NOTES</span>

@@ -4,9 +4,12 @@ $headerHeight: 60px;
 $headerMargins: 20px;
 $avatarDiameter: 40px;
 
+$defaultIconColor: #c9c9c9;
+
 // ---------------- GENERAL ----------------
 
 .avatar {
+  background-color: $defaultIconColor;
   color: white;
   font-weight: bold;
   font-size: 20px;
@@ -17,6 +20,26 @@ $avatarDiameter: 40px;
     background: rgba(0, 0, 0, 0.35);
     cursor: pointer;
   }
+}
+
+.actionIcon {
+  color: white !important;
+  background-color: $defaultIconColor !important;
+  margin-left: 13px !important;
+  height: $avatarDiameter;
+  width: $avatarDiameter;
+  transition: 0.5s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.35) !important;
+    cursor: pointer;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 // ---------------- HEADER ----------------
@@ -45,6 +68,15 @@ $avatarDiameter: 40px;
 }
 
 // ---------------- USERS ----------------
+
+.dialogNames {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dialogNameInput {
+  width: 45%;
+}
 
 // ---------------- ENTRY GRID ----------------
 
