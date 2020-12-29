@@ -18,13 +18,6 @@ export const EntriesHeader: React.FC<Props> = (props) => {
       <Grid className='entryHeaderItemContainer' item xs={6}>
         <span className='entryHeaderText'>NOTES</span>
       </Grid>
-      {/* <Grid className='entryHeaderItemContainer' item xs={1}></Grid>
-      <Grid className='entryHeaderItemContainer' item xs={1}>
-        <span className='entryHeaderText'>SPENT</span>
-      </Grid>
-      <Grid className='entryHeaderItemContainer' item xs={1}>
-        <span className='entryHeaderText'>OWED</span>
-      </Grid> */}
     </Grid>
   );
 };

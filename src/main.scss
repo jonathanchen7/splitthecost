@@ -1,27 +1,52 @@
-$headerHeight: 65px;
+// ---------------- VARIABLES ----------------
+
+$headerHeight: 60px;
+$headerMargins: 20px;
+$avatarDiameter: 40px;
+
+// ---------------- GENERAL ----------------
+
+.avatar {
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.5s;
+  margin-left: 13px;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+  }
+}
+
+// ---------------- HEADER ----------------
 
 .header {
   height: $headerHeight;
-  align-items: center;
+  background-color: #377cab;
 }
 
 .headerItem {
-  height: $headerHeight;
-  align-items: center;
   display: inline-flex;
-  background-color: #377cab;
+  align-items: center;
 }
 
-.headerLogoItem {
-  height: $headerHeight;
-  align-items: center;
-  display: inline-flex;
-  background-color: #377cab;
-}
-
-.headerLogo {
+.logo {
   margin-left: 10px;
+  height: $headerHeight - $headerMargins;
 }
+
+.profile {
+  margin-right: 10px;
+}
+
+.profileItem {
+  justify-content: flex-end;
+}
+
+// ---------------- USERS ----------------
+
+// ---------------- ENTRY GRID ----------------
 
 $headerUsersHeight: 50px;
 
@@ -41,36 +66,12 @@ $headerUsersHeight: 50px;
   background-color: #f4f4f4;
 }
 
-.alignRight {
-  justify-content: flex-end;
-}
-
 .entryGridDiv {
   width: 75%;
 }
 
 .sidebarDiv {
   width: 25%;
-}
-
-.userCircle {
-  background-color: #c9c9c9;
-  border-radius: 50%;
-  display: inline-flex;
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
-  margin: 0px 0px 0px 13px;
-  transition: 0.5s;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.35);
-    cursor: pointer;
-  }
-}
-
-.profileCircle {
-  margin-right: 10px;
 }
 
 .oddId {

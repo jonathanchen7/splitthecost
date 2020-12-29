@@ -11,7 +11,7 @@ export const AddUserAvatar: React.FC<Props> = ({ users }) => {
   return (
     <span>
       <Tooltip arrow title='Add User' placement='right'>
-        <Avatar className='userCircle'>
+        <Avatar className='avatar'>
           <AddIcon />
         </Avatar>
       </Tooltip>

@@ -1,8 +1,9 @@
 import * as React from "react";
 import Grid from "@material-ui/core/Grid";
-import { HeaderProfile } from "./HeaderProfile";
 import logo from "../../assets/logo.png";
 import { User } from "../../models/models";
+import { Avatar } from "@material-ui/core";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 interface Props {
   users: User[];
@@ -12,11 +13,13 @@ interface Props {
 export const Header: React.FC<Props> = ({ users, setUsers }) => {
   return (
     <Grid className='header' container spacing={0}>
-      <Grid className='headerLogoItem' item xs={11}>
-        <img className='headerLogo' src={logo} alt='logo' height='40px' />
+      <Grid className='headerItem' item xs={11}>
+        <img className='logo' src={logo} alt='logo' />
       </Grid>
-      <Grid className='headerItem alignRight' item xs={1}>
-        <HeaderProfile />
+      <Grid className='headerItem profileItem' item xs={1}>
+        <Avatar className='avatar profile'>
+          <AccountCircleIcon />
+        </Avatar>
       </Grid>
     </Grid>
   );

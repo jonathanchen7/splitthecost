@@ -1,34 +1,44 @@
+.avatar {
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  margin-left: 13px;
+}
+
+.avatar:hover {
+  background: rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+
 .header {
-  height: 65px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  height: 60px;
+  background-color: #377cab;
 }
 
 .headerItem {
-  height: 65px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  background-color: #377cab;
-}
-
-.headerLogoItem {
-  height: 65px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  background-color: #377cab;
 }
 
-.headerLogo {
+.logo {
   margin-left: 10px;
+  height: 40px;
+}
+
+.profile {
+  margin-right: 10px;
+}
+
+.profileItem {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 .headerUsers {
@@ -55,41 +65,12 @@
   background-color: #f4f4f4;
 }
 
-.alignRight {
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-}
-
 .entryGridDiv {
   width: 75%;
 }
 
 .sidebarDiv {
   width: 25%;
-}
-
-.userCircle {
-  background-color: #c9c9c9;
-  border-radius: 50%;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
-  margin: 0px 0px 0px 13px;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-
-.userCircle:hover {
-  background: rgba(0, 0, 0, 0.35);
-  cursor: pointer;
-}
-
-.profileCircle {
-  margin-right: 10px;
 }
 
 .oddId {

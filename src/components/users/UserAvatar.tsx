@@ -50,7 +50,7 @@ export const UserAvatar: React.FC<Props> = ({ user, users, setUsers }) => {
         title={`${user.firstName} ${user.lastName}`}
         placement='top'
       >
-        <Avatar className='userCircle' style={{ backgroundColor: color }}>
+        <Avatar className='avatar' style={{ backgroundColor: color }}>
           {showDelete ? <DeleteIcon /> : `${firstInitial}${secondInitial}`}
         </Avatar>
       </Tooltip>
