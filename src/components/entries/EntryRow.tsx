@@ -2,7 +2,7 @@ import * as React from "react";
 import Grid from "@material-ui/core/Grid";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Avatar, Input } from "@material-ui/core";
+import { Avatar, Input, InputAdornment } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { Entry } from "../../models/models";
 
@@ -70,6 +70,7 @@ export const EntryRow: React.FC<Props> = ({ entry }) => {
           fullWidth={true}
           value={cost}
           onChange={updateCost}
+          startAdornment={<InputAdornment position='start'>$</InputAdornment>}
         />
       </Grid>
       <Grid

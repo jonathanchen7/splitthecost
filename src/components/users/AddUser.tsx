@@ -28,33 +28,82 @@ interface Props {
   setUsers: (users: User[]) => void;
 }
 
-export const AddUserAvatar: React.FC<Props> = ({ users, setUsers }) => {
+export const AddUser: React.FC<Props> = ({ users, setUsers }) => {
   const [open, setOpen] = useState(false);
+
   const [firstNameVal, setFirstNameVal] = useState("");
+  const [validFirstName, setValidFirstName] = useState(true);
+  const [firstNameErrorText, setFirstNameErrorText] = useState("");
+
   const [lastNameVal, setLastNameVal] = useState("");
+  const [validLastName, setValidLastName] = useState(true);
+  const [lastNameErrorText, setLastNameErrorText] = useState("");
+
   const [emailVal, setEmailVal] = useState("");
+  const [validEmail, setValidEmail] = useState(true);
+  const [emailErrorText, setEmailErrorText] = useState("");
+
+  // Resets dialog inputs.
+  function resetDialog() {
+    setFirstNameVal("");
+    setLastNameVal("");
+    setEmailVal("");
+    setValidFirstName(true);
+    setValidLastName(true);
+    setValidEmail(true);
+    setFirstNameErrorText("");
+    setLastNameErrorText("");
+    setEmailErrorText("");
+  }
 
   function handleOpen() {
     setOpen(true);
   }
 
   function handleClose() {
+    resetDialog();
     setOpen(false);
   }
 
+  function validateName(name: string): boolean {
+    return name.length > 0 && !/\d/.test(name);
+  }
+
+  function validateEmail(email: string): boolean {
+    return (
+      email.length > 0 &&
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+        email
+      )
+    );
+  }
+
   function addUser() {
-    if (firstNameVal && lastNameVal && emailVal) {
-      const tempUser: User = {
-        firstName: firstNameVal,
-        lastName: lastNameVal,
-        email: emailVal,
-      };
-      setUsers([...users, tempUser]);
-      setFirstNameVal("");
-      setLastNameVal("");
-      setEmailVal("");
-      setOpen(false);
-    }
+    // Validate first name, last name, and email.
+    const temp1 = validateName(firstNameVal);
+    const temp2 = validateName(lastNameVal);
+    const temp3 = validateEmail(emailVal);
+
+    setValidFirstName(temp1);
+    setValidLastName(temp2);
+    setValidEmail(temp3);
+
+    setFirstNameErrorText(temp1 ? "" : "Please enter a valid name.");
+    setLastNameErrorText(temp2 ? "" : "Please enter a valid name.");
+    setEmailErrorText(temp3 ? "" : "Please enter a valid email.");
+
+    if (!temp1 || !temp2 || !temp3) return;
+
+    // Input is valid! Add new user.
+    const tempUser: User = {
+      firstName: firstNameVal,
+      lastName: lastNameVal,
+      email: emailVal,
+    };
+    setUsers([...users, tempUser]);
+
+    resetDialog();
+    setOpen(false);
   }
 
   return (
@@ -72,21 +121,25 @@ export const AddUserAvatar: React.FC<Props> = ({ users, setUsers }) => {
         TransitionComponent={Transition}
       >
         <DialogTitle>Add User </DialogTitle>
-        <DialogContent dividers>
+        <DialogContent>
           <div className='dialogNames'>
             <TextField
-              className='dialogNameInput'
+              className='halfWidthInput'
               label='First Name'
               type='search'
               value={firstNameVal}
               onChange={(e) => setFirstNameVal(e.target.value)}
+              error={!validFirstName}
+              helperText={firstNameErrorText}
             />
             <TextField
-              className='dialogNameInput'
+              className='halfWidthInput'
               label='Last Name'
               type='search'
               value={lastNameVal}
               onChange={(e) => setLastNameVal(e.target.value)}
+              error={!validLastName}
+              helperText={lastNameErrorText}
             />
           </div>
           <TextField
@@ -95,6 +148,8 @@ export const AddUserAvatar: React.FC<Props> = ({ users, setUsers }) => {
             type='search'
             value={emailVal}
             onChange={(e) => setEmailVal(e.target.value)}
+            error={!validEmail}
+            helperText={emailErrorText}
           />
         </DialogContent>
         <DialogActions>

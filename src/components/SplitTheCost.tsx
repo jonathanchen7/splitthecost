@@ -31,7 +31,7 @@ const user4: User = {
 const entry1: Entry = {
   id: 0,
   item: "Hydroflask",
-  cost: "$35.99",
+  cost: "35.99",
   note: "keeps ur water cold",
   exclude: [user1],
 };

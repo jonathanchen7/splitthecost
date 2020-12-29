@@ -3,6 +3,7 @@
 $headerHeight: 60px;
 $headerMargins: 20px;
 $avatarDiameter: 40px;
+$usersBarHeight: 50px;
 
 $defaultIconColor: #c9c9c9;
 
@@ -67,36 +68,28 @@ input::-webkit-inner-spin-button {
   justify-content: flex-end;
 }
 
-// ---------------- USERS ----------------
+// ---------------- USERS BAR ----------------
+
+.usersBar {
+  height: $usersBarHeight;
+  align-items: center;
+  background-color: #f4f4f4;
+}
+
+.usersBarItem {
+  display: flex;
+}
 
 .dialogNames {
   display: flex;
   justify-content: space-between;
 }
 
-.dialogNameInput {
+.halfWidthInput {
   width: 45%;
 }
 
 // ---------------- ENTRY GRID ----------------
-
-$headerUsersHeight: 50px;
-
-.headerUsers {
-  display: flex;
-}
-
-.headerUsersContainer {
-  height: $headerUsersHeight;
-  align-items: center;
-}
-
-.headerUsersItem {
-  height: $headerUsersHeight;
-  align-items: center;
-  display: inline-flex;
-  background-color: #f4f4f4;
-}
 
 .entryGridDiv {
   width: 75%;
@@ -207,10 +200,4 @@ $entryHeight: 50px;
     appearance: none;
     outline: 0;
   }
-}
-
-.paper {
-  background-color: white;
-  border: "2px solid #000";
-  padding: 30px;
 }
