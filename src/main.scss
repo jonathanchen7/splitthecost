@@ -92,11 +92,11 @@ input::-webkit-inner-spin-button {
 // ---------------- ENTRY GRID ----------------
 
 .entryGridDiv {
-  width: 75%;
+  flex: 6;
 }
 
 .sidebarDiv {
-  width: 25%;
+  flex: 2;
 }
 
 .oddId {
@@ -126,6 +126,15 @@ $entryHeight: 50px;
   border-right: 1px solid black;
   display: inline-flex;
   align-items: center;
+  transition: all 0.5s;
+
+  &:hover {
+    background: rgba(41, 128, 185, 0.5);
+  }
+
+  &:focus-within {
+    background: rgba(41, 128, 185, 0.5);
+  }
 }
 
 .entryHeaderItemContainer {
@@ -153,12 +162,13 @@ $entryHeight: 50px;
   }
 }
 
-.entryItem:hover {
-  background: rgba(41, 128, 185, 0.5);
-}
+.entryDiv {
+  display: flex;
+  align-items: center;
 
-.entryItem:focus-within {
-  background-color: rgba(41, 128, 185, 0.5);
+  &:hover {
+    background: rgba(41, 128, 185, 0.5);
+  }
 }
 
 .addItemContainer {

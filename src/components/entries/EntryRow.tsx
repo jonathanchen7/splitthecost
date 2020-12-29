@@ -47,6 +47,10 @@ export const EntryRow: React.FC<Props> = ({ entry }) => {
         item
         xs={3}
       >
+        <Avatar className='avatar'>
+          {entry.createdBy.firstName.charAt(0).toLocaleUpperCase()}
+          {entry.createdBy.lastName.charAt(0).toLocaleUpperCase()}
+        </Avatar>
         <Input
           className='entryItem'
           disableUnderline={true}
