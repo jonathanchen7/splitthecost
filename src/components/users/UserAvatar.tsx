@@ -7,6 +7,7 @@ import { User } from "../../models/models";
 interface Props {
   user: User;
   users: User[];
+  setUsers: (users: User[]) => void;
 }
 
 const colors = [
@@ -27,11 +28,9 @@ function hashUser(email: string): number {
   return Math.abs(h % colors.length);
 }
 
-export const HeaderUser: React.FC<Props> = ({ user, users }) => {
+export const UserAvatar: React.FC<Props> = ({ user, users, setUsers }) => {
   function deleteUser() {
-    console.log(`Deleting ${user.firstName} ${user.lastName}`);
-    users.splice(users.indexOf(user));
-    console.log(users.length);
+    setUsers(users.filter((curUser) => user !== curUser));
   }
 
   const [showDelete, setShowDelete] = useState(false);

@@ -7,19 +7,10 @@ import { User } from "../../models/models";
 interface Props {
   users: User[];
 }
-export const AddUser: React.FC<Props> = ({ users }) => {
-  const [open, setOpen] = useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+export const AddUserAvatar: React.FC<Props> = ({ users }) => {
   return (
-    <span onClick={handleOpen}>
+    <span>
       <Tooltip arrow title='Add User' placement='right'>
         <Avatar className='userCircle'>
           <AddIcon />

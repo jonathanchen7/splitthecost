@@ -6,7 +6,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { Grid } from "@material-ui/core";
 import { useEffect } from "react";
 import { EntriesHeader } from "./EntriesHeader";
-import { Entry, User } from "../../models/models";
+import { Entry } from "../../models/models";
 
 interface Props {
   entries: Entry[];

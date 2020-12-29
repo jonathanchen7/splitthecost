@@ -4,6 +4,7 @@ import "../App.css";
 import { Entry, User } from "../models/models";
 import { EntryGrid } from "./entries/EntryGrid";
 import { Header } from "./header/Header";
+import { UsersBar } from "./users/UsersBar";
 
 const user1: User = {
   firstName: "Jonathan",
@@ -46,6 +47,7 @@ export const SplitTheCost: React.FC = () => {
   return (
     <div>
       <Header users={users} setUsers={setUsers} />
+      <UsersBar users={users} setUsers={setUsers} />
       <EntryGrid entries={entries} setEntries={setEntries} />
     </div>
   );
