@@ -1,166 +1,166 @@
 $headerHeight: 65px;
 
 .header {
-    height: $headerHeight;
-    align-items: center;
+  height: $headerHeight;
+  align-items: center;
 }
 
 .headerItem {
-    height: $headerHeight;
-    align-items: center;
-    display: inline-flex;
-    background-color: #3498db;
+  height: $headerHeight;
+  align-items: center;
+  display: inline-flex;
+  background-color: #3498db;
 }
 
 .headerLogoItem {
-    height: $headerHeight;
-    align-items: center;
-    display: inline-flex;
-    background-color: #3498db;
+  height: $headerHeight;
+  align-items: center;
+  display: inline-flex;
+  background-color: #3498db;
 }
 
 .headerLogo {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 $headerUsersHeight: 50px;
 
 .headerUsers {
-    display: flex;
+  display: flex;
 }
 
 .headerUsersContainer {
-    height: $headerUsersHeight;
-    align-items: center;
+  height: $headerUsersHeight;
+  align-items: center;
 }
 
 .headerUsersItem {
-    height: $headerUsersHeight;
-    align-items: center;
-    display: inline-flex;
-    background-color: #F4F4F4;
+  height: $headerUsersHeight;
+  align-items: center;
+  display: inline-flex;
+  background-color: #f4f4f4;
 }
 
 .alignRight {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .userCircle {
-    height: 40px;
-    width: 40px;
-    background-color: #C9C9C9;
-    border-radius: 50%;
-    display: inline-flex;
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    margin: 0px 0px 0px 13px;
-    transition: .5s;
+  height: 40px;
+  width: 40px;
+  background-color: #c9c9c9;
+  border-radius: 50%;
+  display: inline-flex;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  margin: 0px 0px 0px 13px;
+  transition: 0.5s;
 
-    &:hover {
-        background: rgba(0, 0, 0, 0.35);
-        cursor: pointer;
-    }
+  &:hover {
+    background: rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+  }
 }
 
 .profileCircle {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .oddId {
-    background-color: #F4F4F4;
+  background-color: #f4f4f4;
 }
 
 .evenId {
-    background-color: #DEDEDE;
+  background-color: #dedede;
 }
 
 $entryHeight: 50px;
 
 .entry {
-    height: $entryHeight;
-    display: inline-flex;
-    align-items: center;
+  height: $entryHeight;
+  display: inline-flex;
+  align-items: center;
 }
 
 .entryHeaderText {
-    margin-left: 10px;
-    font-size: 17px;
-    font-weight: bold;
+  margin-left: 10px;
+  font-size: 17px;
+  font-weight: bold;
 }
 
 .entryItemContainer {
-    height: $entryHeight;
-    border-right: 1px solid black;
-    display: inline-flex;
-    align-items: center;
+  height: $entryHeight;
+  border-right: 1px solid black;
+  display: inline-flex;
+  align-items: center;
 }
 
 .entryHeaderItemContainer {
-    background-color: #C9C9C9;
-    height: 35px;
-    border-right: 1px solid black;
-    display: inline-flex;
-    align-items: center;
+  background-color: #c9c9c9;
+  height: 35px;
+  border-right: 1px solid black;
+  display: inline-flex;
+  align-items: center;
 }
 
 .entryItem {
-    height: $entryHeight;
-    padding-left: 10px;
-    transition: all .5s;
+  height: $entryHeight;
+  padding-left: 10px;
+  transition: all 0.5s;
 }
 
 .entryItem:hover {
-    background: rgba(41, 128, 185, .5);
+  background: rgba(41, 128, 185, 0.5);
 }
 
 .entryItem:focus-within {
-    background-color: rgba(41, 128, 185, .5);
+  background-color: rgba(41, 128, 185, 0.5);
 }
 
 .addItemContainer {
-    height: $entryHeight;
-    display: inline-flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
+  height: $entryHeight;
+  display: inline-flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
 }
 
 .addItemButton {
-    margin-top: 20px !important;
-    border-radius: 20px !important;
+  margin-top: 20px !important;
+  border-radius: 20px !important;
 }
 
 .addUserButton {
-    transition: all .5s;
+  transition: all 0.5s;
 
-    &:hover {
-        background-color: #bbbbbb;
-        cursor: pointer;
-    }
+  &:hover {
+    background-color: #bbbbbb;
+    cursor: pointer;
+  }
 
-    &:focus {
-        outline: none;
-        box-shadow: none;
-    }
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
 }
 
 .addUserModal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    outline: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: 0;
 
-    &:focus {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        outline: 0;
-    }
+  &:focus {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+  }
 }
 
 .paper {
-    background-color: white;
-    border: '2px solid #000';
-    padding: 30px;
+  background-color: white;
+  border: "2px solid #000";
+  padding: 30px;
 }

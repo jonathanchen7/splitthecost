@@ -52,7 +52,7 @@
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
 }
 
 .alignRight {
@@ -64,7 +64,7 @@
 .userCircle {
   height: 40px;
   width: 40px;
-  background-color: #C9C9C9;
+  background-color: #c9c9c9;
   border-radius: 50%;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -73,8 +73,8 @@
   font-weight: bold;
   color: white;
   margin: 0px 0px 0px 13px;
-  -webkit-transition: .5s;
-  transition: .5s;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
 .userCircle:hover {
@@ -87,11 +87,11 @@
 }
 
 .oddId {
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
 }
 
 .evenId {
-  background-color: #DEDEDE;
+  background-color: #dedede;
 }
 
 .entry {
@@ -122,7 +122,7 @@
 }
 
 .entryHeaderItemContainer {
-  background-color: #C9C9C9;
+  background-color: #c9c9c9;
   height: 35px;
   border-right: 1px solid black;
   display: -webkit-inline-box;
@@ -136,8 +136,8 @@
 .entryItem {
   height: 50px;
   padding-left: 10px;
-  -webkit-transition: all .5s;
-  transition: all .5s;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 .entryItem:hover {
@@ -169,8 +169,8 @@
 }
 
 .addUserButton {
-  -webkit-transition: all .5s;
-  transition: all .5s;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 .addUserButton:hover {
@@ -206,7 +206,7 @@
 
 .paper {
   background-color: white;
-  border: '2px solid #000';
+  border: "2px solid #000";
   padding: 30px;
 }
 /*# sourceMappingURL=main.css.map */
