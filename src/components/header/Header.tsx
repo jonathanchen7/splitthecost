@@ -1,8 +1,9 @@
 import * as React from "react";
-import { User, HeaderUsers } from "./HeaderUsers";
+import { HeaderUsers } from "./HeaderUsers";
 import Grid from "@material-ui/core/Grid";
 import { HeaderProfile } from "./HeaderProfile";
 import logo from "../../assets/logo.png";
+import { User } from "../../models/models";
 
 interface Props {}
 

@@ -1,24 +1,16 @@
 import * as React from "react";
 import { useState } from "react";
-import { Entry } from "./Entry";
+import { EntryRow } from "./EntryRow";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import { Grid } from "@material-ui/core";
 import { useEffect } from "react";
 import { EntriesHeader } from "./EntriesHeader";
-import { User } from "../header/HeaderUsers";
-
-export interface EntryItem {
-  id: number;
-  item: string;
-  cost: string;
-  exclude: User[] | null;
-  note: string;
-}
+import { Entry } from "../../models/models";
 
 export const Entries: React.FC = () => {
   const [curId, setcurId] = useState(0);
-  const [entries, setEntries] = useState<EntryItem[]>([]);
+  const [entries, setEntries] = useState<Entry[]>([]);
 
   useEffect(() => {
     addItem();
@@ -27,7 +19,7 @@ export const Entries: React.FC = () => {
 
   function addItem() {
     setcurId(curId + 1);
-    const newItem: EntryItem = {
+    const newItem: Entry = {
       id: curId,
       item: "",
       cost: "0",
@@ -41,7 +33,7 @@ export const Entries: React.FC = () => {
     <div>
       <EntriesHeader />
       {entries.map((entry) => (
-        <Entry entry={entry} key={entry.id} />
+        <EntryRow entry={entry} key={entry.id} />
       ))}
       <Grid container spacing={0}>
         <Grid className='addItemContainer' item xs={2}>

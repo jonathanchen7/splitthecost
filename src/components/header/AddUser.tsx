@@ -1,17 +1,8 @@
 import * as React from "react";
-import {
-  Avatar,
-  Backdrop,
-  Button,
-  Fade,
-  Modal,
-  Tooltip,
-  withStyles,
-  Zoom,
-} from "@material-ui/core";
+import { Avatar, Tooltip } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import { User } from "./HeaderUsers";
 import { useState } from "react";
+import { User } from "../../models/models";
 
 interface Props {
   users: User[];
@@ -34,25 +25,6 @@ export const AddUser: React.FC<Props> = ({ users }) => {
           <AddIcon />
         </Avatar>
       </Tooltip>
-
-      <div>
-        <Modal
-          className='addUserModal'
-          open={open}
-          onClose={handleClose}
-          closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500,
-          }}
-        >
-          <Fade in={open}>
-            <div className='paper'>
-              <h2>Add User</h2>
-            </div>
-          </Fade>
-        </Modal>
-      </div>
     </span>
   );
 };

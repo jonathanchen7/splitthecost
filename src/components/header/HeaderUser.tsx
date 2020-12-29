@@ -2,7 +2,7 @@ import * as React from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Avatar, Tooltip } from "@material-ui/core";
 import { useState } from "react";
-import { User } from "./HeaderUsers";
+import { User } from "../../models/models";
 
 interface Props {
   user: User;

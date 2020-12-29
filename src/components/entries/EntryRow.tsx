@@ -3,17 +3,17 @@ import Grid from "@material-ui/core/Grid";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Input } from "@material-ui/core";
-import { EntryItem } from "./Entries";
+import { Entry } from "../../models/models";
 
 interface Props {
-  entry: EntryItem;
+  entry: Entry;
 }
 
 function validateCost(input: string): boolean {
   return input.charAt(input.length - 1) !== "." || !isNaN(Number(input));
 }
 
-export const Entry: React.FC<Props> = ({ entry }) => {
+export const EntryRow: React.FC<Props> = ({ entry }) => {
   const [item, setItem] = useState("");
   const [cost, setCost] = useState("");
   // const [excludedUsers, setExcludedUsers] = useState<User[]>([]);
