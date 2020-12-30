@@ -4,6 +4,9 @@ $headerHeight: 60px;
 $headerMargins: 20px;
 $avatarDiameter: 40px;
 $usersBarHeight: 50px;
+$entryHeaderHeight: 35px;
+$gridTextLeftMargin: 10px;
+$entryHeight: 50px;
 
 $defaultIconColor: #c9c9c9;
 
@@ -26,7 +29,7 @@ $defaultIconColor: #c9c9c9;
 .actionIcon {
   color: white !important;
   background-color: $defaultIconColor !important;
-  margin-left: 13px !important;
+  margin: 0px 8px 0px 13px !important;
   height: $avatarDiameter;
   width: $avatarDiameter;
   transition: 0.5s;
@@ -89,43 +92,29 @@ input::-webkit-inner-spin-button {
   width: 45%;
 }
 
-// ---------------- ENTRY GRID ----------------
+// ---------------- ENTRIES HEADER ----------------
 
-.entryGridDiv {
-  flex: 6;
-}
-
-.sidebarDiv {
-  flex: 2;
-}
-
-.oddId {
-  background-color: #f4f4f4;
-}
-
-.evenId {
-  background-color: #dedede;
-}
-
-$entryHeight: 50px;
-
-.entry {
-  height: $entryHeight;
-  display: inline-flex;
+.entryHeaderItem {
+  background-color: #c9c9c9;
+  border-right: 1px solid black;
+  height: $entryHeaderHeight;
+  display: flex;
   align-items: center;
 }
 
 .entryHeaderText {
-  margin-left: 10px;
+  margin-left: $gridTextLeftMargin;
   font-size: 17px;
   font-weight: bold;
 }
 
-.entryItemContainer {
+// ---------------- ENTRIES GRID ----------------
+
+.entryDiv {
   height: $entryHeight;
-  border-right: 1px solid black;
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  border-right: 1px solid black;
   transition: all 0.5s;
 
   &:hover {
@@ -137,15 +126,25 @@ $entryHeight: 50px;
   }
 }
 
-.entryHeaderItemContainer {
-  background-color: #c9c9c9;
-  height: 35px;
-  border-right: 1px solid black;
-  display: inline-flex;
-  align-items: center;
+.entryGridDiv {
+  flex: 6;
 }
 
-.entryItem {
+.sidebarDiv {
+  flex: 2;
+}
+
+.oddIdx {
+  background-color: #f4f4f4;
+}
+
+.evenIdx {
+  background-color: #dedede;
+}
+
+$entryHeight: 50px;
+
+.entryInput {
   height: $entryHeight;
   padding-left: 10px;
   transition: all 0.5s;

@@ -43,7 +43,12 @@ export const EntryGrid: React.FC<Props> = ({
     <div className='entryGridDiv'>
       <EntriesHeader />
       {entries.map((entry) => (
-        <EntryRow entry={entry} key={entry.id} />
+        <EntryRow
+          entry={entry}
+          entries={entries}
+          curUser={curUser}
+          key={entry.id}
+        />
       ))}
 
       <Grid container spacing={0}>

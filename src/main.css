@@ -16,7 +16,7 @@
 .actionIcon {
   color: white !important;
   background-color: #c9c9c9 !important;
-  margin-left: 13px !important;
+  margin: 0px 8px 0px 13px !important;
   height: 40px;
   width: 40px;
   -webkit-transition: 0.5s;
@@ -90,6 +90,45 @@ input::-webkit-inner-spin-button {
   width: 45%;
 }
 
+.entryHeaderItem {
+  background-color: #c9c9c9;
+  border-right: 1px solid black;
+  height: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.entryHeaderText {
+  margin-left: 10px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.entryDiv {
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-right: 1px solid black;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.entryDiv:hover {
+  background: rgba(41, 128, 185, 0.5);
+}
+
+.entryDiv:focus-within {
+  background: rgba(41, 128, 185, 0.5);
+}
+
 .entryGridDiv {
   -webkit-box-flex: 6;
       -ms-flex: 6;
@@ -102,64 +141,15 @@ input::-webkit-inner-spin-button {
           flex: 2;
 }
 
-.oddId {
+.oddIdx {
   background-color: #f4f4f4;
 }
 
-.evenId {
+.evenIdx {
   background-color: #dedede;
 }
 
-.entry {
-  height: 50px;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.entryHeaderText {
-  margin-left: 10px;
-  font-size: 17px;
-  font-weight: bold;
-}
-
-.entryItemContainer {
-  height: 50px;
-  border-right: 1px solid black;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-}
-
-.entryItemContainer:hover {
-  background: rgba(41, 128, 185, 0.5);
-}
-
-.entryItemContainer:focus-within {
-  background: rgba(41, 128, 185, 0.5);
-}
-
-.entryHeaderItemContainer {
-  background-color: #c9c9c9;
-  height: 35px;
-  border-right: 1px solid black;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.entryItem {
+.entryInput {
   height: 50px;
   padding-left: 10px;
   -webkit-transition: all 0.5s;

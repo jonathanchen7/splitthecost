@@ -28,6 +28,10 @@ function hashUser(email: string): number {
   return Math.abs(h % colors.length);
 }
 
+export function getAvatarColor(user: User) {
+  return colors[hashUser(user.email)];
+}
+
 export const UserAvatar: React.FC<Props> = ({ user, users, setUsers }) => {
   function deleteUser() {
     setUsers(users.filter((curUser) => user !== curUser));
@@ -37,7 +41,6 @@ export const UserAvatar: React.FC<Props> = ({ user, users, setUsers }) => {
 
   const firstInitial = user.firstName.charAt(0).toLocaleUpperCase();
   const secondInitial = user.lastName.charAt(0).toLocaleUpperCase();
-  const color = colors[hashUser(user.email)];
 
   return (
     <span
@@ -50,7 +53,10 @@ export const UserAvatar: React.FC<Props> = ({ user, users, setUsers }) => {
         title={`${user.firstName} ${user.lastName}`}
         placement='top'
       >
-        <Avatar className='avatar' style={{ backgroundColor: color }}>
+        <Avatar
+          className='avatar'
+          style={{ backgroundColor: getAvatarColor(user) }}
+        >
           {showDelete ? <DeleteIcon /> : `${firstInitial}${secondInitial}`}
         </Avatar>
       </Tooltip>

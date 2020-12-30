@@ -8,9 +8,10 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 interface Props {
   users: User[];
   setUsers: (users: User[]) => void;
+  curUser: User;
 }
 
-export const Header: React.FC<Props> = ({ users, setUsers }) => {
+export const Header: React.FC<Props> = ({ users, setUsers, curUser }) => {
   return (
     <Grid className='header' container spacing={0}>
       <Grid className='headerItem' item xs={11}>
@@ -18,7 +19,8 @@ export const Header: React.FC<Props> = ({ users, setUsers }) => {
       </Grid>
       <Grid className='headerItem profileItem' item xs={1}>
         <Avatar className='avatar profile'>
-          <AccountCircleIcon />
+          {curUser.firstName.charAt(0).toLocaleUpperCase()}
+          {curUser.lastName.charAt(0).toLocaleUpperCase()}
         </Avatar>
       </Grid>
     </Grid>
