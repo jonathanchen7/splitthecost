@@ -14,8 +14,33 @@ interface Props {
   curUser: User;
 }
 
-function validateCost(input: string): boolean {
-  return input.charAt(input.length - 1) !== "." || !isNaN(Number(input));
+function validateCost(input: string): string {
+  // if string is length 0 return ""
+  // check that last character is a number, else return input.substring(0, len)
+  // if string is length 1 return ".0{input}"
+  // string should never be length 2 or 3
+  // if string is length 4+:
+  //    get index of .
+  //    remove instances of .
+  //    add . to index + 1
+
+  const len = input.length;
+  const lastChar = input.charAt(len - 1);
+
+  if (len == 0) return "";
+  if (isNaN(Number(lastChar))) {
+    return input.substring(0, len);
+  }
+
+  // Last entered character is a number!
+  if (len == 1) return `.0${lastChar}`;
+
+  const decimalIdx = input.indexOf(".");
+  input = input.replace(".", "");
+  input = `${input.slice(0, decimalIdx)}.${input.slice(decimalIdx)}`;
+
+  return input;
+  // return input.charAt(input.length - 1) !== "." || !isNaN(Number(input));
 }
 
 export const EntryRow: React.FC<Props> = ({ entry, entries, curUser }) => {
@@ -35,9 +60,10 @@ export const EntryRow: React.FC<Props> = ({ entry, entries, curUser }) => {
   function updateCost(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void {
-    if (validateCost(e.target.value)) {
-      setCost(e.target.value);
-    }
+    setCost(validateCost(e.target.value));
+    // if (validateCost(e.target.value)) {
+    //   setCost(e.target.value);
+    // }
   }
 
   function handleMouseOver() {
@@ -92,6 +118,7 @@ export const EntryRow: React.FC<Props> = ({ entry, entries, curUser }) => {
       >
         <div className='entryDiv'>
           <Input
+            id='costInput'
             className='entryInput'
             disableUnderline={true}
             fullWidth={true}

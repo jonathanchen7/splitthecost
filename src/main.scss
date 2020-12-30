@@ -148,6 +148,11 @@ $entryHeight: 50px;
   height: $entryHeight;
   padding-left: 10px;
   transition: all 0.5s;
+  margin-right: 10px;
+}
+
+#costInput {
+  text-align: right;
 }
 
 .excludeAvatar {
