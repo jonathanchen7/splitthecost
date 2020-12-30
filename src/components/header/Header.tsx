@@ -3,7 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import logo from "../../assets/logo.png";
 import { User } from "../../models/models";
 import { Avatar } from "@material-ui/core";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 interface Props {
   users: User[];
