@@ -1,5 +1,5 @@
 .avatar {
-  background-color: #dcdcdc;
+  background-color: #c4c4c4;
   height: 40px !important;
   width: 40px !important;
   color: white;
@@ -15,7 +15,7 @@
 }
 
 .smallIconButton {
-  background-color: #dcdcdc !important;
+  background-color: #c4c4c4 !important;
   height: 33px;
   width: 33px;
   -webkit-transition: 0.5s;
@@ -28,7 +28,7 @@
 }
 
 .largeIconButton {
-  background-color: #dcdcdc !important;
+  background-color: #c4c4c4 !important;
   height: 40px;
   width: 40px;
   -webkit-transition: 0.5s;
@@ -63,11 +63,11 @@ input::-webkit-inner-spin-button {
 }
 
 .oddIdx {
-  background-color: #c9c9c9;
+  background-color: #f6f6f6;
 }
 
 .evenIdx {
-  background-color: #f4f4f4;
+  background-color: #dedede;
 }
 
 .header {
@@ -102,7 +102,7 @@ input::-webkit-inner-spin-button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #f4f4f4;
+  background-color: #f6f6f6;
 }
 
 .usersBarItem {
@@ -115,7 +115,7 @@ input::-webkit-inner-spin-button {
 }
 
 .usersBarChip {
-  background-color: #dcdcdc !important;
+  background-color: #c4c4c4 !important;
 }
 
 .usersBarAvatar {
@@ -153,8 +153,7 @@ input::-webkit-inner-spin-button {
 }
 
 .entryHeaderItem {
-  background-color: #b1b1b1;
-  border-right: 1px solid black;
+  background-color: #c9c9c9;
   height: 35px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -165,7 +164,7 @@ input::-webkit-inner-spin-button {
 }
 
 .lastEntryHeaderItem {
-  background-color: #b1b1b1;
+  background-color: #c9c9c9;
   height: 35px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -176,8 +175,7 @@ input::-webkit-inner-spin-button {
 }
 
 .sidebarHeaderItem {
-  background-color: #b1b1b1;
-  border-left: 1px solid black;
+  background-color: #c9c9c9;
   height: 35px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -201,7 +199,6 @@ input::-webkit-inner-spin-button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-right: 1px solid black;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
@@ -285,7 +282,6 @@ input::-webkit-inner-spin-button {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  border-left: 1px solid black;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }

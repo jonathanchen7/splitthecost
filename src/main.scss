@@ -13,12 +13,12 @@ $gridMargin: 10px;
 $gridMarginSmall: 5px;
 $entryHeight: 50px;
 
-$defaultIconColor: #dcdcdc;
+$defaultIconColor: #c4c4c4;
 $headerColor: #377cab;
-$usersBarColor: #f4f4f4;
-$gridHeaderColor: #b1b1b1;
-$gridDarkColor: #c9c9c9;
-$gridLightColor: #f4f4f4;
+$usersBarColor: #f6f6f6;
+$gridHeaderColor: #c9c9c9;
+$gridDarkColor: #dedede;
+$gridLightColor: #f6f6f6;
 $gridHighlightColor: rgba(41, 128, 185, 0.35);
 
 // ---------------- GENERAL ----------------
@@ -85,11 +85,11 @@ input::-webkit-inner-spin-button {
 }
 
 .oddIdx {
-  background-color: $gridDarkColor;
+  background-color: $gridLightColor;
 }
 
 .evenIdx {
-  background-color: $gridLightColor;
+  background-color: $gridDarkColor;
 }
 
 // ---------------- HEADER ----------------
@@ -164,7 +164,6 @@ input::-webkit-inner-spin-button {
 
 .entryHeaderItem {
   background-color: $gridHeaderColor;
-  border-right: 1px solid black;
   height: $entryHeaderHeight;
   display: flex;
   align-items: center;
@@ -179,7 +178,6 @@ input::-webkit-inner-spin-button {
 
 .sidebarHeaderItem {
   background-color: $gridHeaderColor;
-  border-left: 1px solid black;
   height: $entryHeaderHeight;
   display: flex;
   align-items: center;
@@ -197,7 +195,6 @@ input::-webkit-inner-spin-button {
   height: $entryHeight;
   display: flex;
   align-items: center;
-  border-right: 1px solid black;
   transition: all 0.5s;
 
   &:hover {
@@ -259,6 +256,5 @@ input::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-left: 1px solid black;
   transition: all 0.5s;
 }
