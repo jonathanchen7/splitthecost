@@ -6,41 +6,13 @@ import { Avatar, IconButton, Input, InputAdornment } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Entry, User } from "../../models/models";
-import { getAvatarColor } from "../users/UserAvatar";
+import { generateUserAvatar, getAvatarColor } from "../users/UserAvatar";
+import NumberFormat from "react-number-format";
 
 interface Props {
   entry: Entry;
   entries: Entry[];
   curUser: User;
-}
-
-function validateCost(input: string): string {
-  // if string is length 0 return ""
-  // check that last character is a number, else return input.substring(0, len)
-  // if string is length 1 return ".0{input}"
-  // string should never be length 2 or 3
-  // if string is length 4+:
-  //    get index of .
-  //    remove instances of .
-  //    add . to index + 1
-
-  const len = input.length;
-  const lastChar = input.charAt(len - 1);
-
-  if (len == 0) return "";
-  if (isNaN(Number(lastChar))) {
-    return input.substring(0, len);
-  }
-
-  // Last entered character is a number!
-  if (len == 1) return `.0${lastChar}`;
-
-  const decimalIdx = input.indexOf(".");
-  input = input.replace(".", "");
-  input = `${input.slice(0, decimalIdx)}.${input.slice(decimalIdx)}`;
-
-  return input;
-  // return input.charAt(input.length - 1) !== "." || !isNaN(Number(input));
 }
 
 export const EntryRow: React.FC<Props> = ({ entry, entries, curUser }) => {
@@ -60,10 +32,7 @@ export const EntryRow: React.FC<Props> = ({ entry, entries, curUser }) => {
   function updateCost(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void {
-    setCost(validateCost(e.target.value));
-    // if (validateCost(e.target.value)) {
-    //   setCost(e.target.value);
-    // }
+    setCost(e.target.value);
   }
 
   function handleMouseOver() {
@@ -79,24 +48,18 @@ export const EntryRow: React.FC<Props> = ({ entry, entries, curUser }) => {
   }
 
   return (
-    <Grid container spacing={0}>
-      <Grid
-        className={entries.indexOf(entry) % 2 ? "oddIdx" : "evenIdx"}
-        item
-        xs={3}
-      >
+    <Grid
+      className={entries.indexOf(entry) % 2 ? "oddIdx" : "evenIdx"}
+      container
+      spacing={0}
+    >
+      <Grid item xs={3}>
         <div
           className='entryDiv'
           onMouseOver={handleMouseOver}
           onMouseLeave={handleMouseLeave}
         >
-          <Avatar
-            className='avatar'
-            style={{ backgroundColor: getAvatarColor(entry.createdBy) }}
-          >
-            {entry.createdBy.firstName.charAt(0).toLocaleUpperCase()}
-            {entry.createdBy.lastName.charAt(0).toLocaleUpperCase()}
-          </Avatar>
+          {generateUserAvatar(entry.createdBy, true, false, true, "top")}
           <Input
             className='entryInput'
             disableUnderline={true}
@@ -111,14 +74,15 @@ export const EntryRow: React.FC<Props> = ({ entry, entries, curUser }) => {
           )}
         </div>
       </Grid>
-      <Grid
-        className={entries.indexOf(entry) % 2 ? "oddIdx" : "evenIdx"}
-        item
-        xs={1}
-      >
+      <Grid item xs={1}>
         <div className='entryDiv'>
           <Input
-            id='costInput'
+            inputComponent={NumberFormat as any}
+            inputProps={{
+              decimalScale: 2,
+              allowNegative: false,
+              thousandSeparator: ",",
+            }}
             className='entryInput'
             disableUnderline={true}
             fullWidth={true}
@@ -128,32 +92,18 @@ export const EntryRow: React.FC<Props> = ({ entry, entries, curUser }) => {
           />
         </div>
       </Grid>
-      <Grid
-        className={entries.indexOf(entry) % 2 ? "oddIdx" : "evenIdx"}
-        item
-        xs={2}
-      >
+      <Grid item xs={2}>
         <div className='entryDiv'>
-          {entry.exclude?.map((user) => (
-            <Avatar
-              className='excludeAvatar'
-              style={{ backgroundColor: getAvatarColor(user) }}
-            >
-              {user.firstName.charAt(0).toLocaleUpperCase()}
-              {user.lastName.charAt(0).toLocaleUpperCase()}
-            </Avatar>
-          ))}
+          {entry.exclude?.map((user) =>
+            generateUserAvatar(user, true, false, true, "top")
+          )}
           <Avatar className='excludeAvatar'>
             <AddIcon />
           </Avatar>
         </div>
       </Grid>
-      <Grid
-        className={entries.indexOf(entry) % 2 ? "oddIdx" : "evenIdx"}
-        item
-        xs={6}
-      >
-        <div className='entryDiv'>
+      <Grid item xs={6}>
+        <div className='lastEntryDiv'>
           <Input
             className='entryInput'
             disableUnderline={true}

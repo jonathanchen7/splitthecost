@@ -1,0 +1,26 @@
+import { Avatar, Grid } from "@material-ui/core";
+import * as React from "react";
+import { Entry, User } from "../../models/models";
+import { generateUserAvatar } from "../users/UserAvatar";
+
+interface Props {
+  user: User;
+  users: User[];
+  entries: Entry[];
+}
+
+export const SidebarRow: React.FC<Props> = ({ user, users, entries }) => {
+  return (
+    <Grid
+      className={users.indexOf(user) % 2 ? "evenIdx" : "oddIdx"}
+      container
+      spacing={0}
+    >
+      <Grid className='sidebarDiv' item xs={2}>
+        {generateUserAvatar(user, false, false, true, "left")}
+      </Grid>
+      <Grid className='sidebarDiv' item xs={5}></Grid>
+      <Grid className='sidebarDiv' item xs={5}></Grid>
+    </Grid>
+  );
+};

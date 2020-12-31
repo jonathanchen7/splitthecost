@@ -5,7 +5,6 @@
   font-size: 20px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
-  margin-left: 13px;
 }
 
 .avatar:hover {
@@ -16,7 +15,8 @@
 .actionIcon {
   color: white !important;
   background-color: #c9c9c9 !important;
-  margin: 0px 8px 0px 13px !important;
+  margin-left: 10px !important;
+  margin-right: 10px !important;
   height: 40px;
   width: 40px;
   -webkit-transition: 0.5s;
@@ -32,6 +32,18 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.leftMargin {
+  margin-left: 10px;
+}
+
+.oddIdx {
+  background-color: #f4f4f4;
+}
+
+.evenIdx {
+  background-color: #dedede;
 }
 
 .header {
@@ -102,7 +114,30 @@ input::-webkit-inner-spin-button {
           align-items: center;
 }
 
-.entryHeaderText {
+.lastEntryHeaderItem {
+  background-color: #c9c9c9;
+  height: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sidebarHeaderItem {
+  background-color: #c9c9c9;
+  border-left: 1px solid black;
+  height: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.gridHeaderText {
   margin-left: 10px;
   font-size: 17px;
   font-weight: bold;
@@ -129,24 +164,31 @@ input::-webkit-inner-spin-button {
   background: rgba(41, 128, 185, 0.5);
 }
 
+.lastEntryDiv {
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.lastEntryDiv:hover {
+  background: rgba(41, 128, 185, 0.5);
+}
+
+.lastEntryDiv:focus-within {
+  background: rgba(41, 128, 185, 0.5);
+}
+
 .entryGridDiv {
   -webkit-box-flex: 6;
       -ms-flex: 6;
           flex: 6;
-}
-
-.sidebarDiv {
-  -webkit-box-flex: 2;
-      -ms-flex: 2;
-          flex: 2;
-}
-
-.oddIdx {
-  background-color: #f4f4f4;
-}
-
-.evenIdx {
-  background-color: #dedede;
+  height: 100%;
 }
 
 .entryInput {
@@ -155,10 +197,6 @@ input::-webkit-inner-spin-button {
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
   margin-right: 10px;
-}
-
-#costInput {
-  text-align: right;
 }
 
 .excludeAvatar {
@@ -171,19 +209,6 @@ input::-webkit-inner-spin-button {
 .excludeAvatar:hover {
   background: rgba(0, 0, 0, 0.35);
   cursor: pointer;
-}
-
-.entryDiv {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.entryDiv:hover {
-  background: rgba(41, 128, 185, 0.5);
 }
 
 .addItemContainer {
@@ -240,5 +265,27 @@ input::-webkit-inner-spin-button {
   -moz-appearance: none;
   appearance: none;
   outline: 0;
+}
+
+.sidebar {
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+}
+
+.sidebarDiv {
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-left: 1px solid black;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 /*# sourceMappingURL=main.css.map */

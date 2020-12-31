@@ -1,5 +1,5 @@
 import * as React from "react";
-import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import { Avatar, Tooltip } from "@material-ui/core";
 import { useState } from "react";
 import { User } from "../../models/models";
@@ -28,6 +28,63 @@ function hashUser(email: string): number {
   return Math.abs(h % colors.length);
 }
 
+export function generateUserAvatar(
+  user: User,
+  leftMargin?: boolean,
+  rightMargin?: boolean,
+  tooltip?: boolean,
+  tooltipPlacement?:
+    | "top"
+    | "left"
+    | "right"
+    | "bottom-end"
+    | "bottom-start"
+    | "bottom"
+    | "left-end"
+    | "left-start"
+    | "right-end"
+    | "right-start"
+    | "top-end"
+    | "top-start"
+    | undefined,
+  editOnHover?: boolean
+): JSX.Element {
+  const firstInitial = user.firstName.charAt(0).toLocaleUpperCase();
+  const secondInitial = user.lastName.charAt(0).toLocaleUpperCase();
+
+  if (tooltip) {
+    return (
+      <Tooltip
+        arrow
+        title={`${user.firstName} ${user.lastName}`}
+        placement={tooltipPlacement}
+      >
+        <Avatar
+          className={`avatar ${leftMargin && "leftMargin"} ${
+            rightMargin && "rightMargin"
+          }`}
+          style={{ backgroundColor: getAvatarColor(user) }}
+        >
+          {firstInitial}
+          {secondInitial}
+        </Avatar>
+      </Tooltip>
+    );
+  } else {
+    return (
+      <Avatar
+        className={`avatar ${leftMargin && "leftMargin"} ${
+          rightMargin && "rightMargin"
+        }`}
+        style={{ backgroundColor: getAvatarColor(user) }}
+      >
+        {firstInitial}
+        {secondInitial}
+      </Avatar>
+    );
+  }
+}
+
 export function getAvatarColor(user: User) {
   return colors[hashUser(user.email)];
 }
@@ -54,10 +111,10 @@ export const UserAvatar: React.FC<Props> = ({ user, users, setUsers }) => {
         placement='top'
       >
         <Avatar
-          className='avatar'
+          className='avatar leftMargin'
           style={{ backgroundColor: getAvatarColor(user) }}
         >
-          {showDelete ? <DeleteIcon /> : `${firstInitial}${secondInitial}`}
+          {showDelete ? <EditIcon /> : `${firstInitial}${secondInitial}`}
         </Avatar>
       </Tooltip>
     </span>

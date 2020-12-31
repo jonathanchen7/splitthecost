@@ -5,7 +5,8 @@ $headerMargins: 20px;
 $avatarDiameter: 40px;
 $usersBarHeight: 50px;
 $entryHeaderHeight: 35px;
-$gridTextLeftMargin: 10px;
+$gridLeftMargin: 10px;
+$gridRightMargin: 10px;
 $entryHeight: 50px;
 
 $defaultIconColor: #c9c9c9;
@@ -18,7 +19,6 @@ $defaultIconColor: #c9c9c9;
   font-weight: bold;
   font-size: 20px;
   transition: 0.5s;
-  margin-left: 13px;
 
   &:hover {
     background: rgba(0, 0, 0, 0.35);
@@ -29,7 +29,8 @@ $defaultIconColor: #c9c9c9;
 .actionIcon {
   color: white !important;
   background-color: $defaultIconColor !important;
-  margin: 0px 8px 0px 13px !important;
+  margin-left: $gridLeftMargin !important;
+  margin-right: $gridRightMargin !important;
   height: $avatarDiameter;
   width: $avatarDiameter;
   transition: 0.5s;
@@ -44,6 +45,18 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.leftMargin {
+  margin-left: $gridLeftMargin;
+}
+
+.oddIdx {
+  background-color: #f4f4f4;
+}
+
+.evenIdx {
+  background-color: #dedede;
 }
 
 // ---------------- HEADER ----------------
@@ -92,7 +105,7 @@ input::-webkit-inner-spin-button {
   width: 45%;
 }
 
-// ---------------- ENTRIES HEADER ----------------
+// ---------------- GRID HEADER ----------------
 
 .entryHeaderItem {
   background-color: #c9c9c9;
@@ -102,8 +115,23 @@ input::-webkit-inner-spin-button {
   align-items: center;
 }
 
-.entryHeaderText {
-  margin-left: $gridTextLeftMargin;
+.lastEntryHeaderItem {
+  background-color: #c9c9c9;
+  height: $entryHeaderHeight;
+  display: flex;
+  align-items: center;
+}
+
+.sidebarHeaderItem {
+  background-color: #c9c9c9;
+  border-left: 1px solid black;
+  height: $entryHeaderHeight;
+  display: flex;
+  align-items: center;
+}
+
+.gridHeaderText {
+  margin-left: $gridLeftMargin;
   font-size: 17px;
   font-weight: bold;
 }
@@ -126,33 +154,31 @@ input::-webkit-inner-spin-button {
   }
 }
 
+.lastEntryDiv {
+  height: $entryHeight;
+  display: flex;
+  align-items: center;
+  transition: all 0.5s;
+
+  &:hover {
+    background: rgba(41, 128, 185, 0.5);
+  }
+
+  &:focus-within {
+    background: rgba(41, 128, 185, 0.5);
+  }
+}
+
 .entryGridDiv {
   flex: 6;
+  height: 100%;
 }
-
-.sidebarDiv {
-  flex: 2;
-}
-
-.oddIdx {
-  background-color: #f4f4f4;
-}
-
-.evenIdx {
-  background-color: #dedede;
-}
-
-$entryHeight: 50px;
 
 .entryInput {
   height: $entryHeight;
   padding-left: 10px;
   transition: all 0.5s;
   margin-right: 10px;
-}
-
-#costInput {
-  text-align: right;
 }
 
 .excludeAvatar {
@@ -163,15 +189,6 @@ $entryHeight: 50px;
   &:hover {
     background: rgba(0, 0, 0, 0.35);
     cursor: pointer;
-  }
-}
-
-.entryDiv {
-  display: flex;
-  align-items: center;
-
-  &:hover {
-    background: rgba(41, 128, 185, 0.5);
   }
 }
 
@@ -214,4 +231,19 @@ $entryHeight: 50px;
     appearance: none;
     outline: 0;
   }
+}
+
+// ---------------- SIDEBAR GRID ----------------
+
+.sidebar {
+  flex: 2;
+}
+
+.sidebarDiv {
+  height: $entryHeight;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid black;
+  transition: all 0.5s;
 }

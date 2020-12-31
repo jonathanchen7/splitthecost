@@ -52,11 +52,11 @@ export const EntryGrid: React.FC<Props> = ({
       ))}
 
       <Grid container spacing={0}>
-        <Grid className='addItemContainer' item xs={2}>
+        <Grid className='addItemContainer' item xs={12}>
           <Button
             className='addItemButton'
             variant='contained'
-            color='default'
+            color='primary'
             startIcon={<AddIcon />}
             onClick={addItem}
           >

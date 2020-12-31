@@ -72,7 +72,7 @@ export const SplitTheCost: React.FC = () => {
           setEntries={setEntries}
           curUser={curUser}
         />
-        <Sidebar />
+        <Sidebar users={users} curUser={curUser} entries={entries} />
       </div>
     </div>
   );
