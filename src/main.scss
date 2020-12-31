@@ -102,15 +102,13 @@ input::-webkit-inner-spin-button {
 .headerItem {
   display: inline-flex;
   align-items: center;
+  color: white;
+  font-weight: bold;
 }
 
 .logo {
   margin-left: 10px;
   height: $headerHeight - $headerMargins;
-}
-
-.profile {
-  margin-right: 10px;
 }
 
 .profileItem {
