@@ -7,7 +7,7 @@ import {
   IconButton,
   Tooltip,
 } from "@material-ui/core";
-import { User } from "../../models/models";
+import { Entry, User } from "../../models/models";
 import { AddUserDialog } from "./AddUserDialog";
 import { getAvatarColor } from "../users/UserAvatar";
 import PeopleIcon from "@material-ui/icons/People";
@@ -18,9 +18,15 @@ interface Props {
   users: User[];
   curUser: User;
   setUsers: (users: User[]) => void;
+  setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
 }
 
-export const UsersBar: React.FC<Props> = ({ users, curUser, setUsers }) => {
+export const UsersBar: React.FC<Props> = ({
+  users,
+  curUser,
+  setUsers,
+  setEntries,
+}) => {
   const [openAddUser, setOpenAddUser] = useState(false);
 
   function openUsersDialog() {}
@@ -30,7 +36,12 @@ export const UsersBar: React.FC<Props> = ({ users, curUser, setUsers }) => {
   }
 
   function deleteUser(user: User) {
+    // Delete user from user state.
     setUsers(users.filter((cur) => user !== cur));
+    // Delete all entries associated with user from user state.
+    setEntries((entries) =>
+      entries.filter((entry) => entry.createdBy !== user)
+    );
   }
 
   return (

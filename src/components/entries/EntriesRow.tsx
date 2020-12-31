@@ -22,37 +22,50 @@ export const EntriesRow: React.FC<Props> = ({
   setEntries,
   curUser,
 }) => {
-  const [item, setItem] = useState(entry.item);
-  const [cost, setCost] = useState(entry.cost);
-  const [note, setNote] = useState(entry.note);
   const [showDelete, setShowDelete] = useState(false);
+  const [itemVal, setItemVal] = useState(entry.item);
+  const [noteVal, setNoteVal] = useState(entry.note);
 
   function deleteEntry() {
     setEntries(entries.filter((cur) => entry !== cur));
   }
 
-  useEffect(() => {
-    if (entry.item && entry.cost && entry.note !== undefined) {
-      setItem(entry.item);
-      setCost(entry.cost);
-      setNote(entry.note);
-    }
-  }, [entry.item, entry.cost, entry.note]);
-
-  function updateCost(
+  function updateItemState(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void {
-    setCost(Number(e.target.value));
-    entry.cost = Number(e.target.value);
+    const entriesCopy: Entry[] = [...entries];
+    const updatedEntry: Entry = { ...entry, item: e.target.value };
+    entriesCopy[entries.indexOf(entry)] = updatedEntry;
+
+    setEntries(entriesCopy);
   }
 
-  function handleMouseOver() {
+  function updateCostState(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void {
+    const entriesCopy: Entry[] = [...entries];
+    const updatedEntry: Entry = { ...entry, cost: Number(e.target.value) };
+    entriesCopy[entries.indexOf(entry)] = updatedEntry;
+    setEntries(entriesCopy);
+  }
+
+  function updateNoteState(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void {
+    const entriesCopy: Entry[] = [...entries];
+    const updatedEntry: Entry = { ...entry, note: e.target.value };
+    entriesCopy[entries.indexOf(entry)] = updatedEntry;
+
+    setEntries(entriesCopy);
+  }
+
+  function handleMouseOver(): void {
     if (entry.createdBy === curUser) {
       setShowDelete(true);
     }
   }
 
-  function handleMouseLeave() {
+  function handleMouseLeave(): void {
     if (entry.createdBy === curUser) {
       setShowDelete(false);
     }
@@ -77,8 +90,9 @@ export const EntriesRow: React.FC<Props> = ({
             className='entryInput'
             disableUnderline={true}
             fullWidth={true}
-            value={item}
-            onChange={(e) => setItem(e.target.value)}
+            value={itemVal}
+            onChange={(e) => setItemVal(e.target.value)}
+            onBlur={updateItemState}
           />
           {showDelete && (
             <IconButton
@@ -101,8 +115,8 @@ export const EntriesRow: React.FC<Props> = ({
             className='entryInput'
             disableUnderline={true}
             fullWidth={true}
-            value={cost}
-            onChange={updateCost}
+            value={entry.cost.toFixed(2)}
+            onChange={updateCostState}
             startAdornment={<InputAdornment position='start'>$</InputAdornment>}
           />
         </div>
@@ -125,8 +139,9 @@ export const EntriesRow: React.FC<Props> = ({
             className='entryInput'
             disableUnderline={true}
             fullWidth={true}
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
+            value={noteVal}
+            onChange={(e) => setNoteVal(e.target.value)}
+            onBlur={updateNoteState}
           />
         </div>
       </Grid>

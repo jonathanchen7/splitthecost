@@ -74,7 +74,12 @@ export const SplitTheCost: React.FC = () => {
   return (
     <div>
       <Header users={users} setUsers={setUsers} curUser={curUser} />
-      <UsersBar users={users} curUser={curUser} setUsers={setUsers} />
+      <UsersBar
+        users={users}
+        curUser={curUser}
+        setUsers={setUsers}
+        setEntries={setEntries}
+      />
       <div style={{ display: "flex" }}>
         <EntriesGrid
           entries={entries}
