@@ -3,11 +3,13 @@ import Grid from "@material-ui/core/Grid";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Avatar, IconButton, Input, InputAdornment } from "@material-ui/core";
+import { AvatarGroup } from "@material-ui/lab";
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Entry, User } from "../../models/models";
 import { generateUserAvatar, getAvatarColor } from "../users/UserAvatar";
 import NumberFormat from "react-number-format";
+import { UserTest } from "../users/UserTest";
 
 interface Props {
   entry: Entry;
@@ -59,7 +61,9 @@ export const EntryRow: React.FC<Props> = ({ entry, entries, curUser }) => {
           onMouseOver={handleMouseOver}
           onMouseLeave={handleMouseLeave}
         >
-          {generateUserAvatar(entry.createdBy, true, false, true, "top")}
+          <span className='leftMargin'>
+            <UserTest user={entry.createdBy} tooltipPlacement='top' />
+          </span>
           <Input
             className='entryInput'
             disableUnderline={true}
@@ -94,10 +98,12 @@ export const EntryRow: React.FC<Props> = ({ entry, entries, curUser }) => {
       </Grid>
       <Grid item xs={2}>
         <div className='entryDiv'>
-          {entry.exclude?.map((user) =>
-            generateUserAvatar(user, true, false, true, "top")
-          )}
-          <Avatar className='excludeAvatar'>
+          {entry.exclude?.map((user) => (
+            <span className='smallLeftMargin'>
+              <UserTest user={user} tooltipPlacement='top' />
+            </span>
+          ))}
+          <Avatar className='smallLeftMargin'>
             <AddIcon />
           </Avatar>
         </div>

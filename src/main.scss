@@ -6,7 +6,9 @@ $avatarDiameter: 40px;
 $usersBarHeight: 50px;
 $entryHeaderHeight: 35px;
 $gridLeftMargin: 10px;
+$gridLeftMarginSmall: 5px;
 $gridRightMargin: 10px;
+$gridRightMarginSmall: 5px;
 $entryHeight: 50px;
 
 $defaultIconColor: #c9c9c9;
@@ -45,6 +47,10 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.smallLeftMargin {
+  margin-left: $gridLeftMarginSmall;
 }
 
 .leftMargin {
@@ -103,6 +109,20 @@ input::-webkit-inner-spin-button {
 
 .halfWidthInput {
   width: 45%;
+}
+
+.addUserButton {
+  transition: all 0.5s;
+
+  &:hover {
+    background-color: #bbbbbb;
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
 }
 
 // ---------------- GRID HEADER ----------------
@@ -176,20 +196,8 @@ input::-webkit-inner-spin-button {
 
 .entryInput {
   height: $entryHeight;
-  padding-left: 10px;
+  margin: 0px $gridRightMargin 0px $gridLeftMargin;
   transition: all 0.5s;
-  margin-right: 10px;
-}
-
-.excludeAvatar {
-  margin-left: 5px;
-  transition: all 0.5s;
-  font-weight: bold;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.35);
-    cursor: pointer;
-  }
 }
 
 .addItemContainer {
@@ -203,34 +211,6 @@ input::-webkit-inner-spin-button {
 .addItemButton {
   margin-top: 20px !important;
   border-radius: 20px !important;
-}
-
-.addUserButton {
-  transition: all 0.5s;
-
-  &:hover {
-    background-color: #bbbbbb;
-    cursor: pointer;
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: none;
-  }
-}
-
-.addUserModal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  outline: 0;
-
-  &:focus {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    outline: 0;
-  }
 }
 
 // ---------------- SIDEBAR GRID ----------------
