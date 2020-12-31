@@ -19,7 +19,6 @@ $defaultIconColor: #c9c9c9;
   background-color: $defaultIconColor;
   color: white;
   font-weight: bold;
-  font-size: 20px;
   transition: 0.5s;
 
   &:hover {
@@ -28,17 +27,24 @@ $defaultIconColor: #c9c9c9;
   }
 }
 
-.actionIcon {
-  color: white !important;
+.smallIconButton {
   background-color: $defaultIconColor !important;
-  margin-left: $gridLeftMargin !important;
-  margin-right: $gridRightMargin !important;
+  transition: 0.5s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.35) !important;
+    cursor: pointer;
+  }
+}
+
+.largeIconButton {
+  background-color: $defaultIconColor !important;
   height: $avatarDiameter;
   width: $avatarDiameter;
   transition: 0.5s;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.35) !important;
+    background: rgba(0, 0, 0, 0.2) !important;
     cursor: pointer;
   }
 }
@@ -50,11 +56,19 @@ input::-webkit-inner-spin-button {
 }
 
 .smallLeftMargin {
-  margin-left: $gridLeftMarginSmall;
+  margin-left: $gridLeftMarginSmall !important;
 }
 
 .leftMargin {
-  margin-left: $gridLeftMargin;
+  margin-left: $gridLeftMargin !important;
+}
+
+.smallRightMargin {
+  margin-right: $gridRightMarginSmall !important;
+}
+
+.rightMargin {
+  margin-right: $gridRightMargin !important;
 }
 
 .oddIdx {
@@ -100,6 +114,12 @@ input::-webkit-inner-spin-button {
 
 .usersBarItem {
   display: flex;
+  align-items: center;
+}
+
+.usersBarAvatar {
+  color: white !important;
+  font-weight: bold;
 }
 
 .dialogNames {

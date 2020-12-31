@@ -100,6 +100,9 @@ export const AddUser: React.FC<Props> = ({ users, setUsers }) => {
       id: uuidv4(),
       firstName: firstNameVal,
       lastName: lastNameVal,
+      initials: `${firstNameVal
+        .charAt(0)
+        .toLocaleUpperCase()}${lastNameVal.charAt(0).toLocaleUpperCase()}`,
       email: emailVal,
     };
     setUsers([...users, tempUser]);
@@ -111,7 +114,11 @@ export const AddUser: React.FC<Props> = ({ users, setUsers }) => {
   return (
     <div>
       <Tooltip arrow title='Add User' placement='right'>
-        <IconButton className='actionIcon' onClick={handleOpen}>
+        <IconButton
+          className='smallIconButton'
+          size='small'
+          onClick={handleOpen}
+        >
           <AddIcon />
         </IconButton>
       </Tooltip>

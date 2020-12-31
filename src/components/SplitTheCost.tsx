@@ -12,24 +12,28 @@ const jonathan: User = {
   id: uuidv4(),
   firstName: "Jonathan",
   lastName: "Chen",
+  initials: "JC",
   email: "jonathanschen28@gmail.com",
 };
 const abigail: User = {
   id: uuidv4(),
   firstName: "Abigail",
   lastName: "Chen",
+  initials: "AC",
   email: "abigail.chen@live.com",
 };
 const mom: User = {
   id: uuidv4(),
   firstName: "Christine",
   lastName: "Liu",
+  initials: "CL",
   email: "thechens28@gmail.com",
 };
 const dad: User = {
   id: uuidv4(),
   firstName: "Hongbo",
   lastName: "Chen",
+  initials: "HC",
   email: "bradchen28@gmail.com",
 };
 
@@ -65,7 +69,7 @@ export const SplitTheCost: React.FC = () => {
   return (
     <div>
       <Header users={users} setUsers={setUsers} curUser={curUser} />
-      <UsersBar users={users} setUsers={setUsers} />
+      <UsersBar users={users} curUser={curUser} setUsers={setUsers} />
       <div style={{ display: "flex" }}>
         <EntryGrid
           entries={entries}

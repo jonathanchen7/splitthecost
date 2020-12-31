@@ -2,7 +2,6 @@
   background-color: #c9c9c9;
   color: white;
   font-weight: bold;
-  font-size: 20px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
@@ -12,19 +11,27 @@
   cursor: pointer;
 }
 
-.actionIcon {
-  color: white !important;
+.smallIconButton {
   background-color: #c9c9c9 !important;
-  margin-left: 10px !important;
-  margin-right: 10px !important;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.smallIconButton:hover {
+  background: rgba(0, 0, 0, 0.35) !important;
+  cursor: pointer;
+}
+
+.largeIconButton {
+  background-color: #c9c9c9 !important;
   height: 40px;
   width: 40px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
 
-.actionIcon:hover {
-  background: rgba(0, 0, 0, 0.35) !important;
+.largeIconButton:hover {
+  background: rgba(0, 0, 0, 0.2) !important;
   cursor: pointer;
 }
 
@@ -35,11 +42,19 @@ input::-webkit-inner-spin-button {
 }
 
 .smallLeftMargin {
-  margin-left: 5px;
+  margin-left: 5px !important;
 }
 
 .leftMargin {
-  margin-left: 10px;
+  margin-left: 10px !important;
+}
+
+.smallRightMargin {
+  margin-right: 5px !important;
+}
+
+.rightMargin {
+  margin-right: 10px !important;
 }
 
 .oddIdx {
@@ -91,6 +106,14 @@ input::-webkit-inner-spin-button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.usersBarAvatar {
+  color: white !important;
+  font-weight: bold;
 }
 
 .dialogNames {

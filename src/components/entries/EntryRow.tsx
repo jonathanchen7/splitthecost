@@ -2,14 +2,12 @@ import * as React from "react";
 import Grid from "@material-ui/core/Grid";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Avatar, IconButton, Input, InputAdornment } from "@material-ui/core";
-import { AvatarGroup } from "@material-ui/lab";
+import { IconButton, Input, InputAdornment } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Entry, User } from "../../models/models";
-import { generateUserAvatar, getAvatarColor } from "../users/UserAvatar";
 import NumberFormat from "react-number-format";
-import { UserTest } from "../users/UserTest";
+import { UserAvatar } from "../users/UserAvatar";
 
 interface Props {
   entry: Entry;
@@ -62,7 +60,7 @@ export const EntryRow: React.FC<Props> = ({ entry, entries, curUser }) => {
           onMouseLeave={handleMouseLeave}
         >
           <span className='leftMargin'>
-            <UserTest user={entry.createdBy} tooltipPlacement='top' />
+            <UserAvatar user={entry.createdBy} tooltipPlacement='top' />
           </span>
           <Input
             className='entryInput'
@@ -72,7 +70,7 @@ export const EntryRow: React.FC<Props> = ({ entry, entries, curUser }) => {
             onChange={(e) => setItem(e.target.value)}
           />
           {showDelete && (
-            <IconButton className='actionIcon'>
+            <IconButton className='largeIconButton smallRightMargin'>
               <DeleteIcon />
             </IconButton>
           )}
@@ -100,12 +98,12 @@ export const EntryRow: React.FC<Props> = ({ entry, entries, curUser }) => {
         <div className='entryDiv'>
           {entry.exclude?.map((user) => (
             <span className='smallLeftMargin'>
-              <UserTest user={user} tooltipPlacement='top' />
+              <UserAvatar user={user} tooltipPlacement='top' />
             </span>
           ))}
-          <Avatar className='smallLeftMargin'>
+          <IconButton className='largeIconButton smallLeftMargin'>
             <AddIcon />
-          </Avatar>
+          </IconButton>
         </div>
       </Grid>
       <Grid item xs={6}>

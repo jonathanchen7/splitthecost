@@ -1,8 +1,7 @@
-import { Avatar, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import * as React from "react";
 import { Entry, User } from "../../models/models";
-import { generateUserAvatar } from "../users/UserAvatar";
-import { UserTest } from "../users/UserTest";
+import { UserAvatar } from "../users/UserAvatar";
 
 interface Props {
   user: User;
@@ -18,7 +17,7 @@ export const SidebarRow: React.FC<Props> = ({ user, users, entries }) => {
       spacing={0}
     >
       <Grid className='sidebarDiv' item xs={2}>
-        <UserTest user={user} tooltipPlacement='left' />
+        <UserAvatar user={user} tooltipPlacement='left' />
       </Grid>
       <Grid className='sidebarDiv' item xs={5}></Grid>
       <Grid className='sidebarDiv' item xs={5}></Grid>
