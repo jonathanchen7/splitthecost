@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
 import { EntriesRow } from "./EntriesRow";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
@@ -7,6 +6,7 @@ import { Grid } from "@material-ui/core";
 import { useEffect } from "react";
 import { EntriesHeader } from "./EntriesHeader";
 import { Entry, User } from "../../models/models";
+import { v4 as uuidv4 } from "uuid";
 
 interface Props {
   entries: Entry[];
@@ -19,24 +19,22 @@ export const EntriesGrid: React.FC<Props> = ({
   setEntries,
   curUser,
 }) => {
-  const [curId, setcurId] = useState(0);
-
   useEffect(() => {
     addItem();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function addItem() {
-    setcurId(curId + 1);
     const newItem: Entry = {
-      id: curId,
+      id: uuidv4(),
       item: "",
-      cost: "0",
+      cost: 0,
       exclude: null,
       note: "",
       createdBy: curUser,
     };
     setEntries(entries.concat(newItem));
+    curUser.entries.push(newItem.id);
   }
 
   return (
@@ -46,6 +44,7 @@ export const EntriesGrid: React.FC<Props> = ({
         <EntriesRow
           entry={entry}
           entries={entries}
+          setEntries={setEntries}
           curUser={curUser}
           key={entry.id}
         />

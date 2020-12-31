@@ -4,12 +4,13 @@ export interface User {
   lastName: string;
   initials: string;
   email: string;
+  entries: string[];
 }
 
 export interface Entry {
-  id: number;
+  id: string;
   item: string;
-  cost: string;
+  cost: number;
   exclude: User[] | null;
   createdBy: User;
   note: string;

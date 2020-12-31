@@ -103,6 +103,7 @@ export const AddUserDialog: React.FC<Props> = ({
         .charAt(0)
         .toLocaleUpperCase()}${lastNameVal.charAt(0).toLocaleUpperCase()}`,
       email: emailVal,
+      entries: [],
     };
     setUsers([...users, tempUser]);
 

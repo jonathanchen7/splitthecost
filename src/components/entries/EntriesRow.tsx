@@ -12,14 +12,24 @@ import { UserAvatar } from "../users/UserAvatar";
 interface Props {
   entry: Entry;
   entries: Entry[];
+  setEntries: (entries: Entry[]) => void;
   curUser: User;
 }
 
-export const EntriesRow: React.FC<Props> = ({ entry, entries, curUser }) => {
-  const [item, setItem] = useState("");
-  const [cost, setCost] = useState("");
-  const [note, setNote] = useState("");
+export const EntriesRow: React.FC<Props> = ({
+  entry,
+  entries,
+  setEntries,
+  curUser,
+}) => {
+  const [item, setItem] = useState(entry.item);
+  const [cost, setCost] = useState(entry.cost);
+  const [note, setNote] = useState(entry.note);
   const [showDelete, setShowDelete] = useState(false);
+
+  function deleteEntry() {
+    setEntries(entries.filter((cur) => entry !== cur));
+  }
 
   useEffect(() => {
     if (entry.item && entry.cost && entry.note !== undefined) {
@@ -32,7 +42,8 @@ export const EntriesRow: React.FC<Props> = ({ entry, entries, curUser }) => {
   function updateCost(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void {
-    setCost(e.target.value);
+    setCost(Number(e.target.value));
+    entry.cost = Number(e.target.value);
   }
 
   function handleMouseOver() {
@@ -70,7 +81,10 @@ export const EntriesRow: React.FC<Props> = ({ entry, entries, curUser }) => {
             onChange={(e) => setItem(e.target.value)}
           />
           {showDelete && (
-            <IconButton className='largeIconButton smallRightMargin'>
+            <IconButton
+              className='largeIconButton smallRightMargin'
+              onClick={deleteEntry}
+            >
               <DeleteIcon />
             </IconButton>
           )}
@@ -83,7 +97,6 @@ export const EntriesRow: React.FC<Props> = ({ entry, entries, curUser }) => {
             inputProps={{
               decimalScale: 2,
               allowNegative: false,
-              thousandSeparator: ",",
             }}
             className='entryInput'
             disableUnderline={true}
@@ -97,7 +110,7 @@ export const EntriesRow: React.FC<Props> = ({ entry, entries, curUser }) => {
       <Grid item xs={2}>
         <div className='entryDiv'>
           {entry.exclude?.map((user) => (
-            <span className='smallLeftMargin'>
+            <span className='smallLeftMargin' key={user.id}>
               <UserAvatar user={user} tooltipPlacement='top' />
             </span>
           ))}

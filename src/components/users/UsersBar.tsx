@@ -63,6 +63,7 @@ export const UsersBar: React.FC<Props> = ({ users, curUser, setUsers }) => {
             }
             label={`${user.firstName} ${user.lastName}`}
             onDelete={user === curUser ? undefined : () => deleteUser(user)}
+            key={user.id}
           />
         ))}
         <Tooltip

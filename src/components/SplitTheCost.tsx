@@ -14,6 +14,7 @@ const jonathan: User = {
   lastName: "Chen",
   initials: "JC",
   email: "jonathanschen28@gmail.com",
+  entries: ["fakeid1"],
 };
 const abigail: User = {
   id: uuidv4(),
@@ -21,6 +22,7 @@ const abigail: User = {
   lastName: "Chen",
   initials: "AC",
   email: "abigail.chen@live.com",
+  entries: ["fakeid2"],
 };
 const mom: User = {
   id: uuidv4(),
@@ -28,6 +30,7 @@ const mom: User = {
   lastName: "Liu",
   initials: "CL",
   email: "thechens28@gmail.com",
+  entries: [],
 };
 const dad: User = {
   id: uuidv4(),
@@ -35,21 +38,22 @@ const dad: User = {
   lastName: "Chen",
   initials: "HC",
   email: "bradchen28@gmail.com",
+  entries: [],
 };
 
 const entry1: Entry = {
-  id: 0,
+  id: "fakeid1",
   item: "Hydroflask",
-  cost: "35.99",
+  cost: 35.99,
   note: "keeps ur water cold",
   exclude: [abigail],
   createdBy: jonathan,
 };
 
 const entry2: Entry = {
-  id: 1,
+  id: "fakeid2",
   item: "canoe",
-  cost: "65.95",
+  cost: 65.95,
   note: "issa boat",
   exclude: [mom, dad],
   createdBy: abigail,
@@ -64,6 +68,7 @@ export const SplitTheCost: React.FC = () => {
     setUsers([jonathan, abigail, mom, dad]);
     setEntries([entry1, entry2]);
     setCurUser(jonathan);
+    console.log(jonathan.toString());
   }, []);
 
   return (
