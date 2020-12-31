@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "../App.css";
 import { Entry, User } from "../models/models";
-import { Sidebar } from "./breakdown/Sidebar";
+import { Overview } from "./breakdown/Overview";
 import { EntryGrid } from "./entries/EntryGrid";
 import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
@@ -76,7 +76,7 @@ export const SplitTheCost: React.FC = () => {
           setEntries={setEntries}
           curUser={curUser}
         />
-        <Sidebar users={users} curUser={curUser} entries={entries} />
+        <Overview users={users} curUser={curUser} entries={entries} />
       </div>
     </div>
   );

@@ -16,11 +16,11 @@ export const SidebarRow: React.FC<Props> = ({ user, users, entries }) => {
       container
       spacing={0}
     >
-      <Grid className='sidebarDiv' item xs={2}>
+      <Grid className='overviewDiv' item xs={2}>
         <UserAvatar user={user} tooltipPlacement='left' />
       </Grid>
-      <Grid className='sidebarDiv' item xs={5}></Grid>
-      <Grid className='sidebarDiv' item xs={5}></Grid>
+      <Grid className='overviewDiv' item xs={5}></Grid>
+      <Grid className='overviewDiv' item xs={5}></Grid>
     </Grid>
   );
 };

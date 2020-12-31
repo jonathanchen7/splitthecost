@@ -6,9 +6,7 @@ import {
   DialogTitle,
   IconButton,
   TextField,
-  Tooltip,
 } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
 import DoneIcon from "@material-ui/icons/Done";
 import CloseIcon from "@material-ui/icons/Close";
 import { User } from "../../models/models";
@@ -27,11 +25,16 @@ const Transition = React.forwardRef(function Transition(
 interface Props {
   users: User[];
   setUsers: (users: User[]) => void;
+  open: boolean;
+  setOpen: (open: boolean) => void;
 }
 
-export const AddUser: React.FC<Props> = ({ users, setUsers }) => {
-  const [open, setOpen] = useState(false);
-
+export const AddUserDialog: React.FC<Props> = ({
+  users,
+  setUsers,
+  open,
+  setOpen,
+}) => {
   const [firstNameVal, setFirstNameVal] = useState("");
   const [validFirstName, setValidFirstName] = useState(true);
   const [firstNameErrorText, setFirstNameErrorText] = useState("");
@@ -55,10 +58,6 @@ export const AddUser: React.FC<Props> = ({ users, setUsers }) => {
     setFirstNameErrorText("");
     setLastNameErrorText("");
     setEmailErrorText("");
-  }
-
-  function handleOpen() {
-    setOpen(true);
   }
 
   function handleClose() {
@@ -112,64 +111,53 @@ export const AddUser: React.FC<Props> = ({ users, setUsers }) => {
   }
 
   return (
-    <div>
-      <Tooltip arrow title='Add User' placement='right'>
-        <IconButton
-          className='smallIconButton'
-          size='small'
-          onClick={handleOpen}
-        >
-          <AddIcon />
-        </IconButton>
-      </Tooltip>
-      <Dialog
-        fullWidth={true}
-        maxWidth='xs'
-        onClose={handleClose}
-        open={open}
-        TransitionComponent={Transition}
-      >
-        <DialogTitle>Add User </DialogTitle>
-        <DialogContent>
-          <div className='dialogNames'>
-            <TextField
-              className='halfWidthInput'
-              label='First Name'
-              type='search'
-              value={firstNameVal}
-              onChange={(e) => setFirstNameVal(e.target.value)}
-              error={!validFirstName}
-              helperText={firstNameErrorText}
-            />
-            <TextField
-              className='halfWidthInput'
-              label='Last Name'
-              type='search'
-              value={lastNameVal}
-              onChange={(e) => setLastNameVal(e.target.value)}
-              error={!validLastName}
-              helperText={lastNameErrorText}
-            />
-          </div>
+    <Dialog
+      fullWidth={true}
+      maxWidth='xs'
+      onClose={handleClose}
+      open={open}
+      TransitionComponent={Transition}
+    >
+      <DialogTitle>Add User </DialogTitle>
+      <DialogContent>
+        <div className='dialogNames'>
           <TextField
-            fullWidth
-            label='Email'
+            className='halfWidthInput'
+            label='First Name'
             type='search'
-            value={emailVal}
-            onChange={(e) => setEmailVal(e.target.value)}
-            error={!validEmail}
-            helperText={emailErrorText}
+            value={firstNameVal}
+            onChange={(e) => setFirstNameVal(e.target.value)}
+            error={!validFirstName}
+            helperText={firstNameErrorText}
           />
-        </DialogContent>
-        <DialogActions>
-          <IconButton className='actionIcon' onClick={handleClose}>
-            <CloseIcon />
-          </IconButton>
-          <IconButton className='actionIcon' onClick={addUser}>
-            <DoneIcon />
-          </IconButton>
-        </DialogActions>
-      </Dialog>
-    </div>
+          <TextField
+            className='halfWidthInput'
+            label='Last Name'
+            type='search'
+            value={lastNameVal}
+            onChange={(e) => setLastNameVal(e.target.value)}
+            error={!validLastName}
+            helperText={lastNameErrorText}
+          />
+        </div>
+        <TextField
+          fullWidth
+          label='Email'
+          type='search'
+          value={emailVal}
+          onChange={(e) => setEmailVal(e.target.value)}
+          error={!validEmail}
+          helperText={emailErrorText}
+        />
+      </DialogContent>
+      <DialogActions>
+        <IconButton className='actionIcon' onClick={handleClose}>
+          <CloseIcon />
+        </IconButton>
+        <IconButton className='actionIcon' onClick={addUser}>
+          <DoneIcon />
+        </IconButton>
+      </DialogActions>
+    </Dialog>
   );
 };

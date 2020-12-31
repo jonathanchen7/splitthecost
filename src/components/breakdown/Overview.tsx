@@ -10,9 +10,9 @@ interface Props {
   entries: Entry[];
 }
 
-export const Sidebar: React.FC<Props> = ({ users, curUser, entries }) => {
+export const Overview: React.FC<Props> = ({ users, curUser, entries }) => {
   return (
-    <div className='sidebar'>
+    <div className='overview'>
       <SidebarHeader />
       {users.map((user) => (
         <SidebarRow user={user} users={users} entries={entries} />

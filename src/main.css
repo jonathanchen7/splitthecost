@@ -1,5 +1,5 @@
 .avatar {
-  background-color: #c9c9c9;
+  background-color: #dcdcdc;
   color: white;
   font-weight: bold;
   -webkit-transition: 0.5s;
@@ -12,7 +12,9 @@
 }
 
 .smallIconButton {
-  background-color: #c9c9c9 !important;
+  background-color: #dcdcdc !important;
+  height: 33px;
+  width: 33px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
@@ -23,7 +25,7 @@
 }
 
 .largeIconButton {
-  background-color: #c9c9c9 !important;
+  background-color: #dcdcdc !important;
   height: 40px;
   width: 40px;
   -webkit-transition: 0.5s;
@@ -58,11 +60,11 @@ input::-webkit-inner-spin-button {
 }
 
 .oddIdx {
-  background-color: #f4f4f4;
+  background-color: #c9c9c9;
 }
 
 .evenIdx {
-  background-color: #dedede;
+  background-color: #f4f4f4;
 }
 
 .header {
@@ -111,6 +113,10 @@ input::-webkit-inner-spin-button {
           align-items: center;
 }
 
+.usersBarChip {
+  background-color: #dcdcdc !important;
+}
+
 .usersBarAvatar {
   color: white !important;
   font-weight: bold;
@@ -146,7 +152,7 @@ input::-webkit-inner-spin-button {
 }
 
 .entryHeaderItem {
-  background-color: #c9c9c9;
+  background-color: #b1b1b1;
   border-right: 1px solid black;
   height: 35px;
   display: -webkit-box;
@@ -158,7 +164,7 @@ input::-webkit-inner-spin-button {
 }
 
 .lastEntryHeaderItem {
-  background-color: #c9c9c9;
+  background-color: #b1b1b1;
   height: 35px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -169,7 +175,7 @@ input::-webkit-inner-spin-button {
 }
 
 .sidebarHeaderItem {
-  background-color: #c9c9c9;
+  background-color: #b1b1b1;
   border-left: 1px solid black;
   height: 35px;
   display: -webkit-box;
@@ -200,11 +206,11 @@ input::-webkit-inner-spin-button {
 }
 
 .entryDiv:hover {
-  background: rgba(41, 128, 185, 0.5);
+  background: rgba(41, 128, 185, 0.35);
 }
 
 .entryDiv:focus-within {
-  background: rgba(41, 128, 185, 0.5);
+  background: rgba(41, 128, 185, 0.35);
 }
 
 .lastEntryDiv {
@@ -220,11 +226,11 @@ input::-webkit-inner-spin-button {
 }
 
 .lastEntryDiv:hover {
-  background: rgba(41, 128, 185, 0.5);
+  background: rgba(41, 128, 185, 0.35);
 }
 
 .lastEntryDiv:focus-within {
-  background: rgba(41, 128, 185, 0.5);
+  background: rgba(41, 128, 185, 0.35);
 }
 
 .entryGridDiv {
@@ -261,13 +267,13 @@ input::-webkit-inner-spin-button {
   border-radius: 20px !important;
 }
 
-.sidebar {
+.overview {
   -webkit-box-flex: 2;
       -ms-flex: 2;
           flex: 2;
 }
 
-.sidebarDiv {
+.overviewDiv {
   height: 50px;
   display: -webkit-box;
   display: -ms-flexbox;

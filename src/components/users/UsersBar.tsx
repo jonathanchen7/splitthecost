@@ -1,9 +1,18 @@
 import * as React from "react";
-import { Avatar, Chip, Grid } from "@material-ui/core";
+import {
+  Avatar,
+  Badge,
+  Chip,
+  Grid,
+  IconButton,
+  Tooltip,
+} from "@material-ui/core";
 import { User } from "../../models/models";
-import { AddUser } from "./AddUser";
-import { UserAvatar } from "./UserAvatar";
+import { AddUserDialog } from "./AddUserDialog";
 import { getAvatarColor } from "../users/UserAvatar";
+import PeopleIcon from "@material-ui/icons/People";
+import AddIcon from "@material-ui/icons/Add";
+import { useState } from "react";
 
 interface Props {
   users: User[];
@@ -12,6 +21,14 @@ interface Props {
 }
 
 export const UsersBar: React.FC<Props> = ({ users, curUser, setUsers }) => {
+  const [openAddUser, setOpenAddUser] = useState(false);
+
+  function openUsersDialog() {}
+
+  function openAddUserDialog() {
+    setOpenAddUser(true);
+  }
+
   function deleteUser(user: User) {
     setUsers(users.filter((cur) => user !== cur));
   }
@@ -19,24 +36,56 @@ export const UsersBar: React.FC<Props> = ({ users, curUser, setUsers }) => {
   return (
     <Grid className='usersBar' container spacing={0}>
       <Grid className='usersBarItem' item xs={12}>
+        <Badge
+          className='leftMargin'
+          badgeContent={users.length}
+          color='primary'
+          overlap='circle'
+        >
+          <IconButton
+            className='smallIconButton'
+            size='small'
+            onClick={openUsersDialog}
+          >
+            <PeopleIcon fontSize='small' />
+          </IconButton>
+        </Badge>
         {users.map((user) => (
-          <span className='leftMargin'>
-            <Chip
-              avatar={
-                <Avatar
-                  className='usersBarAvatar'
-                  style={{ backgroundColor: getAvatarColor(user) }}
-                >
-                  {user.initials}
-                </Avatar>
-              }
-              label={`${user.firstName} ${user.lastName}`}
-              onDelete={user === curUser ? undefined : () => deleteUser(user)}
-            />
-          </span>
+          <Chip
+            className='usersBarChip leftMargin'
+            avatar={
+              <Avatar
+                className='usersBarAvatar'
+                style={{ backgroundColor: getAvatarColor(user) }}
+              >
+                {user.initials}
+              </Avatar>
+            }
+            label={`${user.firstName} ${user.lastName}`}
+            onDelete={user === curUser ? undefined : () => deleteUser(user)}
+          />
         ))}
+        <Tooltip
+          className='leftMargin'
+          arrow
+          title='Add User'
+          placement='right'
+        >
+          <IconButton
+            className='smallIconButton'
+            size='small'
+            onClick={openAddUserDialog}
+          >
+            <AddIcon fontSize='small' />
+          </IconButton>
+        </Tooltip>
         <span className='leftMargin'>
-          <AddUser users={users} setUsers={setUsers} />
+          <AddUserDialog
+            open={openAddUser}
+            setOpen={setOpenAddUser}
+            users={users}
+            setUsers={setUsers}
+          />
         </span>
       </Grid>
     </Grid>

@@ -3,6 +3,7 @@
 $headerHeight: 60px;
 $headerMargins: 20px;
 $avatarDiameter: 40px;
+$smallAvatarDiameter: 33px;
 $usersBarHeight: 50px;
 $entryHeaderHeight: 35px;
 $gridLeftMargin: 10px;
@@ -11,7 +12,13 @@ $gridRightMargin: 10px;
 $gridRightMarginSmall: 5px;
 $entryHeight: 50px;
 
-$defaultIconColor: #c9c9c9;
+$defaultIconColor: #dcdcdc;
+$headerColor: #377cab;
+$usersBarColor: #f4f4f4;
+$gridHeaderColor: #b1b1b1;
+$gridDarkColor: #c9c9c9;
+$gridLightColor: #f4f4f4;
+$gridHighlightColor: rgba(41, 128, 185, 0.35);
 
 // ---------------- GENERAL ----------------
 
@@ -29,6 +36,8 @@ $defaultIconColor: #c9c9c9;
 
 .smallIconButton {
   background-color: $defaultIconColor !important;
+  height: $smallAvatarDiameter;
+  width: $smallAvatarDiameter;
   transition: 0.5s;
 
   &:hover {
@@ -72,18 +81,18 @@ input::-webkit-inner-spin-button {
 }
 
 .oddIdx {
-  background-color: #f4f4f4;
+  background-color: $gridDarkColor;
 }
 
 .evenIdx {
-  background-color: #dedede;
+  background-color: $gridLightColor;
 }
 
 // ---------------- HEADER ----------------
 
 .header {
   height: $headerHeight;
-  background-color: #377cab;
+  background-color: $headerColor;
 }
 
 .headerItem {
@@ -109,12 +118,16 @@ input::-webkit-inner-spin-button {
 .usersBar {
   height: $usersBarHeight;
   align-items: center;
-  background-color: #f4f4f4;
+  background-color: $usersBarColor;
 }
 
 .usersBarItem {
   display: flex;
   align-items: center;
+}
+
+.usersBarChip {
+  background-color: $defaultIconColor !important;
 }
 
 .usersBarAvatar {
@@ -148,7 +161,7 @@ input::-webkit-inner-spin-button {
 // ---------------- GRID HEADER ----------------
 
 .entryHeaderItem {
-  background-color: #c9c9c9;
+  background-color: $gridHeaderColor;
   border-right: 1px solid black;
   height: $entryHeaderHeight;
   display: flex;
@@ -156,14 +169,14 @@ input::-webkit-inner-spin-button {
 }
 
 .lastEntryHeaderItem {
-  background-color: #c9c9c9;
+  background-color: $gridHeaderColor;
   height: $entryHeaderHeight;
   display: flex;
   align-items: center;
 }
 
 .sidebarHeaderItem {
-  background-color: #c9c9c9;
+  background-color: $gridHeaderColor;
   border-left: 1px solid black;
   height: $entryHeaderHeight;
   display: flex;
@@ -186,11 +199,11 @@ input::-webkit-inner-spin-button {
   transition: all 0.5s;
 
   &:hover {
-    background: rgba(41, 128, 185, 0.5);
+    background: $gridHighlightColor;
   }
 
   &:focus-within {
-    background: rgba(41, 128, 185, 0.5);
+    background: $gridHighlightColor;
   }
 }
 
@@ -201,11 +214,11 @@ input::-webkit-inner-spin-button {
   transition: all 0.5s;
 
   &:hover {
-    background: rgba(41, 128, 185, 0.5);
+    background: $gridHighlightColor;
   }
 
   &:focus-within {
-    background: rgba(41, 128, 185, 0.5);
+    background: $gridHighlightColor;
   }
 }
 
@@ -233,13 +246,13 @@ input::-webkit-inner-spin-button {
   border-radius: 20px !important;
 }
 
-// ---------------- SIDEBAR GRID ----------------
+// ---------------- OVERVIEW GRID ----------------
 
-.sidebar {
+.overview {
   flex: 2;
 }
 
-.sidebarDiv {
+.overviewDiv {
   height: $entryHeight;
   display: flex;
   align-items: center;
