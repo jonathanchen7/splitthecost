@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 
 interface Props {
   entries: Entry[];
-  setEntries: (entries: Entry[]) => void;
+  setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
   curUser: User;
 }
 
@@ -33,7 +33,7 @@ export const EntriesGrid: React.FC<Props> = ({
       note: "",
       createdBy: curUser,
     };
-    setEntries(entries.concat(newItem));
+    setEntries((entries) => [...entries, newItem]);
     curUser.entries.push(newItem.id);
   }
 

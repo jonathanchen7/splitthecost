@@ -19,7 +19,6 @@ export const OverviewGrid: React.FC<Props> = ({ users, curUser, entries }) => {
   const [breakdownData, setBreakdownData] = useState<BreakdownData>({});
 
   useEffect(() => {
-    console.log("RECALCULATING BREAKDOWN...");
     let tempData: BreakdownData = {};
 
     // Create entries for each user.

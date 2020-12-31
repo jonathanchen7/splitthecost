@@ -5,12 +5,10 @@ import { User } from "../../models/models";
 import { Avatar } from "@material-ui/core";
 
 interface Props {
-  users: User[];
-  setUsers: (users: User[]) => void;
   curUser: User;
 }
 
-export const Header: React.FC<Props> = ({ users, setUsers, curUser }) => {
+export const Header: React.FC<Props> = ({ curUser }) => {
   return (
     <Grid className='header' container spacing={0}>
       <Grid className='headerItem' item xs={11}>

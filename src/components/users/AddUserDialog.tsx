@@ -23,18 +23,12 @@ const Transition = React.forwardRef(function Transition(
 });
 
 interface Props {
-  users: User[];
-  setUsers: (users: User[]) => void;
+  setUsers: React.Dispatch<React.SetStateAction<User[]>>;
   open: boolean;
-  setOpen: (open: boolean) => void;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const AddUserDialog: React.FC<Props> = ({
-  users,
-  setUsers,
-  open,
-  setOpen,
-}) => {
+export const AddUserDialog: React.FC<Props> = ({ setUsers, open, setOpen }) => {
   const [firstNameVal, setFirstNameVal] = useState("");
   const [validFirstName, setValidFirstName] = useState(true);
   const [firstNameErrorText, setFirstNameErrorText] = useState("");
@@ -105,7 +99,7 @@ export const AddUserDialog: React.FC<Props> = ({
       email: emailVal,
       entries: [],
     };
-    setUsers([...users, tempUser]);
+    setUsers((users) => [...users, tempUser]);
 
     resetDialog();
     setOpen(false);

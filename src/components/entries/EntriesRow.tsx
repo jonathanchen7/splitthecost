@@ -12,7 +12,7 @@ import { UserAvatar } from "../users/UserAvatar";
 interface Props {
   entry: Entry;
   entries: Entry[];
-  setEntries: (entries: Entry[]) => void;
+  setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
   curUser: User;
 }
 

@@ -1,6 +1,9 @@
 .avatar {
   background-color: #dcdcdc;
+  height: 40px !important;
+  width: 40px !important;
   color: white;
+  font-size: 20px !important;
   font-weight: bold;
   -webkit-transition: 0.5s;
   transition: 0.5s;

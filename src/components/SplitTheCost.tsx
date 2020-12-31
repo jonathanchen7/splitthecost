@@ -73,7 +73,7 @@ export const SplitTheCost: React.FC = () => {
 
   return (
     <div>
-      <Header users={users} setUsers={setUsers} curUser={curUser} />
+      <Header curUser={curUser} />
       <UsersBar
         users={users}
         curUser={curUser}

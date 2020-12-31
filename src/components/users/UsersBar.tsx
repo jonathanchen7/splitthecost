@@ -17,7 +17,7 @@ import { useState } from "react";
 interface Props {
   users: User[];
   curUser: User;
-  setUsers: (users: User[]) => void;
+  setUsers: React.Dispatch<React.SetStateAction<User[]>>;
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
 }
 
@@ -62,29 +62,26 @@ export const UsersBar: React.FC<Props> = ({
           </IconButton>
         </Badge>
         {users.map((user) => (
-          <Chip
-            className='usersBarChip leftMargin'
-            avatar={
-              <Avatar
-                className='usersBarAvatar'
-                style={{ backgroundColor: getAvatarColor(user) }}
-              >
-                {user.initials}
-              </Avatar>
-            }
-            label={`${user.firstName} ${user.lastName}`}
-            onDelete={user === curUser ? undefined : () => deleteUser(user)}
-            key={user.id}
-          />
+          <Tooltip arrow title={user.email} placement='top'>
+            <Chip
+              className='usersBarChip leftMargin'
+              avatar={
+                <Avatar
+                  className='usersBarAvatar'
+                  style={{ backgroundColor: getAvatarColor(user) }}
+                >
+                  {user.initials}
+                </Avatar>
+              }
+              label={`${user.firstName} ${user.lastName}`}
+              onDelete={user === curUser ? undefined : () => deleteUser(user)}
+              key={user.id}
+            />
+          </Tooltip>
         ))}
-        <Tooltip
-          className='leftMargin'
-          arrow
-          title='Add User'
-          placement='right'
-        >
+        <Tooltip arrow title='Add User' placement='right'>
           <IconButton
-            className='smallIconButton'
+            className='smallIconButton leftMargin'
             size='small'
             onClick={openAddUserDialog}
           >
@@ -95,7 +92,6 @@ export const UsersBar: React.FC<Props> = ({
           <AddUserDialog
             open={openAddUser}
             setOpen={setOpenAddUser}
-            users={users}
             setUsers={setUsers}
           />
         </span>

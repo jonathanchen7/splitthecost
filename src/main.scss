@@ -2,14 +2,15 @@
 
 $headerHeight: 60px;
 $headerMargins: 20px;
+
 $avatarDiameter: 40px;
+$avatarFontSize: 20px;
 $smallAvatarDiameter: 33px;
+
 $usersBarHeight: 50px;
 $entryHeaderHeight: 35px;
-$gridLeftMargin: 10px;
-$gridLeftMarginSmall: 5px;
-$gridRightMargin: 10px;
-$gridRightMarginSmall: 5px;
+$gridMargin: 10px;
+$gridMarginSmall: 5px;
 $entryHeight: 50px;
 
 $defaultIconColor: #dcdcdc;
@@ -24,7 +25,10 @@ $gridHighlightColor: rgba(41, 128, 185, 0.35);
 
 .avatar {
   background-color: $defaultIconColor;
+  height: $avatarDiameter !important;
+  width: $avatarDiameter !important;
   color: white;
+  font-size: $avatarFontSize !important;
   font-weight: bold;
   transition: 0.5s;
 
@@ -65,19 +69,19 @@ input::-webkit-inner-spin-button {
 }
 
 .smallLeftMargin {
-  margin-left: $gridLeftMarginSmall !important;
+  margin-left: $gridMarginSmall !important;
 }
 
 .leftMargin {
-  margin-left: $gridLeftMargin !important;
+  margin-left: $gridMargin !important;
 }
 
 .smallRightMargin {
-  margin-right: $gridRightMarginSmall !important;
+  margin-right: $gridMarginSmall !important;
 }
 
 .rightMargin {
-  margin-right: $gridRightMargin !important;
+  margin-right: $gridMargin !important;
 }
 
 .oddIdx {
@@ -184,7 +188,7 @@ input::-webkit-inner-spin-button {
 }
 
 .gridHeaderText {
-  margin-left: $gridLeftMargin;
+  margin-left: $gridMargin;
   font-size: 17px;
   font-weight: bold;
 }
@@ -229,7 +233,7 @@ input::-webkit-inner-spin-button {
 
 .entryInput {
   height: $entryHeight;
-  margin: 0px $gridRightMargin 0px $gridLeftMargin;
+  margin: 0px $gridMargin 0px $gridMargin;
   transition: all 0.5s;
 }
 

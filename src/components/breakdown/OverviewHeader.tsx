@@ -6,11 +6,10 @@ interface Props {}
 export const OverviewHeader: React.FC<Props> = (props) => {
   return (
     <Grid container spacing={0}>
-      <Grid className='sidebarHeaderItem' item xs={2}></Grid>
-      <Grid className='sidebarHeaderItem' item xs={5}>
+      <Grid className='sidebarHeaderItem' item xs={6}>
         <span className='gridHeaderText'>SPENT</span>
       </Grid>
-      <Grid className='sidebarHeaderItem' item xs={5}>
+      <Grid className='sidebarHeaderItem' item xs={6}>
         <span className='gridHeaderText'>OWED</span>
       </Grid>
     </Grid>
