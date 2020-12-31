@@ -3,7 +3,7 @@ import * as React from "react";
 
 interface Props {}
 
-export const SidebarHeader: React.FC<Props> = (props) => {
+export const OverviewHeader: React.FC<Props> = (props) => {
   return (
     <Grid container spacing={0}>
       <Grid className='sidebarHeaderItem' item xs={2}></Grid>

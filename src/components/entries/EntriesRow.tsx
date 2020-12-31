@@ -15,7 +15,7 @@ interface Props {
   curUser: User;
 }
 
-export const EntryRow: React.FC<Props> = ({ entry, entries, curUser }) => {
+export const EntriesRow: React.FC<Props> = ({ entry, entries, curUser }) => {
   const [item, setItem] = useState("");
   const [cost, setCost] = useState("");
   const [note, setNote] = useState("");

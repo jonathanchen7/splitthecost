@@ -1,8 +1,8 @@
 import { Grid } from "@material-ui/core";
 import * as React from "react";
 import { Entry, User } from "../../models/models";
-import { SidebarHeader } from "./SidebarHeader";
-import { SidebarRow } from "./SidebarRow";
+import { OverviewHeader } from "./OverviewHeader";
+import { OverviewRow } from "./OverviewRow";
 
 interface Props {
   users: User[];
@@ -10,12 +10,12 @@ interface Props {
   entries: Entry[];
 }
 
-export const Overview: React.FC<Props> = ({ users, curUser, entries }) => {
+export const OverviewGrid: React.FC<Props> = ({ users, curUser, entries }) => {
   return (
     <div className='overview'>
-      <SidebarHeader />
+      <OverviewHeader />
       {users.map((user) => (
-        <SidebarRow user={user} users={users} entries={entries} />
+        <OverviewRow user={user} users={users} entries={entries} />
       ))}
       <Grid
         container

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { EntryRow } from "./EntryRow";
+import { EntriesRow } from "./EntriesRow";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import { Grid } from "@material-ui/core";
@@ -14,7 +14,7 @@ interface Props {
   curUser: User;
 }
 
-export const EntryGrid: React.FC<Props> = ({
+export const EntriesGrid: React.FC<Props> = ({
   entries,
   setEntries,
   curUser,
@@ -43,7 +43,7 @@ export const EntryGrid: React.FC<Props> = ({
     <div className='entryGridDiv'>
       <EntriesHeader />
       {entries.map((entry) => (
-        <EntryRow
+        <EntriesRow
           entry={entry}
           entries={entries}
           curUser={curUser}

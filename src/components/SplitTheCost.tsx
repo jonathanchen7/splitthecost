@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "../App.css";
 import { Entry, User } from "../models/models";
-import { Overview } from "./breakdown/Overview";
-import { EntryGrid } from "./entries/EntryGrid";
+import { OverviewGrid } from "./breakdown/OverviewGrid";
+import { EntriesGrid } from "./entries/EntriesGrid";
 import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
 import { v4 as uuidv4 } from "uuid";
@@ -71,12 +71,12 @@ export const SplitTheCost: React.FC = () => {
       <Header users={users} setUsers={setUsers} curUser={curUser} />
       <UsersBar users={users} curUser={curUser} setUsers={setUsers} />
       <div style={{ display: "flex" }}>
-        <EntryGrid
+        <EntriesGrid
           entries={entries}
           setEntries={setEntries}
           curUser={curUser}
         />
-        <Overview users={users} curUser={curUser} entries={entries} />
+        <OverviewGrid users={users} curUser={curUser} entries={entries} />
       </div>
     </div>
   );

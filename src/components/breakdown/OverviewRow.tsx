@@ -9,7 +9,7 @@ interface Props {
   entries: Entry[];
 }
 
-export const SidebarRow: React.FC<Props> = ({ user, users, entries }) => {
+export const OverviewRow: React.FC<Props> = ({ user, users, entries }) => {
   return (
     <Grid
       className={users.indexOf(user) % 2 ? "evenIdx" : "oddIdx"}
