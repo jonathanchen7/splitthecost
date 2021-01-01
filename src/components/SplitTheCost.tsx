@@ -8,8 +8,10 @@ import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
 import { v4 as uuidv4 } from "uuid";
 import ArrowBackRoundedIcon from "@material-ui/icons/ArrowBackRounded";
+import ArrowForwardRoundedIcon from "@material-ui/icons/ArrowForwardRounded";
 import AddIcon from "@material-ui/icons/Add";
-import { Fab } from "@material-ui/core";
+import { duration, Fab } from "@material-ui/core";
+import { motion } from "framer-motion";
 
 const jonathan: User = {
   id: uuidv4(),
@@ -110,24 +112,30 @@ export const SplitTheCost: React.FC = () => {
         setUsers={setUsers}
         setEntries={setEntries}
       />
-      <div style={{ display: "flex" }}>
-        <EntriesGrid
-          entries={entries}
-          setEntries={setEntries}
-          curUser={curUser}
-        />
-      </div>
-      <div className='overviewFabDiv'>
-        <Fab variant='extended' size='medium' onClick={handleOpen}>
-          <ArrowBackRoundedIcon />
-        </Fab>
-      </div>
+      <EntriesGrid
+        entries={entries}
+        setEntries={setEntries}
+        curUser={curUser}
+      />
       <div className='addItemFabDiv'>
         <Fab variant='extended' size='medium' onClick={addItem}>
           <AddIcon />
           Add Item
         </Fab>
       </div>
+      <motion.div
+        className='overviewFabDiv'
+        animate={openOverview ? { x: -460 } : { x: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Fab variant='extended' size='medium' onClick={handleOpen}>
+          {openOverview ? (
+            <ArrowForwardRoundedIcon />
+          ) : (
+            <ArrowBackRoundedIcon />
+          )}
+        </Fab>
+      </motion.div>
       <OverviewGrid
         users={users}
         curUser={curUser}

@@ -57,6 +57,7 @@ export const OverviewGrid: React.FC<Props> = ({
           animate={{ x: 0 }}
           initial={{ x: 600 }}
           exit={{ x: 600 }}
+          transition={{ duration: 0.5 }}
         >
           <OverviewHeader />
           {users.map((user) => (

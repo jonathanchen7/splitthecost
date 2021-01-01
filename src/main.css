@@ -286,8 +286,8 @@ input::-webkit-inner-spin-button {
   background-color: #dfdfdf;
   position: fixed;
   top: 125px;
-  right: 100px;
-  width: 25%;
+  right: 20px;
+  width: 400px;
 }
 
 .overviewRowDiv {
