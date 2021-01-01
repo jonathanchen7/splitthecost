@@ -128,14 +128,12 @@ export const SplitTheCost: React.FC = () => {
           Add Item
         </Fab>
       </div>
-      <div className='overview'>
-        <OverviewGrid
-          users={users}
-          curUser={curUser}
-          entries={entries}
-          open={openOverview}
-        />
-      </div>
+      <OverviewGrid
+        users={users}
+        curUser={curUser}
+        entries={entries}
+        open={openOverview}
+      />
     </div>
   );
 };

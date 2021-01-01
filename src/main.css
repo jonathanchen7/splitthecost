@@ -273,13 +273,6 @@ input::-webkit-inner-spin-button {
           align-items: center;
 }
 
-.overview {
-  position: fixed;
-  top: 125px;
-  right: 100px;
-  width: 25%;
-}
-
 .overviewFabDiv {
   font-weight: bold !important;
   position: fixed;
@@ -287,10 +280,14 @@ input::-webkit-inner-spin-button {
   right: 20px;
 }
 
-.overviewDiv {
+.overview {
   padding: 20px;
   border-radius: 15px;
   background-color: #dfdfdf;
+  position: fixed;
+  top: 125px;
+  right: 100px;
+  width: 25%;
 }
 
 .overviewRowDiv {

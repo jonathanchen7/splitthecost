@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Entry, User } from "../../models/models";
 import { OverviewHeader } from "./OverviewHeader";
 import { OverviewRow } from "./OverviewRow";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface BreakdownData {
   [userId: string]: { totalSpent: number; totalOwed: number };
@@ -48,22 +49,31 @@ export const OverviewGrid: React.FC<Props> = ({
     setBreakdownData(tempData);
   }, [users, entries]);
 
-  return open ? (
-    <div className='overviewDiv'>
-      <OverviewHeader />
-      {users.map((user) => (
-        <OverviewRow
-          user={user}
-          users={users}
-          data={breakdownData[user.id]}
-          key={user.id}
-        />
-      ))}
-      <Grid
-        container
-        spacing={0}
-        className={users.length % 2 ? "evenIdx" : "oddIdx"}
-      ></Grid>
-    </div>
-  ) : null;
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.nav
+          className='overview'
+          animate={{ x: 0 }}
+          initial={{ x: 600 }}
+          exit={{ x: 600 }}
+        >
+          <OverviewHeader />
+          {users.map((user) => (
+            <OverviewRow
+              user={user}
+              users={users}
+              data={breakdownData[user.id]}
+              key={user.id}
+            />
+          ))}
+          <Grid
+            container
+            spacing={0}
+            className={users.length % 2 ? "evenIdx" : "oddIdx"}
+          ></Grid>
+        </motion.nav>
+      )}
+    </AnimatePresence>
+  );
 };
