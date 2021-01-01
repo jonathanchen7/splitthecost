@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import ArrowBackRoundedIcon from "@material-ui/icons/ArrowBackRounded";
 import ArrowForwardRoundedIcon from "@material-ui/icons/ArrowForwardRounded";
 import AddIcon from "@material-ui/icons/Add";
-import { duration, Fab } from "@material-ui/core";
+import { Fab } from "@material-ui/core";
 import { motion } from "framer-motion";
 
 const jonathan: User = {
@@ -43,6 +43,14 @@ const dad: User = {
   lastName: "Chen",
   initials: "HC",
   email: "bradchen28@gmail.com",
+  entries: [],
+};
+const emma: User = {
+  id: uuidv4(),
+  firstName: "Emma",
+  lastName: "Hutcheson",
+  initials: "EH",
+  email: "emmahutch@hotmail.com",
   entries: [],
 };
 
@@ -78,10 +86,10 @@ export const SplitTheCost: React.FC = () => {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [curUser, setCurUser] = useState<User>(jonathan);
 
-  const [openOverview, setOpenOverview] = useState(false);
+  const [openOverview, setOpenOverview] = useState(true);
 
   useEffect(() => {
-    setUsers([jonathan, abigail, mom, dad]);
+    setUsers([jonathan, abigail, mom, dad, emma]);
     setEntries([entry1, entry2, entry3]);
     setCurUser(jonathan);
   }, []);

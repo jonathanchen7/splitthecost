@@ -133,7 +133,7 @@ export const EntriesRow: React.FC<Props> = ({
         </div>
       </Grid>
       <Grid item xs={6}>
-        <div className='lastEntryDiv'>
+        <div className='entryDiv'>
           <Input
             className='entryInput'
             disableUnderline={true}

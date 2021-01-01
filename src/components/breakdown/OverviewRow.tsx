@@ -13,7 +13,10 @@ interface Props {
 export const OverviewRow: React.FC<Props> = ({ user, users, data }) => {
   return (
     <Grid
-      className={users.indexOf(user) % 2 ? "evenIdx" : "oddIdx"}
+      className={
+        (users.indexOf(user) === users.length - 1 ? "roundedBottom " : "") +
+        (users.indexOf(user) % 2 ? "evenIdx" : "oddIdx")
+      }
       container
       spacing={0}
     >

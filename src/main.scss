@@ -93,6 +93,10 @@ input::-webkit-inner-spin-button {
   background-color: $gridDarkColor;
 }
 
+.roundedBottom {
+  border-radius: 0px 0px 15px 15px;
+}
+
 // ---------------- HEADER ----------------
 
 .header {
@@ -186,21 +190,6 @@ input::-webkit-inner-spin-button {
 // ---------------- ENTRIES GRID ----------------
 
 .entryDiv {
-  height: $entryHeight;
-  display: flex;
-  align-items: center;
-  transition: all 0.5s;
-
-  &:hover {
-    background: $gridHighlightColor;
-  }
-
-  &:focus-within {
-    background: $gridHighlightColor;
-  }
-}
-
-.lastEntryDiv {
   height: $entryHeight;
   display: flex;
   align-items: center;
