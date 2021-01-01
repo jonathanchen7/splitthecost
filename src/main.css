@@ -265,10 +265,22 @@ input::-webkit-inner-spin-button {
   border-radius: 20px !important;
 }
 
+.addItemFabDiv {
+  font-weight: bold !important;
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+}
+
+.overviewFabDiv {
+  font-weight: bold !important;
+  position: fixed;
+  top: 125px;
+  right: 20px;
+}
+
 .overview {
-  -webkit-box-flex: 2;
-      -ms-flex: 2;
-          flex: 2;
+  height: 60% !important;
 }
 
 .overviewDiv {

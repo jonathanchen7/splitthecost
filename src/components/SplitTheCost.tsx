@@ -7,6 +7,9 @@ import { EntriesGrid } from "./entries/EntriesGrid";
 import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
 import { v4 as uuidv4 } from "uuid";
+import ArrowBackRoundedIcon from "@material-ui/icons/ArrowBackRounded";
+import AddIcon from "@material-ui/icons/Add";
+import { Fab } from "@material-ui/core";
 
 const jonathan: User = {
   id: uuidv4(),
@@ -64,12 +67,31 @@ export const SplitTheCost: React.FC = () => {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [curUser, setCurUser] = useState<User>(jonathan);
 
+  const [openOverview, setOpenOverview] = useState(false);
+
   useEffect(() => {
     setUsers([jonathan, abigail, mom, dad]);
     setEntries([entry1, entry2]);
     setCurUser(jonathan);
-    console.log(jonathan.toString());
+    addItem();
   }, []);
+
+  function addItem() {
+    const newItem: Entry = {
+      id: uuidv4(),
+      item: "",
+      cost: 0,
+      exclude: null,
+      note: "",
+      createdBy: curUser,
+    };
+    setEntries((entries) => [...entries, newItem]);
+    curUser.entries.push(newItem.id);
+  }
+
+  function handleOpen() {
+    setOpenOverview(true);
+  }
 
   return (
     <div>
@@ -86,7 +108,25 @@ export const SplitTheCost: React.FC = () => {
           setEntries={setEntries}
           curUser={curUser}
         />
-        <OverviewGrid users={users} curUser={curUser} entries={entries} />
+      </div>
+      <div className='overviewFabDiv'>
+        <Fab variant='extended' size='medium' onClick={handleOpen}>
+          <ArrowBackRoundedIcon />
+        </Fab>
+      </div>
+      <div className='addItemFabDiv'>
+        <Fab variant='extended' size='medium' onClick={addItem}>
+          <AddIcon />
+          Add Item
+        </Fab>
+      </div>
+      <div>
+        {/* <OverviewGrid
+          users={users}
+          curUser={curUser}
+          entries={entries}
+          open={openOverview}
+        /> */}
       </div>
     </div>
   );

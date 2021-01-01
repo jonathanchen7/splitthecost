@@ -245,10 +245,20 @@ input::-webkit-inner-spin-button {
   border-radius: 20px !important;
 }
 
+.addItemFabDiv {
+  font-weight: bold !important;
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+}
+
 // ---------------- OVERVIEW GRID ----------------
 
-.overview {
-  flex: 2;
+.overviewFabDiv {
+  font-weight: bold !important;
+  position: fixed;
+  top: $headerHeight + $usersBarHeight + 15;
+  right: 20px;
 }
 
 .overviewDiv {
