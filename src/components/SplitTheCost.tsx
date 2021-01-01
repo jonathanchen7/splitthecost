@@ -62,6 +62,15 @@ const entry2: Entry = {
   createdBy: abigail,
 };
 
+const entry3: Entry = {
+  id: "",
+  item: "",
+  cost: 0,
+  note: "",
+  exclude: [],
+  createdBy: jonathan,
+};
+
 export const SplitTheCost: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [entries, setEntries] = useState<Entry[]>([]);
@@ -71,9 +80,8 @@ export const SplitTheCost: React.FC = () => {
 
   useEffect(() => {
     setUsers([jonathan, abigail, mom, dad]);
-    setEntries([entry1, entry2]);
+    setEntries([entry1, entry2, entry3]);
     setCurUser(jonathan);
-    addItem();
   }, []);
 
   function addItem() {
@@ -90,7 +98,7 @@ export const SplitTheCost: React.FC = () => {
   }
 
   function handleOpen() {
-    setOpenOverview(true);
+    setOpenOverview(!openOverview);
   }
 
   return (
@@ -120,13 +128,13 @@ export const SplitTheCost: React.FC = () => {
           Add Item
         </Fab>
       </div>
-      <div>
-        {/* <OverviewGrid
+      <div className='overview'>
+        <OverviewGrid
           users={users}
           curUser={curUser}
           entries={entries}
           open={openOverview}
-        /> */}
+        />
       </div>
     </div>
   );

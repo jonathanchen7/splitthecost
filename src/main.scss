@@ -20,6 +20,7 @@ $gridHeaderColor: #c9c9c9;
 $gridDarkColor: #dedede;
 $gridLightColor: #f6f6f6;
 $gridHighlightColor: rgba(41, 128, 185, 0.35);
+$overviewDialogColor: #dfdfdf;
 
 // ---------------- GENERAL ----------------
 
@@ -162,21 +163,14 @@ input::-webkit-inner-spin-button {
 
 // ---------------- GRID HEADER ----------------
 
+.entryHeader {
+  background-color: $gridHeaderColor;
+  height: $entryHeaderHeight;
+  display: flex;
+  align-items: center;
+}
+
 .entryHeaderItem {
-  background-color: $gridHeaderColor;
-  height: $entryHeaderHeight;
-  display: flex;
-  align-items: center;
-}
-
-.lastEntryHeaderItem {
-  background-color: $gridHeaderColor;
-  height: $entryHeaderHeight;
-  display: flex;
-  align-items: center;
-}
-
-.sidebarHeaderItem {
   background-color: $gridHeaderColor;
   height: $entryHeaderHeight;
   display: flex;
@@ -254,6 +248,21 @@ input::-webkit-inner-spin-button {
 
 // ---------------- OVERVIEW GRID ----------------
 
+.overviewHeader {
+  border-radius: 15px 15px 0px 0px;
+  background-color: $gridHeaderColor;
+  height: $entryHeaderHeight;
+  display: flex;
+  align-items: center;
+}
+
+.overview {
+  position: fixed;
+  top: $headerHeight + $usersBarHeight + 15;
+  right: 100px;
+  width: 25%;
+}
+
 .overviewFabDiv {
   font-weight: bold !important;
   position: fixed;
@@ -262,6 +271,12 @@ input::-webkit-inner-spin-button {
 }
 
 .overviewDiv {
+  padding: 20px;
+  border-radius: 15px;
+  background-color: $overviewDialogColor;
+}
+
+.overviewRowDiv {
   height: $entryHeight;
   display: flex;
   align-items: center;

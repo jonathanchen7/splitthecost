@@ -1,12 +1,7 @@
 import * as React from "react";
 import { EntriesRow } from "./EntriesRow";
-import Button from "@material-ui/core/Button";
-import AddIcon from "@material-ui/icons/Add";
-import { Fab, Grid } from "@material-ui/core";
-import { useEffect } from "react";
 import { EntriesHeader } from "./EntriesHeader";
 import { Entry, User } from "../../models/models";
-import { v4 as uuidv4 } from "uuid";
 
 interface Props {
   entries: Entry[];

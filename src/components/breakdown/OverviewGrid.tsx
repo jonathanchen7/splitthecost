@@ -1,4 +1,4 @@
-import { Drawer, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Entry, User } from "../../models/models";
@@ -16,7 +16,12 @@ interface Props {
   open: boolean;
 }
 
-export const OverviewGrid: React.FC<Props> = ({ users, curUser, entries }) => {
+export const OverviewGrid: React.FC<Props> = ({
+  users,
+  curUser,
+  entries,
+  open,
+}) => {
   const [breakdownData, setBreakdownData] = useState<BreakdownData>({});
 
   useEffect(() => {
@@ -43,8 +48,8 @@ export const OverviewGrid: React.FC<Props> = ({ users, curUser, entries }) => {
     setBreakdownData(tempData);
   }, [users, entries]);
 
-  return (
-    <div>
+  return open ? (
+    <div className='overviewDiv'>
       <OverviewHeader />
       {users.map((user) => (
         <OverviewRow
@@ -60,5 +65,5 @@ export const OverviewGrid: React.FC<Props> = ({ users, curUser, entries }) => {
         className={users.length % 2 ? "evenIdx" : "oddIdx"}
       ></Grid>
     </div>
-  );
+  ) : null;
 };

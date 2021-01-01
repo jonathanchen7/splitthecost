@@ -17,7 +17,7 @@ export const OverviewRow: React.FC<Props> = ({ user, users, data }) => {
       container
       spacing={0}
     >
-      <Grid className='overviewDiv' item xs={6}>
+      <Grid className='overviewRowDiv' item xs={6}>
         <span className='leftMargin'>
           <UserAvatar user={user} tooltipPlacement='left' />
         </span>
@@ -36,7 +36,7 @@ export const OverviewRow: React.FC<Props> = ({ user, users, data }) => {
           startAdornment={<InputAdornment position='start'>$</InputAdornment>}
         />
       </Grid>
-      <Grid className='overviewDiv' item xs={6}>
+      <Grid className='overviewRowDiv' item xs={6}>
         <Input
           readOnly={true}
           inputComponent={NumberFormat as any}

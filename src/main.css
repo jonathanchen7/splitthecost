@@ -152,29 +152,18 @@ input::-webkit-inner-spin-button {
           box-shadow: none;
 }
 
+.entryHeader {
+  background-color: #c9c9c9;
+  height: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .entryHeaderItem {
-  background-color: #c9c9c9;
-  height: 35px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.lastEntryHeaderItem {
-  background-color: #c9c9c9;
-  height: 35px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.sidebarHeaderItem {
   background-color: #c9c9c9;
   height: 35px;
   display: -webkit-box;
@@ -272,6 +261,25 @@ input::-webkit-inner-spin-button {
   left: 30px;
 }
 
+.overviewHeader {
+  border-radius: 15px 15px 0px 0px;
+  background-color: #c9c9c9;
+  height: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.overview {
+  position: fixed;
+  top: 125px;
+  right: 100px;
+  width: 25%;
+}
+
 .overviewFabDiv {
   font-weight: bold !important;
   position: fixed;
@@ -279,11 +287,13 @@ input::-webkit-inner-spin-button {
   right: 20px;
 }
 
-.overview {
-  height: 60% !important;
+.overviewDiv {
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #dfdfdf;
 }
 
-.overviewDiv {
+.overviewRowDiv {
   height: 50px;
   display: -webkit-box;
   display: -ms-flexbox;
