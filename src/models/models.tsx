@@ -19,3 +19,11 @@ export interface Entry {
 export interface OverviewData {
   [userId: string]: { totalSpent: number; totalOwed: number };
 }
+
+export interface BreakdownData {
+  [userId: string]: {
+    totalSpent: number;
+    totalOwed: number;
+    userBreakdown: [number][number];
+  };
+}
