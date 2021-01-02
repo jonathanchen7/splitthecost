@@ -1,10 +1,11 @@
-import { Grid } from "@material-ui/core";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Entry, User } from "../../models/models";
 import { OverviewHeader } from "./OverviewHeader";
 import { OverviewRow } from "./OverviewRow";
 import { AnimatePresence, motion } from "framer-motion";
+import ReceiptRoundedIcon from "@material-ui/icons/ReceiptRounded";
+import { Button } from "@material-ui/core";
 
 interface BreakdownData {
   [userId: string]: { totalSpent: number; totalOwed: number };
@@ -17,7 +18,7 @@ interface Props {
   open: boolean;
 }
 
-export const OverviewGrid: React.FC<Props> = ({
+export const Overview: React.FC<Props> = ({
   users,
   curUser,
   entries,
@@ -37,7 +38,7 @@ export const OverviewGrid: React.FC<Props> = ({
       tempData[entry.createdBy.id].totalSpent += entry.cost;
 
       const includedUsers = users.filter(
-        (user) => !entry.exclude?.includes(user)
+        (user) => !entry.exclude.includes(user)
       );
       const userCost = entry.cost / includedUsers.length;
 
@@ -52,11 +53,11 @@ export const OverviewGrid: React.FC<Props> = ({
   return (
     <AnimatePresence>
       {open && (
-        <motion.nav
+        <motion.div
           className='overview'
-          animate={{ x: 0 }}
-          initial={{ x: 600 }}
-          exit={{ x: 600 }}
+          animate={{ x: 0, opacity: 1 }}
+          initial={{ x: 600, opacity: 0 }}
+          exit={{ x: 600, opacity: 0 }}
           transition={{ duration: 0.5 }}
         >
           <OverviewHeader />
@@ -68,12 +69,15 @@ export const OverviewGrid: React.FC<Props> = ({
               key={user.id}
             />
           ))}
-          <Grid
-            container
-            spacing={0}
-            className={users.length % 2 ? "evenIdx" : "oddIdx"}
-          ></Grid>
-        </motion.nav>
+          <Button
+            className='breakdownButton'
+            variant='contained'
+            color='primary'
+            startIcon={<ReceiptRoundedIcon />}
+          >
+            <span className='buttonText'>Breakdown</span>
+          </Button>
+        </motion.div>
       )}
     </AnimatePresence>
   );

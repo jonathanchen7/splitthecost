@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "../App.css";
 import { Entry, User } from "../models/models";
-import { OverviewGrid } from "./breakdown/OverviewGrid";
-import { EntriesGrid } from "./entries/EntriesGrid";
+import { Overview } from "./breakdown/Overview";
+import { Entries } from "./entries/Entries";
 import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
 import { v4 as uuidv4 } from "uuid";
@@ -99,7 +99,7 @@ export const SplitTheCost: React.FC = () => {
       id: uuidv4(),
       item: "",
       cost: 0,
-      exclude: null,
+      exclude: [],
       note: "",
       createdBy: curUser,
     };
@@ -120,19 +120,15 @@ export const SplitTheCost: React.FC = () => {
         setUsers={setUsers}
         setEntries={setEntries}
       />
-      <EntriesGrid
-        entries={entries}
-        setEntries={setEntries}
-        curUser={curUser}
-      />
+      <Entries entries={entries} setEntries={setEntries} curUser={curUser} />
       <div className='addItemFabDiv'>
         <Fab variant='extended' size='medium' onClick={addItem}>
           <AddIcon />
-          Add Item
+          <span className='buttonText'>Add Item</span>
         </Fab>
       </div>
       <motion.div
-        className='overviewFabDiv'
+        className='overviewFabDiv buttonText'
         animate={openOverview ? { x: -460 } : { x: 0 }}
         transition={{ duration: 0.5 }}
       >
@@ -144,7 +140,7 @@ export const SplitTheCost: React.FC = () => {
           )}
         </Fab>
       </motion.div>
-      <OverviewGrid
+      <Overview
         users={users}
         curUser={curUser}
         entries={entries}

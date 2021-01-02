@@ -21,6 +21,18 @@ interface Props {
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
 }
 
+export function deleteUser(
+  user: User,
+  users: User[],
+  setUsers: React.Dispatch<React.SetStateAction<User[]>>,
+  setEntries: React.Dispatch<React.SetStateAction<Entry[]>>
+) {
+  // Delete user from user state.
+  setUsers(users.filter((cur) => user !== cur));
+  // Delete all entries associated with user from user state.
+  setEntries((entries) => entries.filter((entry) => entry.createdBy !== user));
+}
+
 export const UsersBar: React.FC<Props> = ({
   users,
   curUser,
@@ -33,15 +45,6 @@ export const UsersBar: React.FC<Props> = ({
 
   function openAddUserDialog() {
     setOpenAddUser(true);
-  }
-
-  function deleteUser(user: User) {
-    // Delete user from user state.
-    setUsers(users.filter((cur) => user !== cur));
-    // Delete all entries associated with user from user state.
-    setEntries((entries) =>
-      entries.filter((entry) => entry.createdBy !== user)
-    );
   }
 
   return (
@@ -74,7 +77,11 @@ export const UsersBar: React.FC<Props> = ({
                 </Avatar>
               }
               label={`${user.firstName} ${user.lastName}`}
-              onDelete={user === curUser ? undefined : () => deleteUser(user)}
+              onDelete={
+                user === curUser
+                  ? undefined
+                  : () => deleteUser(user, users, setUsers, setEntries)
+              }
               key={user.id}
             />
           </Tooltip>

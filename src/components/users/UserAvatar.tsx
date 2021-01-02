@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Avatar, Tooltip } from "@material-ui/core";
 import { User } from "../../models/models";
+import { useState } from "react";
 
 interface Props {
   user: User;
@@ -18,6 +19,8 @@ interface Props {
     | "top-end"
     | "top-start"
     | undefined;
+  iconOnHover?: JSX.Element;
+  onClick?: () => void;
 }
 
 const colors = [
@@ -38,19 +41,40 @@ export function getAvatarColor(user: User): string {
   return colors[Math.abs(h % colors.length)];
 }
 
-export const UserAvatar: React.FC<Props> = ({ user, tooltipPlacement }) => {
+export const UserAvatar: React.FC<Props> = ({
+  user,
+  tooltipPlacement,
+  iconOnHover,
+  onClick,
+}) => {
+  const [showIcon, setShowIcon] = useState(false);
+
+  function onHover() {
+    if (!!iconOnHover) {
+      setShowIcon(true);
+    }
+  }
+
+  function onLeave() {
+    if (!!iconOnHover) {
+      setShowIcon(false);
+    }
+  }
+
   return (
-    <Tooltip
-      arrow
-      title={`${user.firstName} ${user.lastName}`}
-      placement={tooltipPlacement}
-    >
-      <Avatar
-        className='avatar'
-        style={{ backgroundColor: getAvatarColor(user) }}
+    <span onMouseEnter={onHover} onMouseLeave={onLeave} onClick={onClick}>
+      <Tooltip
+        arrow
+        title={`${user.firstName} ${user.lastName}`}
+        placement={tooltipPlacement}
       >
-        {user.initials}
-      </Avatar>
-    </Tooltip>
+        <Avatar
+          className='avatar'
+          style={{ backgroundColor: getAvatarColor(user) }}
+        >
+          {showIcon ? iconOnHover : user.initials}
+        </Avatar>
+      </Tooltip>
+    </span>
   );
 };

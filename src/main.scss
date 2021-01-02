@@ -97,6 +97,10 @@ input::-webkit-inner-spin-button {
   border-radius: 0px 0px 15px 15px;
 }
 
+.buttonText {
+  font-weight: bold !important;
+}
+
 // ---------------- HEADER ----------------
 
 .header {
@@ -237,6 +241,19 @@ input::-webkit-inner-spin-button {
 
 // ---------------- OVERVIEW GRID ----------------
 
+.overview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 18px 20px 18px;
+  border-radius: 20px;
+  background-color: $overviewDialogColor;
+  position: fixed;
+  top: $headerHeight + $usersBarHeight + 15;
+  right: 20px;
+  width: 400px;
+}
+
 .overviewHeader {
   border-radius: 15px 15px 0px 0px;
   background-color: $gridHeaderColor;
@@ -252,20 +269,15 @@ input::-webkit-inner-spin-button {
   right: 20px;
 }
 
-.overview {
-  padding: 20px;
-  border-radius: 15px;
-  background-color: $overviewDialogColor;
-  position: fixed;
-  top: $headerHeight + $usersBarHeight + 15;
-  right: 20px;
-  width: 400px;
-}
-
 .overviewRowDiv {
   height: $entryHeight;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.5s;
+}
+
+.breakdownButton {
+  margin-top: 20px !important;
+  border-radius: 15px !important;
 }

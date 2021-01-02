@@ -9,11 +9,7 @@ interface Props {
   curUser: User;
 }
 
-export const EntriesGrid: React.FC<Props> = ({
-  entries,
-  setEntries,
-  curUser,
-}) => {
+export const Entries: React.FC<Props> = ({ entries, setEntries, curUser }) => {
   return (
     <div className='entryGridDiv'>
       <EntriesHeader />

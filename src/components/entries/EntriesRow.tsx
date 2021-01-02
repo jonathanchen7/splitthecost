@@ -7,6 +7,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { Entry, User } from "../../models/models";
 import NumberFormat from "react-number-format";
 import { UserAvatar } from "../users/UserAvatar";
+import { deleteUser } from "../users/UsersBar";
 
 interface Props {
   entry: Entry;
@@ -27,6 +28,23 @@ export const EntriesRow: React.FC<Props> = ({
 
   function deleteEntry() {
     setEntries(entries.filter((cur) => entry !== cur));
+  }
+
+  function removeExcludedUser(
+    user: User,
+    entry: Entry,
+    setEntries: React.Dispatch<React.SetStateAction<Entry[]>>
+  ) {
+    const userIdx = entry.exclude.indexOf(user);
+    if (userIdx !== -1) {
+      let excludeCopy = [...entry.exclude];
+      excludeCopy.splice(userIdx, 1);
+      const entriesCopy: Entry[] = [...entries];
+      const updatedEntry: Entry = { ...entry, exclude: excludeCopy };
+      entriesCopy[entries.indexOf(entry)] = updatedEntry;
+
+      setEntries(entriesCopy);
+    }
   }
 
   function updateItemState(
@@ -95,7 +113,7 @@ export const EntriesRow: React.FC<Props> = ({
           />
           {showDelete && (
             <IconButton
-              className='largeIconButton smallRightMargin'
+              className='largeIconButton rightMargin'
               onClick={deleteEntry}
             >
               <DeleteIcon />
@@ -122,9 +140,16 @@ export const EntriesRow: React.FC<Props> = ({
       </Grid>
       <Grid item xs={2}>
         <div className='entryDiv'>
-          {entry.exclude?.map((user) => (
+          {entry.exclude.map((user) => (
             <span className='smallLeftMargin' key={user.id}>
-              <UserAvatar user={user} tooltipPlacement='top' />
+              <UserAvatar
+                user={user}
+                tooltipPlacement='top'
+                iconOnHover={<DeleteIcon />}
+                onClick={() => {
+                  removeExcludedUser(user, entry, setEntries);
+                }}
+              />
             </span>
           ))}
           <IconButton className='largeIconButton smallLeftMargin'>
