@@ -57,7 +57,7 @@ const emma: User = {
 const entry1: Entry = {
   id: "fakeid1",
   item: "Hydroflask",
-  cost: 35.99,
+  cost: 20,
   note: "keeps ur water cold",
   exclude: [abigail],
   createdBy: jonathan,
@@ -66,9 +66,9 @@ const entry1: Entry = {
 const entry2: Entry = {
   id: "fakeid2",
   item: "canoe",
-  cost: 65.95,
+  cost: 50,
   note: "issa boat",
-  exclude: [mom, dad],
+  exclude: [mom],
   createdBy: abigail,
 };
 

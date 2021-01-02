@@ -20,10 +20,9 @@ export interface OverviewData {
   [userId: string]: { totalSpent: number; totalOwed: number };
 }
 
-export interface BreakdownData {
-  [userId: string]: {
-    totalSpent: number;
-    totalOwed: number;
-    userBreakdown: [number][number];
-  };
+export interface UserBreakdownData {
+  user: User;
+  totalSpent: number;
+  totalOwed: number;
+  userBreakdown: { [userId: string]: { youOwe: number; theyOwe: number } };
 }

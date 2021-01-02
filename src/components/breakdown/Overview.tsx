@@ -6,7 +6,10 @@ import { OverviewRow } from "./OverviewRow";
 import { AnimatePresence, motion } from "framer-motion";
 import ReceiptRoundedIcon from "@material-ui/icons/ReceiptRounded";
 import { Button } from "@material-ui/core";
-import { calculateOverview } from "../../actions/actions";
+import {
+  calculateOverview,
+  calculateUserBreakdown,
+} from "../../actions/actions";
 
 interface Props {
   users: User[];
@@ -51,6 +54,7 @@ export const Overview: React.FC<Props> = ({
             variant='contained'
             color='primary'
             startIcon={<ReceiptRoundedIcon />}
+            onClick={() => calculateUserBreakdown(curUser, entries, users)}
           >
             <span className='buttonText'>Breakdown</span>
           </Button>
