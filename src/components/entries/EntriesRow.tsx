@@ -7,7 +7,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { Entry, User } from "../../models/models";
 import NumberFormat from "react-number-format";
 import { UserAvatar } from "../users/UserAvatar";
-import { deleteUser } from "../users/UsersBar";
+import { removeExcludedUser, deleteEntry } from "../../actions/actions";
 
 interface Props {
   entry: Entry;
@@ -26,32 +26,11 @@ export const EntriesRow: React.FC<Props> = ({
   const [itemVal, setItemVal] = useState(entry.item);
   const [noteVal, setNoteVal] = useState(entry.note);
 
-  function deleteEntry() {
-    setEntries(entries.filter((cur) => entry !== cur));
-  }
-
-  function removeExcludedUser(
-    user: User,
-    entry: Entry,
-    setEntries: React.Dispatch<React.SetStateAction<Entry[]>>
-  ) {
-    const userIdx = entry.exclude.indexOf(user);
-    if (userIdx !== -1) {
-      let excludeCopy = [...entry.exclude];
-      excludeCopy.splice(userIdx, 1);
-      const entriesCopy: Entry[] = [...entries];
-      const updatedEntry: Entry = { ...entry, exclude: excludeCopy };
-      entriesCopy[entries.indexOf(entry)] = updatedEntry;
-
-      setEntries(entriesCopy);
-    }
-  }
-
   function updateItemState(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void {
-    const entriesCopy: Entry[] = [...entries];
     const updatedEntry: Entry = { ...entry, item: e.target.value };
+    const entriesCopy: Entry[] = [...entries];
     entriesCopy[entries.indexOf(entry)] = updatedEntry;
 
     setEntries(entriesCopy);
@@ -60,8 +39,8 @@ export const EntriesRow: React.FC<Props> = ({
   function updateCostState(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void {
-    const entriesCopy: Entry[] = [...entries];
     const updatedEntry: Entry = { ...entry, cost: Number(e.target.value) };
+    const entriesCopy: Entry[] = [...entries];
     entriesCopy[entries.indexOf(entry)] = updatedEntry;
     setEntries(entriesCopy);
   }
@@ -69,8 +48,8 @@ export const EntriesRow: React.FC<Props> = ({
   function updateNoteState(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void {
-    const entriesCopy: Entry[] = [...entries];
     const updatedEntry: Entry = { ...entry, note: e.target.value };
+    const entriesCopy: Entry[] = [...entries];
     entriesCopy[entries.indexOf(entry)] = updatedEntry;
 
     setEntries(entriesCopy);
@@ -114,7 +93,7 @@ export const EntriesRow: React.FC<Props> = ({
           {showDelete && (
             <IconButton
               className='largeIconButton rightMargin'
-              onClick={deleteEntry}
+              onClick={() => deleteEntry(entry, setEntries)}
             >
               <DeleteIcon />
             </IconButton>

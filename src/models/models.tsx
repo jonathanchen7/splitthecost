@@ -15,3 +15,7 @@ export interface Entry {
   createdBy: User;
   note: string;
 }
+
+export interface OverviewData {
+  [userId: string]: { totalSpent: number; totalOwed: number };
+}

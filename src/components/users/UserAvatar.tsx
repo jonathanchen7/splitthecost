@@ -33,7 +33,7 @@ const colors = [
   "#2c3e50",
 ];
 
-export function getAvatarColor(user: User): string {
+export default function getAvatarColor(user: User): string {
   var h = 0,
     l = user.email.length,
     i = 0;

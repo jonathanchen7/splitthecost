@@ -35,7 +35,7 @@ export const OverviewRow: React.FC<Props> = ({ user, users, data }) => {
           className='entryInput'
           disableUnderline={true}
           fullWidth={true}
-          value={data?.totalSpent}
+          value={data?.totalSpent.toFixed(2)}
           startAdornment={<InputAdornment position='start'>$</InputAdornment>}
         />
       </Grid>
@@ -51,7 +51,7 @@ export const OverviewRow: React.FC<Props> = ({ user, users, data }) => {
           className='entryInput'
           disableUnderline={true}
           fullWidth={true}
-          value={data?.totalOwed}
+          value={data?.totalOwed.toFixed(2)}
           startAdornment={<InputAdornment position='start'>$</InputAdornment>}
         />
       </Grid>

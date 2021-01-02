@@ -1,15 +1,12 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { Entry, User } from "../../models/models";
+import { Entry, User, OverviewData } from "../../models/models";
 import { OverviewHeader } from "./OverviewHeader";
 import { OverviewRow } from "./OverviewRow";
 import { AnimatePresence, motion } from "framer-motion";
 import ReceiptRoundedIcon from "@material-ui/icons/ReceiptRounded";
 import { Button } from "@material-ui/core";
-
-interface BreakdownData {
-  [userId: string]: { totalSpent: number; totalOwed: number };
-}
+import { calculateOverview } from "../../actions/actions";
 
 interface Props {
   users: User[];
@@ -24,30 +21,10 @@ export const Overview: React.FC<Props> = ({
   entries,
   open,
 }) => {
-  const [breakdownData, setBreakdownData] = useState<BreakdownData>({});
+  const [overviewData, setOverviewData] = useState<OverviewData>({});
 
   useEffect(() => {
-    let tempData: BreakdownData = {};
-
-    // Create entries for each user.
-    users.forEach((user) => {
-      tempData[user.id] = { totalSpent: 0, totalOwed: 0 };
-    });
-
-    entries.forEach((entry) => {
-      tempData[entry.createdBy.id].totalSpent += entry.cost;
-
-      const includedUsers = users.filter(
-        (user) => !entry.exclude.includes(user)
-      );
-      const userCost = entry.cost / includedUsers.length;
-
-      includedUsers.forEach((user) => {
-        tempData[user.id].totalOwed += userCost;
-      });
-    });
-
-    setBreakdownData(tempData);
+    setOverviewData(calculateOverview(entries, users));
   }, [users, entries]);
 
   return (
@@ -65,7 +42,7 @@ export const Overview: React.FC<Props> = ({
             <OverviewRow
               user={user}
               users={users}
-              data={breakdownData[user.id]}
+              data={overviewData[user.id]}
               key={user.id}
             />
           ))}

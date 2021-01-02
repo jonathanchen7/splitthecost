@@ -9,28 +9,17 @@ import {
 } from "@material-ui/core";
 import { Entry, User } from "../../models/models";
 import { AddUserDialog } from "./AddUserDialog";
-import { getAvatarColor } from "../users/UserAvatar";
+import getAvatarColor from "../users/UserAvatar";
 import PeopleIcon from "@material-ui/icons/People";
 import AddIcon from "@material-ui/icons/Add";
 import { useState } from "react";
+import { deleteUser } from "../../actions/actions";
 
 interface Props {
   users: User[];
   curUser: User;
   setUsers: React.Dispatch<React.SetStateAction<User[]>>;
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
-}
-
-export function deleteUser(
-  user: User,
-  users: User[],
-  setUsers: React.Dispatch<React.SetStateAction<User[]>>,
-  setEntries: React.Dispatch<React.SetStateAction<Entry[]>>
-) {
-  // Delete user from user state.
-  setUsers(users.filter((cur) => user !== cur));
-  // Delete all entries associated with user from user state.
-  setEntries((entries) => entries.filter((entry) => entry.createdBy !== user));
 }
 
 export const UsersBar: React.FC<Props> = ({
