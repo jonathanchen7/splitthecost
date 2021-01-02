@@ -277,7 +277,39 @@ input::-webkit-inner-spin-button {
   transition: all 0.5s;
 }
 
-.breakdownButton {
+.sideDialogButton {
   margin-top: 20px !important;
   border-radius: 15px !important;
+}
+
+// ---------------- BREAKDOWN GRID ----------------
+
+.breakdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 18px 20px 18px;
+  border-radius: 20px;
+  background-color: $overviewDialogColor;
+  position: fixed;
+  top: $headerHeight + $usersBarHeight + 15;
+  right: 20px;
+  width: 400px;
+}
+
+.breakdownHeader {
+  border-radius: 15px 15px 0px 0px;
+  background-color: $gridHeaderColor;
+  height: $entryHeaderHeight;
+  display: flex;
+  align-items: center;
+}
+
+.breakdownRowDiv {
+  height: $entryHeight;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s;
 }

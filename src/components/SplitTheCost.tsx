@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "../App.css";
 import { Entry, User } from "../models/models";
-import { Overview } from "./breakdown/Overview";
+import { Overview } from "./overview/Overview";
 import { Entries } from "./entries/Entries";
 import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
@@ -12,6 +12,7 @@ import ArrowForwardRoundedIcon from "@material-ui/icons/ArrowForwardRounded";
 import AddIcon from "@material-ui/icons/Add";
 import { Fab } from "@material-ui/core";
 import { motion } from "framer-motion";
+import { Breakdown } from "./breakdown/Breakdown";
 
 const jonathan: User = {
   id: uuidv4(),
@@ -86,7 +87,8 @@ export const SplitTheCost: React.FC = () => {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [curUser, setCurUser] = useState<User>(jonathan);
 
-  const [openOverview, setOpenOverview] = useState(true);
+  const [toggleOverview, setToggleOverview] = useState(true);
+  const [toggleBreakdown, setToggleBreakdown] = useState(false);
 
   useEffect(() => {
     setUsers([jonathan, abigail, mom, dad, emma]);
@@ -108,7 +110,7 @@ export const SplitTheCost: React.FC = () => {
   }
 
   function handleOpen() {
-    setOpenOverview(!openOverview);
+    setToggleOverview(!toggleOverview);
   }
 
   return (
@@ -129,11 +131,11 @@ export const SplitTheCost: React.FC = () => {
       </div>
       <motion.div
         className='overviewFabDiv buttonText'
-        animate={openOverview ? { x: -460 } : { x: 0 }}
+        animate={toggleOverview ? { x: -460 } : { x: 0 }}
         transition={{ duration: 0.5 }}
       >
         <Fab variant='extended' size='medium' onClick={handleOpen}>
-          {openOverview ? (
+          {toggleOverview ? (
             <ArrowForwardRoundedIcon />
           ) : (
             <ArrowBackRoundedIcon />
@@ -144,7 +146,17 @@ export const SplitTheCost: React.FC = () => {
         users={users}
         curUser={curUser}
         entries={entries}
-        open={openOverview}
+        open={toggleOverview}
+        setToggleOverview={setToggleOverview}
+        setToggleBreakdown={setToggleBreakdown}
+      />
+      <Breakdown
+        users={users}
+        curUser={curUser}
+        entries={entries}
+        open={toggleBreakdown}
+        setToggleOverview={setToggleOverview}
+        setToggleBreakdown={setToggleBreakdown}
       />
     </div>
   );

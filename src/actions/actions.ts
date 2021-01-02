@@ -110,5 +110,5 @@ export function calculateUserBreakdown(
     }
   });
 
-  console.log(breakdownData);
+  return breakdownData;
 }

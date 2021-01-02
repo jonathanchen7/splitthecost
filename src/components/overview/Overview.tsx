@@ -6,16 +6,15 @@ import { OverviewRow } from "./OverviewRow";
 import { AnimatePresence, motion } from "framer-motion";
 import ReceiptRoundedIcon from "@material-ui/icons/ReceiptRounded";
 import { Button } from "@material-ui/core";
-import {
-  calculateOverview,
-  calculateUserBreakdown,
-} from "../../actions/actions";
+import { calculateOverview } from "../../actions/actions";
 
 interface Props {
   users: User[];
   curUser: User;
   entries: Entry[];
   open: boolean;
+  setToggleOverview: React.Dispatch<React.SetStateAction<boolean>>;
+  setToggleBreakdown: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const Overview: React.FC<Props> = ({
@@ -23,12 +22,19 @@ export const Overview: React.FC<Props> = ({
   curUser,
   entries,
   open,
+  setToggleOverview,
+  setToggleBreakdown,
 }) => {
   const [overviewData, setOverviewData] = useState<OverviewData>({});
 
   useEffect(() => {
     setOverviewData(calculateOverview(entries, users));
   }, [users, entries]);
+
+  function toggleBreakdown() {
+    setToggleBreakdown(true);
+    setToggleOverview(false);
+  }
 
   return (
     <AnimatePresence>
@@ -50,11 +56,11 @@ export const Overview: React.FC<Props> = ({
             />
           ))}
           <Button
-            className='breakdownButton'
+            className='sideDialogButton'
             variant='contained'
             color='primary'
             startIcon={<ReceiptRoundedIcon />}
-            onClick={() => calculateUserBreakdown(curUser, entries, users)}
+            onClick={toggleBreakdown}
           >
             <span className='buttonText'>Breakdown</span>
           </Button>

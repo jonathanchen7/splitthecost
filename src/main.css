@@ -303,8 +303,59 @@ input::-webkit-inner-spin-button {
   transition: all 0.5s;
 }
 
-.breakdownButton {
+.sideDialogButton {
   margin-top: 20px !important;
   border-radius: 15px !important;
+}
+
+.breakdown {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 20px 18px 20px 18px;
+  border-radius: 20px;
+  background-color: #dfdfdf;
+  position: fixed;
+  top: 125px;
+  right: 20px;
+  width: 400px;
+}
+
+.breakdownHeader {
+  border-radius: 15px 15px 0px 0px;
+  background-color: #c9c9c9;
+  height: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.breakdownRowDiv {
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 /*# sourceMappingURL=main.css.map */
