@@ -5,10 +5,10 @@ export const OverviewHeader: React.FC = () => {
   return (
     <Grid className='overviewHeader' container spacing={0}>
       <Grid item xs={6}>
-        <span className='gridHeaderText'>SPENT</span>
+        <span className='gridHeaderText'>TOTAL SPENT</span>
       </Grid>
       <Grid item xs={6}>
-        <span className='gridHeaderText'>OWED</span>
+        <span className='gridHeaderText'>TOTAL OWED</span>
       </Grid>
     </Grid>
   );

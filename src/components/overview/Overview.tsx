@@ -46,6 +46,7 @@ export const Overview: React.FC<Props> = ({
           exit={{ x: 600, opacity: 0 }}
           transition={{ duration: 0.5 }}
         >
+          <h1>Overview</h1>
           <OverviewHeader />
           {users.map((user) => (
             <OverviewRow

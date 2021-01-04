@@ -131,7 +131,7 @@ export const SplitTheCost: React.FC = () => {
       </div>
       <motion.div
         className='overviewFabDiv buttonText'
-        animate={toggleOverview ? { x: -460 } : { x: 0 }}
+        animate={toggleOverview ? { x: -430 } : { x: 0 }}
         transition={{ duration: 0.5 }}
       >
         <Fab variant='extended' size='medium' onClick={handleOpen}>

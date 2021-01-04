@@ -15,12 +15,12 @@ $entryHeight: 50px;
 
 $defaultIconColor: #c4c4c4;
 $headerColor: #377cab;
-$usersBarColor: #f6f6f6;
+$usersBarColor: #ffffff;
 $gridHeaderColor: #c9c9c9;
 $gridDarkColor: #dedede;
 $gridLightColor: #f6f6f6;
 $gridHighlightColor: rgba(41, 128, 185, 0.35);
-$overviewDialogColor: #dfdfdf;
+$overviewDialogColor: #eaeaea;
 
 // ---------------- GENERAL ----------------
 
@@ -244,14 +244,20 @@ input::-webkit-inner-spin-button {
 .overview {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px 18px 20px 18px;
+  align-items: flex-start;
+  padding: 20px 30px 30px 30px;
   border-radius: 20px;
   background-color: $overviewDialogColor;
   position: fixed;
   top: $headerHeight + $usersBarHeight + 15;
   right: 20px;
-  width: 400px;
+  width: 350px;
+  box-shadow: 5px 5px 15px #5b5b5baa;
+
+  h1 {
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
 }
 
 .overviewHeader {
@@ -278,7 +284,7 @@ input::-webkit-inner-spin-button {
 }
 
 .sideDialogButton {
-  margin-top: 20px !important;
+  margin-top: 25px !important;
   border-radius: 15px !important;
 }
 
@@ -288,13 +294,13 @@ input::-webkit-inner-spin-button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 18px 20px 18px;
+  padding: 25px 20px 25px 20px;
   border-radius: 20px;
   background-color: $overviewDialogColor;
   position: fixed;
   top: $headerHeight + $usersBarHeight + 15;
   right: 20px;
-  width: 400px;
+  width: 350px;
 }
 
 .breakdownHeader {

@@ -16,7 +16,7 @@ export const EntriesHeader: React.FC<Props> = (props) => {
         <span className='gridHeaderText'>EXCLUDE</span>
       </Grid>
       <Grid item xs={6}>
-        <span className='gridHeaderText'>NOTES</span>
+        <span className='gridHeaderText'>NOTE</span>
       </Grid>
     </Grid>
   );

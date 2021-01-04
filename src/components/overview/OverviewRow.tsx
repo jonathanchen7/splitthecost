@@ -21,10 +21,11 @@ export const OverviewRow: React.FC<Props> = ({ user, users, data }) => {
       spacing={0}
     >
       <Grid className='overviewRowDiv' item xs={6}>
-        <span className='leftMargin'>
+        <span className='leftMargin smallRightMargin'>
           <UserAvatar user={user} tooltipPlacement='left' />
         </span>
         <Input
+          className='entryInput'
           readOnly={true}
           inputComponent={NumberFormat as any}
           inputProps={{
@@ -32,7 +33,6 @@ export const OverviewRow: React.FC<Props> = ({ user, users, data }) => {
             allowNegative: false,
             thousandSeparator: ",",
           }}
-          className='entryInput'
           disableUnderline={true}
           fullWidth={true}
           value={data?.totalSpent.toFixed(2)}
