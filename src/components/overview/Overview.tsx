@@ -12,61 +12,26 @@ interface Props {
   users: User[];
   curUser: User;
   entries: Entry[];
-  open: boolean;
-  setToggleOverview: React.Dispatch<React.SetStateAction<boolean>>;
-  setToggleBreakdown: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const Overview: React.FC<Props> = ({
-  users,
-  curUser,
-  entries,
-  open,
-  setToggleOverview,
-  setToggleBreakdown,
-}) => {
+export const Overview: React.FC<Props> = ({ users, curUser, entries }) => {
   const [overviewData, setOverviewData] = useState<OverviewData>({});
 
   useEffect(() => {
     setOverviewData(calculateOverview(entries, users));
   }, [users, entries]);
 
-  function toggleBreakdown() {
-    setToggleBreakdown(true);
-    setToggleOverview(false);
-  }
-
   return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          className='overview'
-          animate={{ x: 0, opacity: 1 }}
-          initial={{ x: 600, opacity: 0 }}
-          exit={{ x: 600, opacity: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h1>Overview</h1>
-          <OverviewHeader />
-          {users.map((user) => (
-            <OverviewRow
-              user={user}
-              users={users}
-              data={overviewData[user.id]}
-              key={user.id}
-            />
-          ))}
-          <Button
-            className='sideDialogButton'
-            variant='contained'
-            color='primary'
-            startIcon={<ReceiptRoundedIcon />}
-            onClick={toggleBreakdown}
-          >
-            <span className='buttonText'>Breakdown</span>
-          </Button>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div className='overview'>
+      <OverviewHeader />
+      {users.map((user) => (
+        <OverviewRow
+          user={user}
+          users={users}
+          data={overviewData[user.id]}
+          key={user.id}
+        />
+      ))}
+    </div>
   );
 };

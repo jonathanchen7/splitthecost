@@ -9,10 +9,13 @@ import { UsersBar } from "./users/UsersBar";
 import { v4 as uuidv4 } from "uuid";
 import ArrowBackRoundedIcon from "@material-ui/icons/ArrowBackRounded";
 import ArrowForwardRoundedIcon from "@material-ui/icons/ArrowForwardRounded";
+import ReceiptRoundedIcon from "@material-ui/icons/ReceiptRounded";
 import AddIcon from "@material-ui/icons/Add";
-import { Fab } from "@material-ui/core";
-import { motion } from "framer-motion";
+import { AppBar, Button, Fab, Tabs, Tab } from "@material-ui/core";
+import { AnimatePresence, motion } from "framer-motion";
 import { Breakdown } from "./breakdown/Breakdown";
+import { addEntry } from "../actions/actions";
+import { TabContext, TabPanel } from "@material-ui/lab";
 
 const jonathan: User = {
   id: uuidv4(),
@@ -87,8 +90,8 @@ export const SplitTheCost: React.FC = () => {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [curUser, setCurUser] = useState<User>(jonathan);
 
-  const [toggleOverview, setToggleOverview] = useState(true);
-  const [toggleBreakdown, setToggleBreakdown] = useState(false);
+  const [toggleDialog, setToggleDialog] = useState(true);
+  const [value, setValue] = useState("overview");
 
   useEffect(() => {
     setUsers([jonathan, abigail, mom, dad, emma]);
@@ -96,21 +99,12 @@ export const SplitTheCost: React.FC = () => {
     setCurUser(jonathan);
   }, []);
 
-  function addItem() {
-    const newItem: Entry = {
-      id: uuidv4(),
-      item: "",
-      cost: 0,
-      exclude: [],
-      note: "",
-      createdBy: curUser,
-    };
-    setEntries((entries) => [...entries, newItem]);
-    curUser.entries.push(newItem.id);
+  function handleOpen() {
+    setToggleDialog(!toggleDialog);
   }
 
-  function handleOpen() {
-    setToggleOverview(!toggleOverview);
+  function handleChange(event: React.ChangeEvent<{}>, value: string) {
+    setValue(value);
   }
 
   return (
@@ -124,40 +118,63 @@ export const SplitTheCost: React.FC = () => {
       />
       <Entries entries={entries} setEntries={setEntries} curUser={curUser} />
       <div className='addItemFabDiv'>
-        <Fab variant='extended' size='medium' onClick={addItem}>
+        <Fab
+          variant='extended'
+          size='medium'
+          onClick={() => addEntry(curUser, setEntries)}
+        >
           <AddIcon />
           <span className='buttonText'>Add Item</span>
         </Fab>
       </div>
       <motion.div
         className='overviewFabDiv buttonText'
-        animate={toggleOverview ? { x: -430 } : { x: 0 }}
+        animate={toggleDialog ? { x: -430 } : { x: 0 }}
         transition={{ duration: 0.5 }}
       >
         <Fab variant='extended' size='medium' onClick={handleOpen}>
-          {toggleOverview ? (
+          {toggleDialog ? (
             <ArrowForwardRoundedIcon />
           ) : (
             <ArrowBackRoundedIcon />
           )}
         </Fab>
       </motion.div>
-      <Overview
-        users={users}
-        curUser={curUser}
-        entries={entries}
-        open={toggleOverview}
-        setToggleOverview={setToggleOverview}
-        setToggleBreakdown={setToggleBreakdown}
-      />
-      <Breakdown
-        users={users}
-        curUser={curUser}
-        entries={entries}
-        open={toggleBreakdown}
-        setToggleOverview={setToggleOverview}
-        setToggleBreakdown={setToggleBreakdown}
-      />
+      <AnimatePresence>
+        {toggleDialog && (
+          <motion.div
+            className='sideDialog'
+            animate={{ x: 0, opacity: 1 }}
+            initial={{ x: 600, opacity: 0 }}
+            exit={{ x: 600, opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <TabContext value={value}>
+              <Tabs
+                className='tabs'
+                value={value}
+                onChange={handleChange}
+                variant='fullWidth'
+                indicatorColor='primary'
+                textColor='primary'
+              >
+                <Tab className='dialogTab' value='overview' label='OVERVIEW' />
+                <Tab
+                  className='dialogTab'
+                  value='breakdown'
+                  label='BREAKDOWN'
+                />
+              </Tabs>
+              <TabPanel className='overview' value={"overview"}>
+                <Overview users={users} entries={entries} curUser={curUser} />
+              </TabPanel>
+              <TabPanel className='breakdown' value={"breakdown"}>
+                <Breakdown users={users} entries={entries} curUser={curUser} />
+              </TabPanel>
+            </TabContext>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

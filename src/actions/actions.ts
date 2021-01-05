@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import { Entry, OverviewData, User, UserBreakdownData } from "../models/models";
 
 // Removes an user from an entry's excluded user list (if it is excluded).
@@ -31,6 +32,22 @@ export function deleteUser(
   setUsers(users.filter((cur) => user !== cur));
   // Delete all entries associated with user from user state.
   setEntries((entries) => entries.filter((entry) => entry.createdBy !== user));
+}
+
+export function addEntry(
+  curUser: User,
+  setEntries: React.Dispatch<React.SetStateAction<Entry[]>>
+) {
+  const newItem: Entry = {
+    id: uuidv4(),
+    item: "",
+    cost: 0,
+    exclude: [],
+    note: "",
+    createdBy: curUser,
+  };
+  setEntries((entries) => [...entries, newItem]);
+  curUser.entries.push(newItem.id);
 }
 
 // Deletes a single entry.
