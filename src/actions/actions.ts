@@ -21,6 +21,27 @@ export function removeExcludedUser(
   }
 }
 
+// Adds a new user.
+export function addUser(
+  firstName: string,
+  lastName: string,
+  email: string,
+  setUsers: React.Dispatch<React.SetStateAction<User[]>>
+): void {
+  // Input is valid! Add new user.
+  const newUser: User = {
+    id: uuidv4(),
+    firstName: firstName,
+    lastName: lastName,
+    initials: `${firstName.charAt(0).toLocaleUpperCase()}${lastName
+      .charAt(0)
+      .toLocaleUpperCase()}`,
+    email: email,
+    entries: [],
+  };
+  setUsers((users) => [...users, newUser]);
+}
+
 // Deletes a user and all of its entries.
 export function deleteUser(
   user: User,
@@ -34,6 +55,7 @@ export function deleteUser(
   setEntries((entries) => entries.filter((entry) => entry.createdBy !== user));
 }
 
+// Adds a new entry.
 export function addEntry(
   curUser: User,
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>

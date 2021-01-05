@@ -13,7 +13,7 @@ import { User } from "../../models/models";
 import { useState } from "react";
 import Grow from "@material-ui/core/Grow";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
-import { v4 as uuidv4 } from "uuid";
+import { addUser } from "../../actions/actions";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -72,7 +72,7 @@ export const AddUserDialog: React.FC<Props> = ({ setUsers, open, setOpen }) => {
     );
   }
 
-  function addUser() {
+  function confirmAddUser() {
     // Validate first name, last name, and email.
     const temp1 = validateName(firstNameVal);
     const temp2 = validateName(lastNameVal);
@@ -88,18 +88,7 @@ export const AddUserDialog: React.FC<Props> = ({ setUsers, open, setOpen }) => {
 
     if (!temp1 || !temp2 || !temp3) return;
 
-    // Input is valid! Add new user.
-    const tempUser: User = {
-      id: uuidv4(),
-      firstName: firstNameVal,
-      lastName: lastNameVal,
-      initials: `${firstNameVal
-        .charAt(0)
-        .toLocaleUpperCase()}${lastNameVal.charAt(0).toLocaleUpperCase()}`,
-      email: emailVal,
-      entries: [],
-    };
-    setUsers((users) => [...users, tempUser]);
+    addUser(firstNameVal, lastNameVal, emailVal, setUsers);
 
     resetDialog();
     setOpen(false);
@@ -149,7 +138,7 @@ export const AddUserDialog: React.FC<Props> = ({ setUsers, open, setOpen }) => {
         <IconButton onClick={handleClose}>
           <CloseIcon />
         </IconButton>
-        <IconButton onClick={addUser}>
+        <IconButton onClick={confirmAddUser}>
           <DoneIcon />
         </IconButton>
       </DialogActions>

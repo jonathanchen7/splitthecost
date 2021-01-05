@@ -10,7 +10,7 @@ import {
 import { Entry, User } from "../../models/models";
 import { AddUserDialog } from "./AddUserDialog";
 import getAvatarColor from "../users/UserAvatar";
-import PeopleIcon from "@material-ui/icons/People";
+import SettingsIcon from "@material-ui/icons/Settings";
 import AddIcon from "@material-ui/icons/Add";
 import { useState } from "react";
 import { deleteUser } from "../../actions/actions";
@@ -39,20 +39,13 @@ export const UsersBar: React.FC<Props> = ({
   return (
     <Grid className='usersBar' container spacing={0}>
       <Grid className='usersBarItem' item xs={12}>
-        <Badge
-          className='leftMargin'
-          badgeContent={users.length}
-          color='primary'
-          overlap='circle'
+        <IconButton
+          className='smallIconButton leftMargin'
+          size='small'
+          onClick={openUsersDialog}
         >
-          <IconButton
-            className='smallIconButton'
-            size='small'
-            onClick={openUsersDialog}
-          >
-            <PeopleIcon fontSize='small' />
-          </IconButton>
-        </Badge>
+          <SettingsIcon />
+        </IconButton>
         {users.map((user) => (
           <Tooltip arrow title={user.email} placement='top'>
             <Chip
