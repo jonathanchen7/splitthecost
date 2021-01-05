@@ -1,8 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Entry, User, UserBreakdownData } from "../../models/models";
-import ReceiptRoundedIcon from "@material-ui/icons/ReceiptRounded";
-import { Button } from "@material-ui/core";
 import { calculateUserBreakdown } from "../../actions/actions";
 import { BreakdownHeader } from "./BreakdownHeader";
 import { BreakdownRow } from "./BreakdownRow";
@@ -21,7 +19,7 @@ export const Breakdown: React.FC<Props> = ({ users, curUser, entries }) => {
   }, [curUser, users, entries]);
 
   return (
-    <div className='breakdown'>
+    <div>
       <BreakdownHeader />
       {users.map(
         (user) =>

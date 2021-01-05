@@ -20,10 +20,12 @@ export const OverviewRow: React.FC<Props> = ({ user, users, data }) => {
       container
       spacing={0}
     >
-      <Grid className='overviewRowDiv' item xs={6}>
-        <span className='leftMargin smallRightMargin'>
+      <Grid className='overviewRowDiv' item xs={2}>
+        <span className='leftMargin'>
           <UserAvatar user={user} tooltipPlacement='left' />
         </span>
+      </Grid>
+      <Grid className='overviewRowDiv' item xs={5}>
         <Input
           className='entryInput'
           readOnly={true}
@@ -39,7 +41,7 @@ export const OverviewRow: React.FC<Props> = ({ user, users, data }) => {
           startAdornment={<InputAdornment position='start'>$</InputAdornment>}
         />
       </Grid>
-      <Grid className='overviewRowDiv' item xs={6}>
+      <Grid className='overviewRowDiv' item xs={5}>
         <Input
           readOnly={true}
           inputComponent={NumberFormat as any}

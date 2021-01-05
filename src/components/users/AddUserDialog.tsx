@@ -113,7 +113,7 @@ export const AddUserDialog: React.FC<Props> = ({ setUsers, open, setOpen }) => {
       open={open}
       TransitionComponent={Transition}
     >
-      <DialogTitle>Add User </DialogTitle>
+      <DialogTitle className='dialogTitle'>Add User </DialogTitle>
       <DialogContent>
         <div className='dialogNames'>
           <TextField
@@ -146,10 +146,10 @@ export const AddUserDialog: React.FC<Props> = ({ setUsers, open, setOpen }) => {
         />
       </DialogContent>
       <DialogActions>
-        <IconButton className='actionIcon' onClick={handleClose}>
+        <IconButton onClick={handleClose}>
           <CloseIcon />
         </IconButton>
-        <IconButton className='actionIcon' onClick={addUser}>
+        <IconButton onClick={addUser}>
           <DoneIcon />
         </IconButton>
       </DialogActions>

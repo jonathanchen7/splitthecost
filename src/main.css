@@ -131,6 +131,11 @@ input::-webkit-inner-spin-button {
   font-weight: bold;
 }
 
+.dialogTitle {
+  padding-bottom: 0px !important;
+  margin-bottom: -5px !important;
+}
+
 .dialogNames {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -138,6 +143,7 @@ input::-webkit-inner-spin-button {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  margin-bottom: 15px;
 }
 
 .halfWidthInput {
@@ -278,6 +284,8 @@ input::-webkit-inner-spin-button {
 .dialogTab {
   color: black;
   font-weight: bold !important;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 .dialogTab:hover {
@@ -289,7 +297,8 @@ input::-webkit-inner-spin-button {
 }
 
 .overview {
-  padding: 0px 10px 10px 10px !important;
+  width: 350px;
+  padding: 0px 15px 15px 15px !important;
 }
 
 .overviewHeader {
@@ -308,7 +317,7 @@ input::-webkit-inner-spin-button {
   font-weight: bold !important;
   position: fixed;
   top: 125px;
-  right: 30px;
+  right: 20px;
 }
 
 .overviewRowDiv {
@@ -329,6 +338,11 @@ input::-webkit-inner-spin-button {
 .dialogButton {
   margin-top: 20px !important;
   border-radius: 20px !important;
+}
+
+.breakdown {
+  width: 350px;
+  padding: 0px 15px 15px 15px !important;
 }
 
 .breakdownHeader {
@@ -360,5 +374,40 @@ input::-webkit-inner-spin-button {
           justify-content: center;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
+}
+
+.arrow {
+  font-size: 11px;
+  font-weight: bold;
+  height: 26px;
+  width: 75px;
+  line-height: 26px;
+  display: inline-block;
+  position: relative;
+}
+
+.arrow:after {
+  border-top: 13px solid transparent;
+  border-bottom: 13px solid transparent;
+  display: inline-block;
+  content: "";
+  position: absolute;
+  right: -13px;
+}
+
+.greenArrow {
+  background-color: #2ecc71;
+}
+
+.greenArrow:after {
+  border-left: 13px solid #2ecc71;
+}
+
+.redArrow {
+  background-color: #e74c3c;
+}
+
+.redArrow:after {
+  border-left: 13px solid #e74c3c;
 }
 /*# sourceMappingURL=main.css.map */

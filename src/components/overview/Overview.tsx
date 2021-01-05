@@ -3,9 +3,6 @@ import { useEffect, useState } from "react";
 import { Entry, User, OverviewData } from "../../models/models";
 import { OverviewHeader } from "./OverviewHeader";
 import { OverviewRow } from "./OverviewRow";
-import { AnimatePresence, motion } from "framer-motion";
-import ReceiptRoundedIcon from "@material-ui/icons/ReceiptRounded";
-import { Button } from "@material-ui/core";
 import { calculateOverview } from "../../actions/actions";
 
 interface Props {
@@ -22,7 +19,7 @@ export const Overview: React.FC<Props> = ({ users, curUser, entries }) => {
   }, [users, entries]);
 
   return (
-    <div className='overview'>
+    <div>
       <OverviewHeader />
       {users.map((user) => (
         <OverviewRow
