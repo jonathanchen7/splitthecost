@@ -1,8 +1,8 @@
 import { Grid, Input, InputAdornment } from "@material-ui/core";
 import * as React from "react";
 import NumberFormat from "react-number-format";
-import { User } from "../../models/models";
-import { UserAvatar } from "../users/UserAvatar";
+import { User } from "../../../models/models";
+import { UserAvatar } from "../../users/UserAvatar";
 
 interface Props {
   curUser: User;
@@ -44,7 +44,7 @@ export const BreakdownRow: React.FC<Props> = ({
       </Grid>
       <Grid className='breakdownRowDiv' item xs={3}>
         <span>
-          <UserAvatar user={owedUser} tooltipPlacement='left' />
+          <UserAvatar user={owedUser} tooltipPlacement='top' />
         </span>
       </Grid>
       <Grid className='breakdownRowDiv' item xs={4}>

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { Entry, User, UserBreakdownData } from "../../models/models";
-import { calculateUserBreakdown } from "../../actions/actions";
+import { Entry, User, UserBreakdownData } from "../../../models/models";
+import { calculateUserBreakdown } from "../../../actions/actions";
 import { BreakdownHeader } from "./BreakdownHeader";
 import { BreakdownRow } from "./BreakdownRow";
 

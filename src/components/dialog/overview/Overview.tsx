@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { Entry, User, OverviewData } from "../../models/models";
+import { Entry, User, OverviewData } from "../../../models/models";
 import { OverviewHeader } from "./OverviewHeader";
 import { OverviewRow } from "./OverviewRow";
-import { calculateOverview } from "../../actions/actions";
+import { calculateOverview } from "../../../actions/actions";
 
 interface Props {
   users: User[];
