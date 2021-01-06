@@ -255,6 +255,37 @@ input::-webkit-inner-spin-button {
   left: 30px;
 }
 
+.excludeModalContent {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.excludeModalPaper {
+  margin-top: 10px;
+  padding: 0px 10px 5px 10px;
+  width: 45%;
+}
+
+.excludeModalPaperHeader {
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.excludeModalChip {
+  margin-bottom: 10px;
+}
+
 .modalInputRow {
   display: -webkit-box;
   display: -ms-flexbox;

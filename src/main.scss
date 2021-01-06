@@ -247,6 +247,31 @@ input::-webkit-inner-spin-button {
   left: 30px;
 }
 
+// ---------------- EXCLUDE USERS MODAL ----------------
+
+.excludeModalContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.excludeModalPaper {
+  margin-top: 10px;
+  padding: 0px 10px 5px 10px;
+  width: 45%;
+}
+
+.excludeModalPaperHeader {
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.excludeModalChip {
+  margin-bottom: 10px;
+}
+
 // ---------------- ADD ENTRY MODAL ----------------
 
 .modalInputRow {

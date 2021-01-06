@@ -1,6 +1,21 @@
 import { v4 as uuidv4 } from "uuid";
 import { Entry, OverviewData, User, UserBreakdownData } from "../models/models";
 
+export function setExcludedUsers(
+  entry: Entry,
+  users: User[],
+  newExcludedUsers: User[],
+  setEntries: React.Dispatch<React.SetStateAction<Entry[]>>
+): void {
+  let updatedEntry: Entry = { ...entry, exclude: newExcludedUsers };
+
+  setEntries((entries) => {
+    let entriesCopy = [...entries];
+    entriesCopy[entries.indexOf(entry)] = updatedEntry;
+    return entriesCopy;
+  });
+}
+
 // Removes an user from an entry's excluded user list (if it is excluded).
 export function removeExcludedUser(
   user: User,

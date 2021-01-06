@@ -46,7 +46,7 @@ export const AddEntryModal: React.FC<Props> = ({
   users,
   setEntries,
 }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [item, setItem] = useState("");
   const [cost, setCost] = useState(0);
   const [note, setNote] = useState("");

@@ -7,8 +7,6 @@ import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
 import { v4 as uuidv4 } from "uuid";
 
-import { Fab } from "@material-ui/core";
-import { addEntry } from "../actions/actions";
 import { SideDialog } from "./dialog/SideDialog";
 import { AddEntryModal } from "./entries/AddEntryModal";
 
@@ -100,7 +98,12 @@ export const SplitTheCost: React.FC = () => {
         setUsers={setUsers}
         setEntries={setEntries}
       />
-      <Entries entries={entries} setEntries={setEntries} curUser={curUser} />
+      <Entries
+        entries={entries}
+        users={users}
+        setEntries={setEntries}
+        curUser={curUser}
+      />
       <AddEntryModal curUser={curUser} users={users} setEntries={setEntries} />
 
       <SideDialog curUser={curUser} users={users} entries={entries} />

@@ -6,11 +6,17 @@ import { motion } from "framer-motion";
 
 interface Props {
   entries: Entry[];
+  users: User[];
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
   curUser: User;
 }
 
-export const Entries: React.FC<Props> = ({ entries, setEntries, curUser }) => {
+export const Entries: React.FC<Props> = ({
+  entries,
+  users,
+  setEntries,
+  curUser,
+}) => {
   return (
     <div className='entryGridDiv'>
       <EntriesHeader />
@@ -23,6 +29,7 @@ export const Entries: React.FC<Props> = ({ entries, setEntries, curUser }) => {
           <EntriesRow
             entry={entry}
             entries={entries}
+            users={users}
             setEntries={setEntries}
             curUser={curUser}
             key={entry.id}
