@@ -63,11 +63,7 @@ export const UserAvatar: React.FC<Props> = ({
 
   return (
     <span onMouseEnter={onHover} onMouseLeave={onLeave} onClick={onClick}>
-      <Tooltip
-        arrow
-        title={`${user.firstName} ${user.lastName}`}
-        placement={tooltipPlacement}
-      >
+      <Tooltip arrow title={user.displayName} placement={tooltipPlacement}>
         <Avatar
           className='avatar'
           style={{ backgroundColor: getAvatarColor(user) }}

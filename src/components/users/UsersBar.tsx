@@ -51,7 +51,7 @@ export const UsersBar: React.FC<Props> = ({
                   {user.initials}
                 </Avatar>
               }
-              label={`${user.firstName} ${user.lastName}`}
+              label={user.displayName}
               onDelete={
                 user === curUser
                   ? undefined

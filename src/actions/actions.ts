@@ -36,8 +36,8 @@ export function addUser(
     initials: `${firstName.charAt(0).toLocaleUpperCase()}${lastName
       .charAt(0)
       .toLocaleUpperCase()}`,
+    displayName: `${firstName} ${lastName}`,
     email: email,
-    entries: [],
   };
   setUsers((users) => [...users, newUser]);
 }
@@ -73,7 +73,6 @@ export function addEntry(
     createdBy: curUser,
   };
   setEntries((entries) => [...entries, newItem]);
-  curUser.entries.push(newItem.id);
 }
 
 // Deletes a single entry.

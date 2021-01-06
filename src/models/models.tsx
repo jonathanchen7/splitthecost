@@ -3,8 +3,8 @@ export interface User {
   firstName: string;
   lastName: string;
   initials: string;
+  displayName: string;
   email: string;
-  entries: string[];
 }
 
 export interface Entry {

@@ -1,13 +1,20 @@
 import * as React from "react";
 import {
+  Avatar,
+  Checkbox,
+  Chip,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Fab,
+  FormControl,
   IconButton,
   Input,
   InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
 } from "@material-ui/core";
 import DoneIcon from "@material-ui/icons/Done";
@@ -19,6 +26,7 @@ import { TransitionProps } from "@material-ui/core/transitions/transition";
 import { addEntry } from "../../actions/actions";
 import AddIcon from "@material-ui/icons/Add";
 import NumberFormat from "react-number-format";
+import getAvatarColor from "../users/UserAvatar";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -29,13 +37,18 @@ const Transition = React.forwardRef(function Transition(
 
 interface Props {
   curUser: User;
+  users: User[];
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
 }
 
-export const AddEntryModal: React.FC<Props> = ({ curUser, setEntries }) => {
+export const AddEntryModal: React.FC<Props> = ({
+  curUser,
+  users,
+  setEntries,
+}) => {
   const [open, setOpen] = useState(true);
   const [item, setItem] = useState("");
-  const [cost, setCost] = useState<number>();
+  const [cost, setCost] = useState(0);
   const [note, setNote] = useState("");
   const [excludedUsers, setExcludedUsers] = useState<User[]>([]);
 
@@ -44,7 +57,15 @@ export const AddEntryModal: React.FC<Props> = ({ curUser, setEntries }) => {
   }
 
   function handleClose() {
+    setItem("");
+    setCost(0);
+    setNote("");
+    setExcludedUsers([]);
     setOpen(false);
+  }
+
+  function handleChange(event: React.ChangeEvent<{ value: unknown }>) {
+    setExcludedUsers(event.target.value as User[]);
   }
 
   function confirmAddEntry() {
@@ -54,10 +75,9 @@ export const AddEntryModal: React.FC<Props> = ({ curUser, setEntries }) => {
 
   return (
     <div>
-      <div className='addItemFabDiv'></div>
       <Dialog
         fullWidth={true}
-        maxWidth='xs'
+        maxWidth='sm'
         onClose={handleClose}
         open={open}
         TransitionComponent={Transition}
@@ -87,11 +107,66 @@ export const AddEntryModal: React.FC<Props> = ({ curUser, setEntries }) => {
                 allowNegative: false,
               }}
               label='Cost'
-              value={cost}
+              value={cost?.toFixed(2)}
               onChange={(e) => setCost(Number(e.target.value))}
             />
           </div>
-          <TextField className='modalInputRow' fullWidth label='Exclude' />
+          <FormControl className='excludeUsersForm' fullWidth>
+            <InputLabel id='excludeUsersInput'>Excluded Users</InputLabel>
+            <Select
+              labelId='excludeUsersInput'
+              className='modalInputRow'
+              multiple
+              value={excludedUsers}
+              onChange={handleChange}
+              input={<Input />}
+              renderValue={(selected) => (
+                <div>
+                  {(selected as User[]).map((user) => (
+                    <Chip
+                      className='smallLeftMargin'
+                      avatar={
+                        <Avatar
+                          className='usersBarAvatar'
+                          style={{ backgroundColor: getAvatarColor(user) }}
+                        >
+                          {user.initials}
+                        </Avatar>
+                      }
+                      label={user.displayName}
+                      key={user.id}
+                    />
+                  ))}
+                </div>
+              )}
+            >
+              {users.map((user) => (
+                <MenuItem
+                  className='excludeUsersMenuItem'
+                  // @ts-ignore
+                  value={user}
+                  key={user.id}
+                >
+                  <Checkbox
+                    color='primary'
+                    checked={excludedUsers.includes(user)}
+                  />
+                  <Chip
+                    avatar={
+                      <Avatar
+                        className='usersBarAvatar'
+                        style={{ backgroundColor: getAvatarColor(user) }}
+                      >
+                        {user.initials}
+                      </Avatar>
+                    }
+                    label={user.displayName}
+                    key={user.id}
+                  />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <TextField
             className='modalInputRow'
             fullWidth

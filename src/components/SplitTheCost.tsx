@@ -17,8 +17,8 @@ const jonathan: User = {
   firstName: "Jonathan",
   lastName: "Chen",
   initials: "JC",
+  displayName: "Jonathan Chen",
   email: "jonathanschen28@gmail.com",
-  entries: ["fakeid1"],
 };
 const abigail: User = {
   id: uuidv4(),
@@ -26,31 +26,31 @@ const abigail: User = {
   lastName: "Chen",
   initials: "AC",
   email: "abigail.chen@live.com",
-  entries: ["fakeid2"],
+  displayName: "Abigail Chen",
 };
 const mom: User = {
   id: uuidv4(),
   firstName: "Christine",
   lastName: "Liu",
   initials: "CL",
+  displayName: "Christine Liu",
   email: "thechens28@gmail.com",
-  entries: [],
 };
 const dad: User = {
   id: uuidv4(),
   firstName: "Hongbo",
   lastName: "Chen",
   initials: "HC",
+  displayName: "Hongbo Chen",
   email: "bradchen28@gmail.com",
-  entries: [],
 };
 const emma: User = {
   id: uuidv4(),
   firstName: "Emma",
   lastName: "Hutcheson",
   initials: "EH",
+  displayName: "Emma Hutcheson",
   email: "emmahutch@hotmail.com",
-  entries: [],
 };
 
 const entry1: Entry = {
@@ -101,7 +101,7 @@ export const SplitTheCost: React.FC = () => {
         setEntries={setEntries}
       />
       <Entries entries={entries} setEntries={setEntries} curUser={curUser} />
-      <AddEntryModal curUser={curUser} setEntries={setEntries} />
+      <AddEntryModal curUser={curUser} users={users} setEntries={setEntries} />
 
       <SideDialog curUser={curUser} users={users} entries={entries} />
     </div>
