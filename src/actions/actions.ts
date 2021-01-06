@@ -58,14 +58,18 @@ export function deleteUser(
 // Adds a new entry.
 export function addEntry(
   curUser: User,
-  setEntries: React.Dispatch<React.SetStateAction<Entry[]>>
+  setEntries: React.Dispatch<React.SetStateAction<Entry[]>>,
+  item?: string,
+  cost?: number,
+  excludedUsers?: User[],
+  note?: string
 ) {
   const newItem: Entry = {
     id: uuidv4(),
-    item: "",
-    cost: 0,
-    exclude: [],
-    note: "",
+    item: !!item ? item : "",
+    cost: !!cost ? cost : 0,
+    exclude: !!excludedUsers ? excludedUsers : [],
+    note: !!note ? note : "",
     createdBy: curUser,
   };
   setEntries((entries) => [...entries, newItem]);

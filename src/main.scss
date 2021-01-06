@@ -19,7 +19,7 @@ $usersBarColor: #ffffff;
 $gridHeaderColor: #c9c9c9;
 $gridDarkColor: #dedede;
 $gridLightColor: #f6f6f6;
-$gridHighlightColor: rgba(41, 128, 185, 0.35);
+$gridHighlightColor: #377cab35;
 $overviewDialogColor: #eaeaea;
 $greenArrowColor: #2ecc71;
 $redArrowColor: #e74c3c;
@@ -160,7 +160,7 @@ input::-webkit-inner-spin-button {
 }
 
 .halfWidthInput {
-  width: 45%;
+  width: 45% !important;
 }
 
 .addUserButton {
@@ -245,6 +245,22 @@ input::-webkit-inner-spin-button {
   position: fixed;
   bottom: 30px;
   left: 30px;
+}
+
+// ---------------- ADD ENTRY MODAL ----------------
+
+.modalInputRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px !important;
+}
+
+.itemInput {
+  width: 60% !important;
+}
+
+.costInput {
+  width: 30% !important;
 }
 
 // ---------------- SIDE DIALOG ----------------

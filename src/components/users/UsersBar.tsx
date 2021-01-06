@@ -1,14 +1,7 @@
 import * as React from "react";
-import {
-  Avatar,
-  Badge,
-  Chip,
-  Grid,
-  IconButton,
-  Tooltip,
-} from "@material-ui/core";
+import { Avatar, Chip, Grid, IconButton, Tooltip } from "@material-ui/core";
 import { Entry, User } from "../../models/models";
-import { AddUserDialog } from "./AddUserDialog";
+import { AddUserModal } from "./AddUserModal";
 import getAvatarColor from "../users/UserAvatar";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AddIcon from "@material-ui/icons/Add";
@@ -78,7 +71,7 @@ export const UsersBar: React.FC<Props> = ({
           </IconButton>
         </Tooltip>
         <span className='leftMargin'>
-          <AddUserDialog
+          <AddUserModal
             open={openAddUser}
             setOpen={setOpenAddUser}
             setUsers={setUsers}

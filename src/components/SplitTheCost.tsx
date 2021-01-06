@@ -6,10 +6,11 @@ import { Entries } from "./entries/Entries";
 import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
 import { v4 as uuidv4 } from "uuid";
-import AddIcon from "@material-ui/icons/Add";
+
 import { Fab } from "@material-ui/core";
 import { addEntry } from "../actions/actions";
 import { SideDialog } from "./dialog/SideDialog";
+import { AddEntryModal } from "./entries/AddEntryModal";
 
 const jonathan: User = {
   id: uuidv4(),
@@ -100,16 +101,8 @@ export const SplitTheCost: React.FC = () => {
         setEntries={setEntries}
       />
       <Entries entries={entries} setEntries={setEntries} curUser={curUser} />
-      <div className='addItemFabDiv'>
-        <Fab
-          variant='extended'
-          size='medium'
-          onClick={() => addEntry(curUser, setEntries)}
-        >
-          <AddIcon />
-          <span className='buttonText'>Add Item</span>
-        </Fab>
-      </div>
+      <AddEntryModal curUser={curUser} setEntries={setEntries} />
+
       <SideDialog curUser={curUser} users={users} entries={entries} />
     </div>
   );

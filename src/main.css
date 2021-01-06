@@ -147,7 +147,7 @@ input::-webkit-inner-spin-button {
 }
 
 .halfWidthInput {
-  width: 45%;
+  width: 45% !important;
 }
 
 .addUserButton {
@@ -207,11 +207,11 @@ input::-webkit-inner-spin-button {
 }
 
 .entryDiv:hover {
-  background: rgba(41, 128, 185, 0.35);
+  background: #377cab35;
 }
 
 .entryDiv:focus-within {
-  background: rgba(41, 128, 185, 0.35);
+  background: #377cab35;
 }
 
 .entryGridDiv {
@@ -253,6 +253,24 @@ input::-webkit-inner-spin-button {
   position: fixed;
   bottom: 30px;
   left: 30px;
+}
+
+.modalInputRow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 15px !important;
+}
+
+.itemInput {
+  width: 60% !important;
+}
+
+.costInput {
+  width: 30% !important;
 }
 
 .sideDialog {

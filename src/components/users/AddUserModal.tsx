@@ -28,7 +28,7 @@ interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const AddUserDialog: React.FC<Props> = ({ setUsers, open, setOpen }) => {
+export const AddUserModal: React.FC<Props> = ({ setUsers, open, setOpen }) => {
   const [firstNameVal, setFirstNameVal] = useState("");
   const [validFirstName, setValidFirstName] = useState(true);
   const [firstNameErrorText, setFirstNameErrorText] = useState("");
