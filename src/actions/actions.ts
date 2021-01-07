@@ -3,7 +3,6 @@ import { Entry, OverviewData, User, UserBreakdownData } from "../models/models";
 
 export function setExcludedUsers(
   entry: Entry,
-  users: User[],
   newExcludedUsers: User[],
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>
 ): void {
@@ -24,10 +23,9 @@ export function removeExcludedUser(
 ): void {
   const userIdx = entry.exclude.indexOf(user);
   if (userIdx !== -1) {
-    let excludeCopy = [...entry.exclude];
+    let excludeCopy = Array.from(entry.exclude);
     excludeCopy.splice(userIdx, 1);
     const updatedEntry: Entry = { ...entry, exclude: excludeCopy };
-
     setEntries((entries) => {
       let entriesCopy = [...entries];
       entriesCopy[entries.indexOf(entry)] = updatedEntry;
@@ -61,13 +59,25 @@ export function addUser(
 export function deleteUser(
   user: User,
   users: User[],
+  entries: Entry[],
   setUsers: React.Dispatch<React.SetStateAction<User[]>>,
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>
 ): void {
   // Delete user from user state.
   setUsers(users.filter((cur) => user !== cur));
   // Delete all entries associated with user from user state.
-  setEntries((entries) => entries.filter((entry) => entry.createdBy !== user));
+  let updatedEntries = entries.filter((entry) => entry.createdBy !== user);
+
+  // Removes user from excluded user lists.
+  updatedEntries.forEach((entry, idx) => {
+    if (entry.exclude.includes(user)) {
+      console.log(entry);
+      let newExcludedUsers = entry.exclude.filter((cur) => user !== cur);
+      let updatedEntry: Entry = { ...entry, exclude: newExcludedUsers };
+      updatedEntries[idx] = updatedEntry;
+    }
+  });
+  setEntries(updatedEntries);
 }
 
 // Adds a new entry.

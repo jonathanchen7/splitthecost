@@ -1,7 +1,7 @@
 import * as React from "react";
 import Grid from "@material-ui/core/Grid";
 import { useState } from "react";
-import { IconButton, Input, InputAdornment } from "@material-ui/core";
+import { Avatar, IconButton, Input, InputAdornment } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Entry, User } from "../../models/models";
 import NumberFormat from "react-number-format";
@@ -25,7 +25,10 @@ export const EntriesRow: React.FC<Props> = ({
   setEntries,
   curUser,
 }) => {
+  const numExcludeUsersDisplay = entry.createdBy === curUser ? 3 : 4;
+
   const [showDelete, setShowDelete] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
   const [itemVal, setItemVal] = useState(entry.item);
   const [noteVal, setNoteVal] = useState(entry.note);
   const [showExcludeUsersModal, setShowExcludeUsersModal] = useState(false);
@@ -59,15 +62,27 @@ export const EntriesRow: React.FC<Props> = ({
     setEntries(entriesCopy);
   }
 
-  function handleMouseOver(): void {
+  function mouseOverItem(): void {
     if (entry.createdBy === curUser) {
       setShowDelete(true);
     }
   }
 
-  function handleMouseLeave(): void {
+  function mouseLeaveItem(): void {
     if (entry.createdBy === curUser) {
       setShowDelete(false);
+    }
+  }
+
+  function mouseOverExclude(): void {
+    if (entry.createdBy === curUser) {
+      setShowEdit(true);
+    }
+  }
+
+  function mouseLeaveExclude(): void {
+    if (entry.createdBy === curUser) {
+      setShowEdit(false);
     }
   }
 
@@ -81,8 +96,8 @@ export const EntriesRow: React.FC<Props> = ({
         <Grid item xs={3}>
           <div
             className='entryDiv'
-            onMouseOver={handleMouseOver}
-            onMouseLeave={handleMouseLeave}
+            onMouseOver={mouseOverItem}
+            onMouseLeave={mouseLeaveItem}
           >
             <span className='leftMargin'>
               <UserAvatar user={entry.createdBy} tooltipPlacement='top' />
@@ -125,25 +140,50 @@ export const EntriesRow: React.FC<Props> = ({
           </div>
         </Grid>
         <Grid item xs={2}>
-          <div className='entryDiv'>
-            {entry.exclude.map((user) => (
-              <span className='smallLeftMargin' key={user.id}>
-                <UserAvatar
-                  user={user}
-                  tooltipPlacement='top'
-                  iconOnHover={<DeleteIcon />}
-                  onClick={() => {
-                    removeExcludedUser(user, entry, setEntries);
-                  }}
-                />
-              </span>
-            ))}
-            <IconButton
-              className='largeIconButton smallLeftMargin'
-              onClick={() => setShowExcludeUsersModal(true)}
-            >
-              <EditRoundedIcon />
-            </IconButton>
+          <div
+            className='entryDiv'
+            onMouseOver={mouseOverExclude}
+            onMouseLeave={mouseLeaveExclude}
+          >
+            {entry.exclude.map((user, idx) => {
+              if (
+                idx > numExcludeUsersDisplay &&
+                entry.exclude.length > numExcludeUsersDisplay
+              )
+                return null;
+
+              if (
+                idx === numExcludeUsersDisplay &&
+                entry.exclude.length > numExcludeUsersDisplay
+              ) {
+                return (
+                  <Avatar className='smallLeftMargin'>{`+${
+                    entry.exclude.length - numExcludeUsersDisplay
+                  }`}</Avatar>
+                );
+              } else {
+                return (
+                  <span className='smallLeftMargin' key={user.id}>
+                    <UserAvatar
+                      user={user}
+                      tooltipPlacement='top'
+                      iconOnHover={<DeleteIcon />}
+                      onClick={() => {
+                        removeExcludedUser(user, entry, setEntries);
+                      }}
+                    />
+                  </span>
+                );
+              }
+            })}
+            {showEdit && (
+              <IconButton
+                className='largeIconButton smallLeftMargin'
+                onClick={() => setShowExcludeUsersModal(true)}
+              >
+                <EditRoundedIcon />
+              </IconButton>
+            )}
           </div>
         </Grid>
         <Grid item xs={6}>
@@ -164,6 +204,7 @@ export const EntriesRow: React.FC<Props> = ({
         setOpen={setShowExcludeUsersModal}
         entry={entry}
         users={users}
+        entries={entries}
         setEntries={setEntries}
       />
     </div>

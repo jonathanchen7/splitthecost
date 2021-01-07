@@ -10,6 +10,7 @@ import { deleteUser } from "../../actions/actions";
 
 interface Props {
   users: User[];
+  entries: Entry[];
   curUser: User;
   setUsers: React.Dispatch<React.SetStateAction<User[]>>;
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
@@ -17,6 +18,7 @@ interface Props {
 
 export const UsersBar: React.FC<Props> = ({
   users,
+  entries,
   curUser,
   setUsers,
   setEntries,
@@ -55,7 +57,7 @@ export const UsersBar: React.FC<Props> = ({
               onDelete={
                 user === curUser
                   ? undefined
-                  : () => deleteUser(user, users, setUsers, setEntries)
+                  : () => deleteUser(user, users, entries, setUsers, setEntries)
               }
               key={user.id}
             />

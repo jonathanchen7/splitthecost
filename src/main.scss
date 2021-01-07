@@ -251,15 +251,17 @@ input::-webkit-inner-spin-button {
 
 .excludeModalContent {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   align-items: flex-start;
+  overflow: hidden !important;
 }
 
 .excludeModalPaper {
+  border-radius: 15px !important;
+  background-color: $gridLightColor !important;
   margin-top: 10px;
   padding: 0px 10px 5px 10px;
-  width: 45%;
+  width: 46%;
 }
 
 .excludeModalPaperHeader {

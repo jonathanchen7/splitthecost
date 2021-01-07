@@ -259,21 +259,21 @@ input::-webkit-inner-spin-button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  overflow: hidden !important;
 }
 
 .excludeModalPaper {
+  border-radius: 15px !important;
+  background-color: #f6f6f6 !important;
   margin-top: 10px;
   padding: 0px 10px 5px 10px;
-  width: 45%;
+  width: 46%;
 }
 
 .excludeModalPaperHeader {

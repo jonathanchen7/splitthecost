@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { SideDialog } from "./dialog/SideDialog";
 import { AddEntryModal } from "./entries/AddEntryModal";
+import { addUser } from "../actions/actions";
 
 const jonathan: User = {
   id: uuidv4(),
@@ -87,6 +88,7 @@ export const SplitTheCost: React.FC = () => {
     setUsers([jonathan, abigail, mom, dad, emma]);
     setEntries([entry1, entry2, entry3]);
     setCurUser(jonathan);
+    addUser("test", "testtest", "test@gmail.com", setUsers);
   }, []);
 
   return (
@@ -94,6 +96,7 @@ export const SplitTheCost: React.FC = () => {
       <Header curUser={curUser} />
       <UsersBar
         users={users}
+        entries={entries}
         curUser={curUser}
         setUsers={setUsers}
         setEntries={setEntries}

@@ -12,7 +12,7 @@ import {
 import DoneIcon from "@material-ui/icons/Done";
 import CloseIcon from "@material-ui/icons/Close";
 import { Entry, User } from "../../models/models";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Grow from "@material-ui/core/Grow";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import { setExcludedUsers } from "../../actions/actions";
@@ -36,6 +36,7 @@ interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   entry: Entry;
   users: User[];
+  entries: Entry[];
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
 }
 
@@ -44,6 +45,7 @@ export const ExcludedUsersModal: React.FC<Props> = ({
   setOpen,
   entry,
   users,
+  entries,
   setEntries,
 }) => {
   const [newIncludedUsers, setNewIncludedUsers] = useState<User[]>(
@@ -53,12 +55,20 @@ export const ExcludedUsersModal: React.FC<Props> = ({
     entry.exclude
   );
 
+  useEffect(() => {
+    setNewIncludedUsers(users.filter((user) => !entry.exclude.includes(user)));
+    setNewExcludedUsers(entry.exclude);
+  }, [users, entry, entries]);
+
   function handleClose() {
     setOpen(false);
   }
 
   function confirmExcludeUsers() {
-    setExcludedUsers(entry, users, newExcludedUsers, setEntries);
+    if (entry.exclude !== newExcludedUsers) {
+      setExcludedUsers(entry, newExcludedUsers, setEntries);
+    }
+
     handleClose();
   }
 
@@ -109,13 +119,13 @@ export const ExcludedUsersModal: React.FC<Props> = ({
   return (
     <Dialog
       fullWidth={true}
-      maxWidth='sm'
+      maxWidth='md'
       onClose={handleClose}
       open={open}
       TransitionComponent={Transition}
     >
       <DialogTitle className='dialogTitle'>
-        EXCLUDE USERS - {`${entry.item.toLocaleUpperCase()}`}
+        Exclude Users | <b>{`${entry.item}`}</b>
       </DialogTitle>
       <DialogContent className='excludeModalContent'>
         <DragDropContext onDragEnd={onDragEnd}>
