@@ -2,11 +2,10 @@ import * as React from "react";
 import { Avatar, Chip, Grid, IconButton, Tooltip } from "@material-ui/core";
 import { Entry, User } from "../../models/models";
 import { AddUserModal } from "./AddUserModal";
-import getAvatarColor from "../users/UserAvatar";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AddIcon from "@material-ui/icons/Add";
 import { useState } from "react";
-import { deleteUser } from "../../actions/actions";
+import { deleteUser, getAvatarColor } from "../../actions/actions";
 
 interface Props {
   users: User[];
@@ -42,7 +41,7 @@ export const UsersBar: React.FC<Props> = ({
           <SettingsIcon />
         </IconButton>
         {users.map((user) => (
-          <Tooltip arrow title={user.email} placement='top'>
+          <Tooltip arrow title={user.email} placement='top' key={user.id}>
             <Chip
               className='usersBarChip leftMargin'
               avatar={

@@ -94,11 +94,6 @@ input::-webkit-inner-spin-button {
   font-weight: bold;
 }
 
-.logo {
-  margin-left: 10px;
-  height: 40px;
-}
-
 .profileItem {
   -webkit-box-pack: end;
       -ms-flex-pack: end;

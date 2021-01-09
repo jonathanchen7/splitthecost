@@ -117,11 +117,6 @@ input::-webkit-inner-spin-button {
   font-weight: bold;
 }
 
-.logo {
-  margin-left: 10px;
-  height: $headerHeight - $headerMargins;
-}
-
 .profileItem {
   justify-content: flex-end;
 }
@@ -330,7 +325,7 @@ input::-webkit-inner-spin-button {
   }
 }
 
-// ---------------- OVERVIEW/BREAKDOWN DIALOG ----------------
+// ---------------- SIDE DIALOG CONTENT ----------------
 
 .sideDialogContent {
   width: 350px;

@@ -26,7 +26,7 @@ import { TransitionProps } from "@material-ui/core/transitions/transition";
 import { addEntry } from "../../actions/actions";
 import AddIcon from "@material-ui/icons/Add";
 import NumberFormat from "react-number-format";
-import getAvatarColor from "../users/UserAvatar";
+import { getAvatarColor } from "../../actions/actions";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },

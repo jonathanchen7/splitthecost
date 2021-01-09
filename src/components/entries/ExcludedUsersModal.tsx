@@ -15,8 +15,8 @@ import { Entry, User } from "../../models/models";
 import { useEffect, useState } from "react";
 import Grow from "@material-ui/core/Grow";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
-import { setExcludedUsers } from "../../actions/actions";
-import getAvatarColor from "../users/UserAvatar";
+import { setExcludedUsers, getAvatarColor } from "../../actions/actions";
+
 import {
   DragDropContext,
   Draggable,

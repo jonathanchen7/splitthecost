@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { Entry, OverviewData, User, UserBreakdownData } from "../models/models";
 
+// Updates an entry's list of excluded users.
 export function setExcludedUsers(
   entry: Entry,
   newExcludedUsers: User[],
@@ -71,7 +72,6 @@ export function deleteUser(
   // Removes user from excluded user lists.
   updatedEntries.forEach((entry, idx) => {
     if (entry.exclude.includes(user)) {
-      console.log(entry);
       let newExcludedUsers = entry.exclude.filter((cur) => user !== cur);
       let updatedEntry: Entry = { ...entry, exclude: newExcludedUsers };
       updatedEntries[idx] = updatedEntry;
@@ -136,6 +136,26 @@ export function calculateOverview(
   return overviewData;
 }
 
+// "Calculates" an avatar's color.
+export function getAvatarColor(user: User): string {
+  const colors = [
+    "#1abc9c",
+    "#f1c40f",
+    "#f39c12",
+    "#c0392b",
+    "#2980b9",
+    "#8e44ad",
+    "#2c3e50",
+  ];
+
+  var h = 0,
+    l = user.email.length,
+    i = 0;
+  if (l > 0) while (i < l) h = ((h << 5) - h + user.email.charCodeAt(i++)) | 0;
+  return colors[Math.abs(h % colors.length)];
+}
+
+// Calculates and returns the breakdown data.
 export function calculateUserBreakdown(
   user: User,
   entries: Entry[],
