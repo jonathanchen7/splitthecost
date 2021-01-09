@@ -30,7 +30,7 @@ export const SideDialog: React.FC<Props> = ({ curUser, users, entries }) => {
   return (
     <div>
       <motion.div
-        className='overviewFabDiv buttonText'
+        className='sideDialogFab buttonText'
         animate={open ? { x: -430 } : { x: 0 }}
         transition={{ duration: 0.5 }}
       >
@@ -63,10 +63,10 @@ export const SideDialog: React.FC<Props> = ({ curUser, users, entries }) => {
                   label='BREAKDOWN'
                 />
               </Tabs>
-              <TabPanel className='overview' value={"overview"}>
+              <TabPanel className='sideDialogContent' value={"overview"}>
                 <Overview users={users} entries={entries} curUser={curUser} />
               </TabPanel>
-              <TabPanel className='breakdown' value={"breakdown"}>
+              <TabPanel className='sideDialogContent' value={"breakdown"}>
                 <Breakdown users={users} entries={entries} curUser={curUser} />
               </TabPanel>
             </TabContext>

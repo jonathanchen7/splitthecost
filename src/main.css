@@ -325,13 +325,15 @@ input::-webkit-inner-spin-button {
   position: fixed;
   top: 125px;
   right: 25px;
-  width: 380px;
   -webkit-box-shadow: 5px 5px 15px #5b5b5baa;
           box-shadow: 5px 5px 15px #5b5b5baa;
 }
 
-.tabs {
-  margin-bottom: 15px;
+.sideDialogFab {
+  font-weight: bold !important;
+  position: fixed;
+  top: 125px;
+  right: 20px;
 }
 
 .dialogTab {
@@ -349,12 +351,12 @@ input::-webkit-inner-spin-button {
   color: #377cab !important;
 }
 
-.overview {
+.sideDialogContent {
   width: 350px;
-  padding: 0px 15px 15px 15px !important;
+  padding: 15px !important;
 }
 
-.overviewHeader {
+.sideDialogHeader {
   border-radius: 15px 15px 0px 0px;
   background-color: #c9c9c9;
   height: 35px;
@@ -366,59 +368,11 @@ input::-webkit-inner-spin-button {
           align-items: center;
 }
 
-.overviewFabDiv {
-  font-weight: bold !important;
-  position: fixed;
-  top: 125px;
-  right: 20px;
-}
-
-.overviewRowDiv {
+.sideDialogRow {
   height: 50px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-}
-
-.dialogButton {
-  margin-top: 20px !important;
-  border-radius: 20px !important;
-}
-
-.breakdown {
-  width: 350px;
-  padding: 0px 15px 15px 15px !important;
-}
-
-.breakdownHeader {
-  border-radius: 15px 15px 0px 0px;
-  background-color: #c9c9c9;
-  height: 35px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.breakdownRowDiv {
-  height: 50px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;

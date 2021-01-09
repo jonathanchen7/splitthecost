@@ -30,24 +30,24 @@ export const BreakdownRow: React.FC<Props> = ({
       container
       spacing={0}
     >
-      <Grid className='breakdownRowDiv' item xs={2}>
+      <Grid className='sideDialogRow' item xs={2}>
         <span className='leftMargin'>
           <UserAvatar user={debtedUser} tooltipPlacement='left' />
         </span>
       </Grid>
-      <Grid className='breakdownRowDiv' item xs={3}>
+      <Grid className='sideDialogRow' item xs={3}>
         <div className={`arrow ${netCost < 0 ? "redArrow" : "greenArrow"}`}>
           <span className='leftMargin'>
             {netCost < 0 ? "YOU OWE" : "OWES YOU"}
           </span>
         </div>
       </Grid>
-      <Grid className='breakdownRowDiv' item xs={3}>
+      <Grid className='sideDialogRow' item xs={3}>
         <span>
           <UserAvatar user={owedUser} tooltipPlacement='top' />
         </span>
       </Grid>
-      <Grid className='breakdownRowDiv' item xs={4}>
+      <Grid className='sideDialogRow' item xs={4}>
         <Input
           readOnly={true}
           inputComponent={NumberFormat as any}
@@ -62,7 +62,6 @@ export const BreakdownRow: React.FC<Props> = ({
           value={Math.abs(netCost).toFixed(2)}
           startAdornment={<InputAdornment position='start'>$</InputAdornment>}
         />
-        <span className='leftMargin'></span>
       </Grid>
     </Grid>
   );
