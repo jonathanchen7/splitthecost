@@ -24,61 +24,62 @@ export const UsersBar: React.FC<Props> = ({
 }) => {
   const [openAddUser, setOpenAddUser] = useState(false);
 
-  function openUsersDialog() {}
+  function openSettingsModal() {
+    setOpenAddUser(true);
+  }
 
-  function openAddUserDialog() {
+  function openAddUserModal() {
     setOpenAddUser(true);
   }
 
   return (
-    <Grid className='usersBar' container spacing={0}>
-      <Grid className='usersBarItem' item xs={12}>
-        <IconButton
-          className='smallIconButton leftMargin'
-          size='small'
-          onClick={openUsersDialog}
-        >
-          <SettingsIcon />
-        </IconButton>
-        {users.map((user) => (
-          <Tooltip arrow title={user.email} placement='top' key={user.id}>
-            <Chip
-              className='usersBarChip leftMargin'
-              avatar={
-                <Avatar
-                  className='usersBarAvatar'
-                  style={{ backgroundColor: getAvatarColor(user) }}
-                >
-                  {user.initials}
-                </Avatar>
-              }
-              label={user.displayName}
-              onDelete={
-                user === curUser
-                  ? undefined
-                  : () => deleteUser(user, users, entries, setUsers, setEntries)
-              }
-              key={user.id}
-            />
-          </Tooltip>
-        ))}
-        <Tooltip arrow title='Add User' placement='right'>
+    <div>
+      <Grid className='usersBar' container spacing={0}>
+        <Grid item xs={12}>
           <IconButton
-            className='smallIconButton leftMargin'
-            size='small'
-            onClick={openAddUserDialog}
+            className='iconButton smallIconButton leftMargin'
+            onClick={openSettingsModal}
           >
-            <AddIcon fontSize='small' />
+            <SettingsIcon />
           </IconButton>
-        </Tooltip>
-        <span className='leftMargin'>
-          <AddUserModal
-            open={openAddUser}
-            setOpen={setOpenAddUser}
-            setUsers={setUsers}
-          />
-        </span>
+          {users.map((user) => (
+            <Tooltip arrow title={user.email} placement='top' key={user.id}>
+              <Chip
+                className='usersBarChip leftMargin'
+                avatar={
+                  <Avatar
+                    className='usersBarAvatar'
+                    style={{ backgroundColor: getAvatarColor(user) }}
+                  >
+                    {user.initials}
+                  </Avatar>
+                }
+                label={user.displayName}
+                onDelete={
+                  user === curUser
+                    ? undefined
+                    : () =>
+                        deleteUser(user, users, entries, setUsers, setEntries)
+                }
+                key={user.id}
+              />
+            </Tooltip>
+          ))}
+          <Tooltip arrow title='Add User' placement='right'>
+            <IconButton
+              className='iconButton smallIconButton leftMargin'
+              onClick={openAddUserModal}
+            >
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+        </Grid>
       </Grid>
-    </Grid>
+      <AddUserModal
+        open={openAddUser}
+        setOpen={setOpenAddUser}
+        setUsers={setUsers}
+      />
+    </div>
   );
 };

@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
   Avatar,
+  Button,
   Chip,
   Dialog,
   DialogActions,
@@ -127,7 +128,7 @@ export const ExcludedUsersModal: React.FC<Props> = ({
       <DialogTitle className='dialogTitle'>
         Exclude Users | <b>{`${entry.item}`}</b>
       </DialogTitle>
-      <DialogContent className='excludeModalContent'>
+      <DialogContent className='modalContent excludeModalContent' dividers>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId={"includeDroppable"}>
             {(provided) => (
@@ -201,13 +202,16 @@ export const ExcludedUsersModal: React.FC<Props> = ({
           </Droppable>
         </DragDropContext>
       </DialogContent>
-      <DialogActions>
-        <IconButton onClick={handleClose}>
-          <CloseIcon />
-        </IconButton>
-        <IconButton onClick={confirmExcludeUsers}>
-          <DoneIcon />
-        </IconButton>
+      <DialogActions className='modalActions'>
+        <Button className='modalCancelButton rightMargin' onClick={handleClose}>
+          Cancel
+        </Button>
+        <Button
+          className='modalConfirmButton rightMargin'
+          onClick={confirmExcludeUsers}
+        >
+          Confirm
+        </Button>
       </DialogActions>
     </Dialog>
   );

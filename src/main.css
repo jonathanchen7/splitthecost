@@ -1,51 +1,3 @@
-.avatar {
-  background-color: #c4c4c4;
-  height: 40px !important;
-  width: 40px !important;
-  color: white;
-  font-size: 20px !important;
-  font-weight: bold;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-
-.avatar:hover {
-  background: rgba(0, 0, 0, 0.35);
-  cursor: pointer;
-}
-
-.smallIconButton {
-  background-color: #c4c4c4 !important;
-  height: 33px;
-  width: 33px;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-
-.smallIconButton:hover {
-  background: rgba(0, 0, 0, 0.35) !important;
-  cursor: pointer;
-}
-
-.largeIconButton {
-  background-color: #c4c4c4 !important;
-  height: 40px;
-  width: 40px;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-
-.largeIconButton:hover {
-  background: rgba(0, 0, 0, 0.2) !important;
-  cursor: pointer;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 .smallLeftMargin {
   margin-left: 5px !important;
 }
@@ -62,6 +14,60 @@ input::-webkit-inner-spin-button {
   margin-right: 10px !important;
 }
 
+.iconButton {
+  background-color: #c4c4c4 !important;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.iconButton:hover {
+  background-color: rgba(0, 0, 0, 0.35) !important;
+  cursor: pointer;
+}
+
+.smallIconButton {
+  height: 33px;
+  width: 33px;
+}
+
+.largeIconButton {
+  height: 40px;
+  width: 40px;
+}
+
+.modalConfirmButton {
+  color: white !important;
+  background-color: #377cab !important;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.modalConfirmButton:hover {
+  background-color: #5f8ba9 !important;
+}
+
+.avatar {
+  background-color: #c4c4c4;
+  height: 40px !important;
+  width: 40px !important;
+  color: white;
+  font-size: 20px !important;
+  font-weight: bold;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.avatar:hover {
+  background: rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .oddIdx {
   background-color: #f6f6f6;
 }
@@ -76,6 +82,35 @@ input::-webkit-inner-spin-button {
 
 .buttonText {
   font-weight: bold !important;
+}
+
+.modalTitle {
+  padding-top: 10px !important;
+  padding-bottom: 5px !important;
+}
+
+.modalContent {
+  padding-top: 10px !important;
+  padding-bottom: 25px !important;
+}
+
+.multiInputModalLine {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.halfWidthModalInput {
+  width: 45% !important;
+}
+
+.modalActions {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
 }
 
 .header {
@@ -108,15 +143,6 @@ input::-webkit-inner-spin-button {
   background-color: #ffffff;
 }
 
-.usersBarItem {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
 .usersBarChip {
   background-color: #c4c4c4 !important;
 }
@@ -124,25 +150,6 @@ input::-webkit-inner-spin-button {
 .usersBarAvatar {
   color: white !important;
   font-weight: bold;
-}
-
-.dialogTitle {
-  padding-bottom: 0px !important;
-  margin-bottom: -5px !important;
-}
-
-.dialogNames {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  margin-bottom: 15px;
-}
-
-.halfWidthInput {
-  width: 45% !important;
 }
 
 .addUserButton {

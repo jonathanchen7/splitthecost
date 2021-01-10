@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -102,11 +103,11 @@ export const AddUserModal: React.FC<Props> = ({ setUsers, open, setOpen }) => {
       open={open}
       TransitionComponent={Transition}
     >
-      <DialogTitle className='dialogTitle'>Add User </DialogTitle>
-      <DialogContent>
-        <div className='dialogNames'>
+      <DialogTitle className='modalTitle'>Add User</DialogTitle>
+      <DialogContent className='modalContent' dividers>
+        <div className='multiInputModalLine'>
           <TextField
-            className='halfWidthInput'
+            className='halfWidthModalInput'
             label='First Name'
             type='search'
             value={firstNameVal}
@@ -115,7 +116,7 @@ export const AddUserModal: React.FC<Props> = ({ setUsers, open, setOpen }) => {
             helperText={firstNameErrorText}
           />
           <TextField
-            className='halfWidthInput'
+            className='halfWidthModalInput'
             label='Last Name'
             type='search'
             value={lastNameVal}
@@ -134,13 +135,16 @@ export const AddUserModal: React.FC<Props> = ({ setUsers, open, setOpen }) => {
           helperText={emailErrorText}
         />
       </DialogContent>
-      <DialogActions>
-        <IconButton onClick={handleClose}>
-          <CloseIcon />
-        </IconButton>
-        <IconButton onClick={confirmAddUser}>
-          <DoneIcon />
-        </IconButton>
+      <DialogActions className='modalActions'>
+        <Button className='modalCancelButton rightMargin' onClick={handleClose}>
+          Cancel
+        </Button>
+        <Button
+          className='modalConfirmButton rightMargin'
+          onClick={confirmAddUser}
+        >
+          Confirm
+        </Button>
       </DialogActions>
     </Dialog>
   );

@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
   Avatar,
+  Button,
   Checkbox,
   Chip,
   Dialog,
@@ -82,8 +83,8 @@ export const AddEntryModal: React.FC<Props> = ({
         open={open}
         TransitionComponent={Transition}
       >
-        <DialogTitle className='dialogTitle'>Add Entry</DialogTitle>
-        <DialogContent>
+        <DialogTitle className='modalTitle'>Add Entry</DialogTitle>
+        <DialogContent className='modalContent' dividers>
           <div className='modalInputRow'>
             <TextField
               className='itemInput'
@@ -178,13 +179,19 @@ export const AddEntryModal: React.FC<Props> = ({
             onChange={(e) => setNote(e.target.value)}
           />
         </DialogContent>
-        <DialogActions>
-          <IconButton onClick={handleClose}>
-            <CloseIcon />
-          </IconButton>
-          <IconButton onClick={confirmAddEntry}>
-            <DoneIcon />
-          </IconButton>
+        <DialogActions className='modalActions'>
+          <Button
+            className='modalCancelButton rightMargin'
+            onClick={handleClose}
+          >
+            Cancel
+          </Button>
+          <Button
+            className='modalConfirmButton rightMargin'
+            onClick={confirmAddEntry}
+          >
+            Confirm
+          </Button>
         </DialogActions>
       </Dialog>
       <div className='addItemFabDiv'>

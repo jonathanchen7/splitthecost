@@ -112,7 +112,7 @@ export const EntriesRow: React.FC<Props> = ({
             />
             {showDelete && (
               <IconButton
-                className='largeIconButton rightMargin'
+                className='iconButton largeIconButton rightMargin'
                 onClick={() => deleteEntry(entry, setEntries)}
               >
                 <DeleteIcon />
@@ -178,7 +178,7 @@ export const EntriesRow: React.FC<Props> = ({
             })}
             {showEdit && (
               <IconButton
-                className='largeIconButton smallLeftMargin'
+                className='iconButton largeIconButton smallLeftMargin'
                 onClick={() => setShowExcludeUsersModal(true)}
               >
                 <EditRoundedIcon />

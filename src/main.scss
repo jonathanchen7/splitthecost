@@ -15,6 +15,7 @@ $entryHeight: 50px;
 
 $defaultIconColor: #c4c4c4;
 $headerColor: #377cab;
+$headerColorLight: #5f8ba9;
 $usersBarColor: #ffffff;
 $gridHeaderColor: #c9c9c9;
 $gridDarkColor: #dedede;
@@ -23,6 +24,56 @@ $gridHighlightColor: #377cab35;
 $overviewDialogColor: #eaeaea;
 $greenArrowColor: #2ecc71;
 $redArrowColor: #e74c3c;
+
+// ---------------- GENERAL - ALL ----------------
+
+.smallLeftMargin {
+  margin-left: $gridMarginSmall !important;
+}
+
+.leftMargin {
+  margin-left: $gridMargin !important;
+}
+
+.smallRightMargin {
+  margin-right: $gridMarginSmall !important;
+}
+
+.rightMargin {
+  margin-right: $gridMargin !important;
+}
+
+// ---------------- GENERAL - CLICKABLE ----------------
+
+.iconButton {
+  background-color: $defaultIconColor !important;
+  transition: 0.5s;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.35) !important;
+    cursor: pointer;
+  }
+}
+
+.smallIconButton {
+  height: $smallAvatarDiameter;
+  width: $smallAvatarDiameter;
+}
+
+.largeIconButton {
+  height: $avatarDiameter;
+  width: $avatarDiameter;
+}
+
+.modalConfirmButton {
+  color: white !important;
+  background-color: $headerColor !important;
+  transition: 0.5s;
+
+  &:hover {
+    background-color: $headerColorLight !important;
+  }
+}
 
 // ---------------- GENERAL ----------------
 
@@ -41,50 +92,10 @@ $redArrowColor: #e74c3c;
   }
 }
 
-.smallIconButton {
-  background-color: $defaultIconColor !important;
-  height: $smallAvatarDiameter;
-  width: $smallAvatarDiameter;
-  transition: 0.5s;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.35) !important;
-    cursor: pointer;
-  }
-}
-
-.largeIconButton {
-  background-color: $defaultIconColor !important;
-  height: $avatarDiameter;
-  width: $avatarDiameter;
-  transition: 0.5s;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.2) !important;
-    cursor: pointer;
-  }
-}
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-.smallLeftMargin {
-  margin-left: $gridMarginSmall !important;
-}
-
-.leftMargin {
-  margin-left: $gridMargin !important;
-}
-
-.smallRightMargin {
-  margin-right: $gridMarginSmall !important;
-}
-
-.rightMargin {
-  margin-right: $gridMargin !important;
 }
 
 .oddIdx {
@@ -101,6 +112,34 @@ input::-webkit-inner-spin-button {
 
 .buttonText {
   font-weight: bold !important;
+}
+
+// ---------------- GENERAL - MODAL ----------------
+
+.modalTitle {
+  padding-top: 10px !important;
+  padding-bottom: 5px !important;
+  // margin-bottom: -5px !important;
+}
+
+.modalContent {
+  padding-top: 10px !important;
+  padding-bottom: 25px !important;
+}
+
+.multiInputModalLine {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.halfWidthModalInput {
+  width: 45% !important;
+}
+
+.modalActions {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
 }
 
 // ---------------- HEADER ----------------
@@ -129,11 +168,6 @@ input::-webkit-inner-spin-button {
   background-color: $usersBarColor;
 }
 
-.usersBarItem {
-  display: flex;
-  align-items: center;
-}
-
 .usersBarChip {
   background-color: $defaultIconColor !important;
 }
@@ -141,21 +175,6 @@ input::-webkit-inner-spin-button {
 .usersBarAvatar {
   color: white !important;
   font-weight: bold;
-}
-
-.dialogTitle {
-  padding-bottom: 0px !important;
-  margin-bottom: -5px !important;
-}
-
-.dialogNames {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-}
-
-.halfWidthInput {
-  width: 45% !important;
 }
 
 .addUserButton {
