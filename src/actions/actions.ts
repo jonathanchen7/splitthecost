@@ -136,31 +136,12 @@ export function calculateOverview(
   return overviewData;
 }
 
-// "Calculates" an avatar's color.
-export function getAvatarColor(user: User): string {
-  const colors = [
-    "#1abc9c",
-    "#f1c40f",
-    "#f39c12",
-    "#c0392b",
-    "#2980b9",
-    "#8e44ad",
-    "#2c3e50",
-  ];
-
-  var h = 0,
-    l = user.email.length,
-    i = 0;
-  if (l > 0) while (i < l) h = ((h << 5) - h + user.email.charCodeAt(i++)) | 0;
-  return colors[Math.abs(h % colors.length)];
-}
-
 // Calculates and returns the breakdown data.
 export function calculateUserBreakdown(
   user: User,
   entries: Entry[],
   users: User[]
-) {
+): UserBreakdownData {
   let breakdownData: UserBreakdownData = {
     user: user,
     totalSpent: 0,
@@ -198,4 +179,23 @@ export function calculateUserBreakdown(
   });
 
   return breakdownData;
+}
+
+// "Calculates" an avatar's color.
+export function getAvatarColor(user: User): string {
+  const colors = [
+    "#1abc9c",
+    "#f1c40f",
+    "#f39c12",
+    "#c0392b",
+    "#2980b9",
+    "#8e44ad",
+    "#2c3e50",
+  ];
+
+  var h = 0,
+    l = user.email.length,
+    i = 0;
+  if (l > 0) while (i < l) h = ((h << 5) - h + user.email.charCodeAt(i++)) | 0;
+  return colors[Math.abs(h % colors.length)];
 }
