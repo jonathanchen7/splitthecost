@@ -39,7 +39,7 @@ interface Props {
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
 }
 
-export const AddEntryModal: React.FC<Props> = ({
+export const AddItemModal: React.FC<Props> = ({
   curUser,
   users,
   setEntries,
