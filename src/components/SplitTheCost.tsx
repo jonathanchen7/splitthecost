@@ -6,9 +6,8 @@ import { Entries } from "./entries/Entries";
 import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
 import { v4 as uuidv4 } from "uuid";
-
 import { SideDialog } from "./dialog/SideDialog";
-import { AddItemModal } from "./entries/AddItemModal";
+import { AddItemModal } from "./modals/AddItemModal";
 import { addUser } from "../actions/actions";
 
 const jonathan: User = {
@@ -108,7 +107,6 @@ export const SplitTheCost: React.FC = () => {
         curUser={curUser}
       />
       <AddItemModal curUser={curUser} users={users} setEntries={setEntries} />
-
       <SideDialog curUser={curUser} users={users} entries={entries} />
     </div>
   );

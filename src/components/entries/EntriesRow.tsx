@@ -7,7 +7,7 @@ import { Entry, User } from "../../models/models";
 import NumberFormat from "react-number-format";
 import { UserAvatar } from "../users/UserAvatar";
 import { removeExcludedUser, deleteEntry } from "../../actions/actions";
-import { ExcludedUsersModal } from "./ExcludedUsersModal";
+import { ExcludedUsersModal } from "../modals/ExcludedUsersModal";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import { motion } from "framer-motion";
 

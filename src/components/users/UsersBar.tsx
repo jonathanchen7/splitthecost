@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Avatar, Chip, Grid, IconButton, Tooltip } from "@material-ui/core";
 import { Entry, User } from "../../models/models";
-import { AddUserModal } from "./AddUserModal";
+import { AddUserModal } from "../modals/AddUserModal";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AddIcon from "@material-ui/icons/Add";
 import { useState } from "react";
