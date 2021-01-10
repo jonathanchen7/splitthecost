@@ -27,7 +27,7 @@ $redArrowColor: #e74c3c;
 
 // ---------------- GENERAL - ALL ----------------
 
-.smallLeftMargin {
+.leftMarginSmall {
   margin-left: $gridMarginSmall !important;
 }
 
@@ -35,12 +35,51 @@ $redArrowColor: #e74c3c;
   margin-left: $gridMargin !important;
 }
 
-.smallRightMargin {
+.rightMarginSmall {
   margin-right: $gridMarginSmall !important;
 }
 
 .rightMargin {
   margin-right: $gridMargin !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+// ---------------- GENERAL ----------------
+
+.avatar {
+  background-color: $defaultIconColor;
+  height: $avatarDiameter !important;
+  width: $avatarDiameter !important;
+  color: white;
+  font-size: $avatarFontSize !important;
+  font-weight: bold;
+  transition: 0.5s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+  }
+}
+
+.oddIdx {
+  background-color: $gridLightColor;
+}
+
+.evenIdx {
+  background-color: $gridDarkColor;
+}
+
+.roundedBottom {
+  border-radius: 0px 0px 15px 15px;
+}
+
+.buttonText {
+  font-weight: bold !important;
 }
 
 // ---------------- GENERAL - CLICKABLE ----------------
@@ -75,51 +114,11 @@ $redArrowColor: #e74c3c;
   }
 }
 
-// ---------------- GENERAL ----------------
-
-.avatar {
-  background-color: $defaultIconColor;
-  height: $avatarDiameter !important;
-  width: $avatarDiameter !important;
-  color: white;
-  font-size: $avatarFontSize !important;
-  font-weight: bold;
-  transition: 0.5s;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.35);
-    cursor: pointer;
-  }
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.oddIdx {
-  background-color: $gridLightColor;
-}
-
-.evenIdx {
-  background-color: $gridDarkColor;
-}
-
-.roundedBottom {
-  border-radius: 0px 0px 15px 15px;
-}
-
-.buttonText {
-  font-weight: bold !important;
-}
-
 // ---------------- GENERAL - MODAL ----------------
 
 .modalTitle {
   padding-top: 10px !important;
   padding-bottom: 5px !important;
-  // margin-bottom: -5px !important;
 }
 
 .modalContent {
@@ -127,7 +126,7 @@ input::-webkit-inner-spin-button {
   padding-bottom: 25px !important;
 }
 
-.multiInputModalLine {
+.multiInputModalRow {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;

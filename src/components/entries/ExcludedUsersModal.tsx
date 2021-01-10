@@ -7,11 +7,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  IconButton,
   Paper,
 } from "@material-ui/core";
-import DoneIcon from "@material-ui/icons/Done";
-import CloseIcon from "@material-ui/icons/Close";
 import { Entry, User } from "../../models/models";
 import { useEffect, useState } from "react";
 import Grow from "@material-ui/core/Grow";
@@ -146,7 +143,7 @@ export const ExcludedUsersModal: React.FC<Props> = ({
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         innerRef={provided.innerRef}
-                        className='excludeModalChip smallRightMargin'
+                        className='excludeModalChip rightMarginSmall'
                         avatar={
                           <Avatar
                             className='usersBarAvatar'
@@ -181,7 +178,7 @@ export const ExcludedUsersModal: React.FC<Props> = ({
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         innerRef={provided.innerRef}
-                        className='excludeModalChip smallRightMargin'
+                        className='excludeModalChip rightMarginSmall'
                         avatar={
                           <Avatar
                             className='usersBarAvatar'
@@ -203,11 +200,11 @@ export const ExcludedUsersModal: React.FC<Props> = ({
         </DragDropContext>
       </DialogContent>
       <DialogActions className='modalActions'>
-        <Button className='modalCancelButton rightMargin' onClick={handleClose}>
+        <Button className='modalCancelButton' onClick={handleClose}>
           Cancel
         </Button>
         <Button
-          className='modalConfirmButton rightMargin'
+          className='modalConfirmButton rightMarginSmall'
           onClick={confirmExcludeUsers}
         >
           Confirm

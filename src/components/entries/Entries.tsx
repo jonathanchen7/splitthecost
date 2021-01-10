@@ -25,6 +25,7 @@ export const Entries: React.FC<Props> = ({
           animate={{ x: 0, opacity: 1 }}
           initial={{ x: -2000, opacity: 0 }}
           transition={{ type: "tween", duration: 0.5 }}
+          key={entry.id}
         >
           <EntriesRow
             entry={entry}
@@ -32,7 +33,6 @@ export const Entries: React.FC<Props> = ({
             users={users}
             setEntries={setEntries}
             curUser={curUser}
-            key={entry.id}
           />
         </motion.div>
       ))}

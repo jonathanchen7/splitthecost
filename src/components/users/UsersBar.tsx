@@ -56,10 +56,10 @@ export const UsersBar: React.FC<Props> = ({
                 }
                 label={user.displayName}
                 onDelete={
-                  user === curUser
-                    ? undefined
-                    : () =>
+                  user !== curUser
+                    ? () =>
                         deleteUser(user, users, entries, setUsers, setEntries)
+                    : undefined
                 }
                 key={user.id}
               />

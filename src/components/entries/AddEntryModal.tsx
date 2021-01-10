@@ -10,7 +10,6 @@ import {
   DialogTitle,
   Fab,
   FormControl,
-  IconButton,
   Input,
   InputAdornment,
   InputLabel,
@@ -18,8 +17,6 @@ import {
   Select,
   TextField,
 } from "@material-ui/core";
-import DoneIcon from "@material-ui/icons/Done";
-import CloseIcon from "@material-ui/icons/Close";
 import { Entry, User } from "../../models/models";
 import { useState } from "react";
 import Grow from "@material-ui/core/Grow";
@@ -125,7 +122,7 @@ export const AddEntryModal: React.FC<Props> = ({
                 <div>
                   {(selected as User[]).map((user) => (
                     <Chip
-                      className='smallLeftMargin'
+                      className='leftMarginSmall'
                       avatar={
                         <Avatar
                           className='usersBarAvatar'
@@ -180,14 +177,11 @@ export const AddEntryModal: React.FC<Props> = ({
           />
         </DialogContent>
         <DialogActions className='modalActions'>
-          <Button
-            className='modalCancelButton rightMargin'
-            onClick={handleClose}
-          >
+          <Button className='modalCancelButton' onClick={handleClose}>
             Cancel
           </Button>
           <Button
-            className='modalConfirmButton rightMargin'
+            className='modalConfirmButton rightMarginSmall'
             onClick={confirmAddEntry}
           >
             Confirm

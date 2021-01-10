@@ -157,13 +157,13 @@ export const EntriesRow: React.FC<Props> = ({
                 entry.exclude.length > numExcludeUsersDisplay
               ) {
                 return (
-                  <Avatar className='smallLeftMargin'>{`+${
+                  <Avatar className='leftMarginSmall'>{`+${
                     entry.exclude.length - numExcludeUsersDisplay
                   }`}</Avatar>
                 );
               } else {
                 return (
-                  <span className='smallLeftMargin' key={user.id}>
+                  <span className='leftMarginSmall' key={user.id}>
                     <UserAvatar
                       user={user}
                       tooltipPlacement='top'
@@ -178,7 +178,7 @@ export const EntriesRow: React.FC<Props> = ({
             })}
             {showEdit && (
               <IconButton
-                className='iconButton largeIconButton smallLeftMargin'
+                className='iconButton largeIconButton leftMarginSmall'
                 onClick={() => setShowExcludeUsersModal(true)}
               >
                 <EditRoundedIcon />

@@ -5,11 +5,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  IconButton,
   TextField,
 } from "@material-ui/core";
-import DoneIcon from "@material-ui/icons/Done";
-import CloseIcon from "@material-ui/icons/Close";
 import { User } from "../../models/models";
 import { useState } from "react";
 import Grow from "@material-ui/core/Grow";
@@ -32,15 +29,12 @@ interface Props {
 export const AddUserModal: React.FC<Props> = ({ setUsers, open, setOpen }) => {
   const [firstNameVal, setFirstNameVal] = useState("");
   const [validFirstName, setValidFirstName] = useState(true);
-  const [firstNameErrorText, setFirstNameErrorText] = useState("");
 
   const [lastNameVal, setLastNameVal] = useState("");
   const [validLastName, setValidLastName] = useState(true);
-  const [lastNameErrorText, setLastNameErrorText] = useState("");
 
   const [emailVal, setEmailVal] = useState("");
   const [validEmail, setValidEmail] = useState(true);
-  const [emailErrorText, setEmailErrorText] = useState("");
 
   // Resets dialog inputs.
   function resetDialog() {
@@ -50,9 +44,6 @@ export const AddUserModal: React.FC<Props> = ({ setUsers, open, setOpen }) => {
     setValidFirstName(true);
     setValidLastName(true);
     setValidEmail(true);
-    setFirstNameErrorText("");
-    setLastNameErrorText("");
-    setEmailErrorText("");
   }
 
   function handleClose() {
@@ -61,7 +52,7 @@ export const AddUserModal: React.FC<Props> = ({ setUsers, open, setOpen }) => {
   }
 
   function validateName(name: string): boolean {
-    return name.length > 0 && !/\d/.test(name);
+    return name.length > 0 && /^[a-zA-Z]+$/.test(name);
   }
 
   function validateEmail(email: string): boolean {
@@ -83,10 +74,6 @@ export const AddUserModal: React.FC<Props> = ({ setUsers, open, setOpen }) => {
     setValidLastName(temp2);
     setValidEmail(temp3);
 
-    setFirstNameErrorText(temp1 ? "" : "Please enter a valid name.");
-    setLastNameErrorText(temp2 ? "" : "Please enter a valid name.");
-    setEmailErrorText(temp3 ? "" : "Please enter a valid email.");
-
     if (!temp1 || !temp2 || !temp3) return;
 
     addUser(firstNameVal, lastNameVal, emailVal, setUsers);
@@ -105,7 +92,7 @@ export const AddUserModal: React.FC<Props> = ({ setUsers, open, setOpen }) => {
     >
       <DialogTitle className='modalTitle'>Add User</DialogTitle>
       <DialogContent className='modalContent' dividers>
-        <div className='multiInputModalLine'>
+        <div className='multiInputModalRow'>
           <TextField
             className='halfWidthModalInput'
             label='First Name'
@@ -113,7 +100,7 @@ export const AddUserModal: React.FC<Props> = ({ setUsers, open, setOpen }) => {
             value={firstNameVal}
             onChange={(e) => setFirstNameVal(e.target.value)}
             error={!validFirstName}
-            helperText={firstNameErrorText}
+            helperText={!validFirstName && "Please enter a valid name."}
           />
           <TextField
             className='halfWidthModalInput'
@@ -122,7 +109,7 @@ export const AddUserModal: React.FC<Props> = ({ setUsers, open, setOpen }) => {
             value={lastNameVal}
             onChange={(e) => setLastNameVal(e.target.value)}
             error={!validLastName}
-            helperText={lastNameErrorText}
+            helperText={!validLastName && "Please enter a valid name."}
           />
         </div>
         <TextField
@@ -132,15 +119,15 @@ export const AddUserModal: React.FC<Props> = ({ setUsers, open, setOpen }) => {
           value={emailVal}
           onChange={(e) => setEmailVal(e.target.value)}
           error={!validEmail}
-          helperText={emailErrorText}
+          helperText={!validEmail && "Please enter a valid email."}
         />
       </DialogContent>
       <DialogActions className='modalActions'>
-        <Button className='modalCancelButton rightMargin' onClick={handleClose}>
+        <Button className='modalCancelButton' onClick={handleClose}>
           Cancel
         </Button>
         <Button
-          className='modalConfirmButton rightMargin'
+          className='modalConfirmButton rightMarginSmall'
           onClick={confirmAddUser}
         >
           Confirm

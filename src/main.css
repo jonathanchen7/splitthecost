@@ -1,4 +1,4 @@
-.smallLeftMargin {
+.leftMarginSmall {
   margin-left: 5px !important;
 }
 
@@ -6,12 +6,50 @@
   margin-left: 10px !important;
 }
 
-.smallRightMargin {
+.rightMarginSmall {
   margin-right: 5px !important;
 }
 
 .rightMargin {
   margin-right: 10px !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.avatar {
+  background-color: #c4c4c4;
+  height: 40px !important;
+  width: 40px !important;
+  color: white;
+  font-size: 20px !important;
+  font-weight: bold;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.avatar:hover {
+  background: rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+
+.oddIdx {
+  background-color: #f6f6f6;
+}
+
+.evenIdx {
+  background-color: #dedede;
+}
+
+.roundedBottom {
+  border-radius: 0px 0px 15px 15px;
+}
+
+.buttonText {
+  font-weight: bold !important;
 }
 
 .iconButton {
@@ -46,44 +84,6 @@
   background-color: #5f8ba9 !important;
 }
 
-.avatar {
-  background-color: #c4c4c4;
-  height: 40px !important;
-  width: 40px !important;
-  color: white;
-  font-size: 20px !important;
-  font-weight: bold;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-
-.avatar:hover {
-  background: rgba(0, 0, 0, 0.35);
-  cursor: pointer;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.oddIdx {
-  background-color: #f6f6f6;
-}
-
-.evenIdx {
-  background-color: #dedede;
-}
-
-.roundedBottom {
-  border-radius: 0px 0px 15px 15px;
-}
-
-.buttonText {
-  font-weight: bold !important;
-}
-
 .modalTitle {
   padding-top: 10px !important;
   padding-bottom: 5px !important;
@@ -94,7 +94,7 @@ input::-webkit-inner-spin-button {
   padding-bottom: 25px !important;
 }
 
-.multiInputModalLine {
+.multiInputModalRow {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

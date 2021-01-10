@@ -45,20 +45,15 @@ export const UserAvatar: React.FC<Props> = ({
   }
 
   return (
-    <Tooltip
-      onClick={onClick}
-      onMouseEnter={onHover}
-      onMouseLeave={onLeave}
-      arrow
-      title={user.displayName}
-      placement={tooltipPlacement}
-    >
-      <Avatar
-        className='avatar'
-        style={{ backgroundColor: getAvatarColor(user) }}
-      >
-        {showIcon ? iconOnHover : user.initials}
-      </Avatar>
-    </Tooltip>
+    <span onClick={onClick} onMouseEnter={onHover} onMouseLeave={onLeave}>
+      <Tooltip arrow title={user.displayName} placement={tooltipPlacement}>
+        <Avatar
+          className='avatar'
+          style={{ backgroundColor: getAvatarColor(user) }}
+        >
+          {showIcon ? iconOnHover : user.initials}
+        </Avatar>
+      </Tooltip>
+    </span>
   );
 };
