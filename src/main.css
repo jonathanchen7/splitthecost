@@ -348,4 +348,15 @@
   bottom: 30px;
   left: 30px;
 }
+
+.settingsDiv {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  justify-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 20px;
+}
 /*# sourceMappingURL=main.css.map */

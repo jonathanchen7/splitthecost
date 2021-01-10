@@ -6,6 +6,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import AddIcon from "@material-ui/icons/Add";
 import { useState } from "react";
 import { deleteUser, getAvatarColor } from "../../actions/actions";
+import { SettingsModal } from "../modals/SettingsModal";
 
 interface Props {
   users: User[];
@@ -23,9 +24,10 @@ export const UsersBar: React.FC<Props> = ({
   setEntries,
 }) => {
   const [openAddUser, setOpenAddUser] = useState(false);
+  const [openSettings, setOpenSettings] = useState(false);
 
   function openSettingsModal() {
-    setOpenAddUser(true);
+    setOpenSettings(true);
   }
 
   function openAddUserModal() {
@@ -80,6 +82,7 @@ export const UsersBar: React.FC<Props> = ({
         setOpen={setOpenAddUser}
         setUsers={setUsers}
       />
+      <SettingsModal open={openSettings} setOpen={setOpenSettings} />
     </div>
   );
 };

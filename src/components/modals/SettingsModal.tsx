@@ -1,19 +1,13 @@
 import * as React from "react";
 import {
+  Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  IconButton,
-  TextField,
 } from "@material-ui/core";
-import DoneIcon from "@material-ui/icons/Done";
-import CloseIcon from "@material-ui/icons/Close";
-import { User } from "../../models/models";
-import { useState } from "react";
 import Grow from "@material-ui/core/Grow";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
-import { addUser } from "../../actions/actions";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -23,18 +17,17 @@ const Transition = React.forwardRef(function Transition(
 });
 
 interface Props {
-  setUsers: React.Dispatch<React.SetStateAction<User[]>>;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const SettingsModal: React.FC<Props> = ({ setUsers, open, setOpen }) => {
+export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
   function handleClose() {
     setOpen(false);
   }
 
   function confirmSaveSettings() {
-    setOpen(false);
+    handleClose();
   }
 
   return (
@@ -45,15 +38,22 @@ export const SettingsModal: React.FC<Props> = ({ setUsers, open, setOpen }) => {
       open={open}
       TransitionComponent={Transition}
     >
-      <DialogTitle className='dialogTitle'>Settings</DialogTitle>
-      <DialogContent>asdf</DialogContent>
-      <DialogActions>
-        <IconButton onClick={handleClose}>
-          <CloseIcon />
-        </IconButton>
-        <IconButton onClick={confirmSaveSettings}>
-          <DoneIcon />
-        </IconButton>
+      <DialogTitle className='modalTitle'>Settings</DialogTitle>
+      <DialogContent className='modalContent' dividers>
+        <div className='settingsDiv'>
+          <span>No settings to change!</span>
+        </div>
+      </DialogContent>
+      <DialogActions className='modalActions'>
+        <Button className='modalCancelButton' onClick={handleClose}>
+          Cancel
+        </Button>
+        <Button
+          className='modalConfirmButton rightMarginSmall'
+          onClick={confirmSaveSettings}
+        >
+          Confirm
+        </Button>
       </DialogActions>
     </Dialog>
   );

@@ -26,3 +26,8 @@ export interface UserBreakdownData {
   totalOwed: number;
   userBreakdown: { [userId: string]: { youOwe: number; theyOwe: number } };
 }
+
+export interface SheetSettings {
+  darkMode: boolean;
+  viewOnly: boolean;
+}
