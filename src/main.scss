@@ -53,12 +53,6 @@ $redArrowColor: #e74c3c;
   margin-left: $marginSmall !important;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 .roundedTop {
   border-radius: 15px 15px 0px 0px;
 }
@@ -169,7 +163,7 @@ input::-webkit-inner-spin-button {
 }
 
 .headerItem {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   color: white;
   font-weight: bold;
@@ -266,6 +260,14 @@ input::-webkit-inner-spin-button {
   transition: all 0.5s;
 }
 
+.sideDialogFab {
+  position: fixed;
+  top: $headerHeight + $usersBarHeight + 15;
+  right: 20px;
+}
+
+// ---------------- BREAKDOWN ----------------
+
 .arrow {
   font-size: 11px;
   font-weight: bold;
@@ -300,10 +302,9 @@ input::-webkit-inner-spin-button {
   }
 }
 
-.sideDialogFab {
-  position: fixed;
-  top: $headerHeight + $usersBarHeight + 15;
-  right: 20px;
+.noBreakdownData {
+  display: flex;
+  justify-content: center;
 }
 
 // ---------------- EXCLUDE USERS MODAL ----------------

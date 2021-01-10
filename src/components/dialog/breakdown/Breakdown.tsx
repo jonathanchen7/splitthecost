@@ -18,7 +18,9 @@ export const Breakdown: React.FC<Props> = ({ users, curUser, entries }) => {
     setBreakdownData(calculateUserBreakdown(curUser, entries, users));
   }, [curUser, users, entries]);
 
-  return (
+  return users.length <= 1 ? (
+    <div className='noBreakdownData'>No data to break down! :)</div>
+  ) : (
     <div>
       <BreakdownHeader />
       {users.map(
