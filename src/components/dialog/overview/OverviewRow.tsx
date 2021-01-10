@@ -21,13 +21,15 @@ export const OverviewRow: React.FC<Props> = ({ user, users, data }) => {
       spacing={0}
     >
       <Grid className='sideDialogRow' item xs={2}>
-        <span className='leftMargin'>
-          <UserAvatar user={user} tooltipPlacement='left' />
-        </span>
+        <UserAvatar
+          className='leftMargin'
+          user={user}
+          tooltipPlacement='left'
+        />
       </Grid>
       <Grid className='sideDialogRow' item xs={5}>
         <Input
-          className='entryInput'
+          className='sideMargins'
           readOnly={true}
           inputComponent={NumberFormat as any}
           inputProps={{
@@ -50,7 +52,7 @@ export const OverviewRow: React.FC<Props> = ({ user, users, data }) => {
             allowNegative: false,
             thousandSeparator: ",",
           }}
-          className='entryInput'
+          className='sideMargins'
           disableUnderline={true}
           fullWidth={true}
           value={data?.totalOwed.toFixed(2)}

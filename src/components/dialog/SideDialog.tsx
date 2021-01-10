@@ -17,7 +17,7 @@ interface Props {
 
 export const SideDialog: React.FC<Props> = ({ curUser, users, entries }) => {
   const [open, setOpen] = useState(true);
-  const [tab, setTab] = useState("overview");
+  const [tab, setTab] = useState("ov");
 
   function handleOpen() {
     setOpen(!open);
@@ -29,15 +29,6 @@ export const SideDialog: React.FC<Props> = ({ curUser, users, entries }) => {
 
   return (
     <div>
-      <motion.div
-        className='sideDialogFab'
-        animate={open ? { x: -430 } : { x: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Fab variant='extended' size='medium' onClick={handleOpen}>
-          {open ? <ArrowForwardRoundedIcon /> : <ArrowBackRoundedIcon />}
-        </Fab>
-      </motion.div>
       <AnimatePresence>
         {open && (
           <motion.div
@@ -45,34 +36,37 @@ export const SideDialog: React.FC<Props> = ({ curUser, users, entries }) => {
             animate={{ x: 0, opacity: 1 }}
             initial={{ x: 600, opacity: 0 }}
             exit={{ x: 600, opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3 }}
           >
             <TabContext value={tab}>
               <Tabs
-                className='tabs'
                 value={tab}
                 onChange={handleChange}
-                variant='fullWidth'
                 indicatorColor='primary'
                 textColor='primary'
               >
-                <Tab className='dialogTab' value='overview' label='OVERVIEW' />
-                <Tab
-                  className='dialogTab'
-                  value='breakdown'
-                  label='BREAKDOWN'
-                />
+                <Tab className='sideDialogTab' value='ov' label='OVERVIEW' />
+                <Tab className='sideDialogTab' value='bd' label='BREAKDOWN' />
               </Tabs>
-              <TabPanel className='sideDialogContent' value={"overview"}>
-                <Overview users={users} entries={entries} curUser={curUser} />
+              <TabPanel className='sideDialogContent' value={"ov"}>
+                <Overview users={users} entries={entries} />
               </TabPanel>
-              <TabPanel className='sideDialogContent' value={"breakdown"}>
+              <TabPanel className='sideDialogContent' value={"bd"}>
                 <Breakdown users={users} entries={entries} curUser={curUser} />
               </TabPanel>
             </TabContext>
           </motion.div>
         )}
       </AnimatePresence>
+      <motion.div
+        className='sideDialogFab'
+        animate={open ? { x: -440 } : { x: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <Fab variant='extended' size='medium' onClick={handleOpen}>
+          {open ? <ArrowForwardRoundedIcon /> : <ArrowBackRoundedIcon />}
+        </Fab>
+      </motion.div>
     </div>
   );
 };

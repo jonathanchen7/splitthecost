@@ -59,6 +59,14 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.roundedTop {
+  border-radius: 15px 15px 0px 0px;
+}
+
+.roundedBottom {
+  border-radius: 0px 0px 15px 15px;
+}
+
 // ---------------- GENERAL ----------------
 
 .avatar {
@@ -74,10 +82,6 @@ input::-webkit-inner-spin-button {
     background: rgba(0, 0, 0, 0.35);
     cursor: pointer;
   }
-}
-
-.roundedBottom {
-  border-radius: 0px 0px 15px 15px;
 }
 
 // ---------------- GENERAL - CLICKABLE ----------------
@@ -223,21 +227,83 @@ input::-webkit-inner-spin-button {
   }
 }
 
-.entryInput {
-  margin: 0px $marginStandard 0px $marginStandard;
-}
+// ---------------- SIDE DIALOG ----------------
 
-.addItemContainer {
-  height: $entryHeight;
-  display: inline-flex;
+.sideDialog {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  align-content: center;
-  justify-content: center;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: $overviewDialogColor;
+  position: fixed;
+  top: $headerHeight + $usersBarHeight + 15;
+  right: 25px;
+  filter: drop-shadow(0 3px 5px #00000060);
 }
 
-.addItemButton {
-  margin-top: 20px !important;
-  border-radius: 20px !important;
+.sideDialogTab {
+  color: black;
+  font-weight: bold !important;
+
+  &:focus {
+    color: $headerColor !important;
+  }
+}
+
+.sideDialogContent {
+  filter: drop-shadow(0 2px 4px #00000040);
+  border-radius: 15px !important;
+  width: 350px;
+  padding: 20px !important;
+}
+
+.sideDialogRow {
+  height: $entryHeight;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s;
+}
+
+.arrow {
+  font-size: 11px;
+  font-weight: bold;
+  height: 26px;
+  width: 75px;
+  line-height: 26px;
+  position: relative;
+  margin-left: $marginStandard;
+
+  &:after {
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    content: "";
+    position: absolute;
+    right: -13px;
+  }
+}
+
+.greenArrow {
+  background-color: $greenArrowColor;
+
+  &:after {
+    border-left: 13px solid $greenArrowColor;
+  }
+}
+
+.redArrow {
+  background-color: $redArrowColor;
+
+  &:after {
+    border-left: 13px solid $redArrowColor;
+  }
+}
+
+.sideDialogFab {
+  position: fixed;
+  top: $headerHeight + $usersBarHeight + 15;
+  right: 20px;
 }
 
 // ---------------- EXCLUDE USERS MODAL ----------------
@@ -281,98 +347,4 @@ input::-webkit-inner-spin-button {
   position: fixed;
   bottom: 30px;
   left: 30px;
-}
-
-// ---------------- SIDE DIALOG ----------------
-
-.sideDialog {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  border-radius: 20px;
-  background-color: $overviewDialogColor;
-  position: fixed;
-  top: $headerHeight + $usersBarHeight + 15;
-  right: 25px;
-  box-shadow: 5px 5px 15px #5b5b5baa;
-}
-
-.sideDialogFab {
-  font-weight: bold !important;
-  position: fixed;
-  top: $headerHeight + $usersBarHeight + 15;
-  right: 20px;
-}
-
-.dialogTab {
-  color: black;
-  font-weight: bold !important;
-  transition: all 0.3s;
-
-  &:hover {
-    color: $headerColor !important;
-  }
-
-  &:focus {
-    color: $headerColor !important;
-  }
-}
-
-// ---------------- SIDE DIALOG CONTENT ----------------
-
-.sideDialogContent {
-  width: 350px;
-  padding: 15px !important;
-}
-
-.sideDialogHeader {
-  border-radius: 15px 15px 0px 0px;
-  background-color: $gridHeaderColor;
-  height: $entryHeaderHeight;
-  display: flex;
-  align-items: center;
-}
-
-.sideDialogRow {
-  height: $entryHeight;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.5s;
-}
-
-.arrow {
-  font-size: 11px;
-  font-weight: bold;
-  height: 26px;
-  width: 75px;
-  line-height: 26px;
-  display: inline-block;
-  position: relative;
-
-  &:after {
-    border-top: 13px solid transparent;
-    border-bottom: 13px solid transparent;
-    display: inline-block;
-    content: "";
-    position: absolute;
-    right: -13px;
-  }
-}
-
-.greenArrow {
-  background-color: $greenArrowColor;
-
-  &:after {
-    border-left: 13px solid $greenArrowColor;
-  }
-}
-
-.redArrow {
-  background-color: $redArrowColor;
-
-  &:after {
-    border-left: 13px solid $redArrowColor;
-  }
 }

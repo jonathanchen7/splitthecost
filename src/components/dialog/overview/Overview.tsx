@@ -7,11 +7,10 @@ import { calculateOverview } from "../../../actions/actions";
 
 interface Props {
   users: User[];
-  curUser: User;
   entries: Entry[];
 }
 
-export const Overview: React.FC<Props> = ({ users, curUser, entries }) => {
+export const Overview: React.FC<Props> = ({ users, entries }) => {
   const [overviewData, setOverviewData] = useState<OverviewData>({});
 
   useEffect(() => {

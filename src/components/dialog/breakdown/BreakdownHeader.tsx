@@ -3,7 +3,7 @@ import * as React from "react";
 
 export const BreakdownHeader: React.FC = () => {
   return (
-    <Grid className='gridHeader' container spacing={0}>
+    <Grid className='gridHeader roundedTop' container spacing={0}>
       <Grid item xs={8}>
         <span className='leftMargin'>TRANSACTIONS</span>
       </Grid>
