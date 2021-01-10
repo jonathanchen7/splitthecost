@@ -3,13 +3,13 @@ import * as React from "react";
 
 export const OverviewHeader: React.FC = () => {
   return (
-    <Grid className='sideDialogHeader' container spacing={0}>
+    <Grid className='gridHeader' container spacing={0}>
       <Grid item xs={2}></Grid>
       <Grid item xs={5}>
-        <span className='gridHeaderText'>TOTAL SPENT</span>
+        <span className='leftMargin'>TOTAL SPENT</span>
       </Grid>
       <Grid item xs={5}>
-        <span className='gridHeaderText'>TOTAL OWED</span>
+        <span className='leftMargin'>TOTAL OWED</span>
       </Grid>
     </Grid>
   );

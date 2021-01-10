@@ -3,12 +3,12 @@ import * as React from "react";
 
 export const BreakdownHeader: React.FC = () => {
   return (
-    <Grid className='sideDialogHeader' container spacing={0}>
+    <Grid className='gridHeader' container spacing={0}>
       <Grid item xs={8}>
-        <span className='gridHeaderText'>TRANSACTIONS</span>
+        <span className='leftMargin'>TRANSACTIONS</span>
       </Grid>
       <Grid item xs={4}>
-        <span className='gridHeaderText'>TOTAL</span>
+        <span className='leftMargin'>TOTAL</span>
       </Grid>
     </Grid>
   );

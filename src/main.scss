@@ -9,8 +9,8 @@ $smallAvatarDiameter: 33px;
 
 $usersBarHeight: 50px;
 $entryHeaderHeight: 35px;
-$gridMargin: 10px;
-$gridMarginSmall: 5px;
+$marginStandard: 10px;
+$marginSmall: 5px;
 $entryHeight: 50px;
 
 $defaultIconColor: #c4c4c4;
@@ -28,19 +28,29 @@ $redArrowColor: #e74c3c;
 // ---------------- GENERAL - ALL ----------------
 
 .leftMarginSmall {
-  margin-left: $gridMarginSmall !important;
+  margin-left: $marginSmall !important;
 }
 
 .leftMargin {
-  margin-left: $gridMargin !important;
+  margin-left: $marginStandard !important;
 }
 
 .rightMarginSmall {
-  margin-right: $gridMarginSmall !important;
+  margin-right: $marginSmall !important;
 }
 
 .rightMargin {
-  margin-right: $gridMargin !important;
+  margin-right: $marginStandard !important;
+}
+
+.sideMargins {
+  margin-right: $marginStandard !important;
+  margin-left: $marginStandard !important;
+}
+
+.sideMarginsSmall {
+  margin-right: $marginSmall !important;
+  margin-left: $marginSmall !important;
 }
 
 input::-webkit-outer-spin-button,
@@ -66,20 +76,8 @@ input::-webkit-inner-spin-button {
   }
 }
 
-.oddIdx {
-  background-color: $gridLightColor;
-}
-
-.evenIdx {
-  background-color: $gridDarkColor;
-}
-
 .roundedBottom {
   border-radius: 0px 0px 15px 15px;
-}
-
-.buttonText {
-  font-weight: bold !important;
 }
 
 // ---------------- GENERAL - CLICKABLE ----------------
@@ -126,7 +124,7 @@ input::-webkit-inner-spin-button {
   padding-bottom: 25px !important;
 }
 
-.multiInputModalRow {
+.modalInputRow {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
@@ -139,6 +137,24 @@ input::-webkit-inner-spin-button {
 .modalActions {
   margin-top: 5px !important;
   margin-bottom: 5px !important;
+}
+
+// ---------------- GENERAL - GRID ----------------
+
+.gridHeader {
+  background-color: $gridHeaderColor;
+  height: $entryHeaderHeight;
+  align-items: center;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.oddIdx {
+  background-color: $gridLightColor;
+}
+
+.evenIdx {
+  background-color: $gridDarkColor;
 }
 
 // ---------------- HEADER ----------------
@@ -190,28 +206,6 @@ input::-webkit-inner-spin-button {
   }
 }
 
-// ---------------- GRID HEADER ----------------
-
-.entryHeader {
-  background-color: $gridHeaderColor;
-  height: $entryHeaderHeight;
-  display: flex;
-  align-items: center;
-}
-
-.entryHeaderItem {
-  background-color: $gridHeaderColor;
-  height: $entryHeaderHeight;
-  display: flex;
-  align-items: center;
-}
-
-.gridHeaderText {
-  margin-left: $gridMargin;
-  font-size: 17px;
-  font-weight: bold;
-}
-
 // ---------------- ENTRIES GRID ----------------
 
 .entryDiv {
@@ -229,15 +223,8 @@ input::-webkit-inner-spin-button {
   }
 }
 
-.entryGridDiv {
-  flex: 6;
-  height: 100%;
-}
-
 .entryInput {
-  height: $entryHeight;
-  margin: 0px $gridMargin 0px $gridMargin;
-  transition: all 0.5s;
+  margin: 0px $marginStandard 0px $marginStandard;
 }
 
 .addItemContainer {
@@ -253,13 +240,6 @@ input::-webkit-inner-spin-button {
   border-radius: 20px !important;
 }
 
-.addItemFabDiv {
-  font-weight: bold !important;
-  position: fixed;
-  bottom: 30px;
-  left: 30px;
-}
-
 // ---------------- EXCLUDE USERS MODAL ----------------
 
 .excludeModalContent {
@@ -267,6 +247,12 @@ input::-webkit-inner-spin-button {
   justify-content: space-between;
   align-items: flex-start;
   overflow: hidden !important;
+}
+
+.excludeModalPaperHeader {
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .excludeModalPaper {
@@ -277,23 +263,11 @@ input::-webkit-inner-spin-button {
   width: 46%;
 }
 
-.excludeModalPaperHeader {
-  font-weight: bold;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
 .excludeModalChip {
   margin-bottom: 10px;
 }
 
-// ---------------- ADD ENTRY MODAL ----------------
-
-.modalInputRow {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px !important;
-}
+// ---------------- ADD ITEM MODAL ----------------
 
 .itemInput {
   width: 60% !important;
@@ -303,8 +277,10 @@ input::-webkit-inner-spin-button {
   width: 30% !important;
 }
 
-.excludeUsersForm {
-  min-width: 300px;
+.addItemFabDiv {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
 }
 
 // ---------------- SIDE DIALOG ----------------

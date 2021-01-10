@@ -22,6 +22,7 @@ interface Props {
     | undefined;
   iconOnHover?: JSX.Element;
   onClick?: () => void;
+  className?: string;
 }
 
 export const UserAvatar: React.FC<Props> = ({
@@ -29,6 +30,7 @@ export const UserAvatar: React.FC<Props> = ({
   tooltipPlacement,
   iconOnHover,
   onClick,
+  className,
 }) => {
   const [showIcon, setShowIcon] = useState(false);
 
@@ -45,7 +47,12 @@ export const UserAvatar: React.FC<Props> = ({
   }
 
   return (
-    <span onClick={onClick} onMouseEnter={onHover} onMouseLeave={onLeave}>
+    <span
+      className={className}
+      onClick={onClick}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+    >
       <Tooltip arrow title={user.displayName} placement={tooltipPlacement}>
         <Avatar
           className='avatar'

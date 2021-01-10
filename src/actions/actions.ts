@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Entry, OverviewData, User, UserBreakdownData } from "../models/models";
 
 // Updates an entry's list of excluded users.
-export function setExcludedUsers(
+export function updateExcludedUsers(
   entry: Entry,
   newExcludedUsers: User[],
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>

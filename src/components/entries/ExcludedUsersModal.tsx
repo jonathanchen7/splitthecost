@@ -13,8 +13,7 @@ import { Entry, User } from "../../models/models";
 import { useEffect, useState } from "react";
 import Grow from "@material-ui/core/Grow";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
-import { setExcludedUsers, getAvatarColor } from "../../actions/actions";
-
+import { updateExcludedUsers, getAvatarColor } from "../../actions/actions";
 import {
   DragDropContext,
   Draggable,
@@ -46,28 +45,26 @@ export const ExcludedUsersModal: React.FC<Props> = ({
   entries,
   setEntries,
 }) => {
-  const [newIncludedUsers, setNewIncludedUsers] = useState<User[]>(
+  const [includedUsers, setIncludedUsers] = useState<User[]>(
     users.filter((user) => !entry.exclude.includes(user))
   );
-  const [newExcludedUsers, setNewExcludedUsers] = useState<User[]>(
-    entry.exclude
-  );
+  const [excludedUsers, setExcludedUsers] = useState<User[]>(entry.exclude);
 
   useEffect(() => {
-    setNewIncludedUsers(users.filter((user) => !entry.exclude.includes(user)));
-    setNewExcludedUsers(entry.exclude);
+    setIncludedUsers(users.filter((user) => !entry.exclude.includes(user)));
+    setExcludedUsers(entry.exclude);
   }, [users, entry, entries]);
 
-  function handleClose() {
-    setOpen(false);
-  }
-
   function confirmExcludeUsers() {
-    if (entry.exclude !== newExcludedUsers) {
-      setExcludedUsers(entry, newExcludedUsers, setEntries);
+    if (entry.exclude !== excludedUsers) {
+      updateExcludedUsers(entry, excludedUsers, setEntries);
     }
 
     handleClose();
+  }
+
+  function handleClose() {
+    setOpen(false);
   }
 
   function onDragEnd(result: DropResult) {
@@ -84,33 +81,33 @@ export const ExcludedUsersModal: React.FC<Props> = ({
     if (src.droppableId === dest.droppableId) {
       const srcArray =
         src.droppableId === "includeDroppable"
-          ? Array.from(newIncludedUsers)
-          : Array.from(newExcludedUsers);
+          ? Array.from(includedUsers)
+          : Array.from(excludedUsers);
 
       const user = srcArray[src.index];
       srcArray.splice(src.index, 1);
       srcArray.splice(dest.index, 0, user);
       dest.droppableId === "includeDroppable"
-        ? setNewIncludedUsers(srcArray)
-        : setNewExcludedUsers(srcArray);
+        ? setIncludedUsers(srcArray)
+        : setExcludedUsers(srcArray);
     } else {
       const srcArray =
         src.droppableId === "includeDroppable"
-          ? Array.from(newIncludedUsers)
-          : Array.from(newExcludedUsers);
+          ? Array.from(includedUsers)
+          : Array.from(excludedUsers);
       const destArray =
         src.droppableId === "includeDroppable"
-          ? Array.from(newExcludedUsers)
-          : Array.from(newIncludedUsers);
+          ? Array.from(excludedUsers)
+          : Array.from(includedUsers);
       const user = srcArray[src.index];
       srcArray.splice(src.index, 1);
       destArray.splice(dest.index, 0, user);
       dest.droppableId === "includeDroppable"
-        ? setNewIncludedUsers(destArray)
-        : setNewExcludedUsers(destArray);
+        ? setIncludedUsers(destArray)
+        : setExcludedUsers(destArray);
       dest.droppableId === "includeDroppable"
-        ? setNewExcludedUsers(srcArray)
-        : setNewIncludedUsers(srcArray);
+        ? setExcludedUsers(srcArray)
+        : setIncludedUsers(srcArray);
     }
   }
 
@@ -136,7 +133,7 @@ export const ExcludedUsersModal: React.FC<Props> = ({
                 elevation={2}
               >
                 <div className='excludeModalPaperHeader'>INCLUDED USERS</div>
-                {newIncludedUsers.map((user, idx) => (
+                {includedUsers.map((user, idx) => (
                   <Draggable draggableId={user.id} index={idx} key={user.id}>
                     {(provided) => (
                       <Chip
@@ -171,7 +168,7 @@ export const ExcludedUsersModal: React.FC<Props> = ({
                 elevation={2}
               >
                 <div className='excludeModalPaperHeader'>EXCLUDED USERS</div>
-                {newExcludedUsers.map((user, idx) => (
+                {excludedUsers.map((user, idx) => (
                   <Draggable draggableId={user.id} index={idx} key={user.id}>
                     {(provided) => (
                       <Chip

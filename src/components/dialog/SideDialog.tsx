@@ -30,7 +30,7 @@ export const SideDialog: React.FC<Props> = ({ curUser, users, entries }) => {
   return (
     <div>
       <motion.div
-        className='sideDialogFab buttonText'
+        className='sideDialogFab'
         animate={open ? { x: -430 } : { x: 0 }}
         transition={{ duration: 0.5 }}
       >

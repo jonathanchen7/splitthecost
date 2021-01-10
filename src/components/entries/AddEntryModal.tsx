@@ -91,7 +91,6 @@ export const AddEntryModal: React.FC<Props> = ({
               value={item}
               onChange={(e) => setItem(e.target.value)}
             />
-
             <TextField
               className='costInput'
               InputProps={{
@@ -109,11 +108,11 @@ export const AddEntryModal: React.FC<Props> = ({
               onChange={(e) => setCost(Number(e.target.value))}
             />
           </div>
-          <FormControl className='excludeUsersForm' fullWidth>
+          <FormControl fullWidth>
             <InputLabel id='excludeUsersInput'>Excluded Users</InputLabel>
             <Select
-              labelId='excludeUsersInput'
               className='modalInputRow'
+              labelId='excludeUsersInput'
               multiple
               value={excludedUsers}
               onChange={handleChange}
@@ -140,7 +139,6 @@ export const AddEntryModal: React.FC<Props> = ({
             >
               {users.map((user) => (
                 <MenuItem
-                  className='excludeUsersMenuItem'
                   // @ts-ignore
                   value={user}
                   key={user.id}
@@ -191,7 +189,7 @@ export const AddEntryModal: React.FC<Props> = ({
       <div className='addItemFabDiv'>
         <Fab variant='extended' size='medium' onClick={handleOpen}>
           <AddIcon />
-          <span className='buttonText'>Add Item</span>
+          <span className='leftMarginSmall'>Add Item</span>
         </Fab>
       </div>
     </div>

@@ -14,6 +14,16 @@
   margin-right: 10px !important;
 }
 
+.sideMargins {
+  margin-right: 10px !important;
+  margin-left: 10px !important;
+}
+
+.sideMarginsSmall {
+  margin-right: 5px !important;
+  margin-left: 5px !important;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -36,20 +46,8 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
 }
 
-.oddIdx {
-  background-color: #f6f6f6;
-}
-
-.evenIdx {
-  background-color: #dedede;
-}
-
 .roundedBottom {
   border-radius: 0px 0px 15px 15px;
-}
-
-.buttonText {
-  font-weight: bold !important;
 }
 
 .iconButton {
@@ -94,7 +92,7 @@ input::-webkit-inner-spin-button {
   padding-bottom: 25px !important;
 }
 
-.multiInputModalRow {
+.modalInputRow {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -111,6 +109,24 @@ input::-webkit-inner-spin-button {
 .modalActions {
   margin-top: 5px !important;
   margin-bottom: 5px !important;
+}
+
+.gridHeader {
+  background-color: #c9c9c9;
+  height: 35px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.oddIdx {
+  background-color: #f6f6f6;
+}
+
+.evenIdx {
+  background-color: #dedede;
 }
 
 .header {
@@ -168,34 +184,6 @@ input::-webkit-inner-spin-button {
           box-shadow: none;
 }
 
-.entryHeader {
-  background-color: #c9c9c9;
-  height: 35px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.entryHeaderItem {
-  background-color: #c9c9c9;
-  height: 35px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.gridHeaderText {
-  margin-left: 10px;
-  font-size: 17px;
-  font-weight: bold;
-}
-
 .entryDiv {
   height: 50px;
   display: -webkit-box;
@@ -216,18 +204,8 @@ input::-webkit-inner-spin-button {
   background: #377cab35;
 }
 
-.entryGridDiv {
-  -webkit-box-flex: 6;
-      -ms-flex: 6;
-          flex: 6;
-  height: 100%;
-}
-
 .entryInput {
-  height: 50px;
   margin: 0px 10px 0px 10px;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
 }
 
 .addItemContainer {
@@ -250,13 +228,6 @@ input::-webkit-inner-spin-button {
   border-radius: 20px !important;
 }
 
-.addItemFabDiv {
-  font-weight: bold !important;
-  position: fixed;
-  bottom: 30px;
-  left: 30px;
-}
-
 .excludeModalContent {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -270,6 +241,12 @@ input::-webkit-inner-spin-button {
   overflow: hidden !important;
 }
 
+.excludeModalPaperHeader {
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .excludeModalPaper {
   border-radius: 15px !important;
   background-color: #f6f6f6 !important;
@@ -278,24 +255,8 @@ input::-webkit-inner-spin-button {
   width: 46%;
 }
 
-.excludeModalPaperHeader {
-  font-weight: bold;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
 .excludeModalChip {
   margin-bottom: 10px;
-}
-
-.modalInputRow {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  margin-bottom: 15px !important;
 }
 
 .itemInput {
@@ -306,8 +267,10 @@ input::-webkit-inner-spin-button {
   width: 30% !important;
 }
 
-.excludeUsersForm {
-  min-width: 300px;
+.addItemFabDiv {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
 }
 
 .sideDialog {

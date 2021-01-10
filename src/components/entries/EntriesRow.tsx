@@ -9,6 +9,7 @@ import { UserAvatar } from "../users/UserAvatar";
 import { removeExcludedUser, deleteEntry } from "../../actions/actions";
 import { ExcludedUsersModal } from "./ExcludedUsersModal";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
+import { motion } from "framer-motion";
 
 interface Props {
   entry: Entry;
@@ -33,32 +34,22 @@ export const EntriesRow: React.FC<Props> = ({
   const [noteVal, setNoteVal] = useState(entry.note);
   const [showExcludeUsersModal, setShowExcludeUsersModal] = useState(false);
 
-  function updateItemState(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void {
-    const updatedEntry: Entry = { ...entry, item: e.target.value };
+  function updateEntryState(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    section: string
+  ) {
+    let updatedEntry: Entry;
+
+    if (section === "item") {
+      updatedEntry = { ...entry, item: e.target.value };
+    } else if (section === "cost") {
+      updatedEntry = { ...entry, cost: Number(e.target.value) };
+    } else {
+      updatedEntry = { ...entry, note: e.target.value };
+    }
+
     const entriesCopy: Entry[] = [...entries];
     entriesCopy[entries.indexOf(entry)] = updatedEntry;
-
-    setEntries(entriesCopy);
-  }
-
-  function updateCostState(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void {
-    const updatedEntry: Entry = { ...entry, cost: Number(e.target.value) };
-    const entriesCopy: Entry[] = [...entries];
-    entriesCopy[entries.indexOf(entry)] = updatedEntry;
-    setEntries(entriesCopy);
-  }
-
-  function updateNoteState(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void {
-    const updatedEntry: Entry = { ...entry, note: e.target.value };
-    const entriesCopy: Entry[] = [...entries];
-    entriesCopy[entries.indexOf(entry)] = updatedEntry;
-
     setEntries(entriesCopy);
   }
 
@@ -87,7 +78,12 @@ export const EntriesRow: React.FC<Props> = ({
   }
 
   return (
-    <div>
+    <motion.div
+      animate={{ x: 0, opacity: 1 }}
+      initial={{ x: -2000, opacity: 0 }}
+      transition={{ type: "tween", duration: 0.5 }}
+      key={entry.id}
+    >
       <Grid
         className={entries.indexOf(entry) % 2 ? "oddIdx" : "evenIdx"}
         container
@@ -99,16 +95,20 @@ export const EntriesRow: React.FC<Props> = ({
             onMouseOver={mouseOverItem}
             onMouseLeave={mouseLeaveItem}
           >
-            <span className='leftMargin'>
-              <UserAvatar user={entry.createdBy} tooltipPlacement='top' />
-            </span>
+            <UserAvatar
+              className='leftMargin'
+              user={entry.createdBy}
+              tooltipPlacement='top'
+            />
             <Input
-              className='entryInput'
+              className='sideMargins'
               disableUnderline={true}
               fullWidth={true}
               value={itemVal}
               onChange={(e) => setItemVal(e.target.value)}
-              onBlur={updateItemState}
+              onBlur={(e) => {
+                updateEntryState(e, "item");
+              }}
             />
             {showDelete && (
               <IconButton
@@ -123,16 +123,18 @@ export const EntriesRow: React.FC<Props> = ({
         <Grid item xs={1}>
           <div className='entryDiv'>
             <Input
+              className='sideMargins'
               inputComponent={NumberFormat as any}
               inputProps={{
                 decimalScale: 2,
                 allowNegative: false,
               }}
-              className='entryInput'
               disableUnderline={true}
               fullWidth={true}
               value={entry.cost.toFixed(2)}
-              onChange={updateCostState}
+              onChange={(e) => {
+                updateEntryState(e, "cost");
+              }}
               startAdornment={
                 <InputAdornment position='start'>$</InputAdornment>
               }
@@ -146,36 +148,33 @@ export const EntriesRow: React.FC<Props> = ({
             onMouseLeave={mouseLeaveExclude}
           >
             {entry.exclude.map((user, idx) => {
-              if (
-                idx > numExcludeUsersDisplay &&
-                entry.exclude.length > numExcludeUsersDisplay
-              )
-                return null;
-
-              if (
+              if (idx < numExcludeUsersDisplay) {
+                return (
+                  <UserAvatar
+                    className='leftMarginSmall'
+                    user={user}
+                    tooltipPlacement='top'
+                    iconOnHover={<DeleteIcon />}
+                    onClick={() => {
+                      removeExcludedUser(user, entry, setEntries);
+                    }}
+                    key={user.id}
+                  />
+                );
+              } else if (
                 idx === numExcludeUsersDisplay &&
-                entry.exclude.length > numExcludeUsersDisplay
+                entry.exclude.length > idx
               ) {
                 return (
-                  <Avatar className='leftMarginSmall'>{`+${
+                  <Avatar className='leftMarginSmall' key={user.id}>{`+${
                     entry.exclude.length - numExcludeUsersDisplay
                   }`}</Avatar>
                 );
               } else {
-                return (
-                  <span className='leftMarginSmall' key={user.id}>
-                    <UserAvatar
-                      user={user}
-                      tooltipPlacement='top'
-                      iconOnHover={<DeleteIcon />}
-                      onClick={() => {
-                        removeExcludedUser(user, entry, setEntries);
-                      }}
-                    />
-                  </span>
-                );
+                return null;
               }
             })}
+
             {showEdit && (
               <IconButton
                 className='iconButton largeIconButton leftMarginSmall'
@@ -189,12 +188,14 @@ export const EntriesRow: React.FC<Props> = ({
         <Grid item xs={6}>
           <div className='entryDiv'>
             <Input
-              className='entryInput'
+              className='sideMargins'
               disableUnderline={true}
               fullWidth={true}
               value={noteVal}
               onChange={(e) => setNoteVal(e.target.value)}
-              onBlur={updateNoteState}
+              onBlur={(e) => {
+                updateEntryState(e, "note");
+              }}
             />
           </div>
         </Grid>
@@ -207,6 +208,6 @@ export const EntriesRow: React.FC<Props> = ({
         entries={entries}
         setEntries={setEntries}
       />
-    </div>
+    </motion.div>
   );
 };

@@ -1,22 +1,20 @@
 import { Grid } from "@material-ui/core";
 import * as React from "react";
 
-interface Props {}
-
-export const EntriesHeader: React.FC<Props> = (props) => {
+export const EntriesHeader: React.FC = () => {
   return (
-    <Grid className='entryHeader' container spacing={0}>
+    <Grid className='gridHeader' container spacing={0}>
       <Grid item xs={3}>
-        <span className='gridHeaderText'>ITEM</span>
+        <span className='leftMargin'>ITEM</span>
       </Grid>
       <Grid item xs={1}>
-        <span className='gridHeaderText'>COST</span>
+        <span className='leftMargin'>COST</span>
       </Grid>
       <Grid item xs={2}>
-        <span className='gridHeaderText'>EXCLUDE</span>
+        <span className='leftMargin'>EXCLUDE</span>
       </Grid>
       <Grid item xs={6}>
-        <span className='gridHeaderText'>NOTE</span>
+        <span className='leftMargin'>NOTE</span>
       </Grid>
     </Grid>
   );

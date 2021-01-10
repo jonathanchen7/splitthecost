@@ -92,7 +92,7 @@ export const AddUserModal: React.FC<Props> = ({ setUsers, open, setOpen }) => {
     >
       <DialogTitle className='modalTitle'>Add User</DialogTitle>
       <DialogContent className='modalContent' dividers>
-        <div className='multiInputModalRow'>
+        <div className='modalInputRow'>
           <TextField
             className='halfWidthModalInput'
             label='First Name'
