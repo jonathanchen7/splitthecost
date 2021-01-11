@@ -48,12 +48,26 @@ export const SideDialog: React.FC<Props> = ({ curUser, users, entries }) => {
                 <Tab className='sideDialogTab' value='ov' label='OVERVIEW' />
                 <Tab className='sideDialogTab' value='bd' label='BREAKDOWN' />
               </Tabs>
-              <TabPanel className='sideDialogContent' value={"ov"}>
-                <Overview users={users} entries={entries} />
-              </TabPanel>
-              <TabPanel className='sideDialogContent' value={"bd"}>
-                <Breakdown users={users} entries={entries} curUser={curUser} />
-              </TabPanel>
+              <motion.div
+                animate={tab === "ov" ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ duration: 0.7 }}
+              >
+                <TabPanel className='sideDialogContent' value={"ov"}>
+                  <Overview users={users} entries={entries} />
+                </TabPanel>
+              </motion.div>
+              <motion.div
+                animate={tab === "bd" ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ duration: 0.7 }}
+              >
+                <TabPanel className='sideDialogContent' value={"bd"}>
+                  <Breakdown
+                    users={users}
+                    entries={entries}
+                    curUser={curUser}
+                  />
+                </TabPanel>
+              </motion.div>
             </TabContext>
           </motion.div>
         )}
