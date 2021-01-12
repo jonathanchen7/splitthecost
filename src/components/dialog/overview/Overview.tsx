@@ -18,7 +18,7 @@ export const Overview: React.FC<Props> = ({ users, entries }) => {
   }, [users, entries]);
 
   return (
-    <div>
+    <>
       <OverviewHeader />
       {users.map((user) => (
         <OverviewRow
@@ -28,6 +28,6 @@ export const Overview: React.FC<Props> = ({ users, entries }) => {
           key={user.id}
         />
       ))}
-    </div>
+    </>
   );
 };

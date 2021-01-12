@@ -17,7 +17,7 @@ export const Entries: React.FC<Props> = ({
   curUser,
 }) => {
   return (
-    <div>
+    <>
       <EntriesHeader />
       {entries.map((entry) => (
         <EntriesRow
@@ -29,6 +29,6 @@ export const Entries: React.FC<Props> = ({
           key={entry.id}
         />
       ))}
-    </div>
+    </>
   );
 };

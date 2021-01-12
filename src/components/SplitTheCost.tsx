@@ -91,7 +91,7 @@ export const SplitTheCost: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <Header curUser={curUser} />
       <UsersBar
         users={users}
@@ -108,6 +108,6 @@ export const SplitTheCost: React.FC = () => {
       />
       <AddItemModal curUser={curUser} users={users} setEntries={setEntries} />
       <SideDialog curUser={curUser} users={users} entries={entries} />
-    </div>
+    </>
   );
 };

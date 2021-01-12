@@ -72,7 +72,7 @@ export const AddItemModal: React.FC<Props> = ({
   }
 
   return (
-    <div>
+    <>
       <Dialog
         fullWidth={true}
         maxWidth='sm'
@@ -118,7 +118,7 @@ export const AddItemModal: React.FC<Props> = ({
               onChange={handleChange}
               input={<Input />}
               renderValue={(selected) => (
-                <div>
+                <>
                   {(selected as User[]).map((user) => (
                     <Chip
                       className='leftMarginSmall'
@@ -134,7 +134,7 @@ export const AddItemModal: React.FC<Props> = ({
                       key={user.id}
                     />
                   ))}
-                </div>
+                </>
               )}
             >
               {users.map((user) => (
@@ -192,6 +192,6 @@ export const AddItemModal: React.FC<Props> = ({
           <span className='leftMarginSmall'>Add Item</span>
         </Fab>
       </div>
-    </div>
+    </>
   );
 };

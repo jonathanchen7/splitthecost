@@ -21,7 +21,7 @@ export const Breakdown: React.FC<Props> = ({ users, curUser, entries }) => {
   return users.length <= 1 ? (
     <div className='noBreakdownData'>No data to break down! :)</div>
   ) : (
-    <div>
+    <>
       <BreakdownHeader />
       {users.map(
         (user) =>
@@ -35,6 +35,6 @@ export const Breakdown: React.FC<Props> = ({ users, curUser, entries }) => {
             />
           )
       )}
-    </div>
+    </>
   );
 };

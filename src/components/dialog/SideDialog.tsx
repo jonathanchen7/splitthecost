@@ -28,7 +28,7 @@ export const SideDialog: React.FC<Props> = ({ curUser, users, entries }) => {
   }
 
   return (
-    <div>
+    <>
       <AnimatePresence>
         {open && (
           <motion.div
@@ -81,6 +81,6 @@ export const SideDialog: React.FC<Props> = ({ curUser, users, entries }) => {
           {open ? <ArrowForwardRoundedIcon /> : <ArrowBackRoundedIcon />}
         </Fab>
       </motion.div>
-    </div>
+    </>
   );
 };

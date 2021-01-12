@@ -35,7 +35,7 @@ export const UsersBar: React.FC<Props> = ({
   }
 
   return (
-    <div>
+    <>
       <Grid className='usersBar' container spacing={0}>
         <Grid item xs={12}>
           <IconButton
@@ -83,6 +83,6 @@ export const UsersBar: React.FC<Props> = ({
         setUsers={setUsers}
       />
       <SettingsModal open={openSettings} setOpen={setOpenSettings} />
-    </div>
+    </>
   );
 };
