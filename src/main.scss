@@ -390,16 +390,6 @@ $redArrowColor: #e74c3c;
   margin-top: 25px !important;
 }
 
-.authButton {
-  color: white !important;
-  background-color: $headerColor !important;
-  transition: 0.5s;
-
-  &:hover {
-    background-color: $headerColorLight !important;
-  }
-}
-
 .authSubtext {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -412,4 +402,19 @@ $redArrowColor: #e74c3c;
   &:hover {
     color: $headerColorLight;
   }
+}
+
+.authButton {
+  color: white !important;
+  background-color: $headerColor !important;
+  transition: 0.5s;
+
+  &:hover {
+    background-color: $headerColorLight !important;
+  }
+}
+
+.googleButton {
+  background-color: $gridLightColor !important;
+  margin-bottom: 15px !important;
 }

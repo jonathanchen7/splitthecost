@@ -6,14 +6,11 @@ import fire from "../../firebase";
 
 interface Props {
   curUser: User;
-  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const Header: React.FC<Props> = ({ curUser, setLoggedIn }) => {
+export const Header: React.FC<Props> = ({ curUser }) => {
   function logout() {
     fire.auth().signOut();
-    setLoggedIn(false);
-    // console.log("LOGGED OUT!");
   }
 
   return (

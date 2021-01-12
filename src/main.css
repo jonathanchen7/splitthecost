@@ -400,17 +400,6 @@
   margin-top: 25px !important;
 }
 
-.authButton {
-  color: white !important;
-  background-color: #377cab !important;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-
-.authButton:hover {
-  background-color: #5f8ba9 !important;
-}
-
 .authSubtext {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -423,5 +412,21 @@
 
 .authSwitchViewText:hover {
   color: #5f8ba9;
+}
+
+.authButton {
+  color: white !important;
+  background-color: #377cab !important;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.authButton:hover {
+  background-color: #5f8ba9 !important;
+}
+
+.googleButton {
+  background-color: #f6f6f6 !important;
+  margin-bottom: 15px !important;
 }
 /*# sourceMappingURL=main.css.map */

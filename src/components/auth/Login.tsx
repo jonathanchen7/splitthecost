@@ -5,6 +5,7 @@ import React from "react";
 export interface Props {
   switchView: () => void;
   handleLogin: () => void;
+  googleSignIn: () => void;
   email: string;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   password: string;
@@ -15,6 +16,7 @@ export interface Props {
 export const Login: React.FC<Props> = ({
   switchView,
   handleLogin,
+  googleSignIn,
   email,
   setEmail,
   password,
@@ -61,7 +63,10 @@ export const Login: React.FC<Props> = ({
           create an account
         </b>
       </span>
-      <Button className='authButton rightMarginSmall' onClick={handleLogin}>
+      <Button className='googleButton' onClick={googleSignIn}>
+        Sign In With Google
+      </Button>
+      <Button className='authButton' onClick={handleLogin}>
         Login
       </Button>
     </motion.div>

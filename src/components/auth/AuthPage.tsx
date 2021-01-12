@@ -1,15 +1,11 @@
 import { Paper } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import { SignUp } from "./SignUp";
 import { Login } from "./Login";
-import fire from "../../firebase";
+import { auth, googleAuthProvider } from "../../firebase";
 
-export interface Props {
-  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export const AuthPage: React.FC<Props> = ({ setLoggedIn }) => {
+export const AuthPage: React.FC = () => {
   const [showLogin, setShowLogin] = useState(true);
 
   const [email, setEmail] = useState("");
@@ -20,21 +16,6 @@ export const AuthPage: React.FC<Props> = ({ setLoggedIn }) => {
 
   const [validLogin, setValidLogin] = useState(true);
 
-  useEffect(() => {
-    authListener();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  function authListener() {
-    fire.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setLoggedIn(true);
-      } else {
-        setLoggedIn(false);
-      }
-    });
-  }
-
   function switchView() {
     setEmail("");
     setValidEmail(true);
@@ -44,39 +25,31 @@ export const AuthPage: React.FC<Props> = ({ setLoggedIn }) => {
   }
 
   function handleLogin() {
-    fire
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .catch((err) => {
-        console.log(err.code);
-        switch (err.code) {
-          case "auth/invalid-email":
-          case "auth/user-disabled":
-          case "auth/user-not-found":
-          case "auth/wrong-password":
-            setValidLogin(false);
-            break;
-        }
-      });
+    auth.signInWithEmailAndPassword(email, password).catch((err) => {
+      console.log(err);
+      setValidLogin(false);
+    });
+    setValidLogin(true);
+  }
+
+  function googleSignIn() {
+    auth.signInWithPopup(googleAuthProvider);
     setValidLogin(true);
   }
 
   function handleSignUp() {
-    fire
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .catch((err) => {
-        console.log(err.code);
-        switch (err.code) {
-          case "auth/email-already-in-use":
-          case "auth/invalid-email":
-            setValidEmail(false);
-            break;
-          case "auth/weak-password":
-            setValidPassword(false);
-            break;
-        }
-      });
+    auth.createUserWithEmailAndPassword(email, password).catch((err) => {
+      console.log(err.code);
+      switch (err.code) {
+        case "auth/email-already-in-use":
+        case "auth/invalid-email":
+          setValidEmail(false);
+          break;
+        case "auth/weak-password":
+          setValidPassword(false);
+          break;
+      }
+    });
     setValidEmail(true);
     setValidPassword(true);
   }
@@ -88,6 +61,7 @@ export const AuthPage: React.FC<Props> = ({ setLoggedIn }) => {
           <Login
             switchView={switchView}
             handleLogin={handleLogin}
+            googleSignIn={googleSignIn}
             email={email}
             setEmail={setEmail}
             password={password}

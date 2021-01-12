@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-// import "../App.css";
 import { Entry, User } from "../models/models";
 import { Entries } from "./entries/Entries";
 import { Header } from "./header/Header";
@@ -8,8 +7,9 @@ import { UsersBar } from "./users/UsersBar";
 import { v4 as uuidv4 } from "uuid";
 import { SideDialog } from "./dialog/SideDialog";
 import { AddItemModal } from "./modals/AddItemModal";
-import { addUser } from "../actions/actions";
 import { AuthPage } from "./auth/AuthPage";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase";
 
 const jonathan: User = {
   id: uuidv4(),
@@ -82,18 +82,18 @@ const entry3: Entry = {
 export const SplitTheCost: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [entries, setEntries] = useState<Entry[]>([]);
-  const [curUser, setCurUser] = useState<User>(jonathan);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [curUser] = useState<User>(jonathan);
+
+  const [loggedIn] = useAuthState(auth);
 
   useEffect(() => {
     setUsers([jonathan, abigail, mom, dad, emma]);
     setEntries([entry1, entry2, entry3]);
-    setCurUser(jonathan);
   }, []);
 
   return loggedIn ? (
     <>
-      <Header curUser={curUser} setLoggedIn={setLoggedIn} />
+      <Header curUser={curUser} />
       <UsersBar
         users={users}
         entries={entries}
@@ -111,6 +111,6 @@ export const SplitTheCost: React.FC = () => {
       <SideDialog curUser={curUser} users={users} entries={entries} />
     </>
   ) : (
-    <AuthPage setLoggedIn={setLoggedIn} />
+    <AuthPage />
   );
 };

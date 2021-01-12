@@ -89,7 +89,7 @@ export const SignUp: React.FC<Props> = ({
           login
         </b>
       </span>
-      <Button className='authButton rightMarginSmall' onClick={handleSignUp}>
+      <Button className='authButton' onClick={handleSignUp}>
         Sign Up
       </Button>
     </motion.div>
