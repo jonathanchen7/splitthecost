@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "../App.css";
+// import "../App.css";
 import { Entry, User } from "../models/models";
 import { Entries } from "./entries/Entries";
 import { Header } from "./header/Header";
@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import { SideDialog } from "./dialog/SideDialog";
 import { AddItemModal } from "./modals/AddItemModal";
 import { addUser } from "../actions/actions";
+import { AuthPage } from "./auth/AuthPage";
 
 const jonathan: User = {
   id: uuidv4(),
@@ -82,17 +83,17 @@ export const SplitTheCost: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [entries, setEntries] = useState<Entry[]>([]);
   const [curUser, setCurUser] = useState<User>(jonathan);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   useEffect(() => {
     setUsers([jonathan, abigail, mom, dad, emma]);
     setEntries([entry1, entry2, entry3]);
     setCurUser(jonathan);
-    addUser("test", "testtest", "test@gmail.com", setUsers);
   }, []);
 
-  return (
+  return loggedIn ? (
     <>
-      <Header curUser={curUser} />
+      <Header curUser={curUser} setLoggedIn={setLoggedIn} />
       <UsersBar
         users={users}
         entries={entries}
@@ -109,5 +110,7 @@ export const SplitTheCost: React.FC = () => {
       <AddItemModal curUser={curUser} users={users} setEntries={setEntries} />
       <SideDialog curUser={curUser} users={users} entries={entries} />
     </>
+  ) : (
+    <AuthPage setLoggedIn={setLoggedIn} />
   );
 };

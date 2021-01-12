@@ -1,19 +1,20 @@
 import * as React from "react";
 import Grid from "@material-ui/core/Grid";
 import { User } from "../../models/models";
-import { Avatar } from "@material-ui/core";
 import { UserAvatar } from "../users/UserAvatar";
+import fire from "../../firebase";
 
 interface Props {
   curUser: User;
+  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const Header: React.FC<Props> = ({ curUser }) => {
+export const Header: React.FC<Props> = ({ curUser, setLoggedIn }) => {
   function logout() {
-    console.log("LOGGED OUT!");
+    fire.auth().signOut();
+    setLoggedIn(false);
+    // console.log("LOGGED OUT!");
   }
-
-  function login() {}
 
   return (
     <Grid className='header' container spacing={0}>
@@ -24,7 +25,7 @@ export const Header: React.FC<Props> = ({ curUser }) => {
         <UserAvatar
           className='rightMargin'
           user={curUser}
-          tooltipPlacement={"left"}
+          tooltipPlacement={"bottom"}
           onClick={logout}
         />
       </Grid>

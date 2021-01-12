@@ -358,3 +358,58 @@ $redArrowColor: #e74c3c;
   justify-content: center;
   margin-top: 20px;
 }
+
+// ---------------- LOGIN ----------------
+
+.auth {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  justify-content: center;
+}
+
+.authPaper {
+  border-radius: 15px !important;
+  // background-color: $overviewDialogColor !important;
+  width: 370px;
+  padding: 20px;
+}
+
+.authDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.authHeader {
+  font-size: 30px;
+}
+
+.authInput {
+  margin-top: 25px !important;
+}
+
+.authButton {
+  color: white !important;
+  background-color: $headerColor !important;
+  transition: 0.5s;
+
+  &:hover {
+    background-color: $headerColorLight !important;
+  }
+}
+
+.authSubtext {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.authSwitchViewText {
+  color: $headerColor;
+  cursor: pointer;
+
+  &:hover {
+    color: $headerColorLight;
+  }
+}
