@@ -4,15 +4,15 @@ import { Entry, User } from "../models/models";
 import { Entries } from "./entries/Entries";
 import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
-import { v4 as uuidv4 } from "uuid";
 import { SideDialog } from "./dialog/SideDialog";
 import { AddItemModal } from "./modals/AddItemModal";
 import { AuthPage } from "./auth/AuthPage";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, firestore } from "../firebase";
+import { nanoid } from "nanoid";
 
 const jonathan: User = {
-  id: uuidv4(),
+  id: nanoid(),
   firstName: "Jonathan",
   lastName: "Chen",
   initials: "JC",
@@ -20,7 +20,7 @@ const jonathan: User = {
   email: "jonathanschen28@gmail.com",
 };
 const abigail: User = {
-  id: uuidv4(),
+  id: nanoid(),
   firstName: "Abigail",
   lastName: "Chen",
   initials: "AC",
@@ -28,7 +28,7 @@ const abigail: User = {
   displayName: "Abigail Chen",
 };
 const mom: User = {
-  id: uuidv4(),
+  id: nanoid(),
   firstName: "Christine",
   lastName: "Liu",
   initials: "CL",
@@ -36,7 +36,7 @@ const mom: User = {
   email: "thechens28@gmail.com",
 };
 const dad: User = {
-  id: uuidv4(),
+  id: nanoid(),
   firstName: "Hongbo",
   lastName: "Chen",
   initials: "HC",
@@ -44,7 +44,7 @@ const dad: User = {
   email: "bradchen28@gmail.com",
 };
 const emma: User = {
-  id: uuidv4(),
+  id: nanoid(),
   firstName: "Emma",
   lastName: "Hutcheson",
   initials: "EH",
@@ -90,13 +90,6 @@ export const SplitTheCost: React.FC = () => {
   const [users, setUsers] = useState<{ [id: string]: User }>(initialUsers);
   const [entries, setEntries] = useState<Entry[]>([]);
   const [curUser] = useState<User>(jonathan);
-
-  // const [usersTest, setUsersTest] = useState<{ [id: string]: User }>({});
-  // setUsersTest((usersTest) => {
-  //   let usersTestCopy = { ...usersTest };
-  //   usersTestCopy["test"] = curUser;
-  //   return usersTestCopy;
-  // });
 
   const [loggedIn] = useAuthState(auth);
 

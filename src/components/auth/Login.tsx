@@ -1,28 +1,48 @@
 import { Button, TextField } from "@material-ui/core";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useState } from "react";
+import { auth, googleAuthProvider, firestore } from "../../firebase";
+import { User } from "../../models/models";
+import { nanoid } from "nanoid";
 
 export interface Props {
   switchView: () => void;
-  handleLogin: () => void;
-  googleSignIn: () => void;
-  email: string;
-  setEmail: React.Dispatch<React.SetStateAction<string>>;
-  password: string;
-  setPassword: React.Dispatch<React.SetStateAction<string>>;
-  validLogin: boolean;
 }
 
-export const Login: React.FC<Props> = ({
-  switchView,
-  handleLogin,
-  googleSignIn,
-  email,
-  setEmail,
-  password,
-  setPassword,
-  validLogin,
-}) => {
+export const Login: React.FC<Props> = ({ switchView }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [validLogin, setValidLogin] = useState(true);
+
+  function handleLogin() {
+    auth.signInWithEmailAndPassword(email, password).catch((err) => {
+      setValidLogin(false);
+    });
+    setValidLogin(true);
+  }
+
+  function googleSignIn() {
+    auth.signInWithPopup(googleAuthProvider).then((userCredentials) => {
+      const user = userCredentials.user;
+      if (user) {
+        const firstName = user.displayName!.split(" ")[0];
+        const lastName = user.displayName!.split(" ")[1];
+        const newUser: User = {
+          firstName: firstName,
+          lastName: lastName,
+          id: nanoid(),
+          initials: `${firstName
+            .charAt(0)
+            .toLocaleUpperCase()}${lastName.charAt(0).toLocaleUpperCase()}`,
+          displayName: user.displayName!,
+          email: user.email!,
+        };
+        firestore.collection("users").doc(newUser.id).set(newUser);
+      }
+    });
+    setValidLogin(true);
+  }
+
   return (
     <motion.div
       className='authDiv'

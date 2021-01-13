@@ -1,28 +1,64 @@
 import { Button, TextField } from "@material-ui/core";
 import { motion } from "framer-motion";
-import React from "react";
+import { nanoid } from "nanoid";
+import React, { useState } from "react";
+import { auth, googleAuthProvider, firestore } from "../../firebase";
+import { User } from "../../models/models";
 
 export interface Props {
   switchView: () => void;
-  handleSignUp: () => void;
-  email: string;
-  setEmail: React.Dispatch<React.SetStateAction<string>>;
-  validEmail: boolean;
-  password: string;
-  setPassword: React.Dispatch<React.SetStateAction<string>>;
-  validPassword: boolean;
 }
 
-export const SignUp: React.FC<Props> = ({
-  switchView,
-  handleSignUp,
-  email,
-  setEmail,
-  validEmail,
-  password,
-  setPassword,
-  validPassword,
-}) => {
+export const SignUp: React.FC<Props> = ({ switchView }) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(true);
+  const [password, setPassword] = useState("");
+  const [validPassword, setValidPassword] = useState(true);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [validConfirmPassword, setValidConfirmPassword] = useState(true);
+
+  function handleSignUp() {
+    if (confirmPassword !== password) {
+      setValidConfirmPassword(false);
+      return;
+    }
+
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .catch((err) => {
+        switch (err.code) {
+          case "auth/email-already-in-use":
+          case "auth/invalid-email":
+            setValidEmail(false);
+            break;
+          case "auth/weak-password":
+            setValidPassword(false);
+            break;
+        }
+      })
+      .then((response) => {
+        if (!!response) {
+          const newUser: User = {
+            firstName: firstName,
+            lastName: lastName,
+            id: nanoid(),
+            initials: `${firstName
+              .charAt(0)
+              .toLocaleUpperCase()}${lastName.charAt(0).toLocaleUpperCase()}`,
+            displayName: `${firstName} ${lastName}`,
+            email: email,
+          };
+
+          firestore.collection("users").doc(newUser.id).set(newUser);
+          setValidEmail(true);
+          setValidPassword(true);
+          setValidConfirmPassword(true);
+        }
+      });
+  }
+
   return (
     <motion.div
       className='authDiv'
@@ -38,6 +74,8 @@ export const SignUp: React.FC<Props> = ({
           className='authInput'
           fullWidth
           label='First Name'
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
           InputLabelProps={{
             shrink: true,
           }}
@@ -46,6 +84,8 @@ export const SignUp: React.FC<Props> = ({
           className='authInput'
           fullWidth
           label='Last Name'
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
           InputLabelProps={{
             shrink: true,
           }}
@@ -55,7 +95,7 @@ export const SignUp: React.FC<Props> = ({
           fullWidth
           label='Email'
           error={!validEmail}
-          helperText={!validEmail && "Invalid email or email already taken."}
+          helperText={!validEmail && "Invalid email or email already in use."}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           InputLabelProps={{
@@ -80,6 +120,10 @@ export const SignUp: React.FC<Props> = ({
           fullWidth
           label='Confirm Password'
           type='password'
+          error={!validConfirmPassword}
+          helperText={!validConfirmPassword && "Passwords do not match."}
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
           InputLabelProps={{
             shrink: true,
           }}

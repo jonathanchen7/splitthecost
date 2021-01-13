@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
+import { nanoid } from "nanoid";
 import { Entry, OverviewData, User, UserBreakdownData } from "../models/models";
 import { firestore } from "../firebase";
 
@@ -41,7 +41,7 @@ export function addUser(
 ): void {
   // Input is valid! Add new user.
   const newUser: User = {
-    id: uuidv4(),
+    id: nanoid(),
     firstName: firstName,
     lastName: lastName,
     initials: `${firstName.charAt(0).toLocaleUpperCase()}${lastName
@@ -59,7 +59,7 @@ export function addUser(
 
 // Deletes a user and all of its entries.
 export function deleteUser(
-  user: User,
+  userId: string,
   entries: Entry[],
   setUsers: React.Dispatch<React.SetStateAction<{ [id: string]: User }>>,
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>
@@ -67,18 +67,16 @@ export function deleteUser(
   // Delete user from user state.
   setUsers((users) => {
     let usersCopy = { ...users };
-    delete usersCopy[user.id];
+    delete usersCopy[userId];
     return usersCopy;
   });
   // Delete all entries associated with user from user state.
-  let updatedEntries = entries.filter((entry) => entry.createdBy !== user.id);
+  let updatedEntries = entries.filter((entry) => entry.createdBy !== userId);
 
   // Removes user from excluded user lists.
   updatedEntries.forEach((entry, idx) => {
-    if (entry.exclude.includes(user.id)) {
-      let newExcludedUsers = entry.exclude.filter(
-        (userId) => user.id !== userId
-      );
+    if (entry.exclude.includes(userId)) {
+      let newExcludedUsers = entry.exclude.filter((curId) => userId !== curId);
       let updatedEntry: Entry = { ...entry, exclude: newExcludedUsers };
       updatedEntries[idx] = updatedEntry;
     }
@@ -96,7 +94,7 @@ export function addEntry(
   note?: string
 ) {
   const newItem: Entry = {
-    id: uuidv4(),
+    id: nanoid(),
     item: !!item ? item : "",
     cost: !!cost ? cost : 0,
     exclude: !!excludedUsers ? excludedUsers : [],
