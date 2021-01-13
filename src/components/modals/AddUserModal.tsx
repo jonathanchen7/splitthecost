@@ -21,7 +21,7 @@ const Transition = React.forwardRef(function Transition(
 });
 
 interface Props {
-  setUsers: React.Dispatch<React.SetStateAction<User[]>>;
+  setUsers: React.Dispatch<React.SetStateAction<{ [id: string]: User }>>;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }

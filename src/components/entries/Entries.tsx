@@ -5,7 +5,7 @@ import { Entry, User } from "../../models/models";
 
 interface Props {
   entries: Entry[];
-  users: User[];
+  users: { [id: string]: User };
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
   curUser: User;
 }

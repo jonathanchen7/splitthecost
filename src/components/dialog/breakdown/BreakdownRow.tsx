@@ -7,8 +7,9 @@ import { UserAvatar } from "../../users/UserAvatar";
 interface Props {
   curUser: User;
   user: User;
-  users: User[];
+  users: { [id: string]: User };
   data?: { theyOwe: number; youOwe: number };
+  idx: number;
 }
 
 export const BreakdownRow: React.FC<Props> = ({
@@ -16,6 +17,7 @@ export const BreakdownRow: React.FC<Props> = ({
   user,
   users,
   data,
+  idx,
 }) => {
   const netCost: number = !!data ? data.theyOwe - data.youOwe : 0;
   const debtedUser: User = netCost < 0 ? curUser : user;
@@ -24,8 +26,8 @@ export const BreakdownRow: React.FC<Props> = ({
   return (
     <Grid
       className={
-        (users.indexOf(user) === users.length - 1 ? "roundedBottom " : "") +
-        (users.indexOf(user) % 2 ? "oddIdx" : "evenIdx")
+        (idx === Object.keys(users).length - 1 ? "roundedBottom " : "") +
+        (idx % 2 ? "oddIdx" : "evenIdx")
       }
       container
       spacing={0}

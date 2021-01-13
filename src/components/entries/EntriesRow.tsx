@@ -14,7 +14,7 @@ import { motion } from "framer-motion";
 interface Props {
   entry: Entry;
   entries: Entry[];
-  users: User[];
+  users: { [id: string]: User };
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
   curUser: User;
 }
@@ -26,7 +26,7 @@ export const EntriesRow: React.FC<Props> = ({
   setEntries,
   curUser,
 }) => {
-  const numExcludeUsersDisplay = entry.createdBy === curUser ? 3 : 4;
+  const numExcludeUsersDisplay = entry.createdBy === curUser.id ? 3 : 4;
 
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -54,25 +54,25 @@ export const EntriesRow: React.FC<Props> = ({
   }
 
   function mouseOverItem(): void {
-    if (entry.createdBy === curUser) {
+    if (entry.createdBy === curUser.id) {
       setShowDelete(true);
     }
   }
 
   function mouseLeaveItem(): void {
-    if (entry.createdBy === curUser) {
+    if (entry.createdBy === curUser.id) {
       setShowDelete(false);
     }
   }
 
   function mouseOverExclude(): void {
-    if (entry.createdBy === curUser) {
+    if (entry.createdBy === curUser.id) {
       setShowEdit(true);
     }
   }
 
   function mouseLeaveExclude(): void {
-    if (entry.createdBy === curUser) {
+    if (entry.createdBy === curUser.id) {
       setShowEdit(false);
     }
   }
@@ -97,7 +97,7 @@ export const EntriesRow: React.FC<Props> = ({
           >
             <UserAvatar
               className='leftMargin'
-              user={entry.createdBy}
+              user={users[entry.createdBy]}
               tooltipPlacement='top'
             />
             <Input
@@ -147,18 +147,18 @@ export const EntriesRow: React.FC<Props> = ({
             onMouseOver={mouseOverExclude}
             onMouseLeave={mouseLeaveExclude}
           >
-            {entry.exclude.map((user, idx) => {
+            {entry.exclude.map((userId, idx) => {
               if (idx < numExcludeUsersDisplay) {
                 return (
                   <UserAvatar
                     className='leftMarginSmall'
-                    user={user}
+                    user={users[userId]}
                     tooltipPlacement='top'
                     iconOnHover={<DeleteIcon />}
                     onClick={() => {
-                      removeExcludedUser(user, entry, setEntries);
+                      removeExcludedUser(userId, entry, setEntries);
                     }}
-                    key={user.id}
+                    key={userId}
                   />
                 );
               } else if (
@@ -166,7 +166,7 @@ export const EntriesRow: React.FC<Props> = ({
                 entry.exclude.length > idx
               ) {
                 return (
-                  <Avatar className='leftMarginSmall' key={user.id}>{`+${
+                  <Avatar className='leftMarginSmall' key={userId}>{`+${
                     entry.exclude.length - numExcludeUsersDisplay
                   }`}</Avatar>
                 );

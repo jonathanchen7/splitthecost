@@ -32,7 +32,7 @@ interface Props {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   entry: Entry;
-  users: User[];
+  users: { [id: string]: User };
   entries: Entry[];
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
 }
@@ -45,13 +45,15 @@ export const ExcludedUsersModal: React.FC<Props> = ({
   entries,
   setEntries,
 }) => {
-  const [includedUsers, setIncludedUsers] = useState<User[]>(
-    users.filter((user) => !entry.exclude.includes(user))
+  const [includedUsers, setIncludedUsers] = useState<string[]>(
+    Object.keys(users).filter((userId) => !entry.exclude.includes(userId))
   );
-  const [excludedUsers, setExcludedUsers] = useState<User[]>(entry.exclude);
+  const [excludedUsers, setExcludedUsers] = useState<string[]>(entry.exclude);
 
   useEffect(() => {
-    setIncludedUsers(users.filter((user) => !entry.exclude.includes(user)));
+    setIncludedUsers(
+      Object.keys(users).filter((userId) => !entry.exclude.includes(userId))
+    );
     setExcludedUsers(entry.exclude);
   }, [users, entry, entries]);
 
@@ -133,8 +135,8 @@ export const ExcludedUsersModal: React.FC<Props> = ({
                 elevation={2}
               >
                 <div className='excludeModalPaperHeader'>INCLUDED USERS</div>
-                {includedUsers.map((user, idx) => (
-                  <Draggable draggableId={user.id} index={idx} key={user.id}>
+                {includedUsers.map((userId, idx) => (
+                  <Draggable draggableId={userId} index={idx} key={userId}>
                     {(provided) => (
                       <Chip
                         {...provided.draggableProps}
@@ -144,13 +146,15 @@ export const ExcludedUsersModal: React.FC<Props> = ({
                         avatar={
                           <Avatar
                             className='usersBarAvatar'
-                            style={{ backgroundColor: getAvatarColor(user) }}
+                            style={{
+                              backgroundColor: getAvatarColor(users[userId]),
+                            }}
                           >
-                            {user.initials}
+                            {users[userId].initials}
                           </Avatar>
                         }
-                        label={user.displayName}
-                        key={user.id}
+                        label={users[userId].displayName}
+                        key={userId}
                       />
                     )}
                   </Draggable>
@@ -168,8 +172,8 @@ export const ExcludedUsersModal: React.FC<Props> = ({
                 elevation={2}
               >
                 <div className='excludeModalPaperHeader'>EXCLUDED USERS</div>
-                {excludedUsers.map((user, idx) => (
-                  <Draggable draggableId={user.id} index={idx} key={user.id}>
+                {excludedUsers.map((userId, idx) => (
+                  <Draggable draggableId={userId} index={idx} key={userId}>
                     {(provided) => (
                       <Chip
                         {...provided.draggableProps}
@@ -179,13 +183,15 @@ export const ExcludedUsersModal: React.FC<Props> = ({
                         avatar={
                           <Avatar
                             className='usersBarAvatar'
-                            style={{ backgroundColor: getAvatarColor(user) }}
+                            style={{
+                              backgroundColor: getAvatarColor(users[userId]),
+                            }}
                           >
-                            {user.initials}
+                            {users[userId].initials}
                           </Avatar>
                         }
-                        label={user.displayName}
-                        key={user.id}
+                        label={users[userId].displayName}
+                        key={userId}
                       />
                     )}
                   </Draggable>

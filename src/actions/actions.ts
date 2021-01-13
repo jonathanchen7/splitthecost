@@ -5,7 +5,7 @@ import { firestore } from "../firebase";
 // Updates an entry's list of excluded users.
 export function updateExcludedUsers(
   entry: Entry,
-  newExcludedUsers: User[],
+  newExcludedUsers: string[],
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>
 ): void {
   let updatedEntry: Entry = { ...entry, exclude: newExcludedUsers };
@@ -19,21 +19,17 @@ export function updateExcludedUsers(
 
 // Removes an user from an entry's excluded user list (if it is excluded).
 export function removeExcludedUser(
-  user: User,
+  userId: string,
   entry: Entry,
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>
 ): void {
-  const userIdx = entry.exclude.indexOf(user);
-  if (userIdx !== -1) {
-    let excludeCopy = Array.from(entry.exclude);
-    excludeCopy.splice(userIdx, 1);
-    const updatedEntry: Entry = { ...entry, exclude: excludeCopy };
-    setEntries((entries) => {
-      let entriesCopy = [...entries];
-      entriesCopy[entries.indexOf(entry)] = updatedEntry;
-      return entriesCopy;
-    });
-  }
+  let newExcludedUsers = entry.exclude.filter((curId) => userId !== curId);
+  const updatedEntry: Entry = { ...entry, exclude: newExcludedUsers };
+  setEntries((entries) => {
+    let entriesCopy = [...entries];
+    entriesCopy[entries.indexOf(entry)] = updatedEntry;
+    return entriesCopy;
+  });
 }
 
 // Adds a new user.
@@ -41,7 +37,7 @@ export function addUser(
   firstName: string,
   lastName: string,
   email: string,
-  setUsers: React.Dispatch<React.SetStateAction<User[]>>
+  setUsers: React.Dispatch<React.SetStateAction<{ [id: string]: User }>>
 ): void {
   // Input is valid! Add new user.
   const newUser: User = {
@@ -54,26 +50,35 @@ export function addUser(
     displayName: `${firstName} ${lastName}`,
     email: email,
   };
-  setUsers((users) => [...users, newUser]);
+  setUsers((users) => {
+    let usersCopy = { ...users };
+    usersCopy[newUser.id] = newUser;
+    return usersCopy;
+  });
 }
 
 // Deletes a user and all of its entries.
 export function deleteUser(
   user: User,
-  users: User[],
   entries: Entry[],
-  setUsers: React.Dispatch<React.SetStateAction<User[]>>,
+  setUsers: React.Dispatch<React.SetStateAction<{ [id: string]: User }>>,
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>
 ): void {
   // Delete user from user state.
-  setUsers(users.filter((cur) => user !== cur));
+  setUsers((users) => {
+    let usersCopy = { ...users };
+    delete usersCopy[user.id];
+    return usersCopy;
+  });
   // Delete all entries associated with user from user state.
-  let updatedEntries = entries.filter((entry) => entry.createdBy !== user);
+  let updatedEntries = entries.filter((entry) => entry.createdBy !== user.id);
 
   // Removes user from excluded user lists.
   updatedEntries.forEach((entry, idx) => {
-    if (entry.exclude.includes(user)) {
-      let newExcludedUsers = entry.exclude.filter((cur) => user !== cur);
+    if (entry.exclude.includes(user.id)) {
+      let newExcludedUsers = entry.exclude.filter(
+        (userId) => user.id !== userId
+      );
       let updatedEntry: Entry = { ...entry, exclude: newExcludedUsers };
       updatedEntries[idx] = updatedEntry;
     }
@@ -87,7 +92,7 @@ export function addEntry(
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>,
   item?: string,
   cost?: number,
-  excludedUsers?: User[],
+  excludedUsers?: string[],
   note?: string
 ) {
   const newItem: Entry = {
@@ -96,7 +101,7 @@ export function addEntry(
     cost: !!cost ? cost : 0,
     exclude: !!excludedUsers ? excludedUsers : [],
     note: !!note ? note : "",
-    createdBy: curUser,
+    createdBy: curUser.id,
   };
   setEntries((entries) => [...entries, newItem]);
 
@@ -114,24 +119,27 @@ export function deleteEntry(
 // Calculates and returns the overview data.
 export function calculateOverview(
   entries: Entry[],
-  users: User[]
+  users: { [id: string]: User }
 ): OverviewData {
   let overviewData: OverviewData = {};
 
   // Create entries for each user.
-  users.forEach((user) => {
+  Object.entries(users).forEach((pair) => {
+    let user = pair[1];
     overviewData[user.id] = { totalSpent: 0, totalOwed: 0 };
   });
 
   entries.forEach((entry) => {
-    overviewData[entry.createdBy.id].totalSpent += entry.cost;
+    overviewData[entry.createdBy].totalSpent += entry.cost;
 
-    const validUsers = users.filter((user) => !entry.exclude.includes(user));
+    const validUsers = Object.keys(users).filter(
+      (userId) => !entry.exclude.includes(userId)
+    );
     const userCost = entry.cost / validUsers.length;
 
-    validUsers.forEach((user) => {
-      if (user !== entry.createdBy) {
-        overviewData[user.id].totalOwed += userCost;
+    validUsers.forEach((userId) => {
+      if (userId !== entry.createdBy) {
+        overviewData[userId].totalOwed += userCost;
       }
     });
   });
@@ -143,7 +151,7 @@ export function calculateOverview(
 export function calculateUserBreakdown(
   user: User,
   entries: Entry[],
-  users: User[]
+  users: { [id: string]: User }
 ): UserBreakdownData {
   let breakdownData: UserBreakdownData = {
     user: user,
@@ -152,31 +160,33 @@ export function calculateUserBreakdown(
     userBreakdown: {},
   };
 
-  users.forEach((curUser) => {
+  Object.entries(users).forEach((pair) => {
+    let curUser = pair[1];
     if (curUser !== user) {
       breakdownData.userBreakdown[curUser.id] = { theyOwe: 0, youOwe: 0 };
     }
   });
 
   entries.forEach((entry) => {
-    const numEntryUsers = users.length - entry.exclude.length;
-    if (entry.createdBy === user) {
-      // This is the specified user's entry. Add the cost to totalSpent and
+    const numEntryUsers = Object.keys(users).length - entry.exclude.length;
+    if (entry.createdBy === user.id) {
+      // This is the current user's entry. Add the cost to totalSpent and
       // increment "theyOwe" for all valid users.
       breakdownData.totalSpent += entry.cost;
 
-      const validUsers = users.filter(
-        (user) => !entry.exclude.includes(user) && user !== entry.createdBy
+      const validUsers = Object.keys(users).filter(
+        (userId) =>
+          !entry.exclude.includes(userId) && userId !== entry.createdBy
       );
-      validUsers.forEach((user) => {
-        breakdownData.userBreakdown[user.id].theyOwe +=
+      validUsers.forEach((userId) => {
+        breakdownData.userBreakdown[userId].theyOwe +=
           entry.cost / numEntryUsers;
       });
-    } else if (!entry.exclude.includes(user)) {
+    } else if (!entry.exclude.includes(user.id)) {
       // This is another user's entry that you need to pay for. Add the cost to
       // totalOwed and increment "youOwe" for this particular user.
       breakdownData.totalOwed += entry.cost / numEntryUsers;
-      breakdownData.userBreakdown[entry.createdBy.id].youOwe +=
+      breakdownData.userBreakdown[entry.createdBy].youOwe +=
         entry.cost / numEntryUsers;
     }
   });

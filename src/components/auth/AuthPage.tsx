@@ -26,7 +26,6 @@ export const AuthPage: React.FC = () => {
 
   function handleLogin() {
     auth.signInWithEmailAndPassword(email, password).catch((err) => {
-      console.log(err);
       setValidLogin(false);
     });
     setValidLogin(true);
@@ -39,7 +38,6 @@ export const AuthPage: React.FC = () => {
 
   function handleSignUp() {
     auth.createUserWithEmailAndPassword(email, password).catch((err) => {
-      console.log(err.code);
       switch (err.code) {
         case "auth/email-already-in-use":
         case "auth/invalid-email":

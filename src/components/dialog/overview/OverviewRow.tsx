@@ -6,16 +6,17 @@ import { UserAvatar } from "../../users/UserAvatar";
 
 interface Props {
   user: User;
-  users: User[];
+  users: { [id: string]: User };
   data: { totalSpent: number; totalOwed: number };
+  idx: number;
 }
 
-export const OverviewRow: React.FC<Props> = ({ user, users, data }) => {
+export const OverviewRow: React.FC<Props> = ({ user, users, data, idx }) => {
   return (
     <Grid
       className={
-        (users.indexOf(user) === users.length - 1 ? "roundedBottom " : "") +
-        (users.indexOf(user) % 2 ? "evenIdx" : "oddIdx")
+        (idx === Object.keys(users).length - 1 ? "roundedBottom " : "") +
+        (idx % 2 ? "evenIdx" : "oddIdx")
       }
       container
       spacing={0}

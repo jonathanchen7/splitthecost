@@ -11,7 +11,7 @@ import { useState } from "react";
 
 interface Props {
   curUser: User;
-  users: User[];
+  users: { [id: string]: User };
   entries: Entry[];
 }
 

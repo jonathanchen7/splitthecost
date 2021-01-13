@@ -57,8 +57,8 @@ const entry1: Entry = {
   item: "hydroflask",
   cost: 20,
   note: "keeps ur water cold",
-  exclude: [abigail],
-  createdBy: jonathan,
+  exclude: [abigail.id],
+  createdBy: jonathan.id,
 };
 
 const entry2: Entry = {
@@ -66,8 +66,8 @@ const entry2: Entry = {
   item: "canoe",
   cost: 50,
   note: "issa boat",
-  exclude: [mom],
-  createdBy: abigail,
+  exclude: [mom.id],
+  createdBy: abigail.id,
 };
 
 const entry3: Entry = {
@@ -76,23 +76,32 @@ const entry3: Entry = {
   cost: 0,
   note: "",
   exclude: [],
-  createdBy: jonathan,
+  createdBy: jonathan.id,
 };
 
+const initialUsers: { [id: string]: User } = {};
+initialUsers[jonathan.id] = jonathan;
+initialUsers[abigail.id] = abigail;
+initialUsers[mom.id] = mom;
+initialUsers[dad.id] = dad;
+initialUsers[emma.id] = emma;
+
 export const SplitTheCost: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<{ [id: string]: User }>(initialUsers);
   const [entries, setEntries] = useState<Entry[]>([]);
   const [curUser] = useState<User>(jonathan);
+
+  // const [usersTest, setUsersTest] = useState<{ [id: string]: User }>({});
+  // setUsersTest((usersTest) => {
+  //   let usersTestCopy = { ...usersTest };
+  //   usersTestCopy["test"] = curUser;
+  //   return usersTestCopy;
+  // });
 
   const [loggedIn] = useAuthState(auth);
 
   useEffect(() => {
-    const ref = firestore.collection("sheets");
-    ref.get().then((item) => {
-      item.docs.map((entry) => console.log(entry.data()));
-      // console.log(item.docs);
-    });
-    setUsers([jonathan, abigail, mom, dad, emma]);
+    firestore.collection("sheets");
     setEntries([entry1, entry2, entry3]);
   }, []);
 

@@ -35,7 +35,7 @@ const Transition = React.forwardRef(function Transition(
 
 interface Props {
   curUser: User;
-  users: User[];
+  users: { [id: string]: User };
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
 }
 
@@ -48,7 +48,7 @@ export const AddItemModal: React.FC<Props> = ({
   const [item, setItem] = useState("");
   const [cost, setCost] = useState(0);
   const [note, setNote] = useState("");
-  const [excludedUsers, setExcludedUsers] = useState<User[]>([]);
+  const [excludedUsers, setExcludedUsers] = useState<string[]>([]);
 
   function handleOpen() {
     setOpen(true);
@@ -63,7 +63,7 @@ export const AddItemModal: React.FC<Props> = ({
   }
 
   function handleChange(event: React.ChangeEvent<{ value: unknown }>) {
-    setExcludedUsers(event.target.value as User[]);
+    setExcludedUsers(event.target.value as string[]);
   }
 
   function confirmAddEntry() {
@@ -119,45 +119,49 @@ export const AddItemModal: React.FC<Props> = ({
               input={<Input />}
               renderValue={(selected) => (
                 <>
-                  {(selected as User[]).map((user) => (
+                  {(selected as string[]).map((userId) => (
                     <Chip
                       className='leftMarginSmall'
                       avatar={
                         <Avatar
                           className='usersBarAvatar'
-                          style={{ backgroundColor: getAvatarColor(user) }}
+                          style={{
+                            backgroundColor: getAvatarColor(users[userId]),
+                          }}
                         >
-                          {user.initials}
+                          {users[userId].initials}
                         </Avatar>
                       }
-                      label={user.displayName}
-                      key={user.id}
+                      label={users[userId].displayName}
+                      key={userId}
                     />
                   ))}
                 </>
               )}
             >
-              {users.map((user) => (
+              {Object.keys(users).map((userId) => (
                 <MenuItem
                   // @ts-ignore
-                  value={user}
-                  key={user.id}
+                  value={userId}
+                  key={userId}
                 >
                   <Checkbox
                     color='primary'
-                    checked={excludedUsers.includes(user)}
+                    checked={excludedUsers.includes(userId)}
                   />
                   <Chip
                     avatar={
                       <Avatar
                         className='usersBarAvatar'
-                        style={{ backgroundColor: getAvatarColor(user) }}
+                        style={{
+                          backgroundColor: getAvatarColor(users[userId]),
+                        }}
                       >
-                        {user.initials}
+                        {users[userId].initials}
                       </Avatar>
                     }
-                    label={user.displayName}
-                    key={user.id}
+                    label={users[userId].displayName}
+                    key={userId}
                   />
                 </MenuItem>
               ))}

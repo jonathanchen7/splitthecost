@@ -6,7 +6,7 @@ import { OverviewRow } from "./OverviewRow";
 import { calculateOverview } from "../../../actions/actions";
 
 interface Props {
-  users: User[];
+  users: { [id: string]: User };
   entries: Entry[];
 }
 
@@ -20,14 +20,18 @@ export const Overview: React.FC<Props> = ({ users, entries }) => {
   return (
     <>
       <OverviewHeader />
-      {users.map((user) => (
-        <OverviewRow
-          user={user}
-          users={users}
-          data={overviewData[user.id]}
-          key={user.id}
-        />
-      ))}
+      {Object.entries(users).map((pair, idx) => {
+        let user = pair[1];
+        return (
+          <OverviewRow
+            user={user}
+            users={users}
+            data={overviewData[user.id]}
+            idx={idx}
+            key={user.id}
+          />
+        );
+      })}
     </>
   );
 };

@@ -9,10 +9,10 @@ import { deleteUser, getAvatarColor } from "../../actions/actions";
 import { SettingsModal } from "../modals/SettingsModal";
 
 interface Props {
-  users: User[];
+  users: { [id: string]: User };
   entries: Entry[];
   curUser: User;
-  setUsers: React.Dispatch<React.SetStateAction<User[]>>;
+  setUsers: React.Dispatch<React.SetStateAction<{ [id: string]: User }>>;
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
 }
 
@@ -44,29 +44,31 @@ export const UsersBar: React.FC<Props> = ({
           >
             <SettingsIcon />
           </IconButton>
-          {users.map((user) => (
-            <Tooltip arrow title={user.email} placement='top' key={user.id}>
-              <Chip
-                className='usersBarChip leftMargin'
-                avatar={
-                  <Avatar
-                    className='usersBarAvatar'
-                    style={{ backgroundColor: getAvatarColor(user) }}
-                  >
-                    {user.initials}
-                  </Avatar>
-                }
-                label={user.displayName}
-                onDelete={
-                  user !== curUser
-                    ? () =>
-                        deleteUser(user, users, entries, setUsers, setEntries)
-                    : undefined
-                }
-                key={user.id}
-              />
-            </Tooltip>
-          ))}
+          {Object.entries(users).map((pair) => {
+            const user = pair[1];
+            return (
+              <Tooltip arrow title={user.email} placement='top' key={user.id}>
+                <Chip
+                  className='usersBarChip leftMargin'
+                  avatar={
+                    <Avatar
+                      className='usersBarAvatar'
+                      style={{ backgroundColor: getAvatarColor(user) }}
+                    >
+                      {user.initials}
+                    </Avatar>
+                  }
+                  label={user.displayName}
+                  onDelete={
+                    user !== curUser
+                      ? () => deleteUser(user, entries, setUsers, setEntries)
+                      : undefined
+                  }
+                  key={user.id}
+                />
+              </Tooltip>
+            );
+          })}
           <Tooltip arrow title='Add User' placement='right'>
             <IconButton
               className='iconButton smallIconButton leftMargin'
