@@ -6,10 +6,10 @@ import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
 import { SideDialog } from "./dialog/SideDialog";
 import { AddItemModal } from "./modals/AddItemModal";
-import { AuthPage } from "./auth/AuthPage";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, firestore } from "../firebase";
+import { auth, db } from "../firebase";
 import { nanoid } from "nanoid";
+import { useParams } from "react-router-dom";
 
 const jonathan: User = {
   id: nanoid(),
@@ -86,7 +86,10 @@ initialUsers[mom.id] = mom;
 initialUsers[dad.id] = dad;
 initialUsers[emma.id] = emma;
 
-export const SplitTheCost: React.FC = () => {
+export const SplitTheCost: React.FC = ({}) => {
+  const sheetId = useParams();
+  console.log(sheetId);
+
   const [users, setUsers] = useState<{ [id: string]: User }>(initialUsers);
   const [entries, setEntries] = useState<Entry[]>([]);
   const [curUser] = useState<User>(jonathan);
@@ -94,11 +97,11 @@ export const SplitTheCost: React.FC = () => {
   const [loggedIn] = useAuthState(auth);
 
   useEffect(() => {
-    firestore.collection("sheets");
+    db.collection("sheets");
     setEntries([entry1, entry2, entry3]);
   }, []);
 
-  return loggedIn ? (
+  return (
     <>
       <Header curUser={curUser} />
       <UsersBar
@@ -117,7 +120,5 @@ export const SplitTheCost: React.FC = () => {
       <AddItemModal curUser={curUser} users={users} setEntries={setEntries} />
       <SideDialog curUser={curUser} users={users} entries={entries} />
     </>
-  ) : (
-    <AuthPage />
   );
 };

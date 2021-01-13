@@ -2,7 +2,7 @@ import { Button, TextField } from "@material-ui/core";
 import { motion } from "framer-motion";
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
-import { auth, googleAuthProvider, firestore } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { User } from "../../models/models";
 
 export interface Props {
@@ -51,7 +51,7 @@ export const SignUp: React.FC<Props> = ({ switchView }) => {
             email: email,
           };
 
-          firestore.collection("users").doc(newUser.id).set(newUser);
+          db.collection("users").doc(newUser.id).set(newUser);
           setValidEmail(true);
           setValidPassword(true);
           setValidConfirmPassword(true);

@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { Entry, OverviewData, User, UserBreakdownData } from "../models/models";
-import { firestore } from "../firebase";
+import { db } from "../firebase";
 
 // Updates an entry's list of excluded users.
 export function updateExcludedUsers(
@@ -103,7 +103,7 @@ export function addEntry(
   };
   setEntries((entries) => [...entries, newItem]);
 
-  firestore.collection("sheets").add(newItem);
+  db.collection("sheets").add(newItem);
 }
 
 // Deletes a single entry.
