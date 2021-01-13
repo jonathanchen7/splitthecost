@@ -33,56 +33,58 @@ export const SignUp: React.FC<Props> = ({
       <span className='authHeader'>
         split the cost | <b>sign up</b>
       </span>
-      <TextField
-        className='authInput'
-        fullWidth
-        label='First Name'
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <TextField
-        className='authInput'
-        fullWidth
-        label='Last Name'
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <TextField
-        className='authInput'
-        fullWidth
-        label='Email'
-        error={!validEmail}
-        helperText={!validEmail && "Invalid email or email already taken."}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <TextField
-        className='authInput'
-        fullWidth
-        label='Password'
-        type='password'
-        error={!validPassword}
-        helperText={!validPassword && "Password too weak."}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <TextField
-        className='authInput'
-        fullWidth
-        label='Confirm Password'
-        type='password'
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
+      <form>
+        <TextField
+          className='authInput'
+          fullWidth
+          label='First Name'
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <TextField
+          className='authInput'
+          fullWidth
+          label='Last Name'
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <TextField
+          className='authInput'
+          fullWidth
+          label='Email'
+          error={!validEmail}
+          helperText={!validEmail && "Invalid email or email already taken."}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <TextField
+          className='authInput'
+          fullWidth
+          label='Password'
+          type='password'
+          error={!validPassword}
+          helperText={!validPassword && "Password too weak."}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <TextField
+          className='authInput'
+          fullWidth
+          label='Confirm Password'
+          type='password'
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+      </form>
       <span className='authSubtext'>
         existing user?{" "}
         <b className='authSwitchViewText' onClick={switchView}>

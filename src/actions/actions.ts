@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { Entry, OverviewData, User, UserBreakdownData } from "../models/models";
+import { firestore } from "../firebase";
 
 // Updates an entry's list of excluded users.
 export function updateExcludedUsers(
@@ -98,6 +99,8 @@ export function addEntry(
     createdBy: curUser,
   };
   setEntries((entries) => [...entries, newItem]);
+
+  firestore.collection("sheets").add(newItem);
 }
 
 // Deletes a single entry.

@@ -33,30 +33,33 @@ export const Login: React.FC<Props> = ({
       <span className='authHeader'>
         split the cost | <b>login</b>
       </span>
-      <TextField
-        className='authInput'
-        fullWidth
-        label='Email'
-        error={!validLogin}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <TextField
-        className='authInput'
-        fullWidth
-        label='Password'
-        type='password'
-        error={!validLogin}
-        helperText={!validLogin && "Invalid email/password combination."}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
+      <form>
+        <TextField
+          className='authInput'
+          fullWidth
+          label='Email'
+          error={!validLogin}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <TextField
+          className='authInput'
+          fullWidth
+          label='Password'
+          type='password'
+          error={!validLogin}
+          helperText={!validLogin && "Invalid email/password combination."}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          autoComplete='on'
+        />
+      </form>
       <span className='authSubtext'>
         new around here?{" "}
         <b className='authSwitchViewText' onClick={switchView}>

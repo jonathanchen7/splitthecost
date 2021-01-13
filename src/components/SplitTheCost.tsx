@@ -9,7 +9,7 @@ import { SideDialog } from "./dialog/SideDialog";
 import { AddItemModal } from "./modals/AddItemModal";
 import { AuthPage } from "./auth/AuthPage";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase";
+import { auth, firestore } from "../firebase";
 
 const jonathan: User = {
   id: uuidv4(),
@@ -87,6 +87,11 @@ export const SplitTheCost: React.FC = () => {
   const [loggedIn] = useAuthState(auth);
 
   useEffect(() => {
+    const ref = firestore.collection("sheets");
+    ref.get().then((item) => {
+      item.docs.map((entry) => console.log(entry.data()));
+      // console.log(item.docs);
+    });
     setUsers([jonathan, abigail, mom, dad, emma]);
     setEntries([entry1, entry2, entry3]);
   }, []);
