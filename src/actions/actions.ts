@@ -1,6 +1,165 @@
 import { nanoid } from "nanoid";
-import { Entry, OverviewData, User, UserBreakdownData } from "../models/models";
+import {
+  Entry,
+  OverviewData,
+  SheetData,
+  User,
+  UserBreakdownData,
+} from "../models/models";
 import { db } from "../firebase";
+
+export type AddEntryAction = {
+  type: "addEntry";
+  createdBy: string;
+  item?: string;
+  cost?: number;
+  exclude?: string[];
+  note?: string;
+};
+export type RemoveEntryAction = {
+  type: "removeEntry";
+  entryId: string;
+};
+export type AddUserAction = {
+  type: "addUser";
+  firstName: string;
+  lastName: string;
+  email: string;
+};
+export type RemoveUserAction = {
+  type: "removeUser";
+  userId: string;
+};
+export type UpdateExcludedUsersAction = {
+  type: "updateExcludedUsers";
+  exclude: string[];
+  entry: Entry;
+};
+export type RemoveExcludedUserAction = {
+  type: "removeExcludedUser";
+  userId: string;
+  entry: Entry;
+};
+
+export type SheetAction =
+  | AddEntryAction
+  | RemoveEntryAction
+  | AddUserAction
+  | RemoveUserAction
+  | UpdateExcludedUsersAction
+  | RemoveExcludedUserAction;
+
+export function sheetReducer(state: SheetData, action: SheetAction) {
+  switch (action.type) {
+    case "addEntry":
+      return addEntryReduce(state, action);
+    case "removeEntry":
+      return removeEntryReduce(state, action);
+    case "addUser":
+      return addUserReduce(state, action);
+    case "removeUser":
+      return removeUserReduce(state, action);
+    case "updateExcludedUsers":
+      return updatedExcludedUsersReduce(state, action);
+    case "removeExcludedUser":
+      return removeExcludedUserReduce(state, action);
+  }
+}
+
+// Add a new entry to the sheet.
+function addEntryReduce(state: SheetData, action: AddEntryAction): SheetData {
+  const newEntry: Entry = {
+    id: nanoid(),
+    item: !!action.item ? action.item : "",
+    cost: !!action.cost ? action.cost : 0,
+    exclude: !!action.exclude ? action.exclude : [],
+    note: !!action.note ? action.note : "",
+    createdBy: action.createdBy,
+  };
+  return { ...state, entries: [...state.entries, newEntry] };
+}
+
+// Remove an entry from the sheet.
+function removeEntryReduce(
+  state: SheetData,
+  action: RemoveEntryAction
+): SheetData {
+  const newEntries = state.entries.filter(
+    (entry) => entry.id !== action.entryId
+  );
+  return { ...state, entries: newEntries };
+}
+
+// Add a user to the sheet.
+function addUserReduce(state: SheetData, action: AddUserAction): SheetData {
+  const newUser: User = {
+    id: nanoid(),
+    firstName: action.firstName,
+    lastName: action.lastName,
+    initials: `${action.firstName.charAt(0)}${action.lastName.charAt(
+      0
+    )}}`.toLocaleUpperCase(),
+    displayName: `${action.firstName} ${action.lastName}`,
+    email: action.email,
+  };
+  return { ...state, users: { ...state.users, [newUser.id]: newUser } };
+}
+
+// Remove a user from the sheet.
+function removeUserReduce(
+  state: SheetData,
+  action: RemoveUserAction
+): SheetData {
+  // Remove user from users dictionary.
+  const newUsers = { ...state.users };
+  delete newUsers[action.userId];
+
+  // Remove entries created by the user.
+  const newEntries = state.entries.filter(
+    (entry) => entry.createdBy !== action.userId
+  );
+
+  // Remove user from any excluded user lists.
+  newEntries.forEach((entry, idx) => {
+    if (entry.exclude.includes(action.userId)) {
+      let newExcludedUsers = entry.exclude.filter(
+        (curId) => action.userId !== curId
+      );
+      let updatedEntry = { ...entry, exclude: newExcludedUsers };
+      newEntries[idx] = updatedEntry;
+    }
+  });
+
+  return { ...state, entries: newEntries, users: newUsers };
+}
+
+// Update the excluded userIds for a specific entry.
+function updatedExcludedUsersReduce(
+  state: SheetData,
+  action: UpdateExcludedUsersAction
+): SheetData {
+  const newEntry = {
+    ...action.entry,
+    exclude: action.exclude,
+  };
+  const newEntries = [...state.entries];
+  newEntries[newEntries.indexOf(action.entry)] = newEntry;
+  return { ...state, entries: newEntries };
+}
+
+// Remove an excluded user from a specific entry.
+function removeExcludedUserReduce(
+  state: SheetData,
+  action: RemoveExcludedUserAction
+): SheetData {
+  const newEntry = {
+    ...action.entry,
+    exclude: action.entry.exclude.filter((userId) => userId !== action.userId),
+  };
+  const newEntries = [...state.entries];
+  newEntries[newEntries.indexOf(action.entry)] = newEntry;
+  return { ...state, entries: newEntries };
+}
 
 // Updates an entry's list of excluded users.
 export function updateExcludedUsers(
@@ -33,7 +192,7 @@ export function removeExcludedUser(
 }
 
 // Adds a new user.
-export function addUser(
+export function addUserBasic(
   firstName: string,
   lastName: string,
   email: string,
@@ -53,6 +212,18 @@ export function addUser(
   setUsers((users) => {
     let usersCopy = { ...users };
     usersCopy[newUser.id] = newUser;
+    return usersCopy;
+  });
+}
+
+// Adds a new user.
+export function addUser(
+  user: User,
+  setUsers: React.Dispatch<React.SetStateAction<{ [id: string]: User }>>
+): void {
+  setUsers((users) => {
+    let usersCopy = { ...users };
+    usersCopy[user.id] = user;
     return usersCopy;
   });
 }

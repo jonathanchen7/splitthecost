@@ -7,10 +7,12 @@ import {
   DialogTitle,
   TextField,
 } from "@material-ui/core";
-import { useContext, useState } from "react";
+import { User } from "../../models/models";
+import { useState } from "react";
 import Grow from "@material-ui/core/Grow";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
-import { SheetContext } from "../SplitTheCost";
+import { addUser } from "../../actions/actions";
+import { nanoid } from "nanoid";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -20,17 +22,22 @@ const Transition = React.forwardRef(function Transition(
 });
 
 interface Props {
+  setUsers: React.Dispatch<React.SetStateAction<{ [id: string]: User }>>;
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurUser: React.Dispatch<React.SetStateAction<User>>;
 }
 
-export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
-  const { sheetData, sheetDispatch } = useContext(SheetContext);
-
+export const UserInfoModal: React.FC<Props> = ({
+  setUsers,
+  open,
+  setCurUser,
+}) => {
   const [firstNameVal, setFirstNameVal] = useState("");
   const [validFirstName, setValidFirstName] = useState(true);
+
   const [lastNameVal, setLastNameVal] = useState("");
   const [validLastName, setValidLastName] = useState(true);
+
   const [emailVal, setEmailVal] = useState("");
   const [validEmail, setValidEmail] = useState(true);
 
@@ -42,11 +49,6 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
     setValidFirstName(true);
     setValidLastName(true);
     setValidEmail(true);
-  }
-
-  function handleClose() {
-    resetDialog();
-    setOpen(false);
   }
 
   function validateName(name: string): boolean {
@@ -74,26 +76,29 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
 
     if (!temp1 || !temp2 || !temp3) return;
 
-    sheetDispatch({
-      type: "addUser",
+    const newUser: User = {
+      id: nanoid(),
       firstName: firstNameVal,
       lastName: lastNameVal,
+      initials: `${firstNameVal
+        .charAt(0)
+        .toLocaleUpperCase()}${lastNameVal.charAt(0).toLocaleUpperCase()}`,
+      displayName: `${firstNameVal} ${lastNameVal}`,
       email: emailVal,
-    });
-
+    };
+    addUser(newUser, setUsers);
+    setCurUser(newUser);
     resetDialog();
-    setOpen(false);
   }
 
   return (
     <Dialog
       fullWidth={true}
       maxWidth='xs'
-      onClose={handleClose}
       open={open}
       TransitionComponent={Transition}
     >
-      <DialogTitle className='modalTitle'>Add User</DialogTitle>
+      <DialogTitle className='modalTitle'>Welcome to SplitTheCost!</DialogTitle>
       <DialogContent className='modalContent' dividers>
         <div className='modalInputRow'>
           <TextField
@@ -126,14 +131,11 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
         />
       </DialogContent>
       <DialogActions className='modalActions'>
-        <Button className='modalCancelButton' onClick={handleClose}>
-          Cancel
-        </Button>
         <Button
           className='modalConfirmButton rightMarginSmall'
           onClick={confirmAddUser}
         >
-          Confirm
+          START
         </Button>
       </DialogActions>
     </Dialog>

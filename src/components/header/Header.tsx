@@ -3,12 +3,14 @@ import Grid from "@material-ui/core/Grid";
 import { User } from "../../models/models";
 import { UserAvatar } from "../users/UserAvatar";
 import fire from "../../firebase";
+import { useContext } from "react";
+import { SheetContext } from "../SplitTheCost";
+import { UserContext } from "../../App";
 
-interface Props {
-  curUser: User;
-}
+export const Header: React.FC = () => {
+  const { sheetData, sheetDispatch } = useContext(SheetContext);
+  const { curUser } = useContext(UserContext);
 
-export const Header: React.FC<Props> = ({ curUser }) => {
   function logout() {
     fire.auth().signOut();
   }

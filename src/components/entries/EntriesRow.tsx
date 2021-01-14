@@ -10,13 +10,14 @@ import { removeExcludedUser, deleteEntry } from "../../actions/actions";
 import { ExcludedUsersModal } from "../modals/ExcludedUsersModal";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import { motion } from "framer-motion";
+import { useContext } from "react";
+import { UserContext } from "../../App";
 
 interface Props {
   entry: Entry;
   entries: Entry[];
   users: { [id: string]: User };
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
-  curUser: User;
 }
 
 export const EntriesRow: React.FC<Props> = ({
@@ -24,15 +25,16 @@ export const EntriesRow: React.FC<Props> = ({
   entries,
   users,
   setEntries,
-  curUser,
 }) => {
-  const numExcludeUsersDisplay = entry.createdBy === curUser.id ? 3 : 4;
-
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [itemVal, setItemVal] = useState(entry.item);
   const [noteVal, setNoteVal] = useState(entry.note);
   const [showExcludeUsersModal, setShowExcludeUsersModal] = useState(false);
+
+  const { curUser } = useContext(UserContext);
+
+  const numExcludeUsersDisplay = entry.createdBy === curUser.id ? 3 : 4;
 
   function updateEntryState(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,

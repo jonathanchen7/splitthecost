@@ -1,124 +1,71 @@
-import React, { useEffect } from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { useState } from "react";
-import { Entry, User } from "../models/models";
+import { Entry, SheetData, User } from "../models/models";
 import { Entries } from "./entries/Entries";
 import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
 import { SideDialog } from "./dialog/SideDialog";
 import { AddItemModal } from "./modals/AddItemModal";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "../firebase";
+import { UserInfoModal } from "./modals/UserInfoModal";
+import { db } from "../firebase";
 import { nanoid } from "nanoid";
 import { useParams } from "react-router-dom";
+import { UserContext } from "../App";
+import { SheetAction, sheetReducer } from "../actions/actions";
 
 const jonathan: User = {
-  id: nanoid(),
+  id: "testUser",
   firstName: "Jonathan",
   lastName: "Chen",
   initials: "JC",
   displayName: "Jonathan Chen",
   email: "jonathanschen28@gmail.com",
 };
-const abigail: User = {
-  id: nanoid(),
-  firstName: "Abigail",
-  lastName: "Chen",
-  initials: "AC",
-  email: "abigail.chen@live.com",
-  displayName: "Abigail Chen",
-};
-const mom: User = {
-  id: nanoid(),
-  firstName: "Christine",
-  lastName: "Liu",
-  initials: "CL",
-  displayName: "Christine Liu",
-  email: "thechens28@gmail.com",
-};
-const dad: User = {
-  id: nanoid(),
-  firstName: "Hongbo",
-  lastName: "Chen",
-  initials: "HC",
-  displayName: "Hongbo Chen",
-  email: "bradchen28@gmail.com",
-};
-const emma: User = {
-  id: nanoid(),
-  firstName: "Emma",
-  lastName: "Hutcheson",
-  initials: "EH",
-  displayName: "Emma Hutcheson",
-  email: "emmahutch@hotmail.com",
+
+const initialSheetData: SheetData = {
+  entries: [],
+  users: {},
+  id: "test",
+  createdBy: "testUser",
 };
 
-const entry1: Entry = {
-  id: "fakeid1",
-  item: "hydroflask",
-  cost: 20,
-  note: "keeps ur water cold",
-  exclude: [abigail.id],
-  createdBy: jonathan.id,
-};
+export const SheetContext = createContext<{
+  sheetData: SheetData;
+  sheetDispatch: React.Dispatch<SheetAction>;
+}>({
+  sheetData: initialSheetData,
+  sheetDispatch: () => null,
+});
 
-const entry2: Entry = {
-  id: "fakeid2",
-  item: "canoe",
-  cost: 50,
-  note: "issa boat",
-  exclude: [mom.id],
-  createdBy: abigail.id,
-};
+export const SplitTheCost: React.FC = () => {
+  const { curUser } = useContext(UserContext);
 
-const entry3: Entry = {
-  id: "",
-  item: "",
-  cost: 0,
-  note: "",
-  exclude: [],
-  createdBy: jonathan.id,
-};
+  const [sheetData, dispatch] = useReducer(sheetReducer, initialSheetData);
 
-const initialUsers: { [id: string]: User } = {};
-initialUsers[jonathan.id] = jonathan;
-initialUsers[abigail.id] = abigail;
-initialUsers[mom.id] = mom;
-initialUsers[dad.id] = dad;
-initialUsers[emma.id] = emma;
-
-export const SplitTheCost: React.FC = ({}) => {
-  const sheetId = useParams();
-  console.log(sheetId);
-
-  const [users, setUsers] = useState<{ [id: string]: User }>(initialUsers);
+  const [users, setUsers] = useState<{ [id: string]: User }>({});
   const [entries, setEntries] = useState<Entry[]>([]);
-  const [curUser] = useState<User>(jonathan);
-
-  const [loggedIn] = useAuthState(auth);
-
-  useEffect(() => {
-    db.collection("sheets");
-    setEntries([entry1, entry2, entry3]);
-  }, []);
 
   return (
-    <>
-      <Header curUser={curUser} />
-      <UsersBar
-        users={users}
-        entries={entries}
-        curUser={curUser}
-        setUsers={setUsers}
-        setEntries={setEntries}
-      />
+    <SheetContext.Provider
+      value={{ sheetData: sheetData, sheetDispatch: dispatch }}
+    >
+      <Header />
+      <UsersBar />
       <Entries
-        entries={entries}
-        users={users}
+        entries={sheetData.entries}
+        users={sheetData.users}
         setEntries={setEntries}
-        curUser={curUser}
       />
-      <AddItemModal curUser={curUser} users={users} setEntries={setEntries} />
-      <SideDialog curUser={curUser} users={users} entries={entries} />
-    </>
+      <AddItemModal
+        curUser={curUser}
+        users={sheetData.users}
+        setEntries={setEntries}
+      />
+      <SideDialog
+        curUser={curUser}
+        users={sheetData.users}
+        entries={sheetData.entries}
+      />
+    </SheetContext.Provider>
   );
 };

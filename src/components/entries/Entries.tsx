@@ -2,20 +2,18 @@ import * as React from "react";
 import { EntriesRow } from "./EntriesRow";
 import { EntriesHeader } from "./EntriesHeader";
 import { Entry, User } from "../../models/models";
+import { useContext } from "react";
+import { UserContext } from "../../App";
 
 interface Props {
   entries: Entry[];
   users: { [id: string]: User };
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
-  curUser: User;
 }
 
-export const Entries: React.FC<Props> = ({
-  entries,
-  users,
-  setEntries,
-  curUser,
-}) => {
+export const Entries: React.FC<Props> = ({ entries, users, setEntries }) => {
+  const { curUser } = useContext(UserContext);
+
   return (
     <>
       <EntriesHeader />
@@ -25,7 +23,6 @@ export const Entries: React.FC<Props> = ({
           entries={entries}
           users={users}
           setEntries={setEntries}
-          curUser={curUser}
           key={entry.id}
         />
       ))}

@@ -31,3 +31,15 @@ export interface SheetSettings {
   darkMode: boolean;
   viewOnly: boolean;
 }
+
+export interface SheetData {
+  entries: Entry[];
+  users: { [userId: string]: User };
+  id: string;
+  createdBy: string;
+}
+
+export interface AppUserData {
+  curUser: User;
+  darkMode: boolean;
+}

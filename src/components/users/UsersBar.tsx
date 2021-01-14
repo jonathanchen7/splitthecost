@@ -7,24 +7,17 @@ import AddIcon from "@material-ui/icons/Add";
 import { useState } from "react";
 import { deleteUser, getAvatarColor } from "../../actions/actions";
 import { SettingsModal } from "../modals/SettingsModal";
+import { useContext } from "react";
+import { UserContext } from "../../App";
+import { SheetContext } from "../SplitTheCost";
 
-interface Props {
-  users: { [id: string]: User };
-  entries: Entry[];
-  curUser: User;
-  setUsers: React.Dispatch<React.SetStateAction<{ [id: string]: User }>>;
-  setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
-}
+export const UsersBar: React.FC = () => {
+  const { sheetData, sheetDispatch } = useContext(SheetContext);
 
-export const UsersBar: React.FC<Props> = ({
-  users,
-  entries,
-  curUser,
-  setUsers,
-  setEntries,
-}) => {
   const [openAddUser, setOpenAddUser] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
+
+  const { curUser } = useContext(UserContext);
 
   function openSettingsModal() {
     setOpenSettings(true);
@@ -44,7 +37,7 @@ export const UsersBar: React.FC<Props> = ({
           >
             <SettingsIcon />
           </IconButton>
-          {Object.entries(users).map((pair) => {
+          {Object.entries(sheetData.users).map((pair) => {
             const user = pair[1];
             return (
               <Tooltip arrow title={user.email} placement='top' key={user.id}>
@@ -61,7 +54,8 @@ export const UsersBar: React.FC<Props> = ({
                   label={user.displayName}
                   onDelete={
                     user !== curUser
-                      ? () => deleteUser(user.id, entries, setUsers, setEntries)
+                      ? () =>
+                          sheetDispatch({ type: "removeUser", userId: user.id })
                       : undefined
                   }
                   key={user.id}
@@ -79,11 +73,7 @@ export const UsersBar: React.FC<Props> = ({
           </Tooltip>
         </Grid>
       </Grid>
-      <AddUserModal
-        open={openAddUser}
-        setOpen={setOpenAddUser}
-        setUsers={setUsers}
-      />
+      <AddUserModal open={openAddUser} setOpen={setOpenAddUser} />
       <SettingsModal open={openSettings} setOpen={setOpenSettings} />
     </>
   );
