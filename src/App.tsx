@@ -6,12 +6,12 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 import { LandingPage } from "./components/HomePage";
 import { AppUserData, User } from "./models/models";
 
-const testUser: User = {
+export const testUser: User = {
   firstName: "Jonathan",
   lastName: "Chen",
   initials: "JC",
   id: "testUser",
-  email: "jchen7@uw.edu",
+  email: "jonathanschen28@gmail.com",
   displayName: "Jonathan Chen",
 };
 

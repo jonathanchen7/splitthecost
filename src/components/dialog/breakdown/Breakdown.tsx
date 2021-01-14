@@ -27,7 +27,7 @@ export const Breakdown: React.FC = () => {
       {Object.entries(sheetData.users).map((pair, idx) => {
         let user = pair[1];
         return (
-          user !== curUser && (
+          user.id !== curUser.id && (
             <BreakdownRow
               user={user}
               data={breakdownData?.userBreakdown[user.id]}

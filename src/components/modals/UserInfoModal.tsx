@@ -8,11 +8,10 @@ import {
   TextField,
 } from "@material-ui/core";
 import { User } from "../../models/models";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Grow from "@material-ui/core/Grow";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
-import { addUser } from "../../actions/actions";
-import { nanoid } from "nanoid";
+import { SheetContext } from "../SplitTheCost";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -22,16 +21,13 @@ const Transition = React.forwardRef(function Transition(
 });
 
 interface Props {
-  setUsers: React.Dispatch<React.SetStateAction<{ [id: string]: User }>>;
   open: boolean;
   setCurUser: React.Dispatch<React.SetStateAction<User>>;
 }
 
-export const UserInfoModal: React.FC<Props> = ({
-  setUsers,
-  open,
-  setCurUser,
-}) => {
+export const UserInfoModal: React.FC<Props> = ({ open }) => {
+  const { sheetDispatch } = useContext(SheetContext);
+
   const [firstNameVal, setFirstNameVal] = useState("");
   const [validFirstName, setValidFirstName] = useState(true);
 
@@ -76,18 +72,12 @@ export const UserInfoModal: React.FC<Props> = ({
 
     if (!temp1 || !temp2 || !temp3) return;
 
-    const newUser: User = {
-      id: nanoid(),
+    sheetDispatch({
+      type: "addUser",
       firstName: firstNameVal,
       lastName: lastNameVal,
-      initials: `${firstNameVal
-        .charAt(0)
-        .toLocaleUpperCase()}${lastNameVal.charAt(0).toLocaleUpperCase()}`,
-      displayName: `${firstNameVal} ${lastNameVal}`,
       email: emailVal,
-    };
-    addUser(newUser, setUsers);
-    setCurUser(newUser);
+    });
     resetDialog();
   }
 
