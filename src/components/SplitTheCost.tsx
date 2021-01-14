@@ -24,6 +24,7 @@ const initialSheetData: SheetData = {
   },
   id: "testSheetId",
   createdBy: "testUserId",
+  title: "New Sheet",
 };
 
 export const SheetContext = createContext<{
@@ -43,8 +44,16 @@ export const SplitTheCost: React.FC = () => {
   console.log(sheetId);
 
   useEffect(() => {
-    const sheetRef = db.collection("sheets").where("id", "==", sheetId);
+    getSheetData();
   }, [sheetId]);
+
+  async function getSheetData() {
+    const sheetRef = await db.collection("sheets").doc(sheetId).get();
+
+    if (sheetRef) {
+      console.log(sheetRef.data());
+    }
+  }
 
   return (
     <SheetContext.Provider

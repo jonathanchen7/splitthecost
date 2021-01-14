@@ -33,10 +33,11 @@ export interface SheetSettings {
 }
 
 export interface SheetData {
+  title: string;
   entries: Entry[];
   users: { [userId: string]: User };
-  id: string;
   createdBy: string;
+  id: string;
 }
 
 export interface AppUserData {

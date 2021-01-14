@@ -4,8 +4,10 @@ import { UserAvatar } from "../users/UserAvatar";
 import fire from "../../firebase";
 import { useContext } from "react";
 import { UserContext } from "../../App";
+import { SheetContext } from "../SplitTheCost";
 
 export const Header: React.FC = () => {
+  const { sheetData } = useContext(SheetContext);
   const { curUser } = useContext(UserContext);
 
   function logout() {
@@ -15,7 +17,9 @@ export const Header: React.FC = () => {
   return (
     <Grid className='header' container spacing={0}>
       <Grid className='headerItem' item xs={11}>
-        <span className='leftMargin'>split the cost</span>
+        <span className='leftMargin'>
+          split the cost | <b>{sheetData.title}</b>
+        </span>
       </Grid>
       <Grid className='headerItem profileItem' item xs={1}>
         <UserAvatar
