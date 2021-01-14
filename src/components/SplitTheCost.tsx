@@ -1,12 +1,14 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { SheetData } from "../models/models";
 import { Entries } from "./entries/Entries";
 import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
 import { SideDialog } from "./dialog/SideDialog";
-import { AddItemModal } from "./modals/AddItemModal";
+import { AddEntryModal } from "./modals/AddEntryModal";
 import { SheetAction, sheetReducer } from "../actions/actions";
 import { UserContext } from "../App";
+import { db } from "../firebase";
+import { useParams } from "react-router-dom";
 
 const initialSheetData: SheetData = {
   entries: [],
@@ -15,13 +17,13 @@ const initialSheetData: SheetData = {
       firstName: "Jonathan",
       lastName: "Chen",
       initials: "JC",
-      id: "testUser",
+      id: "testUserId",
       email: "jonathanschen28@gmail.com",
       displayName: "Jonathan Chen",
     },
   },
-  id: "test",
-  createdBy: "testUser",
+  id: "testSheetId",
+  createdBy: "testUserId",
 };
 
 export const SheetContext = createContext<{
@@ -35,7 +37,14 @@ export const SheetContext = createContext<{
 export const SplitTheCost: React.FC = () => {
   const [sheetData, dispatch] = useReducer(sheetReducer, initialSheetData);
   const { curUser } = useContext(UserContext);
-  console.log(curUser);
+  console.log(curUser.displayName);
+
+  const { sheetId } = useParams<{ sheetId: string }>();
+  console.log(sheetId);
+
+  useEffect(() => {
+    const sheetRef = db.collection("sheets").where("id", "==", sheetId);
+  }, [sheetId]);
 
   return (
     <SheetContext.Provider
@@ -44,7 +53,7 @@ export const SplitTheCost: React.FC = () => {
       <Header />
       <UsersBar />
       <Entries />
-      <AddItemModal />
+      <AddEntryModal />
       <SideDialog />
     </SheetContext.Provider>
   );

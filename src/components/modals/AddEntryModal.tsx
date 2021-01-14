@@ -18,22 +18,13 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useContext, useState } from "react";
-import Grow from "@material-ui/core/Grow";
-import { TransitionProps } from "@material-ui/core/transitions/transition";
 import AddIcon from "@material-ui/icons/Add";
-import NumberFormat from "react-number-format";
+// import NumberFormat from "react-number-format";
 import { getAvatarColor } from "../../actions/actions";
 import { UserContext } from "../../App";
 import { SheetContext } from "../SplitTheCost";
 
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & { children?: React.ReactElement<any, any> },
-  ref: React.Ref<unknown>
-) {
-  return <Grow ref={ref} {...props} />;
-});
-
-export const AddItemModal: React.FC = () => {
+export const AddEntryModal: React.FC = () => {
   const { sheetData, sheetDispatch } = useContext(SheetContext);
   const { curUser } = useContext(UserContext);
 
@@ -73,13 +64,7 @@ export const AddItemModal: React.FC = () => {
 
   return (
     <>
-      <Dialog
-        fullWidth={true}
-        maxWidth='sm'
-        onClose={handleClose}
-        open={open}
-        TransitionComponent={Transition}
-      >
+      <Dialog fullWidth={true} maxWidth='sm' onClose={handleClose} open={open}>
         <DialogTitle className='modalTitle'>Add Entry</DialogTitle>
         <DialogContent className='modalContent' dividers>
           <div className='modalInputRow'>
@@ -94,15 +79,15 @@ export const AddItemModal: React.FC = () => {
             <TextField
               className='costInput'
               InputProps={{
-                inputComponent: NumberFormat as any,
+                // inputComponent: NumberFormat as any,
                 startAdornment: (
                   <InputAdornment position='start'>$</InputAdornment>
                 ),
               }}
-              inputProps={{
-                decimalScale: 2,
-                allowNegative: false,
-              }}
+              // inputProps={{
+              //   decimalScale: 2,
+              //   allowNegative: false,
+              // }}
               label='Cost'
               value={cost?.toFixed(2)}
               onChange={(e) => setCost(Number(e.target.value))}

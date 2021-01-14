@@ -9,16 +9,7 @@ import {
 } from "@material-ui/core";
 import { User } from "../../models/models";
 import { useState, useContext } from "react";
-import Grow from "@material-ui/core/Grow";
-import { TransitionProps } from "@material-ui/core/transitions/transition";
 import { SheetContext } from "../SplitTheCost";
-
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & { children?: React.ReactElement<any, any> },
-  ref: React.Ref<unknown>
-) {
-  return <Grow ref={ref} {...props} />;
-});
 
 interface Props {
   open: boolean;
@@ -82,12 +73,7 @@ export const UserInfoModal: React.FC<Props> = ({ open }) => {
   }
 
   return (
-    <Dialog
-      fullWidth={true}
-      maxWidth='xs'
-      open={open}
-      TransitionComponent={Transition}
-    >
+    <Dialog fullWidth={true} maxWidth='xs' open={open}>
       <DialogTitle className='modalTitle'>Welcome to SplitTheCost!</DialogTitle>
       <DialogContent className='modalContent' dividers>
         <div className='modalInputRow'>

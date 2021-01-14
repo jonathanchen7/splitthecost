@@ -1,6 +1,6 @@
 import { Grid, Input, InputAdornment } from "@material-ui/core";
 import * as React from "react";
-import NumberFormat from "react-number-format";
+// import NumberFormat from "react-number-format";
 import { User } from "../../../models/models";
 import { UserAvatar } from "../../users/UserAvatar";
 import { SheetContext } from "../../SplitTheCost";
@@ -36,33 +36,35 @@ export const OverviewRow: React.FC<Props> = ({ user, data, idx }) => {
         <Input
           className='sideMargins'
           readOnly={true}
-          inputComponent={NumberFormat as any}
-          inputProps={{
-            decimalScale: 2,
-            allowNegative: false,
-            thousandSeparator: ",",
-          }}
+          // inputComponent={NumberFormat as any}
+          // inputProps={{
+          //   decimalScale: 2,
+          //   allowNegative: false,
+          //   thousandSeparator: ",",
+          // }}
           disableUnderline={true}
           fullWidth={true}
-          value={data?.totalSpent.toFixed(2)}
+          value={!!data ? data?.totalSpent.toFixed(2) : 0}
           startAdornment={<InputAdornment position='start'>$</InputAdornment>}
         />
       </Grid>
       <Grid className='sideDialogRow' item xs={5}>
-        <Input
-          readOnly={true}
-          inputComponent={NumberFormat as any}
-          inputProps={{
-            decimalScale: 2,
-            allowNegative: false,
-            thousandSeparator: ",",
-          }}
-          className='sideMargins'
-          disableUnderline={true}
-          fullWidth={true}
-          value={data?.totalOwed.toFixed(2)}
-          startAdornment={<InputAdornment position='start'>$</InputAdornment>}
-        />
+        <>
+          <Input
+            readOnly={true}
+            // inputComponent={NumberFormat as any}
+            // inputProps={{
+            //   decimalScale: 2,
+            //   allowNegative: false,
+            //   thousandSeparator: ",",
+            // }}
+            className='sideMargins'
+            disableUnderline={true}
+            fullWidth={true}
+            value={!!data ? data?.totalOwed.toFixed(2) : 0}
+            startAdornment={<InputAdornment position='start'>$</InputAdornment>}
+          />
+        </>
       </Grid>
     </Grid>
   );

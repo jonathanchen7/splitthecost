@@ -10,7 +10,7 @@ export const testUser: User = {
   firstName: "Jonathan",
   lastName: "Chen",
   initials: "JC",
-  id: "testUser",
+  id: "testUserId",
   email: "jonathanschen28@gmail.com",
   displayName: "Jonathan Chen",
 };

@@ -8,16 +8,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useContext, useState } from "react";
-import Grow from "@material-ui/core/Grow";
-import { TransitionProps } from "@material-ui/core/transitions/transition";
 import { SheetContext } from "../SplitTheCost";
-
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & { children?: React.ReactElement<any, any> },
-  ref: React.Ref<unknown>
-) {
-  return <Grow ref={ref} {...props} />;
-});
 
 interface Props {
   open: boolean;
@@ -86,13 +77,7 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
   }
 
   return (
-    <Dialog
-      fullWidth={true}
-      maxWidth='xs'
-      onClose={handleClose}
-      open={open}
-      TransitionComponent={Transition}
-    >
+    <Dialog fullWidth={true} maxWidth='xs' onClose={handleClose} open={open}>
       <DialogTitle className='modalTitle'>Add User</DialogTitle>
       <DialogContent className='modalContent' dividers>
         <div className='modalInputRow'>

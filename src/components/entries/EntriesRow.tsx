@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Avatar, IconButton, Input, InputAdornment } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Entry } from "../../models/models";
-import NumberFormat from "react-number-format";
+// import NumberFormat from "react-number-format";
 import { UserAvatar } from "../users/UserAvatar";
 import { ExcludedUsersModal } from "../modals/ExcludedUsersModal";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
@@ -107,11 +107,12 @@ export const EntriesRow: React.FC<Props> = ({ entry }) => {
           <div className='entryDiv'>
             <Input
               className='sideMargins'
-              inputComponent={NumberFormat as any}
-              inputProps={{
-                decimalScale: 2,
-                allowNegative: false,
-              }}
+              // inputComponent={NumberFormat as any}
+              // inputProps={{
+              //   decimalScale: 2,
+              //   allowNegative: false,
+              //   thousandSeparator: ",",
+              // }}
               disableUnderline={true}
               fullWidth={true}
               value={entry.cost.toFixed(2)}

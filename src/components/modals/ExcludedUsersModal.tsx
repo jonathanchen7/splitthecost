@@ -11,8 +11,6 @@ import {
 } from "@material-ui/core";
 import { Entry } from "../../models/models";
 import { useEffect, useState, useContext } from "react";
-import Grow from "@material-ui/core/Grow";
-import { TransitionProps } from "@material-ui/core/transitions/transition";
 import { getAvatarColor } from "../../actions/actions";
 import {
   DragDropContext,
@@ -21,13 +19,6 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import { SheetContext } from "../SplitTheCost";
-
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & { children?: React.ReactElement<any, any> },
-  ref: React.Ref<unknown>
-) {
-  return <Grow ref={ref} {...props} />;
-});
 
 interface Props {
   open: boolean;
@@ -119,13 +110,7 @@ export const ExcludedUsersModal: React.FC<Props> = ({
   }
 
   return (
-    <Dialog
-      fullWidth={true}
-      maxWidth='md'
-      onClose={handleClose}
-      open={open}
-      TransitionComponent={Transition}
-    >
+    <Dialog fullWidth={true} maxWidth='md' onClose={handleClose} open={open}>
       <DialogTitle className='dialogTitle'>
         Exclude Users | <b>{`${entry.item}`}</b>
       </DialogTitle>
