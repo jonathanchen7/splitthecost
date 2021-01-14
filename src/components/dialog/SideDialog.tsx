@@ -6,16 +6,9 @@ import { Fab, Tabs, Tab } from "@material-ui/core";
 import { AnimatePresence, motion } from "framer-motion";
 import { Breakdown } from "./breakdown/Breakdown";
 import { TabContext, TabPanel } from "@material-ui/lab";
-import { Entry, User } from "../../models/models";
 import { useState } from "react";
 
-interface Props {
-  curUser: User;
-  users: { [id: string]: User };
-  entries: Entry[];
-}
-
-export const SideDialog: React.FC<Props> = ({ curUser, users, entries }) => {
+export const SideDialog: React.FC = () => {
   const [open, setOpen] = useState(true);
   const [tab, setTab] = useState("ov");
 
@@ -53,7 +46,7 @@ export const SideDialog: React.FC<Props> = ({ curUser, users, entries }) => {
                 transition={{ duration: 0.7 }}
               >
                 <TabPanel className='sideDialogContent' value={"ov"}>
-                  <Overview users={users} entries={entries} />
+                  <Overview />
                 </TabPanel>
               </motion.div>
               <motion.div
@@ -61,11 +54,7 @@ export const SideDialog: React.FC<Props> = ({ curUser, users, entries }) => {
                 transition={{ duration: 0.7 }}
               >
                 <TabPanel className='sideDialogContent' value={"bd"}>
-                  <Breakdown
-                    users={users}
-                    entries={entries}
-                    curUser={curUser}
-                  />
+                  <Breakdown />
                 </TabPanel>
               </motion.div>
             </TabContext>

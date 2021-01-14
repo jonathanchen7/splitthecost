@@ -20,6 +20,12 @@ export type RemoveEntryAction = {
   type: "removeEntry";
   entryId: string;
 };
+export type UpdateEntryAction = {
+  type: "updateEntry";
+  entry: Entry;
+  section: "item" | "cost" | "note";
+  value: string;
+};
 export type AddUserAction = {
   type: "addUser";
   firstName: string;
@@ -44,6 +50,7 @@ export type RemoveExcludedUserAction = {
 export type SheetAction =
   | AddEntryAction
   | RemoveEntryAction
+  | UpdateEntryAction
   | AddUserAction
   | RemoveUserAction
   | UpdateExcludedUsersAction
@@ -55,6 +62,8 @@ export function sheetReducer(state: SheetData, action: SheetAction) {
       return addEntryReduce(state, action);
     case "removeEntry":
       return removeEntryReduce(state, action);
+    case "updateEntry":
+      return updateEntryReduce(state, action);
     case "addUser":
       return addUserReduce(state, action);
     case "removeUser":
@@ -63,6 +72,8 @@ export function sheetReducer(state: SheetData, action: SheetAction) {
       return updatedExcludedUsersReduce(state, action);
     case "removeExcludedUser":
       return removeExcludedUserReduce(state, action);
+    default:
+      return state;
   }
 }
 
@@ -90,6 +101,26 @@ function removeEntryReduce(
   return { ...state, entries: newEntries };
 }
 
+// Remove an entry from the sheet.
+function updateEntryReduce(
+  state: SheetData,
+  action: UpdateEntryAction
+): SheetData {
+  let newEntry: Entry;
+
+  if (action.section === "item") {
+    newEntry = { ...action.entry, item: action.value };
+  } else if (action.section === "cost") {
+    newEntry = { ...action.entry, cost: Number(action.value) };
+  } else {
+    newEntry = { ...action.entry, note: action.value };
+  }
+
+  const newEntries = [...state.entries];
+  newEntries[newEntries.indexOf(action.entry)] = newEntry;
+  return { ...state, entries: newEntries };
+}
+
 // Add a user to the sheet.
 function addUserReduce(state: SheetData, action: AddUserAction): SheetData {
   const newUser: User = {
@@ -98,7 +129,7 @@ function addUserReduce(state: SheetData, action: AddUserAction): SheetData {
     lastName: action.lastName,
     initials: `${action.firstName.charAt(0)}${action.lastName.charAt(
       0
-    )}}`.toLocaleUpperCase(),
+    )}`.toLocaleUpperCase(),
     displayName: `${action.firstName} ${action.lastName}`,
     email: action.email,
   };

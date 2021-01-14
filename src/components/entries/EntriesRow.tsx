@@ -3,57 +3,31 @@ import Grid from "@material-ui/core/Grid";
 import { useState } from "react";
 import { Avatar, IconButton, Input, InputAdornment } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { Entry, User } from "../../models/models";
+import { Entry } from "../../models/models";
 import NumberFormat from "react-number-format";
 import { UserAvatar } from "../users/UserAvatar";
-import { removeExcludedUser, deleteEntry } from "../../actions/actions";
 import { ExcludedUsersModal } from "../modals/ExcludedUsersModal";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import { UserContext } from "../../App";
+import { SheetContext } from "../SplitTheCost";
 
 interface Props {
   entry: Entry;
-  entries: Entry[];
-  users: { [id: string]: User };
-  setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
 }
 
-export const EntriesRow: React.FC<Props> = ({
-  entry,
-  entries,
-  users,
-  setEntries,
-}) => {
+export const EntriesRow: React.FC<Props> = ({ entry }) => {
+  const { sheetData, sheetDispatch } = useContext(SheetContext);
+  const { curUser } = useContext(UserContext);
+
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [itemVal, setItemVal] = useState(entry.item);
   const [noteVal, setNoteVal] = useState(entry.note);
   const [showExcludeUsersModal, setShowExcludeUsersModal] = useState(false);
 
-  const { curUser } = useContext(UserContext);
-
   const numExcludeUsersDisplay = entry.createdBy === curUser.id ? 3 : 4;
-
-  function updateEntryState(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    section: string
-  ) {
-    let updatedEntry: Entry;
-
-    if (section === "item") {
-      updatedEntry = { ...entry, item: e.target.value };
-    } else if (section === "cost") {
-      updatedEntry = { ...entry, cost: Number(e.target.value) };
-    } else {
-      updatedEntry = { ...entry, note: e.target.value };
-    }
-
-    const entriesCopy: Entry[] = [...entries];
-    entriesCopy[entries.indexOf(entry)] = updatedEntry;
-    setEntries(entriesCopy);
-  }
 
   function mouseOverItem(): void {
     if (entry.createdBy === curUser.id) {
@@ -87,7 +61,7 @@ export const EntriesRow: React.FC<Props> = ({
       key={entry.id}
     >
       <Grid
-        className={entries.indexOf(entry) % 2 ? "oddIdx" : "evenIdx"}
+        className={sheetData.entries.indexOf(entry) % 2 ? "oddIdx" : "evenIdx"}
         container
         spacing={0}
       >
@@ -99,7 +73,7 @@ export const EntriesRow: React.FC<Props> = ({
           >
             <UserAvatar
               className='leftMargin'
-              user={users[entry.createdBy]}
+              user={sheetData.users[entry.createdBy]}
               tooltipPlacement='top'
             />
             <Input
@@ -109,13 +83,20 @@ export const EntriesRow: React.FC<Props> = ({
               value={itemVal}
               onChange={(e) => setItemVal(e.target.value)}
               onBlur={(e) => {
-                updateEntryState(e, "item");
+                sheetDispatch({
+                  type: "updateEntry",
+                  entry: entry,
+                  section: "item",
+                  value: e.target.value,
+                });
               }}
             />
             {showDelete && (
               <IconButton
                 className='iconButton largeIconButton rightMargin'
-                onClick={() => deleteEntry(entry, setEntries)}
+                onClick={() =>
+                  sheetDispatch({ type: "removeEntry", entryId: entry.id })
+                }
               >
                 <DeleteIcon />
               </IconButton>
@@ -135,7 +116,12 @@ export const EntriesRow: React.FC<Props> = ({
               fullWidth={true}
               value={entry.cost.toFixed(2)}
               onChange={(e) => {
-                updateEntryState(e, "cost");
+                sheetDispatch({
+                  type: "updateEntry",
+                  entry: entry,
+                  section: "cost",
+                  value: e.target.value,
+                });
               }}
               startAdornment={
                 <InputAdornment position='start'>$</InputAdornment>
@@ -154,11 +140,15 @@ export const EntriesRow: React.FC<Props> = ({
                 return (
                   <UserAvatar
                     className='leftMarginSmall'
-                    user={users[userId]}
+                    user={sheetData.users[userId]}
                     tooltipPlacement='top'
                     iconOnHover={<DeleteIcon />}
                     onClick={() => {
-                      removeExcludedUser(userId, entry, setEntries);
+                      sheetDispatch({
+                        type: "removeExcludedUser",
+                        userId: userId,
+                        entry: entry,
+                      });
                     }}
                     key={userId}
                   />
@@ -196,7 +186,12 @@ export const EntriesRow: React.FC<Props> = ({
               value={noteVal}
               onChange={(e) => setNoteVal(e.target.value)}
               onBlur={(e) => {
-                updateEntryState(e, "note");
+                sheetDispatch({
+                  type: "updateEntry",
+                  entry: entry,
+                  section: "note",
+                  value: e.target.value,
+                });
               }}
             />
           </div>
@@ -206,9 +201,6 @@ export const EntriesRow: React.FC<Props> = ({
         open={showExcludeUsersModal}
         setOpen={setShowExcludeUsersModal}
         entry={entry}
-        users={users}
-        entries={entries}
-        setEntries={setEntries}
       />
     </motion.div>
   );

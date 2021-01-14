@@ -1,31 +1,28 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
-import { Entry, User, OverviewData } from "../../../models/models";
+import { useEffect, useState, useContext } from "react";
+import { OverviewData } from "../../../models/models";
 import { OverviewHeader } from "./OverviewHeader";
 import { OverviewRow } from "./OverviewRow";
 import { calculateOverview } from "../../../actions/actions";
+import { SheetContext } from "../../SplitTheCost";
 
-interface Props {
-  users: { [id: string]: User };
-  entries: Entry[];
-}
+export const Overview: React.FC = () => {
+  const { sheetData } = useContext(SheetContext);
 
-export const Overview: React.FC<Props> = ({ users, entries }) => {
   const [overviewData, setOverviewData] = useState<OverviewData>({});
 
   useEffect(() => {
-    setOverviewData(calculateOverview(entries, users));
-  }, [users, entries]);
+    setOverviewData(calculateOverview(sheetData.entries, sheetData.users));
+  }, [sheetData]);
 
   return (
     <>
       <OverviewHeader />
-      {Object.entries(users).map((pair, idx) => {
+      {Object.entries(sheetData.users).map((pair, idx) => {
         let user = pair[1];
         return (
           <OverviewRow
             user={user}
-            users={users}
             data={overviewData[user.id]}
             idx={idx}
             key={user.id}

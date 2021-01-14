@@ -9,17 +9,18 @@ import {
   DialogTitle,
   Paper,
 } from "@material-ui/core";
-import { Entry, User } from "../../models/models";
-import { useEffect, useState } from "react";
+import { Entry } from "../../models/models";
+import { useEffect, useState, useContext } from "react";
 import Grow from "@material-ui/core/Grow";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
-import { updateExcludedUsers, getAvatarColor } from "../../actions/actions";
+import { getAvatarColor } from "../../actions/actions";
 import {
   DragDropContext,
   Draggable,
   Droppable,
   DropResult,
 } from "react-beautiful-dnd";
+import { SheetContext } from "../SplitTheCost";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -32,34 +33,38 @@ interface Props {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   entry: Entry;
-  users: { [id: string]: User };
-  entries: Entry[];
-  setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
 }
 
 export const ExcludedUsersModal: React.FC<Props> = ({
   open,
   setOpen,
   entry,
-  users,
-  entries,
-  setEntries,
 }) => {
+  const { sheetData, sheetDispatch } = useContext(SheetContext);
+
   const [includedUsers, setIncludedUsers] = useState<string[]>(
-    Object.keys(users).filter((userId) => !entry.exclude.includes(userId))
+    Object.keys(sheetData.users).filter(
+      (userId) => !entry.exclude.includes(userId)
+    )
   );
   const [excludedUsers, setExcludedUsers] = useState<string[]>(entry.exclude);
 
   useEffect(() => {
     setIncludedUsers(
-      Object.keys(users).filter((userId) => !entry.exclude.includes(userId))
+      Object.keys(sheetData.users).filter(
+        (userId) => !entry.exclude.includes(userId)
+      )
     );
     setExcludedUsers(entry.exclude);
-  }, [users, entry, entries]);
+  }, [sheetData, entry.exclude]);
 
   function confirmExcludeUsers() {
     if (entry.exclude !== excludedUsers) {
-      updateExcludedUsers(entry, excludedUsers, setEntries);
+      sheetDispatch({
+        type: "updateExcludedUsers",
+        exclude: excludedUsers,
+        entry: entry,
+      });
     }
 
     handleClose();
@@ -147,13 +152,15 @@ export const ExcludedUsersModal: React.FC<Props> = ({
                           <Avatar
                             className='usersBarAvatar'
                             style={{
-                              backgroundColor: getAvatarColor(users[userId]),
+                              backgroundColor: getAvatarColor(
+                                sheetData.users[userId]
+                              ),
                             }}
                           >
-                            {users[userId].initials}
+                            {sheetData.users[userId].initials}
                           </Avatar>
                         }
-                        label={users[userId].displayName}
+                        label={sheetData.users[userId].displayName}
                         key={userId}
                       />
                     )}
@@ -184,13 +191,15 @@ export const ExcludedUsersModal: React.FC<Props> = ({
                           <Avatar
                             className='usersBarAvatar'
                             style={{
-                              backgroundColor: getAvatarColor(users[userId]),
+                              backgroundColor: getAvatarColor(
+                                sheetData.users[userId]
+                              ),
                             }}
                           >
-                            {users[userId].initials}
+                            {sheetData.users[userId].initials}
                           </Avatar>
                         }
-                        label={users[userId].displayName}
+                        label={sheetData.users[userId].displayName}
                         key={userId}
                       />
                     )}

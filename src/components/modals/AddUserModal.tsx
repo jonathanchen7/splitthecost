@@ -25,7 +25,7 @@ interface Props {
 }
 
 export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
-  const { sheetData, sheetDispatch } = useContext(SheetContext);
+  const { sheetDispatch } = useContext(SheetContext);
 
   const [firstNameVal, setFirstNameVal] = useState("");
   const [validFirstName, setValidFirstName] = useState(true);

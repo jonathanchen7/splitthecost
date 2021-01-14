@@ -17,14 +17,14 @@ import {
   Select,
   TextField,
 } from "@material-ui/core";
-import { Entry, User } from "../../models/models";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Grow from "@material-ui/core/Grow";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
-import { addEntry } from "../../actions/actions";
 import AddIcon from "@material-ui/icons/Add";
 import NumberFormat from "react-number-format";
 import { getAvatarColor } from "../../actions/actions";
+import { UserContext } from "../../App";
+import { SheetContext } from "../SplitTheCost";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -33,17 +33,10 @@ const Transition = React.forwardRef(function Transition(
   return <Grow ref={ref} {...props} />;
 });
 
-interface Props {
-  curUser: User;
-  users: { [id: string]: User };
-  setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
-}
+export const AddItemModal: React.FC = () => {
+  const { sheetData, sheetDispatch } = useContext(SheetContext);
+  const { curUser } = useContext(UserContext);
 
-export const AddItemModal: React.FC<Props> = ({
-  curUser,
-  users,
-  setEntries,
-}) => {
   const [open, setOpen] = useState(false);
   const [item, setItem] = useState("");
   const [cost, setCost] = useState(0);
@@ -67,7 +60,14 @@ export const AddItemModal: React.FC<Props> = ({
   }
 
   function confirmAddEntry() {
-    addEntry(curUser, setEntries, item, cost, excludedUsers, note);
+    sheetDispatch({
+      type: "addEntry",
+      createdBy: curUser.id,
+      item: item,
+      cost: cost,
+      exclude: excludedUsers,
+      note: note,
+    });
     handleClose();
   }
 
@@ -126,20 +126,22 @@ export const AddItemModal: React.FC<Props> = ({
                         <Avatar
                           className='usersBarAvatar'
                           style={{
-                            backgroundColor: getAvatarColor(users[userId]),
+                            backgroundColor: getAvatarColor(
+                              sheetData.users[userId]
+                            ),
                           }}
                         >
-                          {users[userId].initials}
+                          {sheetData.users[userId].initials}
                         </Avatar>
                       }
-                      label={users[userId].displayName}
+                      label={sheetData.users[userId].displayName}
                       key={userId}
                     />
                   ))}
                 </>
               )}
             >
-              {Object.keys(users).map((userId) => (
+              {Object.keys(sheetData.users).map((userId) => (
                 <MenuItem
                   // @ts-ignore
                   value={userId}
@@ -154,13 +156,15 @@ export const AddItemModal: React.FC<Props> = ({
                       <Avatar
                         className='usersBarAvatar'
                         style={{
-                          backgroundColor: getAvatarColor(users[userId]),
+                          backgroundColor: getAvatarColor(
+                            sheetData.users[userId]
+                          ),
                         }}
                       >
-                        {users[userId].initials}
+                        {sheetData.users[userId].initials}
                       </Avatar>
                     }
-                    label={users[userId].displayName}
+                    label={sheetData.users[userId].displayName}
                     key={userId}
                   />
                 </MenuItem>

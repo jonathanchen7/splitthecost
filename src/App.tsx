@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 import "./main.css";
 import { SplitTheCost } from "./components/SplitTheCost";
 import { Route, BrowserRouter as Router } from "react-router-dom";
-import { AuthPage } from "./components/auth/AuthPage";
+// import { AuthPage } from "./components/auth/AuthPage";
 import { LandingPage } from "./components/HomePage";
 import { AppUserData, User } from "./models/models";
 
@@ -11,18 +11,19 @@ const testUser: User = {
   lastName: "Chen",
   initials: "JC",
   id: "testUser",
-  email: "jchen77@uw.edu",
+  email: "jchen7@uw.edu",
   displayName: "Jonathan Chen",
 };
+
 const initialAppUserData: AppUserData = {
   curUser: testUser,
   darkMode: false,
 };
 
-export const UserContext = createContext(initialAppUserData);
+export const UserContext = createContext<AppUserData>(initialAppUserData);
 
 function App() {
-  const [appUserData, setAppUserData] = useState(initialAppUserData);
+  const [appUserData] = useState(initialAppUserData);
 
   return (
     <Router>

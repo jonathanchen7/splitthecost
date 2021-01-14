@@ -3,20 +3,24 @@ import * as React from "react";
 import NumberFormat from "react-number-format";
 import { User } from "../../../models/models";
 import { UserAvatar } from "../../users/UserAvatar";
+import { SheetContext } from "../../SplitTheCost";
+import { useContext } from "react";
 
 interface Props {
   user: User;
-  users: { [id: string]: User };
   data: { totalSpent: number; totalOwed: number };
   idx: number;
 }
 
-export const OverviewRow: React.FC<Props> = ({ user, users, data, idx }) => {
+export const OverviewRow: React.FC<Props> = ({ user, data, idx }) => {
+  const { sheetData } = useContext(SheetContext);
+
   return (
     <Grid
       className={
-        (idx === Object.keys(users).length - 1 ? "roundedBottom " : "") +
-        (idx % 2 ? "evenIdx" : "oddIdx")
+        (idx === Object.keys(sheetData.users).length - 1
+          ? "roundedBottom "
+          : "") + (idx % 2 ? "evenIdx" : "oddIdx")
       }
       container
       spacing={0}

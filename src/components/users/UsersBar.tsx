@@ -1,11 +1,10 @@
 import * as React from "react";
 import { Avatar, Chip, Grid, IconButton, Tooltip } from "@material-ui/core";
-import { Entry, User } from "../../models/models";
 import { AddUserModal } from "../modals/AddUserModal";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AddIcon from "@material-ui/icons/Add";
 import { useState } from "react";
-import { deleteUser, getAvatarColor } from "../../actions/actions";
+import { getAvatarColor } from "../../actions/actions";
 import { SettingsModal } from "../modals/SettingsModal";
 import { useContext } from "react";
 import { UserContext } from "../../App";

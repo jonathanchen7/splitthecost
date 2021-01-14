@@ -1,24 +1,22 @@
 import { Grid, Input, InputAdornment } from "@material-ui/core";
 import * as React from "react";
+import { useContext } from "react";
 import NumberFormat from "react-number-format";
+import { UserContext } from "../../../App";
 import { User } from "../../../models/models";
+import { SheetContext } from "../../SplitTheCost";
 import { UserAvatar } from "../../users/UserAvatar";
 
 interface Props {
-  curUser: User;
   user: User;
-  users: { [id: string]: User };
   data?: { theyOwe: number; youOwe: number };
   idx: number;
 }
 
-export const BreakdownRow: React.FC<Props> = ({
-  curUser,
-  user,
-  users,
-  data,
-  idx,
-}) => {
+export const BreakdownRow: React.FC<Props> = ({ user, data, idx }) => {
+  const { sheetData } = useContext(SheetContext);
+  const { curUser } = useContext(UserContext);
+
   const netCost: number = !!data ? data.theyOwe - data.youOwe : 0;
   const debtedUser: User = netCost < 0 ? curUser : user;
   const owedUser: User = netCost < 0 ? user : curUser;
@@ -26,8 +24,9 @@ export const BreakdownRow: React.FC<Props> = ({
   return (
     <Grid
       className={
-        (idx === Object.keys(users).length - 1 ? "roundedBottom " : "") +
-        (idx % 2 ? "oddIdx" : "evenIdx")
+        (idx === Object.keys(sheetData.users).length - 1
+          ? "roundedBottom "
+          : "") + (idx % 2 ? "oddIdx" : "evenIdx")
       }
       container
       spacing={0}

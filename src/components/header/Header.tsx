@@ -1,14 +1,11 @@
 import * as React from "react";
 import Grid from "@material-ui/core/Grid";
-import { User } from "../../models/models";
 import { UserAvatar } from "../users/UserAvatar";
 import fire from "../../firebase";
 import { useContext } from "react";
-import { SheetContext } from "../SplitTheCost";
 import { UserContext } from "../../App";
 
 export const Header: React.FC = () => {
-  const { sheetData, sheetDispatch } = useContext(SheetContext);
   const { curUser } = useContext(UserContext);
 
   function logout() {
