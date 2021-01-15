@@ -9,13 +9,18 @@ import { useContext } from "react";
 import { UserContext } from "../../App";
 import { SheetContext } from "../SplitTheCost";
 import { UserChip } from "./UserChip";
+import { RemoveUserModal } from "../modals/RemoveUserModal";
+import { User } from "../../models/models";
 
 export const UsersBar: React.FC = () => {
   const { curUser } = useContext(UserContext);
   const { sheetData } = useContext(SheetContext);
 
   const [openAddUser, setOpenAddUser] = useState(false);
+  const [openRemoveUser, setOpenRemoveUser] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
+
+  const [removeUser, setRemoveUser] = useState<User>();
 
   function openSettingsModal() {
     setOpenSettings(true);
@@ -23,6 +28,11 @@ export const UsersBar: React.FC = () => {
 
   function openAddUserModal() {
     setOpenAddUser(true);
+  }
+
+  function openRemoveUserModal(user: User) {
+    setRemoveUser(user);
+    setOpenRemoveUser(true);
   }
 
   return (
@@ -42,7 +52,11 @@ export const UsersBar: React.FC = () => {
               (!curUser || user.id !== curUser.id) && (
                 <UserChip
                   user={user}
-                  allowRemove={curUser?.id === sheetData.createdBy}
+                  onRemove={
+                    curUser?.id === sheetData.createdBy
+                      ? openRemoveUserModal
+                      : undefined
+                  }
                 />
               )
             );
@@ -59,6 +73,14 @@ export const UsersBar: React.FC = () => {
       </Grid>
       <AddUserModal open={openAddUser} setOpen={setOpenAddUser} />
       <SettingsModal open={openSettings} setOpen={setOpenSettings} />
+      {removeUser && (
+        <RemoveUserModal
+          removeUser={removeUser}
+          setRemoveUser={setRemoveUser}
+          open={openRemoveUser}
+          setOpen={setOpenRemoveUser}
+        />
+      )}
     </>
   );
 };

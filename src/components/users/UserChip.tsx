@@ -1,25 +1,21 @@
 import * as React from "react";
 import { Avatar, Chip, Tooltip } from "@material-ui/core";
 import { User } from "../../models/models";
-import { useContext } from "react";
 import { getAvatarColor } from "../../actions/actions";
-import { SheetContext } from "../SplitTheCost";
 
 interface Props {
   user: User;
   hideTooltip?: boolean;
-  allowRemove?: boolean;
+  onRemove?: (user: User) => void;
   className?: string;
 }
 
 export const UserChip: React.FC<Props> = ({
   user,
   hideTooltip,
-  allowRemove,
+  onRemove,
   className,
 }) => {
-  const { sheetDispatch } = useContext(SheetContext);
-
   function renderChip(user: User) {
     return (
       <Chip
@@ -33,16 +29,7 @@ export const UserChip: React.FC<Props> = ({
           </Avatar>
         }
         label={user.displayName}
-        onDelete={
-          allowRemove
-            ? () => {
-                sheetDispatch({
-                  type: "removeUser",
-                  userId: user.id,
-                });
-              }
-            : undefined
-        }
+        onDelete={!!onRemove ? () => onRemove(user) : undefined}
         key={user.id}
       />
     );
