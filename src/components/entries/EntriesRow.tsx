@@ -10,16 +10,15 @@ import { ExcludedUsersModal } from "../modals/ExcludedUsersModal";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import { motion } from "framer-motion";
 import { useContext } from "react";
-import { UserContext } from "../../App";
 import { SheetContext } from "../SplitTheCost";
 
 interface Props {
   entry: Entry;
+  curUserEntry: boolean;
 }
 
-export const EntriesRow: React.FC<Props> = ({ entry }) => {
+export const EntriesRow: React.FC<Props> = ({ entry, curUserEntry }) => {
   const { sheetData, sheetDispatch } = useContext(SheetContext);
-  const { curUser } = useContext(UserContext);
 
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -27,28 +26,28 @@ export const EntriesRow: React.FC<Props> = ({ entry }) => {
   const [noteVal, setNoteVal] = useState(entry.note);
   const [showExcludeUsersModal, setShowExcludeUsersModal] = useState(false);
 
-  const numExcludeUsersDisplay = entry.createdBy === curUser.id ? 3 : 4;
+  const numExcludeUsersDisplay = curUserEntry ? 3 : 4;
 
   function mouseOverItem(): void {
-    if (entry.createdBy === curUser.id) {
+    if (curUserEntry) {
       setShowDelete(true);
     }
   }
 
   function mouseLeaveItem(): void {
-    if (entry.createdBy === curUser.id) {
+    if (curUserEntry) {
       setShowDelete(false);
     }
   }
 
   function mouseOverExclude(): void {
-    if (entry.createdBy === curUser.id) {
+    if (curUserEntry) {
       setShowEdit(true);
     }
   }
 
   function mouseLeaveExclude(): void {
-    if (entry.createdBy === curUser.id) {
+    if (curUserEntry) {
       setShowEdit(false);
     }
   }
@@ -78,8 +77,9 @@ export const EntriesRow: React.FC<Props> = ({ entry }) => {
             />
             <Input
               className='sideMargins'
-              disableUnderline={true}
-              fullWidth={true}
+              disableUnderline
+              fullWidth
+              readOnly={!curUserEntry}
               value={itemVal}
               onChange={(e) => setItemVal(e.target.value)}
               onBlur={(e) => {
@@ -113,8 +113,9 @@ export const EntriesRow: React.FC<Props> = ({ entry }) => {
               //   allowNegative: false,
               //   thousandSeparator: ",",
               // }}
-              disableUnderline={true}
-              fullWidth={true}
+              disableUnderline
+              fullWidth
+              readOnly={!curUserEntry}
               value={entry.cost.toFixed(2)}
               onChange={(e) => {
                 sheetDispatch({
@@ -191,8 +192,9 @@ export const EntriesRow: React.FC<Props> = ({ entry }) => {
           <div className='entryDiv'>
             <Input
               className='sideMargins'
-              disableUnderline={true}
-              fullWidth={true}
+              disableUnderline
+              fullWidth
+              readOnly={!curUserEntry}
               value={noteVal}
               onChange={(e) => setNoteVal(e.target.value)}
               onBlur={(e) => {

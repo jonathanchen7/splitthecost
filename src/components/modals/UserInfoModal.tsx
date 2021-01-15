@@ -73,7 +73,7 @@ export const UserInfoModal: React.FC<Props> = ({ open }) => {
   }
 
   return (
-    <Dialog fullWidth={true} maxWidth='xs' open={open}>
+    <Dialog fullWidth maxWidth='xs' open={open}>
       <DialogTitle className='modalTitle'>Welcome to SplitTheCost!</DialogTitle>
       <DialogContent className='modalContent' dividers>
         <div className='modalInputRow'>

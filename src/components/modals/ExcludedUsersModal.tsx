@@ -110,7 +110,7 @@ export const ExcludedUsersModal: React.FC<Props> = ({
   }
 
   return (
-    <Dialog fullWidth={true} maxWidth='md' onClose={handleClose} open={open}>
+    <Dialog fullWidth maxWidth='md' onClose={handleClose} open={open}>
       <DialogTitle className='dialogTitle'>
         Exclude Users | <b>{`${entry.item}`}</b>
       </DialogTitle>

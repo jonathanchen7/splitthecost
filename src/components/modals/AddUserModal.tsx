@@ -77,7 +77,7 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
   }
 
   return (
-    <Dialog fullWidth={true} maxWidth='xs' onClose={handleClose} open={open}>
+    <Dialog fullWidth maxWidth='xs' onClose={handleClose} open={open}>
       <DialogTitle className='modalTitle'>Add User</DialogTitle>
       <DialogContent className='modalContent' dividers>
         <div className='modalInputRow'>

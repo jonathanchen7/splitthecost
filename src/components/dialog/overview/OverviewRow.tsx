@@ -35,15 +35,15 @@ export const OverviewRow: React.FC<Props> = ({ user, data, idx }) => {
       <Grid className='sideDialogRow' item xs={5}>
         <Input
           className='sideMargins'
-          readOnly={true}
+          readOnly
+          disableUnderline
+          fullWidth
           // inputComponent={NumberFormat as any}
           // inputProps={{
           //   decimalScale: 2,
           //   allowNegative: false,
           //   thousandSeparator: ",",
           // }}
-          disableUnderline={true}
-          fullWidth={true}
           value={!!data ? data?.totalSpent.toFixed(2) : 0}
           startAdornment={<InputAdornment position='start'>$</InputAdornment>}
         />
@@ -51,7 +51,9 @@ export const OverviewRow: React.FC<Props> = ({ user, data, idx }) => {
       <Grid className='sideDialogRow' item xs={5}>
         <>
           <Input
-            readOnly={true}
+            readOnly
+            disableUnderline
+            fullWidth
             // inputComponent={NumberFormat as any}
             // inputProps={{
             //   decimalScale: 2,
@@ -59,8 +61,6 @@ export const OverviewRow: React.FC<Props> = ({ user, data, idx }) => {
             //   thousandSeparator: ",",
             // }}
             className='sideMargins'
-            disableUnderline={true}
-            fullWidth={true}
             value={!!data ? data?.totalOwed.toFixed(2) : 0}
             startAdornment={<InputAdornment position='start'>$</InputAdornment>}
           />
