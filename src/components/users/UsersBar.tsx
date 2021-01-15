@@ -36,30 +36,44 @@ export const UsersBar: React.FC = () => {
           >
             <SettingsIcon />
           </IconButton>
+          <Tooltip arrow title={curUser.email} placement='top' key={curUser.id}>
+            <Chip
+              className='usersBarChip leftMargin'
+              avatar={
+                <Avatar
+                  className='usersBarAvatar'
+                  style={{ backgroundColor: getAvatarColor(curUser) }}
+                >
+                  {curUser.initials}
+                </Avatar>
+              }
+              label={curUser.displayName}
+              key={curUser.id}
+            />
+          </Tooltip>
           {Object.entries(sheetData.users).map((pair) => {
             const user = pair[1];
             return (
-              <Tooltip arrow title={user.email} placement='top' key={user.id}>
-                <Chip
-                  className='usersBarChip leftMargin'
-                  avatar={
-                    <Avatar
-                      className='usersBarAvatar'
-                      style={{ backgroundColor: getAvatarColor(user) }}
-                    >
-                      {user.initials}
-                    </Avatar>
-                  }
-                  label={user.displayName}
-                  onDelete={
-                    user.id !== curUser.id
-                      ? () =>
-                          sheetDispatch({ type: "removeUser", userId: user.id })
-                      : undefined
-                  }
-                  key={user.id}
-                />
-              </Tooltip>
+              user.id !== curUser.id && (
+                <Tooltip arrow title={user.email} placement='top' key={user.id}>
+                  <Chip
+                    className='usersBarChip leftMargin'
+                    avatar={
+                      <Avatar
+                        className='usersBarAvatar'
+                        style={{ backgroundColor: getAvatarColor(user) }}
+                      >
+                        {user.initials}
+                      </Avatar>
+                    }
+                    label={user.displayName}
+                    onDelete={() =>
+                      sheetDispatch({ type: "removeUser", userId: user.id })
+                    }
+                    key={user.id}
+                  />
+                </Tooltip>
+              )
             );
           })}
           <Tooltip arrow title='Add User' placement='right'>
