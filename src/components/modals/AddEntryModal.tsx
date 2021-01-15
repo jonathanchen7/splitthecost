@@ -24,7 +24,7 @@ import { UserChip } from "../users/UserChip";
 
 export const AddEntryModal: React.FC = () => {
   const { sheetData, sheetDispatch } = useContext(SheetContext);
-  const { curUser } = useContext(UserContext);
+  const { appUserData } = useContext(UserContext);
 
   const [open, setOpen] = useState(false);
   const [item, setItem] = useState("");
@@ -51,7 +51,7 @@ export const AddEntryModal: React.FC = () => {
   function confirmAddEntry() {
     sheetDispatch({
       type: "addEntry",
-      createdBy: curUser!.id,
+      createdBy: appUserData.curUser!.id,
       item: item,
       cost: cost,
       exclude: excludedUsers,

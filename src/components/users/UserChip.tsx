@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Avatar, Chip, Tooltip } from "@material-ui/core";
 import { User } from "../../models/models";
-import { getAvatarColor } from "../../actions/actions";
+import { getAvatarColor } from "../../actions/sheetActions";
 
 interface Props {
   user: User;

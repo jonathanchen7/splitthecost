@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState, useContext } from "react";
 import { UserBreakdownData } from "../../../models/models";
-import { calculateUserBreakdown } from "../../../actions/actions";
+import { calculateUserBreakdown } from "../../../actions/sheetActions";
 import { BreakdownHeader } from "./BreakdownHeader";
 import { BreakdownRow } from "./BreakdownRow";
 import { UserContext } from "../../../App";
@@ -9,19 +9,23 @@ import { SheetContext } from "../../SplitTheCost";
 
 export const Breakdown: React.FC = () => {
   const { sheetData } = useContext(SheetContext);
-  const { curUser } = useContext(UserContext);
+  const { appUserData } = useContext(UserContext);
 
   const [breakdownData, setBreakdownData] = useState<UserBreakdownData>();
 
   useEffect(() => {
-    if (!!curUser) {
+    if (!!appUserData.curUser) {
       setBreakdownData(
-        calculateUserBreakdown(curUser, sheetData.entries, sheetData.users)
+        calculateUserBreakdown(
+          appUserData.curUser,
+          sheetData.entries,
+          sheetData.users
+        )
       );
     }
-  }, [curUser, sheetData]);
+  }, [appUserData.curUser, sheetData]);
 
-  return !curUser ||
+  return !appUserData.curUser ||
     !breakdownData ||
     Object.keys(sheetData.users).length < 2 ? (
     <div className='noBreakdownData'>No data to break down. &#129396;</div>
@@ -31,7 +35,7 @@ export const Breakdown: React.FC = () => {
       {Object.entries(sheetData.users).map((pair, idx) => {
         let user = pair[1];
         return (
-          user.id !== curUser.id && (
+          user.id !== appUserData.curUser!.id && (
             <BreakdownRow
               user={user}
               data={breakdownData.userBreakdown[user.id]}

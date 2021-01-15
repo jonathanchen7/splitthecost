@@ -5,7 +5,7 @@ import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
 import { SideDialog } from "./dialog/SideDialog";
 import { AddEntryModal } from "./modals/AddEntryModal";
-import { SheetAction, sheetReducer } from "../actions/actions";
+import { SheetAction, sheetReducer } from "../actions/sheetActions";
 import { UserContext } from "../App";
 import { db, sheetDataConverter } from "../firebase";
 import { useParams } from "react-router-dom";
@@ -13,16 +13,7 @@ import { WhoAreYouModal } from "./modals/WhoAreYouModal";
 
 var initialSheetData: SheetData = {
   entries: [],
-  users: {
-    testUser: {
-      firstName: "Jonathan",
-      lastName: "Chen",
-      initials: "JC",
-      id: "testUserId",
-      email: "jonathanschen28@gmail.com",
-      displayName: "Jonathan Chen",
-    },
-  },
+  users: {},
   id: "testSheetId",
   createdBy: "testUserId",
   title: "New Sheet",
@@ -37,8 +28,8 @@ export const SheetContext = createContext<{
 });
 
 export const SplitTheCost: React.FC = () => {
-  const [sheetData, dispatch] = useReducer(sheetReducer, initialSheetData);
-  const { curUser } = useContext(UserContext);
+  const [sheetData, sheetDispatch] = useReducer(sheetReducer, initialSheetData);
+  const { appUserData } = useContext(UserContext);
 
   const { sheetId } = useParams<{ sheetId: string }>();
 
@@ -55,20 +46,20 @@ export const SplitTheCost: React.FC = () => {
       .get();
     const testData = sheetRef.data();
     if (testData) {
-      dispatch({ type: "updateSheetData", sheetData: testData });
+      sheetDispatch({ type: "updateSheetData", sheetData: testData });
     }
   }
 
   return (
     <SheetContext.Provider
-      value={{ sheetData: sheetData, sheetDispatch: dispatch }}
+      value={{ sheetData: sheetData, sheetDispatch: sheetDispatch }}
     >
       <Header />
       <UsersBar />
       <Entries />
       <SideDialog />
-      {!!curUser && <AddEntryModal />}
-      <WhoAreYouModal open={!curUser} />
+      {!!appUserData.curUser && <AddEntryModal />}
+      <WhoAreYouModal open={!appUserData.curUser} />
     </SheetContext.Provider>
   );
 };

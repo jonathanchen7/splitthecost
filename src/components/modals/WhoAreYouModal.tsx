@@ -9,6 +9,7 @@ import {
 import { SheetContext } from "../SplitTheCost";
 import { useContext } from "react";
 import { UserChip } from "../users/UserChip";
+import { UserContext } from "../../App";
 
 interface Props {
   open: boolean;
@@ -16,8 +17,14 @@ interface Props {
 
 export const WhoAreYouModal: React.FC<Props> = ({ open }) => {
   const { sheetData } = useContext(SheetContext);
+  const { appUserDispatch } = useContext(UserContext);
 
-  function confirmUser() {}
+  function confirmUser() {
+    appUserDispatch({
+      type: "updateCurUser",
+      user: sheetData.users["6f0ugapFQQnSuId85WWQK"],
+    });
+  }
 
   return (
     <Dialog fullWidth maxWidth='xs' open={open}>

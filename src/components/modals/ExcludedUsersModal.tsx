@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { Entry } from "../../models/models";
 import { useEffect, useState, useContext } from "react";
-import { getAvatarColor } from "../../actions/actions";
+import { getAvatarColor } from "../../actions/sheetActions";
 import {
   DragDropContext,
   Draggable,

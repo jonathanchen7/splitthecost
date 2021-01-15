@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { OverviewData } from "../../../models/models";
 import { OverviewHeader } from "./OverviewHeader";
 import { OverviewRow } from "./OverviewRow";
-import { calculateOverview } from "../../../actions/actions";
+import { calculateOverview } from "../../../actions/sheetActions";
 import { SheetContext } from "../../SplitTheCost";
 
 export const Overview: React.FC = () => {

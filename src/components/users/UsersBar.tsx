@@ -13,7 +13,7 @@ import { RemoveUserModal } from "../modals/RemoveUserModal";
 import { User } from "../../models/models";
 
 export const UsersBar: React.FC = () => {
-  const { curUser } = useContext(UserContext);
+  const { appUserData } = useContext(UserContext);
   const { sheetData } = useContext(SheetContext);
 
   const [openAddUser, setOpenAddUser] = useState(false);
@@ -45,15 +45,15 @@ export const UsersBar: React.FC = () => {
           >
             <SettingsIcon />
           </IconButton>
-          {!!curUser && <UserChip user={curUser} />}
+          {!!appUserData.curUser && <UserChip user={appUserData.curUser} />}
           {Object.entries(sheetData.users).map((pair) => {
             const user = pair[1];
             return (
-              (!curUser || user.id !== curUser.id) && (
+              (!appUserData.curUser || user.id !== appUserData.curUser.id) && (
                 <UserChip
                   user={user}
                   onRemove={
-                    curUser?.id === sheetData.createdBy
+                    appUserData.curUser?.id === sheetData.createdBy
                       ? openRemoveUserModal
                       : undefined
                   }
@@ -61,14 +61,16 @@ export const UsersBar: React.FC = () => {
               )
             );
           })}
-          <Tooltip arrow title='Add User' placement='right'>
-            <IconButton
-              className='iconButton smallIconButton leftMargin'
-              onClick={openAddUserModal}
-            >
-              <AddIcon />
-            </IconButton>
-          </Tooltip>
+          {appUserData.curUser?.id === sheetData.createdBy && (
+            <Tooltip arrow title='Add User' placement='right'>
+              <IconButton
+                className='iconButton smallIconButton leftMargin'
+                onClick={openAddUserModal}
+              >
+                <AddIcon />
+              </IconButton>
+            </Tooltip>
+          )}
         </Grid>
       </Grid>
       <AddUserModal open={openAddUser} setOpen={setOpenAddUser} />

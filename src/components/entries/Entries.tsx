@@ -6,7 +6,7 @@ import { SheetContext } from "../SplitTheCost";
 import { UserContext } from "../../App";
 
 export const Entries: React.FC = () => {
-  const { curUser } = useContext(UserContext);
+  const { appUserData } = useContext(UserContext);
   const { sheetData } = useContext(SheetContext);
 
   return (
@@ -15,7 +15,7 @@ export const Entries: React.FC = () => {
       {sheetData.entries.map((entry) => (
         <EntriesRow
           entry={entry}
-          curUserEntry={curUser?.id === entry.createdBy}
+          curUserEntry={appUserData.curUser?.id === entry.createdBy}
           key={entry.id}
         />
       ))}
