@@ -36,25 +36,32 @@ export const UsersBar: React.FC = () => {
           >
             <SettingsIcon />
           </IconButton>
-          <Tooltip arrow title={curUser.email} placement='top' key={curUser.id}>
-            <Chip
-              className='usersBarChip leftMargin'
-              avatar={
-                <Avatar
-                  className='usersBarAvatar'
-                  style={{ backgroundColor: getAvatarColor(curUser) }}
-                >
-                  {curUser.initials}
-                </Avatar>
-              }
-              label={curUser.displayName}
+          {!!curUser && (
+            <Tooltip
+              arrow
+              title={curUser.email}
+              placement='top'
               key={curUser.id}
-            />
-          </Tooltip>
+            >
+              <Chip
+                className='usersBarChip leftMargin'
+                avatar={
+                  <Avatar
+                    className='usersBarAvatar'
+                    style={{ backgroundColor: getAvatarColor(curUser) }}
+                  >
+                    {curUser.initials}
+                  </Avatar>
+                }
+                label={curUser.displayName}
+                key={curUser.id}
+              />
+            </Tooltip>
+          )}
           {Object.entries(sheetData.users).map((pair) => {
             const user = pair[1];
             return (
-              user.id !== curUser.id && (
+              (!curUser || user.id !== curUser.id) && (
                 <Tooltip arrow title={user.email} placement='top' key={user.id}>
                   <Chip
                     className='usersBarChip leftMargin'
@@ -67,8 +74,15 @@ export const UsersBar: React.FC = () => {
                       </Avatar>
                     }
                     label={user.displayName}
-                    onDelete={() =>
-                      sheetDispatch({ type: "removeUser", userId: user.id })
+                    onDelete={
+                      curUser?.id === sheetData.createdBy
+                        ? () => {
+                            sheetDispatch({
+                              type: "removeUser",
+                              userId: user.id,
+                            });
+                          }
+                        : undefined
                     }
                     key={user.id}
                   />

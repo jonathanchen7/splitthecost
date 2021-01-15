@@ -41,6 +41,6 @@ export interface SheetData {
 }
 
 export interface AppUserData {
-  curUser: User;
+  curUser: User | undefined;
   darkMode: boolean;
 }

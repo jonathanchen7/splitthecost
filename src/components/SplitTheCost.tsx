@@ -9,6 +9,7 @@ import { SheetAction, sheetReducer } from "../actions/actions";
 import { UserContext } from "../App";
 import { db, sheetDataConverter } from "../firebase";
 import { useParams } from "react-router-dom";
+import { WhoAreYouModal } from "./modals/WhoAreYouModal";
 
 var initialSheetData: SheetData = {
   entries: [],
@@ -38,7 +39,6 @@ export const SheetContext = createContext<{
 export const SplitTheCost: React.FC = () => {
   const [sheetData, dispatch] = useReducer(sheetReducer, initialSheetData);
   const { curUser } = useContext(UserContext);
-  console.log(curUser.displayName);
 
   const { sheetId } = useParams<{ sheetId: string }>();
 
@@ -66,8 +66,9 @@ export const SplitTheCost: React.FC = () => {
       <Header />
       <UsersBar />
       <Entries />
-      <AddEntryModal />
       <SideDialog />
+      {!!curUser && <AddEntryModal />}
+      <WhoAreYouModal open={!curUser} />
     </SheetContext.Provider>
   );
 };

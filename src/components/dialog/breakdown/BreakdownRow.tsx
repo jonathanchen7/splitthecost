@@ -17,9 +17,9 @@ export const BreakdownRow: React.FC<Props> = ({ user, data, idx }) => {
   const { sheetData } = useContext(SheetContext);
   const { curUser } = useContext(UserContext);
 
-  const netCost: number = !!data ? data.theyOwe - data.youOwe : 0;
-  const debtedUser: User = netCost < 0 ? curUser : user;
-  const owedUser: User = netCost < 0 ? user : curUser;
+  const netCost = !!data ? data.theyOwe - data.youOwe : 0;
+  const debtedUser = netCost < 0 ? curUser! : user;
+  const owedUser = netCost < 0 ? user : curUser!;
 
   return (
     <Grid
@@ -50,16 +50,16 @@ export const BreakdownRow: React.FC<Props> = ({ user, data, idx }) => {
       </Grid>
       <Grid className='sideDialogRow' item xs={4}>
         <Input
-          readOnly={true}
+          className='sideMargins'
+          readOnly
+          disableUnderline
+          fullWidth
           inputComponent={NumberFormat as any}
           inputProps={{
             decimalScale: 2,
             allowNegative: false,
             thousandSeparator: ",",
           }}
-          className='sideMargins'
-          disableUnderline={true}
-          fullWidth={true}
           value={Math.abs(netCost).toFixed(2)}
           startAdornment={<InputAdornment position='start'>$</InputAdornment>}
         />

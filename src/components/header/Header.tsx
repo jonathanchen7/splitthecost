@@ -22,12 +22,14 @@ export const Header: React.FC = () => {
         </span>
       </Grid>
       <Grid className='headerItem profileItem' item xs={1}>
-        <UserAvatar
-          className='rightMargin'
-          user={curUser}
-          tooltipPlacement={"bottom"}
-          onClick={logout}
-        />
+        {!!curUser && (
+          <UserAvatar
+            className='rightMargin'
+            user={curUser}
+            tooltipPlacement={"bottom"}
+            onClick={logout}
+          />
+        )}
       </Grid>
     </Grid>
   );

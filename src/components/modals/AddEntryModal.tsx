@@ -53,7 +53,7 @@ export const AddEntryModal: React.FC = () => {
   function confirmAddEntry() {
     sheetDispatch({
       type: "addEntry",
-      createdBy: curUser.id,
+      createdBy: curUser!.id,
       item: item,
       cost: cost,
       exclude: excludedUsers,
@@ -64,7 +64,7 @@ export const AddEntryModal: React.FC = () => {
 
   return (
     <>
-      <Dialog fullWidth={true} maxWidth='sm' onClose={handleClose} open={open}>
+      <Dialog fullWidth maxWidth='sm' onClose={handleClose} open={open}>
         <DialogTitle className='modalTitle'>Add Entry</DialogTitle>
         <DialogContent className='modalContent' dividers>
           <div className='modalInputRow'>
