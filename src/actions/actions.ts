@@ -123,19 +123,24 @@ function removeEntry(state: SheetData, action: RemoveEntryAction): SheetData {
   return newSheetState;
 }
 
-// Remove an entry from the sheet.
+// Update a section of an entry.
 function updateEntry(state: SheetData, action: UpdateEntryAction): SheetData {
+  const entry = action.entry;
+  const value = action.value;
   let newEntry: Entry;
 
   if (action.section === "item") {
-    newEntry = { ...action.entry, item: action.value };
+    if (entry.item === value) return state;
+    newEntry = { ...entry, item: value };
   } else if (action.section === "cost") {
-    newEntry = { ...action.entry, cost: Number(action.value) };
+    if (entry.cost === Number(value)) return state;
+    newEntry = { ...entry, cost: Number(value) };
   } else {
-    newEntry = { ...action.entry, note: action.value };
+    if (entry.note === value) return state;
+    newEntry = { ...entry, note: value };
   }
   const newEntries = [...state.entries];
-  newEntries[newEntries.indexOf(action.entry)] = newEntry;
+  newEntries[newEntries.indexOf(entry)] = newEntry;
 
   const newSheetState = { ...state, entries: newEntries };
   updateFirestore(newSheetState, action.local);
