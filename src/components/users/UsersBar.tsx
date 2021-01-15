@@ -1,22 +1,21 @@
 import * as React from "react";
-import { Avatar, Chip, Grid, IconButton, Tooltip } from "@material-ui/core";
+import { Grid, IconButton, Tooltip } from "@material-ui/core";
 import { AddUserModal } from "../modals/AddUserModal";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AddIcon from "@material-ui/icons/Add";
 import { useState } from "react";
-import { getAvatarColor } from "../../actions/actions";
 import { SettingsModal } from "../modals/SettingsModal";
 import { useContext } from "react";
 import { UserContext } from "../../App";
 import { SheetContext } from "../SplitTheCost";
+import { UserChip } from "./UserChip";
 
 export const UsersBar: React.FC = () => {
-  const { sheetData, sheetDispatch } = useContext(SheetContext);
+  const { curUser } = useContext(UserContext);
+  const { sheetData } = useContext(SheetContext);
 
   const [openAddUser, setOpenAddUser] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
-
-  const { curUser } = useContext(UserContext);
 
   function openSettingsModal() {
     setOpenSettings(true);
@@ -36,57 +35,15 @@ export const UsersBar: React.FC = () => {
           >
             <SettingsIcon />
           </IconButton>
-          {!!curUser && (
-            <Tooltip
-              arrow
-              title={curUser.email}
-              placement='top'
-              key={curUser.id}
-            >
-              <Chip
-                className='usersBarChip leftMargin'
-                avatar={
-                  <Avatar
-                    className='usersBarAvatar'
-                    style={{ backgroundColor: getAvatarColor(curUser) }}
-                  >
-                    {curUser.initials}
-                  </Avatar>
-                }
-                label={curUser.displayName}
-                key={curUser.id}
-              />
-            </Tooltip>
-          )}
+          {!!curUser && <UserChip user={curUser} />}
           {Object.entries(sheetData.users).map((pair) => {
             const user = pair[1];
             return (
               (!curUser || user.id !== curUser.id) && (
-                <Tooltip arrow title={user.email} placement='top' key={user.id}>
-                  <Chip
-                    className='usersBarChip leftMargin'
-                    avatar={
-                      <Avatar
-                        className='usersBarAvatar'
-                        style={{ backgroundColor: getAvatarColor(user) }}
-                      >
-                        {user.initials}
-                      </Avatar>
-                    }
-                    label={user.displayName}
-                    onDelete={
-                      curUser?.id === sheetData.createdBy
-                        ? () => {
-                            sheetDispatch({
-                              type: "removeUser",
-                              userId: user.id,
-                            });
-                          }
-                        : undefined
-                    }
-                    key={user.id}
-                  />
-                </Tooltip>
+                <UserChip
+                  user={user}
+                  allowRemove={curUser?.id === sheetData.createdBy}
+                />
               )
             );
           })}

@@ -132,10 +132,10 @@ export const ExcludedUsersModal: React.FC<Props> = ({
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         innerRef={provided.innerRef}
-                        className='excludeModalChip rightMarginSmall'
+                        className='chip bottomMargin rightMarginSmall'
                         avatar={
                           <Avatar
-                            className='usersBarAvatar'
+                            className='smallAvatar'
                             style={{
                               backgroundColor: getAvatarColor(
                                 sheetData.users[userId]
@@ -171,10 +171,10 @@ export const ExcludedUsersModal: React.FC<Props> = ({
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         innerRef={provided.innerRef}
-                        className='excludeModalChip rightMarginSmall'
+                        className='chip bottomMargin rightMarginSmall'
                         avatar={
                           <Avatar
-                            className='usersBarAvatar'
+                            className='smallAvatar'
                             style={{
                               backgroundColor: getAvatarColor(
                                 sheetData.users[userId]

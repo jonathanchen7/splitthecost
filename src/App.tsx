@@ -16,7 +16,7 @@ export const testUser: User = {
 };
 
 const initialAppUserData: AppUserData = {
-  curUser: undefined,
+  curUser: testUser,
   darkMode: false,
 };
 

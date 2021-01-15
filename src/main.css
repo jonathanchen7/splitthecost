@@ -24,6 +24,10 @@
   margin-left: 5px !important;
 }
 
+.bottomMargin {
+  margin-bottom: 10px !important;
+}
+
 .roundedTop {
   border-radius: 15px 15px 0px 0px;
 }
@@ -46,6 +50,11 @@
 .avatar:hover {
   background: rgba(0, 0, 0, 0.35);
   cursor: pointer;
+}
+
+.smallAvatar {
+  color: white !important;
+  font-weight: bold;
 }
 
 .iconButton {
@@ -78,6 +87,10 @@
 
 .modalConfirmButton:hover {
   background-color: #5f8ba9 !important;
+}
+
+.chip {
+  background-color: #c4c4c4 !important;
 }
 
 .modalTitle {
@@ -155,15 +168,6 @@
       -ms-flex-align: center;
           align-items: center;
   background-color: #ffffff;
-}
-
-.usersBarChip {
-  background-color: #c4c4c4 !important;
-}
-
-.usersBarAvatar {
-  color: white !important;
-  font-weight: bold;
 }
 
 .addUserButton {
@@ -329,10 +333,6 @@
   margin-top: 10px;
   padding: 0px 10px 5px 10px;
   width: 46%;
-}
-
-.excludeModalChip {
-  margin-bottom: 10px;
 }
 
 .itemInput {

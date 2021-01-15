@@ -1,9 +1,7 @@
 import * as React from "react";
 import {
-  Avatar,
   Button,
   Checkbox,
-  Chip,
   Dialog,
   DialogActions,
   DialogContent,
@@ -20,9 +18,9 @@ import {
 import { useContext, useState } from "react";
 import AddIcon from "@material-ui/icons/Add";
 // import NumberFormat from "react-number-format";
-import { getAvatarColor } from "../../actions/actions";
 import { UserContext } from "../../App";
 import { SheetContext } from "../SplitTheCost";
+import { UserChip } from "../users/UserChip";
 
 export const AddEntryModal: React.FC = () => {
   const { sheetData, sheetDispatch } = useContext(SheetContext);
@@ -105,23 +103,7 @@ export const AddEntryModal: React.FC = () => {
               renderValue={(selected) => (
                 <>
                   {(selected as string[]).map((userId) => (
-                    <Chip
-                      className='leftMarginSmall'
-                      avatar={
-                        <Avatar
-                          className='usersBarAvatar'
-                          style={{
-                            backgroundColor: getAvatarColor(
-                              sheetData.users[userId]
-                            ),
-                          }}
-                        >
-                          {sheetData.users[userId].initials}
-                        </Avatar>
-                      }
-                      label={sheetData.users[userId].displayName}
-                      key={userId}
-                    />
+                    <UserChip hideTooltip user={sheetData.users[userId]} />
                   ))}
                 </>
               )}
@@ -136,22 +118,7 @@ export const AddEntryModal: React.FC = () => {
                     color='primary'
                     checked={excludedUsers.includes(userId)}
                   />
-                  <Chip
-                    avatar={
-                      <Avatar
-                        className='usersBarAvatar'
-                        style={{
-                          backgroundColor: getAvatarColor(
-                            sheetData.users[userId]
-                          ),
-                        }}
-                      >
-                        {sheetData.users[userId].initials}
-                      </Avatar>
-                    }
-                    label={sheetData.users[userId].displayName}
-                    key={userId}
-                  />
+                  <UserChip hideTooltip user={sheetData.users[userId]} />
                 </MenuItem>
               ))}
             </Select>
