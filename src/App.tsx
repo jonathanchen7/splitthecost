@@ -3,7 +3,7 @@ import "./main.css";
 import { SplitTheCost } from "./components/SplitTheCost";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 // import { AuthPage } from "./components/auth/AuthPage";
-import { LandingPage } from "./components/HomePage";
+import { LandingPage } from "./components/pages/HomePage";
 import { AppUserData, User } from "./models/models";
 
 export const testUser: User = {
@@ -16,7 +16,7 @@ export const testUser: User = {
 };
 
 const initialAppUserData: AppUserData = {
-  curUser: testUser,
+  curUser: undefined,
   darkMode: false,
 };
 
