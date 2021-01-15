@@ -52,7 +52,7 @@ export const UsersBar: React.FC = () => {
                   }
                   label={user.displayName}
                   onDelete={
-                    user !== curUser
+                    user.id !== curUser.id
                       ? () =>
                           sheetDispatch({ type: "removeUser", userId: user.id })
                       : undefined

@@ -7,10 +7,10 @@ import { SideDialog } from "./dialog/SideDialog";
 import { AddEntryModal } from "./modals/AddEntryModal";
 import { SheetAction, sheetReducer } from "../actions/actions";
 import { UserContext } from "../App";
-import { db } from "../firebase";
+import { db, sheetDataConverter } from "../firebase";
 import { useParams } from "react-router-dom";
 
-const initialSheetData: SheetData = {
+var initialSheetData: SheetData = {
   entries: [],
   users: {
     testUser: {
@@ -41,17 +41,21 @@ export const SplitTheCost: React.FC = () => {
   console.log(curUser.displayName);
 
   const { sheetId } = useParams<{ sheetId: string }>();
-  console.log(sheetId);
 
   useEffect(() => {
     getSheetData();
-  }, [sheetId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function getSheetData() {
-    const sheetRef = await db.collection("sheets").doc(sheetId).get();
-
-    if (sheetRef) {
-      console.log(sheetRef.data());
+    const sheetRef = await db
+      .collection("sheets")
+      .withConverter(sheetDataConverter)
+      .doc(sheetId)
+      .get();
+    const testData = sheetRef.data();
+    if (testData) {
+      dispatch({ type: "updateSheetData", sheetData: testData });
     }
   }
 

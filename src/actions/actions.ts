@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import { db, sheetDataConverter } from "../firebase";
 import {
   Entry,
   OverviewData,
@@ -52,6 +53,10 @@ export type RemoveExcludedUserAction = {
   entry: Entry;
   local?: boolean;
 };
+export type UpdateSheetDataAction = {
+  type: "updateSheetData";
+  sheetData: SheetData;
+};
 
 export type SheetAction =
   | AddEntryAction
@@ -60,7 +65,8 @@ export type SheetAction =
   | AddUserAction
   | RemoveUserAction
   | UpdateExcludedUsersAction
-  | RemoveExcludedUserAction;
+  | RemoveExcludedUserAction
+  | UpdateSheetDataAction;
 
 export function sheetReducer(state: SheetData, action: SheetAction) {
   switch (action.type) {
@@ -78,10 +84,14 @@ export function sheetReducer(state: SheetData, action: SheetAction) {
       return updatedExcludedUsers(state, action);
     case "removeExcludedUser":
       return removeExcludedUser(state, action);
+    case "updateSheetData":
+      return action.sheetData;
     default:
       return state;
   }
 }
+
+// ----------------- SHEET ACTIONS -----------------
 
 // Add a new entry to the sheet.
 function addEntry(state: SheetData, action: AddEntryAction): SheetData {
@@ -93,7 +103,13 @@ function addEntry(state: SheetData, action: AddEntryAction): SheetData {
     note: !!action.note ? action.note : "",
     createdBy: action.createdBy,
   };
-  return { ...state, entries: [...state.entries, newEntry] };
+
+  const newSheetState = {
+    ...state,
+    entries: [...state.entries, newEntry],
+  };
+  updateFirestore(newSheetState, action.local);
+  return newSheetState;
 }
 
 // Remove an entry from the sheet.
@@ -101,7 +117,10 @@ function removeEntry(state: SheetData, action: RemoveEntryAction): SheetData {
   const newEntries = state.entries.filter(
     (entry) => entry.id !== action.entryId
   );
-  return { ...state, entries: newEntries };
+
+  const newSheetState = { ...state, entries: newEntries };
+  updateFirestore(newSheetState, action.local);
+  return newSheetState;
 }
 
 // Remove an entry from the sheet.
@@ -115,10 +134,12 @@ function updateEntry(state: SheetData, action: UpdateEntryAction): SheetData {
   } else {
     newEntry = { ...action.entry, note: action.value };
   }
-
   const newEntries = [...state.entries];
   newEntries[newEntries.indexOf(action.entry)] = newEntry;
-  return { ...state, entries: newEntries };
+
+  const newSheetState = { ...state, entries: newEntries };
+  updateFirestore(newSheetState, action.local);
+  return newSheetState;
 }
 
 // Add a user to the sheet.
@@ -133,7 +154,13 @@ function addUser(state: SheetData, action: AddUserAction): SheetData {
     displayName: `${action.firstName} ${action.lastName}`,
     email: action.email,
   };
-  return { ...state, users: { ...state.users, [newUser.id]: newUser } };
+
+  const newSheetState = {
+    ...state,
+    users: { ...state.users, [newUser.id]: newUser },
+  };
+  updateFirestore(newSheetState, action.local);
+  return newSheetState;
 }
 
 // Remove a user from the sheet.
@@ -158,7 +185,9 @@ function removeUser(state: SheetData, action: RemoveUserAction): SheetData {
     }
   });
 
-  return { ...state, entries: newEntries, users: newUsers };
+  const newSheetState = { ...state, entries: newEntries, users: newUsers };
+  updateFirestore(newSheetState, action.local);
+  return newSheetState;
 }
 
 // Update the excluded userIds for a specific entry.
@@ -172,7 +201,10 @@ function updatedExcludedUsers(
   };
   const newEntries = [...state.entries];
   newEntries[newEntries.indexOf(action.entry)] = newEntry;
-  return { ...state, entries: newEntries };
+
+  const newSheetState = { ...state, entries: newEntries };
+  updateFirestore(newSheetState, action.local);
+  return newSheetState;
 }
 
 // Remove an excluded user from a specific entry.
@@ -186,8 +218,22 @@ function removeExcludedUser(
   };
   const newEntries = [...state.entries];
   newEntries[newEntries.indexOf(action.entry)] = newEntry;
-  return { ...state, entries: newEntries };
+
+  const newSheetState = { ...state, entries: newEntries };
+  updateFirestore(newSheetState, action.local);
+  return newSheetState;
 }
+
+function updateFirestore(state: SheetData, local?: boolean) {
+  if (!local) {
+    db.collection("sheets")
+      .withConverter(sheetDataConverter)
+      .doc(state.id)
+      .set(state);
+  }
+}
+
+// ----------------- CALCULATIONS -----------------
 
 // Calculates and returns the overview data.
 export function calculateOverview(

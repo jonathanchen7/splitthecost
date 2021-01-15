@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import { SheetData } from "./models/models";
 
 const fire = firebase.initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -10,6 +11,31 @@ const fire = firebase.initializeApp({
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 });
+
+export const sheetDataConverter = {
+  toFirestore(sheetData: SheetData): firebase.firestore.DocumentData {
+    return {
+      title: sheetData.title,
+      entries: sheetData.entries,
+      users: sheetData.users,
+      createdBy: sheetData.createdBy,
+      id: sheetData.id,
+    };
+  },
+  fromFirestore(
+    snapshot: firebase.firestore.QueryDocumentSnapshot,
+    options: firebase.firestore.SnapshotOptions
+  ): SheetData {
+    const data = snapshot.data(options)!;
+    return {
+      title: data.title,
+      entries: data.entries,
+      users: data.users,
+      createdBy: data.createdBy,
+      id: data.id,
+    };
+  },
+};
 
 export const auth = fire.auth();
 export const db = fire.firestore();

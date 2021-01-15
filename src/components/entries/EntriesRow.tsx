@@ -122,6 +122,15 @@ export const EntriesRow: React.FC<Props> = ({ entry }) => {
                   entry: entry,
                   section: "cost",
                   value: e.target.value,
+                  local: true,
+                });
+              }}
+              onBlur={(e) => {
+                sheetDispatch({
+                  type: "updateEntry",
+                  entry: entry,
+                  section: "cost",
+                  value: e.target.value,
                 });
               }}
               startAdornment={
