@@ -37,7 +37,7 @@
 }
 
 .avatar {
-  background-color: #c4c4c4;
+  background-color: #dedede;
   height: 40px !important;
   width: 40px !important;
   color: white;
@@ -58,7 +58,7 @@
 }
 
 .iconButton {
-  background-color: #c4c4c4 !important;
+  background-color: #dedede !important;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
@@ -89,8 +89,16 @@
   background-color: #5f8ba9 !important;
 }
 
+.modalConfirmButton:disabled {
+  background-color: #dedede !important;
+}
+
 .chip {
-  background-color: #c4c4c4 !important;
+  background-color: #dedede !important;
+}
+
+.selectedChip {
+  background-color: #969696 !important;
 }
 
 .modalTitle {

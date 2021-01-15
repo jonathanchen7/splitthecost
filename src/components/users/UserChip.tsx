@@ -7,6 +7,7 @@ interface Props {
   user: User;
   hideTooltip?: boolean;
   onRemove?: (user: User) => void;
+  onClick?: (user: User) => void;
   className?: string;
 }
 
@@ -14,6 +15,7 @@ export const UserChip: React.FC<Props> = ({
   user,
   hideTooltip,
   onRemove,
+  onClick,
   className,
 }) => {
   function renderChip(user: User) {
@@ -43,6 +45,7 @@ export const UserChip: React.FC<Props> = ({
       arrow
       title={user.email}
       placement='top'
+      onClick={!!onClick ? () => onClick(user) : undefined}
       key={user.id}
     >
       {renderChip(user)}

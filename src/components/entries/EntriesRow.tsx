@@ -153,7 +153,7 @@ export const EntriesRow: React.FC<Props> = ({ entry, curUserEntry }) => {
                     className='leftMarginSmall'
                     user={sheetData.users[userId]}
                     tooltipPlacement='top'
-                    iconOnHover={<DeleteIcon />}
+                    iconOnHover={curUserEntry ? <DeleteIcon /> : undefined}
                     onClick={() => {
                       sheetDispatch({
                         type: "removeExcludedUser",

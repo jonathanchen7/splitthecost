@@ -13,7 +13,8 @@ $marginStandard: 10px;
 $marginSmall: 5px;
 $entryHeight: 50px;
 
-$defaultIconColor: #c4c4c4;
+$defaultIconColor: #dedede;
+$selectedIconColor: #969696;
 $headerColor: #377cab;
 $headerColorLight: #5f8ba9;
 $usersBarColor: #ffffff;
@@ -117,10 +118,17 @@ $redArrowColor: #e74c3c;
   &:hover {
     background-color: $headerColorLight !important;
   }
+  &:disabled {
+    background-color: $gridDarkColor !important;
+  }
 }
 
 .chip {
   background-color: $defaultIconColor !important;
+}
+
+.selectedChip {
+  background-color: $selectedIconColor !important;
 }
 
 // ---------------- GENERAL - MODAL ----------------
