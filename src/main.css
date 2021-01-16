@@ -6,6 +6,10 @@
   margin-left: 10px !important;
 }
 
+.leftMarginLarge {
+  margin-left: 50px !important;
+}
+
 .rightMarginSmall {
   margin-right: 5px !important;
 }
@@ -436,5 +440,84 @@
 .googleButton {
   background-color: #f6f6f6 !important;
   margin-bottom: 15px !important;
+}
+
+.createNewSheet {
+  height: 90vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.createNewSheetItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.giantHeader {
+  font-size: 45px;
+  margin-bottom: 30px;
+}
+
+.giantHeaderSubtext {
+  margin-top: -25px;
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+
+.giantTextField {
+  margin-bottom: 40px !important;
+}
+
+.giantInput {
+  color: #377cab !important;
+  font-size: 50px !important;
+  height: 60px !important;
+}
+
+.termsAndConditions {
+  margin-bottom: 20px;
+}
+
+.continueButton {
+  color: white !important;
+  background-color: #377cab !important;
+  font-size: 15px !important;
+  font-weight: bold !important;
+  text-transform: none !important;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  height: 40px;
+  width: 200px;
+}
+
+.continueButton:hover {
+  background-color: #5f8ba9 !important;
+}
+
+.continueButton:disabled {
+  background-color: #dedede !important;
+}
+
+.stepIndicator {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #969696;
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  font-size: 20px;
 }
 /*# sourceMappingURL=main.css.map */

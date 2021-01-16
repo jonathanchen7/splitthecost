@@ -36,6 +36,10 @@ $redArrowColor: #e74c3c;
   margin-left: $marginStandard !important;
 }
 
+.leftMarginLarge {
+  margin-left: 50px !important;
+}
+
 .rightMarginSmall {
   margin-right: $marginSmall !important;
 }
@@ -88,7 +92,7 @@ $redArrowColor: #e74c3c;
   font-weight: bold;
 }
 
-// ---------------- GENERAL - CLICKABLE ----------------
+// ---------------- GENERAL - INTERACTIVE ----------------
 
 .iconButton {
   background-color: $defaultIconColor !important;
@@ -425,4 +429,70 @@ $redArrowColor: #e74c3c;
 .googleButton {
   background-color: $gridLightColor !important;
   margin-bottom: 15px !important;
+}
+
+// ---------------- CREATE NEW SHEET ----------------
+
+.createNewSheet {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+}
+
+.createNewSheetItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.giantHeader {
+  font-size: 45px;
+  margin-bottom: 30px;
+}
+
+.giantHeaderSubtext {
+  margin-top: -25px;
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+
+.giantTextField {
+  margin-bottom: 40px !important;
+}
+
+.giantInput {
+  color: $headerColor !important;
+  font-size: 50px !important;
+  height: 60px !important;
+}
+
+.termsAndConditions {
+  margin-bottom: 20px;
+}
+
+.continueButton {
+  color: white !important;
+  background-color: $headerColor !important;
+  font-size: 15px !important;
+  font-weight: bold !important;
+  text-transform: none !important;
+  transition: 0.5s;
+  height: 40px;
+  width: 200px;
+
+  &:hover {
+    background-color: $headerColorLight !important;
+  }
+  &:disabled {
+    background-color: $gridDarkColor !important;
+  }
+}
+
+.stepIndicator {
+  display: flex;
+  align-items: center;
+  color: $selectedIconColor;
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  font-size: 20px;
 }

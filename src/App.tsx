@@ -6,6 +6,7 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 import { LandingPage } from "./components/pages/HomePage";
 import { AppUserData, User } from "./models/models";
 import { AppUserAction, appUserReducer } from "./actions/appUserActions";
+import { CreateNewSheetPage } from "./components/pages/CreateNewSheetPage";
 
 export const testUser: User = {
   firstName: "Jonathan",
@@ -40,9 +41,10 @@ function App() {
       <UserContext.Provider
         value={{ appUserData: appUserData, appUserDispatch: appUserDispatch }}
       >
-        <Route path='/' exact component={LandingPage} />
         {/* <Route path='/login' exact component={AuthPage} />
       <Route path='/sheets' exact component={AuthPage} /> */}
+        <Route path='/' exact component={LandingPage} />
+        <Route path='/new' exact component={CreateNewSheetPage} />
         <Route path='/sheet/:sheetId' component={SplitTheCost} />
       </UserContext.Provider>
     </Router>
