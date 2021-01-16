@@ -159,7 +159,7 @@ export const CreateNewSheetPage: React.FC = () => {
           <TextField
             className='giantTextField halfWidthModalInput'
             fullWidth
-            placeholder='Their first name'
+            placeholder='First name'
             value={altFirstName}
             onChange={(e) => setAltFirstName(e.target.value)}
             inputProps={{
@@ -169,7 +169,7 @@ export const CreateNewSheetPage: React.FC = () => {
           <TextField
             className='leftMarginLarge giantTextField halfWidthModalInput'
             fullWidth
-            placeholder='Their last name'
+            placeholder='Last name'
             value={altLastName}
             onChange={(e) => setAltLastName(e.target.value)}
             inputProps={{
@@ -180,7 +180,7 @@ export const CreateNewSheetPage: React.FC = () => {
         <TextField
           className='giantTextField'
           fullWidth
-          placeholder='Their email address'
+          placeholder='Email address'
           value={altEmail}
           onChange={(e) => setAltEmail(e.target.value)}
           inputProps={{
@@ -195,7 +195,7 @@ export const CreateNewSheetPage: React.FC = () => {
             className='leftMargin continueButton'
             onClick={createNewSheet}
           >
-            Maybe Later
+            Skip for Now
           </Button>
           <Button
             className='leftMargin continueButton'
@@ -219,30 +219,27 @@ export const CreateNewSheetPage: React.FC = () => {
   }
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ x: 2000 }}
-        animate={{ x: 0 }}
-        exit={{ x: 2000 }}
-        transition={{ type: "spring", duration: 0.8 }}
-      >
-        <Grid className='createNewSheet' container spacing={0}>
-          <Grid item xs={1}></Grid>
-          <Grid className='createNewSheetItem' item xs={8}>
-            {renderStep()}
-          </Grid>
+    <motion.div
+      initial={{ x: 2000 }}
+      animate={{ x: 0 }}
+      transition={{ type: "spring", duration: 0.8 }}
+    >
+      <Grid className='createNewSheet' container spacing={0}>
+        <Grid item xs={1}></Grid>
+        <Grid className='createNewSheetItem' item xs={8}>
+          {renderStep()}
         </Grid>
-        <div className='stepIndicator'>
-          <Link to='/'>
-            <IconButton size='small'>
-              <CloseIcon />
-            </IconButton>
-          </Link>
-          <span className='leftMarginSmall'>
-            Create a sheet (Step {step} of 4)
-          </span>
-        </div>
-      </motion.div>
-    </AnimatePresence>
+      </Grid>
+      <div className='stepIndicator'>
+        <Link to='/'>
+          <IconButton size='small'>
+            <CloseIcon />
+          </IconButton>
+        </Link>
+        <span className='leftMarginSmall'>
+          Create a sheet (Step {step} of 4)
+        </span>
+      </div>
+    </motion.div>
   );
 };
