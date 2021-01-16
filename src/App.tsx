@@ -3,7 +3,7 @@ import "./main.css";
 import { SplitTheCost } from "./components/SplitTheCost";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 // import { AuthPage } from "./components/auth/AuthPage";
-import { LandingPage } from "./components/pages/HomePage";
+import { HomePage } from "./components/pages/HomePage";
 import { AppUserData, User } from "./models/models";
 import { AppUserAction, appUserReducer } from "./actions/appUserActions";
 import { CreateNewSheetPage } from "./components/pages/CreateNewSheetPage";
@@ -43,7 +43,7 @@ function App() {
       >
         {/* <Route path='/login' exact component={AuthPage} />
       <Route path='/sheets' exact component={AuthPage} /> */}
-        <Route path='/' exact component={LandingPage} />
+        <Route path='/' exact component={HomePage} />
         <Route path='/new' exact component={CreateNewSheetPage} />
         <Route path='/sheet/:sheetId' component={SplitTheCost} />
       </UserContext.Provider>

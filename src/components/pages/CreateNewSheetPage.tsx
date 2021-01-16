@@ -8,8 +8,8 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { User } from "../../models/models";
 import CloseIcon from "@material-ui/icons/Close";
+import { AnimatePresence, motion } from "framer-motion";
 
 enum CreateSheetStep {
   SheetName = 1,
@@ -30,7 +30,6 @@ export const CreateNewSheetPage: React.FC = () => {
   const [altFirstName, setAltFirstName] = useState("");
   const [altLastName, setAltLastName] = useState("");
   const [altEmail, setAltEmail] = useState("");
-  const [curUser, setCurUser] = useState<User>();
 
   function createNewSheet() {
     alert("creating new sheet...");
@@ -220,23 +219,30 @@ export const CreateNewSheetPage: React.FC = () => {
   }
 
   return (
-    <>
-      <Grid className='createNewSheet' container spacing={0}>
-        <Grid item xs={1}></Grid>
-        <Grid className='createNewSheetItem' item xs={8}>
-          {renderStep()}
+    <AnimatePresence>
+      <motion.div
+        initial={{ x: 2000 }}
+        animate={{ x: 0 }}
+        exit={{ x: 2000 }}
+        transition={{ type: "spring", duration: 0.8 }}
+      >
+        <Grid className='createNewSheet' container spacing={0}>
+          <Grid item xs={1}></Grid>
+          <Grid className='createNewSheetItem' item xs={8}>
+            {renderStep()}
+          </Grid>
         </Grid>
-      </Grid>
-      <div className='stepIndicator'>
-        <Link to={"/"}>
-          <IconButton size='small'>
-            <CloseIcon />
-          </IconButton>
-        </Link>
-        <span className='leftMarginSmall'>
-          Create a sheet (Step {step} of 4)
-        </span>
-      </div>
-    </>
+        <div className='stepIndicator'>
+          <Link to='/'>
+            <IconButton size='small'>
+              <CloseIcon />
+            </IconButton>
+          </Link>
+          <span className='leftMarginSmall'>
+            Create a sheet (Step {step} of 4)
+          </span>
+        </div>
+      </motion.div>
+    </AnimatePresence>
   );
 };

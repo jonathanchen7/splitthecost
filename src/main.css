@@ -40,6 +40,10 @@
   border-radius: 0px 0px 15px 15px;
 }
 
+.noTextDecoration {
+  text-decoration: none !important;
+}
+
 .avatar {
   background-color: #dedede;
   height: 40px !important;
@@ -440,6 +444,54 @@
 .googleButton {
   background-color: #f6f6f6 !important;
   margin-bottom: 15px !important;
+}
+
+.homePage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 80vh;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.welcomeHeader {
+  font-size: 50px;
+  color: #377cab;
+  margin-bottom: 20px;
+}
+
+.test {
+  text-decoration: none !important;
+}
+
+.createNewButton {
+  color: white !important;
+  background-color: #377cab !important;
+  font-size: 15px !important;
+  font-weight: bold !important;
+  text-transform: none !important;
+  text-decoration: none !important;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  height: 40px;
+  width: 200px;
+}
+
+.createNewButton:hover {
+  background-color: #5f8ba9 !important;
+}
+
+.createNewButton:disabled {
+  background-color: #dedede !important;
 }
 
 .createNewSheet {

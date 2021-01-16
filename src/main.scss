@@ -70,6 +70,10 @@ $redArrowColor: #e74c3c;
   border-radius: 0px 0px 15px 15px;
 }
 
+.noTextDecoration {
+  text-decoration: none !important;
+}
+
 // ---------------- GENERAL ----------------
 
 .avatar {
@@ -384,7 +388,6 @@ $redArrowColor: #e74c3c;
 
 .authPaper {
   border-radius: 15px !important;
-  // background-color: $overviewDialogColor !important;
   width: 370px;
   padding: 20px;
 }
@@ -429,6 +432,45 @@ $redArrowColor: #e74c3c;
 .googleButton {
   background-color: $gridLightColor !important;
   margin-bottom: 15px !important;
+}
+
+// ---------------- HOME PAGE ----------------
+
+.homePage {
+  display: flex;
+  height: 80vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcomeHeader {
+  font-size: 50px;
+  color: $headerColor;
+  margin-bottom: 20px;
+}
+
+.test {
+  text-decoration: none !important;
+}
+
+.createNewButton {
+  color: white !important;
+  background-color: $headerColor !important;
+  font-size: 15px !important;
+  font-weight: bold !important;
+  text-transform: none !important;
+  text-decoration: none !important;
+  transition: 0.5s;
+  height: 40px;
+  width: 200px;
+
+  &:hover {
+    background-color: $headerColorLight !important;
+  }
+  &:disabled {
+    background-color: $gridDarkColor !important;
+  }
 }
 
 // ---------------- CREATE NEW SHEET ----------------
