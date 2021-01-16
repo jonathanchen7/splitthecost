@@ -8,14 +8,16 @@ import { AddEntryModal } from "./modals/AddEntryModal";
 import { SheetAction, sheetReducer } from "../actions/sheetActions";
 import { UserContext } from "../App";
 import { db, sheetDataConverter } from "../firebase";
-import { useParams } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import { WhoAreYouModal } from "./modals/WhoAreYouModal";
+import { nanoid } from "nanoid";
 
 var initialSheetData: SheetData = {
   entries: [],
   users: {},
   id: "testSheetId",
   createdBy: "testUserId",
+  local: false,
   title: "New Sheet",
 };
 
@@ -28,17 +30,42 @@ export const SheetContext = createContext<{
 });
 
 export const SplitTheCost: React.FC = () => {
+  const history = useHistory();
+  const location = useLocation<{ title: string }>();
+  const { sheetId } = useParams<{ sheetId: string }>();
+
   const [sheetData, sheetDispatch] = useReducer(sheetReducer, initialSheetData);
   const { appUserData } = useContext(UserContext);
 
-  const { sheetId } = useParams<{ sheetId: string }>();
-
   useEffect(() => {
-    getSheetData();
+    if (!sheetId || sheetId === "new") {
+      generateNewSheetData();
+    } else {
+      fetchSheetData();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function getSheetData() {
+  function generateNewSheetData() {
+    if (!appUserData.curUser || !location.state.title) {
+      history.push("/create");
+      return;
+    }
+
+    const newSheetData: SheetData = {
+      title: location.state.title,
+      entries: [],
+      users: { [appUserData.curUser.id]: appUserData.curUser },
+      createdBy: appUserData.curUser.id,
+      local: true,
+      id: nanoid(10),
+    };
+
+    sheetDispatch({ type: "updateSheetData", sheetData: newSheetData });
+    sheetDispatch({ type: "addEntry", createdBy: appUserData.curUser.id });
+  }
+
+  async function fetchSheetData() {
     const sheetRef = await db
       .collection("sheets")
       .withConverter(sheetDataConverter)

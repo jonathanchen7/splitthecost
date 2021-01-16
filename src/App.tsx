@@ -44,7 +44,7 @@ function App() {
         {/* <Route path='/login' exact component={AuthPage} />
       <Route path='/sheets' exact component={AuthPage} /> */}
         <Route path='/' exact component={HomePage} />
-        <Route path='/new' exact component={CreateNewSheetPage} />
+        <Route path='/create' exact component={CreateNewSheetPage} />
         <Route path='/sheet/:sheetId' component={SplitTheCost} />
       </UserContext.Provider>
     </Router>

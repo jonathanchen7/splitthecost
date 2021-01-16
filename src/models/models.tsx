@@ -37,6 +37,7 @@ export interface SheetData {
   entries: Entry[];
   users: { [userId: string]: User };
   createdBy: string;
+  local: boolean;
   id: string;
 }
 

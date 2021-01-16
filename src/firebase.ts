@@ -19,6 +19,7 @@ export const sheetDataConverter = {
       entries: sheetData.entries,
       users: sheetData.users,
       createdBy: sheetData.createdBy,
+      local: sheetData.local,
       id: sheetData.id,
     };
   },
@@ -32,6 +33,7 @@ export const sheetDataConverter = {
       entries: data.entries,
       users: data.users,
       createdBy: data.createdBy,
+      local: data.local,
       id: data.id,
     };
   },

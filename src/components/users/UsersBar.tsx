@@ -1,8 +1,9 @@
 import * as React from "react";
 import { Grid, IconButton, Tooltip } from "@material-ui/core";
 import { AddUserModal } from "../modals/AddUserModal";
-import SettingsIcon from "@material-ui/icons/Settings";
-import AddIcon from "@material-ui/icons/Add";
+import SaveRoundedIcon from "@material-ui/icons/SaveRounded";
+import SettingsRoundedIcon from "@material-ui/icons/SettingsRounded";
+import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import { useState } from "react";
 import { SettingsModal } from "../modals/SettingsModal";
 import { useContext } from "react";
@@ -11,6 +12,7 @@ import { SheetContext } from "../SplitTheCost";
 import { UserChip } from "./UserChip";
 import { RemoveUserModal } from "../modals/RemoveUserModal";
 import { User } from "../../models/models";
+import { SaveSheetModal } from "../modals/SaveSheetModal";
 
 export const UsersBar: React.FC = () => {
   const { appUserData } = useContext(UserContext);
@@ -19,6 +21,7 @@ export const UsersBar: React.FC = () => {
   const [openAddUser, setOpenAddUser] = useState(false);
   const [openRemoveUser, setOpenRemoveUser] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
+  const [openSaveSheet, setOpenSaveSheet] = useState(false);
 
   const [removeUser, setRemoveUser] = useState<User>();
 
@@ -35,15 +38,25 @@ export const UsersBar: React.FC = () => {
     setOpenRemoveUser(true);
   }
 
+  function openSaveSheetModal() {
+    setOpenSaveSheet(true);
+  }
+
   return (
     <>
       <Grid className='usersBar' container spacing={0}>
         <Grid item xs={12}>
           <IconButton
             className='iconButton smallIconButton leftMargin'
+            onClick={openSaveSheetModal}
+          >
+            <SaveRoundedIcon />
+          </IconButton>
+          <IconButton
+            className='iconButton smallIconButton leftMargin'
             onClick={openSettingsModal}
           >
-            <SettingsIcon />
+            <SettingsRoundedIcon />
           </IconButton>
           {!!appUserData.curUser && <UserChip user={appUserData.curUser} />}
           {Object.entries(sheetData.users).map((pair) => {
@@ -57,6 +70,7 @@ export const UsersBar: React.FC = () => {
                       ? openRemoveUserModal
                       : undefined
                   }
+                  key={user.id}
                 />
               )
             );
@@ -67,7 +81,7 @@ export const UsersBar: React.FC = () => {
                 className='iconButton smallIconButton leftMargin'
                 onClick={openAddUserModal}
               >
-                <AddIcon />
+                <AddRoundedIcon />
               </IconButton>
             </Tooltip>
           )}
@@ -83,6 +97,7 @@ export const UsersBar: React.FC = () => {
           setOpen={setOpenRemoveUser}
         />
       )}
+      <SaveSheetModal open={openSaveSheet} setOpen={setOpenSaveSheet} />
     </>
   );
 };

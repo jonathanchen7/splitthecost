@@ -6,19 +6,24 @@ import {
   IconButton,
   TextField,
 } from "@material-ui/core";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import { UserContext } from "../../App";
+import { User } from "../../models/models";
+import { nanoid } from "nanoid";
 
 enum CreateSheetStep {
   SheetName = 1,
   DisplayName = 2,
   Email = 3,
-  AdditionalUser = 4,
 }
 
 export const CreateNewSheetPage: React.FC = () => {
+  const { appUserDispatch } = useContext(UserContext);
+  const history = useHistory();
+
   const [step, setStep] = useState(CreateSheetStep.SheetName);
 
   const [sheetName, setSheetName] = useState("");
@@ -27,12 +32,19 @@ export const CreateNewSheetPage: React.FC = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
 
-  const [altFirstName, setAltFirstName] = useState("");
-  const [altLastName, setAltLastName] = useState("");
-  const [altEmail, setAltEmail] = useState("");
-
   function createNewSheet() {
-    alert("creating new sheet...");
+    const newUser: User = {
+      id: nanoid(),
+      firstName: firstName,
+      lastName: lastName,
+      initials: `${firstName.charAt(0)}${lastName.charAt(
+        0
+      )}`.toLocaleUpperCase(),
+      displayName: `${firstName} ${lastName}`,
+      email: email,
+    };
+    appUserDispatch({ type: "updateCurUser", user: newUser });
+    history.push("/sheet/new", { title: sheetName });
   }
 
   function sheetNameStep() {
@@ -117,7 +129,7 @@ export const CreateNewSheetPage: React.FC = () => {
     return (
       <>
         <div className='giantHeader'>
-          What's a good email to send the sheet link to?
+          Finally, what's a good email to send the sheet link to?
         </div>
         <span className='giantHeaderSubtext'>
           (your data is confidential and will NEVER be sold or used for
@@ -140,69 +152,7 @@ export const CreateNewSheetPage: React.FC = () => {
           <Button
             className='leftMargin continueButton'
             disabled={!email.trim()}
-            onClick={() => setStep(step + 1)}
-          >
-            Continue
-          </Button>
-        </div>
-      </>
-    );
-  }
-
-  function additionalUserStep() {
-    return (
-      <>
-        <div className='giantHeader'>
-          Finally, let's add a friend to share this sheet with.
-        </div>
-        <div>
-          <TextField
-            className='giantTextField halfWidthModalInput'
-            fullWidth
-            placeholder='First name'
-            value={altFirstName}
-            onChange={(e) => setAltFirstName(e.target.value)}
-            inputProps={{
-              className: "giantInput",
-            }}
-          />
-          <TextField
-            className='leftMarginLarge giantTextField halfWidthModalInput'
-            fullWidth
-            placeholder='Last name'
-            value={altLastName}
-            onChange={(e) => setAltLastName(e.target.value)}
-            inputProps={{
-              className: "giantInput",
-            }}
-          />
-        </div>
-        <TextField
-          className='giantTextField'
-          fullWidth
-          placeholder='Email address'
-          value={altEmail}
-          onChange={(e) => setAltEmail(e.target.value)}
-          inputProps={{
-            className: "giantInput",
-          }}
-        />
-        <div>
-          <Button className='continueButton' onClick={() => setStep(step - 1)}>
-            Previous
-          </Button>
-          <Button
-            className='leftMargin continueButton'
-            onClick={createNewSheet}
-          >
-            Skip for Now
-          </Button>
-          <Button
-            className='leftMargin continueButton'
-            disabled={
-              !altFirstName.trim() || !altLastName.trim() || !altEmail.trim()
-            }
-            onClick={createNewSheet}
+            onClick={() => createNewSheet()}
           >
             Finish
           </Button>
@@ -215,7 +165,7 @@ export const CreateNewSheetPage: React.FC = () => {
     if (step === CreateSheetStep.SheetName) return sheetNameStep();
     if (step === CreateSheetStep.DisplayName) return displayNameStep();
     if (step === CreateSheetStep.Email) return emailStep();
-    if (step === CreateSheetStep.AdditionalUser) return additionalUserStep();
+    return sheetNameStep();
   }
 
   return (
@@ -237,7 +187,7 @@ export const CreateNewSheetPage: React.FC = () => {
           </IconButton>
         </Link>
         <span className='leftMarginSmall'>
-          Create a sheet (Step {step} of 4)
+          Create a sheet (Step {step} of 3)
         </span>
       </div>
     </motion.div>

@@ -53,6 +53,9 @@ export type RemoveExcludedUserAction = {
   entry: Entry;
   local?: boolean;
 };
+export type SaveSheetAction = {
+  type: "saveSheet";
+};
 export type UpdateSheetDataAction = {
   type: "updateSheetData";
   sheetData: SheetData;
@@ -66,6 +69,7 @@ export type SheetAction =
   | RemoveUserAction
   | UpdateExcludedUsersAction
   | RemoveExcludedUserAction
+  | SaveSheetAction
   | UpdateSheetDataAction;
 
 export function sheetReducer(state: SheetData, action: SheetAction) {
@@ -84,6 +88,8 @@ export function sheetReducer(state: SheetData, action: SheetAction) {
       return updatedExcludedUsers(state, action);
     case "removeExcludedUser":
       return removeExcludedUser(state, action);
+    case "saveSheet":
+      return saveSheet(state, action);
     case "updateSheetData":
       return action.sheetData;
     default:
@@ -229,13 +235,19 @@ function removeExcludedUser(
   return newSheetState;
 }
 
+function saveSheet(state: SheetData, action: SaveSheetAction): SheetData {
+  const newSheetState = { ...state, local: false };
+  updateFirestore(newSheetState);
+  return newSheetState;
+}
+
 function updateFirestore(state: SheetData, local?: boolean) {
-  if (!local) {
-    db.collection("sheets")
-      .withConverter(sheetDataConverter)
-      .doc(state.id)
-      .set(state);
-  }
+  if (local || state.local) return;
+
+  db.collection("sheets")
+    .withConverter(sheetDataConverter)
+    .doc(state.id)
+    .set(state);
 }
 
 // ----------------- CALCULATIONS -----------------

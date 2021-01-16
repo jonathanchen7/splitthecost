@@ -16,7 +16,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useContext, useState } from "react";
-import AddIcon from "@material-ui/icons/Add";
+import AddRoundedIcon from "@material-ui/icons/AddRounded";
 // import NumberFormat from "react-number-format";
 import { UserContext } from "../../App";
 import { SheetContext } from "../SplitTheCost";
@@ -148,7 +148,7 @@ export const AddEntryModal: React.FC = () => {
       </Dialog>
       <div className='addItemFabDiv'>
         <Fab variant='extended' size='medium' onClick={handleOpen}>
-          <AddIcon />
+          <AddRoundedIcon />
           <span className='leftMarginSmall'>Add Item</span>
         </Fab>
       </div>

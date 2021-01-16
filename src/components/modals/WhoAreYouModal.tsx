@@ -42,6 +42,7 @@ export const WhoAreYouModal: React.FC<Props> = ({ open }) => {
               } bottomMargin`}
               user={user}
               onClick={setSelectedUser}
+              key={user.id}
             />
           );
         })}

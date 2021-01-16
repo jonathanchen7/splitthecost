@@ -7,7 +7,7 @@ export const HomePage: React.FC = () => {
     <div className='homePage'>
       <span className='welcomeHeader'>welcome to splitthecost.</span>
 
-      <Link className='noTextDecoration' to='/new'>
+      <Link className='noTextDecoration' to='/create'>
         <Button className='createNewButton'>Create New Sheet</Button>
       </Link>
     </div>
