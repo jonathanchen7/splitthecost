@@ -1,9 +1,9 @@
 import { nanoid } from "nanoid";
-import { db, sheetDataConverter } from "../firebase";
+import { db, sheetStateConverter } from "../firebase";
 import {
   Entry,
   OverviewData,
-  SheetData,
+  SheetState,
   User,
   UserBreakdownData,
 } from "../models/models";
@@ -56,9 +56,9 @@ export type RemoveExcludedUserAction = {
 export type SaveSheetAction = {
   type: "saveSheet";
 };
-export type UpdateSheetDataAction = {
-  type: "updateSheetData";
-  sheetData: SheetData;
+export type UpdateSheetStateAction = {
+  type: "updateSheetState";
+  sheetState: SheetState;
 };
 
 export type SheetAction =
@@ -70,9 +70,9 @@ export type SheetAction =
   | UpdateExcludedUsersAction
   | RemoveExcludedUserAction
   | SaveSheetAction
-  | UpdateSheetDataAction;
+  | UpdateSheetStateAction;
 
-export function sheetReducer(state: SheetData, action: SheetAction) {
+export function sheetReducer(state: SheetState, action: SheetAction) {
   switch (action.type) {
     case "addEntry":
       return addEntry(state, action);
@@ -90,8 +90,8 @@ export function sheetReducer(state: SheetData, action: SheetAction) {
       return removeExcludedUser(state, action);
     case "saveSheet":
       return saveSheet(state, action);
-    case "updateSheetData":
-      return action.sheetData;
+    case "updateSheetState":
+      return action.sheetState;
     default:
       return state;
   }
@@ -100,7 +100,7 @@ export function sheetReducer(state: SheetData, action: SheetAction) {
 // ----------------- SHEET ACTIONS -----------------
 
 // Add a new entry to the sheet.
-function addEntry(state: SheetData, action: AddEntryAction): SheetData {
+function addEntry(state: SheetState, action: AddEntryAction): SheetState {
   const newEntry: Entry = {
     id: nanoid(),
     item: !!action.item ? action.item : "",
@@ -110,7 +110,7 @@ function addEntry(state: SheetData, action: AddEntryAction): SheetData {
     createdBy: action.createdBy,
   };
 
-  const newSheetState: SheetData = {
+  const newSheetState: SheetState = {
     ...state,
     entries: [...state.entries, newEntry],
   };
@@ -119,18 +119,18 @@ function addEntry(state: SheetData, action: AddEntryAction): SheetData {
 }
 
 // Remove an entry from the sheet.
-function removeEntry(state: SheetData, action: RemoveEntryAction): SheetData {
+function removeEntry(state: SheetState, action: RemoveEntryAction): SheetState {
   const newEntries = state.entries.filter(
     (entry) => entry.id !== action.entryId
   );
 
-  const newSheetState: SheetData = { ...state, entries: newEntries };
+  const newSheetState: SheetState = { ...state, entries: newEntries };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
 }
 
 // Update a section of an entry.
-function updateEntry(state: SheetData, action: UpdateEntryAction): SheetData {
+function updateEntry(state: SheetState, action: UpdateEntryAction): SheetState {
   const entry = action.entry;
   const value = action.value;
   let newEntry: Entry;
@@ -148,13 +148,13 @@ function updateEntry(state: SheetData, action: UpdateEntryAction): SheetData {
   const newEntries = [...state.entries];
   newEntries[newEntries.indexOf(entry)] = newEntry;
 
-  const newSheetState: SheetData = { ...state, entries: newEntries };
+  const newSheetState: SheetState = { ...state, entries: newEntries };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
 }
 
 // Add a user to the sheet.
-function addUser(state: SheetData, action: AddUserAction): SheetData {
+function addUser(state: SheetState, action: AddUserAction): SheetState {
   const newUser: User = {
     id: nanoid(),
     firstName: action.firstName,
@@ -166,7 +166,7 @@ function addUser(state: SheetData, action: AddUserAction): SheetData {
     email: action.email,
   };
 
-  const newSheetState: SheetData = {
+  const newSheetState: SheetState = {
     ...state,
     users: { ...state.users, [newUser.id]: newUser },
     numUsers: state.numUsers + 1,
@@ -176,7 +176,7 @@ function addUser(state: SheetData, action: AddUserAction): SheetData {
 }
 
 // Remove a user from the sheet.
-function removeUser(state: SheetData, action: RemoveUserAction): SheetData {
+function removeUser(state: SheetState, action: RemoveUserAction): SheetState {
   // Remove user from users dictionary.
   const newUsers = { ...state.users };
   delete newUsers[action.userId];
@@ -197,7 +197,7 @@ function removeUser(state: SheetData, action: RemoveUserAction): SheetData {
     }
   });
 
-  const newSheetState: SheetData = {
+  const newSheetState: SheetState = {
     ...state,
     entries: newEntries,
     users: newUsers,
@@ -209,9 +209,9 @@ function removeUser(state: SheetData, action: RemoveUserAction): SheetData {
 
 // Update the excluded userIds for a specific entry.
 function updatedExcludedUsers(
-  state: SheetData,
+  state: SheetState,
   action: UpdateExcludedUsersAction
-): SheetData {
+): SheetState {
   const newEntry = {
     ...action.entry,
     exclude: action.exclude,
@@ -219,16 +219,16 @@ function updatedExcludedUsers(
   const newEntries = [...state.entries];
   newEntries[newEntries.indexOf(action.entry)] = newEntry;
 
-  const newSheetState: SheetData = { ...state, entries: newEntries };
+  const newSheetState: SheetState = { ...state, entries: newEntries };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
 }
 
 // Remove an excluded user from a specific entry.
 function removeExcludedUser(
-  state: SheetData,
+  state: SheetState,
   action: RemoveExcludedUserAction
-): SheetData {
+): SheetState {
   const newEntry = {
     ...action.entry,
     exclude: action.entry.exclude.filter((userId) => userId !== action.userId),
@@ -236,22 +236,22 @@ function removeExcludedUser(
   const newEntries = [...state.entries];
   newEntries[newEntries.indexOf(action.entry)] = newEntry;
 
-  const newSheetState: SheetData = { ...state, entries: newEntries };
+  const newSheetState: SheetState = { ...state, entries: newEntries };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
 }
 
-function saveSheet(state: SheetData, action: SaveSheetAction): SheetData {
+function saveSheet(state: SheetState, action: SaveSheetAction): SheetState {
   const newSheetState = { ...state, local: false };
   updateFirestore(newSheetState);
   return newSheetState;
 }
 
-function updateFirestore(state: SheetData, local?: boolean) {
+function updateFirestore(state: SheetState, local?: boolean) {
   if (local || state.local) return;
 
   db.collection("sheets")
-    .withConverter(sheetDataConverter)
+    .withConverter(sheetStateConverter)
     .doc(state.id)
     .set(state);
 }

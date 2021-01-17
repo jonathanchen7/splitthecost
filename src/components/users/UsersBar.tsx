@@ -1,8 +1,6 @@
 import * as React from "react";
 import { Grid, IconButton, Tooltip } from "@material-ui/core";
 import { AddUserModal } from "../modals/AddUserModal";
-import SaveRoundedIcon from "@material-ui/icons/SaveRounded";
-import SettingsRoundedIcon from "@material-ui/icons/SettingsRounded";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import { useState } from "react";
 import { SettingsModal } from "../modals/SettingsModal";
@@ -13,10 +11,12 @@ import { UserChip } from "./UserChip";
 import { RemoveUserModal } from "../modals/RemoveUserModal";
 import { User } from "../../models/models";
 import { SaveSheetModal } from "../modals/SaveSheetModal";
+import ReplyIcon from "@material-ui/icons/Reply";
+import SettingsRoundedIcon from "@material-ui/icons/SettingsRounded";
 
 export const UsersBar: React.FC = () => {
-  const { appUserData } = useContext(UserContext);
-  const { sheetData } = useContext(SheetContext);
+  const { userState } = useContext(UserContext);
+  const { sheetState } = useContext(SheetContext);
 
   const [openAddUser, setOpenAddUser] = useState(false);
   const [openRemoveUser, setOpenRemoveUser] = useState(false);
@@ -50,7 +50,7 @@ export const UsersBar: React.FC = () => {
             className='iconButton smallIconButton leftMargin'
             onClick={openSaveSheetModal}
           >
-            <SaveRoundedIcon />
+            <ReplyIcon />
           </IconButton>
           <IconButton
             className='iconButton smallIconButton leftMargin'
@@ -58,11 +58,11 @@ export const UsersBar: React.FC = () => {
           >
             <SettingsRoundedIcon />
           </IconButton>
-          {!!appUserData.curUser && <UserChip user={appUserData.curUser} />}
-          {Object.entries(sheetData.users).map((pair) => {
+          {!!userState.curUser && <UserChip user={userState.curUser} />}
+          {Object.entries(sheetState.users).map((pair) => {
             const user = pair[1];
             return (
-              (!appUserData.curUser || user.id !== appUserData.curUser.id) && (
+              (!userState.curUser || user.id !== userState.curUser.id) && (
                 <UserChip
                   user={user}
                   onRemove={openRemoveUserModal}
@@ -71,7 +71,7 @@ export const UsersBar: React.FC = () => {
               )
             );
           })}
-          {appUserData.curUser?.id === sheetData.createdBy && (
+          {userState.curUser?.id === sheetState.createdBy && (
             <Tooltip arrow title='Add User' placement='right'>
               <IconButton
                 className='iconButton smallIconButton leftMargin'

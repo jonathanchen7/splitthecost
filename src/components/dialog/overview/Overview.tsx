@@ -8,30 +8,30 @@ import { SheetContext } from "../../SplitTheCost";
 import { UserContext } from "../../../App";
 
 export const Overview: React.FC = () => {
-  const { sheetData } = useContext(SheetContext);
-  const { appUserData } = useContext(UserContext);
+  const { sheetState } = useContext(SheetContext);
+  const { userState } = useContext(UserContext);
 
   const [overviewData, setOverviewData] = useState<OverviewData>({});
   let rowIdx = 0;
 
   useEffect(() => {
-    setOverviewData(calculateOverview(sheetData.entries, sheetData.users));
-  }, [sheetData]);
+    setOverviewData(calculateOverview(sheetState.entries, sheetState.users));
+  }, [sheetState]);
 
   return (
     <>
       <OverviewHeader />
-      {!!appUserData.curUser && (
+      {!!userState.curUser && (
         <OverviewRow
-          user={appUserData.curUser}
-          data={overviewData[appUserData.curUser.id]}
+          user={userState.curUser}
+          data={overviewData[userState.curUser.id]}
           idx={rowIdx++}
         />
       )}
-      {Object.entries(sheetData.users).map((pair) => {
+      {Object.entries(sheetState.users).map((pair) => {
         let user = pair[1];
         return (
-          user.id !== appUserData.curUser?.id && (
+          user.id !== userState.curUser?.id && (
             <OverviewRow
               user={user}
               data={overviewData[user.id]}

@@ -13,12 +13,12 @@ interface Props {
 }
 
 export const OverviewRow: React.FC<Props> = ({ user, data, idx }) => {
-  const { sheetData } = useContext(SheetContext);
+  const { sheetState } = useContext(SheetContext);
 
   return (
     <Grid
       className={`${idx % 2 ? "lightRow" : "darkRow"} ${
-        idx === sheetData.numUsers - 1 && "roundedBottom"
+        idx === sheetState.numUsers - 1 && "roundedBottom"
       }`}
       container
       spacing={0}

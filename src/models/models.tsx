@@ -32,7 +32,7 @@ export interface SheetSettings {
   viewOnly: boolean;
 }
 
-export interface SheetData {
+export interface SheetState {
   title: string;
   entries: Entry[];
   users: { [userId: string]: User };
@@ -42,7 +42,7 @@ export interface SheetData {
   id: string;
 }
 
-export interface AppUserData {
+export interface UserState {
   curUser: User | undefined;
   darkMode: boolean;
 }

@@ -21,7 +21,7 @@ enum CreateSheetStep {
 }
 
 export const CreateNewSheetPage: React.FC = () => {
-  const { appUserDispatch } = useContext(UserContext);
+  const { userDispatch } = useContext(UserContext);
   const history = useHistory();
 
   const [step, setStep] = useState(CreateSheetStep.SheetName);
@@ -43,7 +43,7 @@ export const CreateNewSheetPage: React.FC = () => {
       displayName: `${firstName} ${lastName}`,
       email: email,
     };
-    appUserDispatch({ type: "updateCurUser", user: newUser });
+    userDispatch({ type: "updateCurUser", user: newUser });
     history.push("/sheet/new", { title: sheetName });
   }
 

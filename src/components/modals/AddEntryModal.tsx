@@ -17,7 +17,7 @@ import { SheetContext } from "../SplitTheCost";
 
 export const AddEntryModal: React.FC = () => {
   const { sheetDispatch } = useContext(SheetContext);
-  const { appUserData } = useContext(UserContext);
+  const { userState } = useContext(UserContext);
 
   const [open, setOpen] = useState(false);
   const [item, setItem] = useState("");
@@ -38,7 +38,7 @@ export const AddEntryModal: React.FC = () => {
   function confirmAddEntry() {
     sheetDispatch({
       type: "addEntry",
-      createdBy: appUserData.curUser!.id,
+      createdBy: userState.curUser!.id,
       item: item,
       cost: cost,
       exclude: [],

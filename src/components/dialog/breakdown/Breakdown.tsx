@@ -8,33 +8,33 @@ import { UserContext } from "../../../App";
 import { SheetContext } from "../../SplitTheCost";
 
 export const Breakdown: React.FC = () => {
-  const { sheetData } = useContext(SheetContext);
-  const { appUserData } = useContext(UserContext);
+  const { sheetState } = useContext(SheetContext);
+  const { userState } = useContext(UserContext);
 
   const [breakdownData, setBreakdownData] = useState<UserBreakdownData>();
   let rowIdx = 0;
 
   useEffect(() => {
-    if (!!appUserData.curUser) {
+    if (!!userState.curUser) {
       setBreakdownData(
         calculateUserBreakdown(
-          appUserData.curUser,
-          sheetData.entries,
-          sheetData.users
+          userState.curUser,
+          sheetState.entries,
+          sheetState.users
         )
       );
     }
-  }, [appUserData.curUser, sheetData]);
+  }, [userState.curUser, sheetState]);
 
-  return !appUserData.curUser || !breakdownData || sheetData.numUsers < 2 ? (
+  return !userState.curUser || !breakdownData || sheetState.numUsers < 2 ? (
     <div className='noBreakdownData'>No data to break down. &#129396;</div>
   ) : (
     <>
       <BreakdownHeader />
-      {Object.entries(sheetData.users).map((pair) => {
+      {Object.entries(sheetState.users).map((pair) => {
         let user = pair[1];
         return (
-          user.id !== appUserData.curUser!.id && (
+          user.id !== userState.curUser!.id && (
             <BreakdownRow
               user={user}
               data={breakdownData.userBreakdown[user.id]}

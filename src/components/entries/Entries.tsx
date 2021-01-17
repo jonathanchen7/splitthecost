@@ -6,16 +6,16 @@ import { SheetContext } from "../SplitTheCost";
 import { UserContext } from "../../App";
 
 export const Entries: React.FC = () => {
-  const { appUserData } = useContext(UserContext);
-  const { sheetData } = useContext(SheetContext);
+  const { userState } = useContext(UserContext);
+  const { sheetState } = useContext(SheetContext);
 
   return (
     <>
       <EntriesHeader />
-      {sheetData.entries.map((entry, idx) => (
+      {sheetState.entries.map((entry, idx) => (
         <EntriesRow
           entry={entry}
-          curUserEntry={appUserData.curUser?.id === entry.createdBy}
+          curUserEntry={userState.curUser?.id === entry.createdBy}
           rowIdx={idx}
           key={entry.id}
         />

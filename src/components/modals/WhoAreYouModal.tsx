@@ -17,13 +17,13 @@ interface Props {
 }
 
 export const WhoAreYouModal: React.FC<Props> = ({ open }) => {
-  const { sheetData } = useContext(SheetContext);
-  const { appUserDispatch } = useContext(UserContext);
+  const { sheetState } = useContext(SheetContext);
+  const { userDispatch } = useContext(UserContext);
 
   const [selectedUser, setSelectedUser] = useState<User>();
 
   function confirmUser() {
-    appUserDispatch({
+    userDispatch({
       type: "updateCurUser",
       user: selectedUser!,
     });
@@ -33,7 +33,7 @@ export const WhoAreYouModal: React.FC<Props> = ({ open }) => {
     <Dialog fullWidth maxWidth='xs' open={open}>
       <DialogTitle className='modalTitle'>Who Are You?</DialogTitle>
       <DialogContent dividers>
-        {Object.entries(sheetData.users).map((pair) => {
+        {Object.entries(sheetState.users).map((pair) => {
           const user = pair[1];
           return (
             <UserChip

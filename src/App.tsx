@@ -3,8 +3,8 @@ import "./main.css";
 import { SplitTheCost } from "./components/SplitTheCost";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import { HomePage } from "./components/pages/HomePage";
-import { AppUserData, User } from "./models/models";
-import { AppUserAction, appUserReducer } from "./actions/appUserActions";
+import { UserState, User } from "./models/models";
+import { UserAction, userReducer } from "./actions/appUserActions";
 import { CreateNewSheetPage } from "./components/pages/CreateNewSheetPage";
 
 export const testUser: User = {
@@ -16,29 +16,26 @@ export const testUser: User = {
   displayName: "Jonathan Chen",
 };
 
-const initialAppUserData: AppUserData = {
+const initialUserState: UserState = {
   curUser: undefined,
   darkMode: false,
 };
 
 export const UserContext = createContext<{
-  appUserData: AppUserData;
-  appUserDispatch: React.Dispatch<AppUserAction>;
+  userState: UserState;
+  userDispatch: React.Dispatch<UserAction>;
 }>({
-  appUserData: initialAppUserData,
-  appUserDispatch: () => null,
+  userState: initialUserState,
+  userDispatch: () => null,
 });
 
 function App() {
-  const [appUserData, appUserDispatch] = useReducer(
-    appUserReducer,
-    initialAppUserData
-  );
+  const [userState, userDispatch] = useReducer(userReducer, initialUserState);
 
   return (
     <Router>
       <UserContext.Provider
-        value={{ appUserData: appUserData, appUserDispatch: appUserDispatch }}
+        value={{ userState: userState, userDispatch: userDispatch }}
       >
         <Route path='/' exact component={HomePage} />
         <Route path='/create' exact component={CreateNewSheetPage} />

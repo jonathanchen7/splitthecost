@@ -20,7 +20,7 @@ interface Props {
 export const SaveSheetModal: React.FC<Props> = ({ open, setOpen }) => {
   const history = useHistory();
 
-  const { sheetData, sheetDispatch } = useContext(SheetContext);
+  const { sheetState, sheetDispatch } = useContext(SheetContext);
 
   const [copyButtonText, setCopyButtonText] = useState("COPY");
 
@@ -30,11 +30,11 @@ export const SaveSheetModal: React.FC<Props> = ({ open, setOpen }) => {
 
   function confirmSaveSheet() {
     sheetDispatch({ type: "saveSheet" });
-    history.push(`/sheet/${sheetData.id}`);
+    history.push(`/sheet/${sheetState.id}`);
   }
 
   function copySheetLink() {
-    navigator.clipboard.writeText(`localhost:3000/sheet/${sheetData.id}`);
+    navigator.clipboard.writeText(`localhost:3000/sheet/${sheetState.id}`);
     setCopyButtonText("COPIED");
   }
 
@@ -43,13 +43,13 @@ export const SaveSheetModal: React.FC<Props> = ({ open, setOpen }) => {
       <Dialog fullWidth maxWidth='sm' onClose={handleClose} open={open}>
         <DialogTitle className='modalTitle'>Save Sheet</DialogTitle>
         <DialogContent dividers>
-          {sheetData.local ? (
+          {sheetState.local ? (
             "Would you like to save this sheet for future access?"
           ) : (
             <div>
               Share the link to this sheet:
               <Paper className='saveLinkPaper' elevation={3}>
-                splitthecost.com/sheet/{sheetData.id}
+                splitthecost.com/sheet/{sheetState.id}
                 <Button color='primary' onClick={copySheetLink}>
                   {copyButtonText}
                 </Button>
@@ -61,7 +61,7 @@ export const SaveSheetModal: React.FC<Props> = ({ open, setOpen }) => {
           <Button className='modalCancelButton' onClick={handleClose}>
             Close
           </Button>
-          {sheetData.local && (
+          {sheetState.local && (
             <Button
               className='modalConfirmButton rightMarginSmall'
               onClick={confirmSaveSheet}

@@ -14,17 +14,17 @@ interface Props {
 }
 
 export const BreakdownRow: React.FC<Props> = ({ user, data, idx }) => {
-  const { sheetData } = useContext(SheetContext);
-  const { appUserData } = useContext(UserContext);
+  const { sheetState } = useContext(SheetContext);
+  const { userState } = useContext(UserContext);
 
   const netCost = !!data ? data.theyOwe - data.youOwe : 0;
-  const debtedUser = netCost < 0 ? appUserData.curUser! : user;
-  const owedUser = netCost < 0 ? user : appUserData.curUser!;
+  const debtedUser = netCost < 0 ? userState.curUser! : user;
+  const owedUser = netCost < 0 ? user : userState.curUser!;
 
   return (
     <Grid
-      className={`${idx % 2 ? "lightRow" : "darkRow"}${
-        idx === sheetData.numUsers - 2 && " roundedBottom"
+      className={`${idx % 2 ? "lightRow" : "darkRow"} ${
+        idx === sheetState.numUsers - 2 && "roundedBottom"
       }`}
       container
       spacing={0}

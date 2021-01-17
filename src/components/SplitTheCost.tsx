@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
-import { SheetData } from "../models/models";
+import { SheetState } from "../models/models";
 import { Entries } from "./entries/Entries";
 import { Header } from "./header/Header";
 import { UsersBar } from "./users/UsersBar";
@@ -7,12 +7,12 @@ import { SideDialog } from "./dialog/SideDialog";
 import { AddEntryModal } from "./modals/AddEntryModal";
 import { SheetAction, sheetReducer } from "../actions/sheetActions";
 import { UserContext } from "../App";
-import { db, sheetDataConverter } from "../firebase";
+import { db, sheetStateConverter } from "../firebase";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { WhoAreYouModal } from "./modals/WhoAreYouModal";
 import { nanoid } from "nanoid";
 
-var initialSheetData: SheetData = {
+var initialSheetState: SheetState = {
   title: "Loading Sheet...",
   entries: [],
   users: {},
@@ -23,10 +23,10 @@ var initialSheetData: SheetData = {
 };
 
 export const SheetContext = createContext<{
-  sheetData: SheetData;
+  sheetState: SheetState;
   sheetDispatch: React.Dispatch<SheetAction>;
 }>({
-  sheetData: initialSheetData,
+  sheetState: initialSheetState,
   sheetDispatch: () => null,
 });
 
@@ -35,60 +35,63 @@ export const SplitTheCost: React.FC = () => {
   const location = useLocation<{ title: string }>();
   const { sheetId } = useParams<{ sheetId: string }>();
 
-  const [sheetData, sheetDispatch] = useReducer(sheetReducer, initialSheetData);
-  const { appUserData } = useContext(UserContext);
+  const [sheetState, sheetDispatch] = useReducer(
+    sheetReducer,
+    initialSheetState
+  );
+  const { userState } = useContext(UserContext);
 
   useEffect(() => {
     if (!sheetId || sheetId === "new") {
-      generateNewSheetData();
+      generateNewSheetState();
     } else {
-      fetchSheetData();
+      fetchSheetState();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function generateNewSheetData() {
-    if (!appUserData.curUser || !location.state.title) {
+  function generateNewSheetState() {
+    if (!userState.curUser || !location.state.title) {
       history.push("/create");
       return;
     }
 
-    const newSheetData: SheetData = {
+    const newSheetState: SheetState = {
       title: location.state.title,
       entries: [],
-      users: { [appUserData.curUser.id]: appUserData.curUser },
+      users: { [userState.curUser.id]: userState.curUser },
       numUsers: 0,
-      createdBy: appUserData.curUser.id,
+      createdBy: userState.curUser.id,
       local: true,
       id: nanoid(10),
     };
 
-    sheetDispatch({ type: "updateSheetData", sheetData: newSheetData });
-    sheetDispatch({ type: "addEntry", createdBy: appUserData.curUser.id });
+    sheetDispatch({ type: "updateSheetState", sheetState: newSheetState });
+    sheetDispatch({ type: "addEntry", createdBy: userState.curUser.id });
   }
 
-  async function fetchSheetData() {
+  async function fetchSheetState() {
     const sheetRef = await db
       .collection("sheets")
-      .withConverter(sheetDataConverter)
+      .withConverter(sheetStateConverter)
       .doc(sheetId)
       .get();
     const testData = sheetRef.data();
     if (testData) {
-      sheetDispatch({ type: "updateSheetData", sheetData: testData });
+      sheetDispatch({ type: "updateSheetState", sheetState: testData });
     }
   }
 
   return (
     <SheetContext.Provider
-      value={{ sheetData: sheetData, sheetDispatch: sheetDispatch }}
+      value={{ sheetState: sheetState, sheetDispatch: sheetDispatch }}
     >
       <Header />
       <UsersBar />
       <Entries />
       <SideDialog />
-      {!!appUserData.curUser && <AddEntryModal />}
-      <WhoAreYouModal open={!appUserData.curUser} />
+      {!!userState.curUser && <AddEntryModal />}
+      <WhoAreYouModal open={!userState.curUser} />
     </SheetContext.Provider>
   );
 };

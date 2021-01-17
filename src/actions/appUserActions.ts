@@ -1,4 +1,4 @@
-import { AppUserData, User } from "../models/models";
+import { UserState, User } from "../models/models";
 
 export type UpdateCurUserAction = {
   type: "updateCurUser";
@@ -10,9 +10,9 @@ export type SetDarkModeAction = {
   darkMode: boolean;
 };
 
-export type AppUserAction = UpdateCurUserAction | SetDarkModeAction;
+export type UserAction = UpdateCurUserAction | SetDarkModeAction;
 
-export function appUserReducer(state: AppUserData, action: AppUserAction) {
+export function userReducer(state: UserState, action: UserAction) {
   switch (action.type) {
     case "updateCurUser":
       return updateCurUser(state, action);
@@ -27,16 +27,13 @@ export function appUserReducer(state: AppUserData, action: AppUserAction) {
 
 // Update the current user.
 function updateCurUser(
-  state: AppUserData,
+  state: UserState,
   action: UpdateCurUserAction
-): AppUserData {
+): UserState {
   return { ...state, curUser: action.user };
 }
 
 // Remove an entry from the sheet.
-function setDarkMode(
-  state: AppUserData,
-  action: SetDarkModeAction
-): AppUserData {
+function setDarkMode(state: UserState, action: SetDarkModeAction): UserState {
   return { ...state, darkMode: action.darkMode };
 }

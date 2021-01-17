@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-import { SheetData } from "./models/models";
+import { SheetState } from "./models/models";
 
 const fire = firebase.initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -12,22 +12,22 @@ const fire = firebase.initializeApp({
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 });
 
-export const sheetDataConverter = {
-  toFirestore(sheetData: SheetData): firebase.firestore.DocumentData {
+export const sheetStateConverter = {
+  toFirestore(sheetState: SheetState): firebase.firestore.DocumentData {
     return {
-      title: sheetData.title,
-      entries: sheetData.entries,
-      users: sheetData.users,
-      numUsers: sheetData.numUsers,
-      createdBy: sheetData.createdBy,
-      local: sheetData.local,
-      id: sheetData.id,
+      title: sheetState.title,
+      entries: sheetState.entries,
+      users: sheetState.users,
+      numUsers: sheetState.numUsers,
+      createdBy: sheetState.createdBy,
+      local: sheetState.local,
+      id: sheetState.id,
     };
   },
   fromFirestore(
     snapshot: firebase.firestore.QueryDocumentSnapshot,
     options: firebase.firestore.SnapshotOptions
-  ): SheetData {
+  ): SheetState {
     const data = snapshot.data(options)!;
     return {
       title: data.title,

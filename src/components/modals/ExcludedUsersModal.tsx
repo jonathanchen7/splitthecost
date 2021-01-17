@@ -31,10 +31,10 @@ export const ExcludedUsersModal: React.FC<Props> = ({
   setOpen,
   entry,
 }) => {
-  const { sheetData, sheetDispatch } = useContext(SheetContext);
+  const { sheetState, sheetDispatch } = useContext(SheetContext);
 
   const [includedUsers, setIncludedUsers] = useState<string[]>(
-    Object.keys(sheetData.users).filter(
+    Object.keys(sheetState.users).filter(
       (userId) => !entry.exclude.includes(userId)
     )
   );
@@ -42,12 +42,12 @@ export const ExcludedUsersModal: React.FC<Props> = ({
 
   useEffect(() => {
     setIncludedUsers(
-      Object.keys(sheetData.users).filter(
+      Object.keys(sheetState.users).filter(
         (userId) => !entry.exclude.includes(userId)
       )
     );
     setExcludedUsers(entry.exclude);
-  }, [sheetData, entry.exclude]);
+  }, [sheetState, entry.exclude]);
 
   function confirmExcludeUsers() {
     if (entry.exclude !== excludedUsers) {
@@ -138,14 +138,14 @@ export const ExcludedUsersModal: React.FC<Props> = ({
                             className='smallAvatar'
                             style={{
                               backgroundColor: getAvatarColor(
-                                sheetData.users[userId]
+                                sheetState.users[userId]
                               ),
                             }}
                           >
-                            {sheetData.users[userId].initials}
+                            {sheetState.users[userId].initials}
                           </Avatar>
                         }
-                        label={sheetData.users[userId].displayName}
+                        label={sheetState.users[userId].displayName}
                         key={userId}
                       />
                     )}
@@ -177,14 +177,14 @@ export const ExcludedUsersModal: React.FC<Props> = ({
                             className='smallAvatar'
                             style={{
                               backgroundColor: getAvatarColor(
-                                sheetData.users[userId]
+                                sheetState.users[userId]
                               ),
                             }}
                           >
-                            {sheetData.users[userId].initials}
+                            {sheetState.users[userId].initials}
                           </Avatar>
                         }
-                        label={sheetData.users[userId].displayName}
+                        label={sheetState.users[userId].displayName}
                         key={userId}
                       />
                     )}

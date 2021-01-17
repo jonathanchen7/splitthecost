@@ -23,7 +23,7 @@ export const EntriesRow: React.FC<Props> = ({
   curUserEntry,
   rowIdx,
 }) => {
-  const { sheetData, sheetDispatch } = useContext(SheetContext);
+  const { sheetState, sheetDispatch } = useContext(SheetContext);
 
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -77,7 +77,7 @@ export const EntriesRow: React.FC<Props> = ({
           >
             <UserAvatar
               className='leftMargin'
-              user={sheetData.users[entry.createdBy]}
+              user={sheetState.users[entry.createdBy]}
               tooltipPlacement='top'
             />
             <Input
@@ -157,7 +157,7 @@ export const EntriesRow: React.FC<Props> = ({
                 return (
                   <UserAvatar
                     className='leftMarginSmall'
-                    user={sheetData.users[userId]}
+                    user={sheetState.users[userId]}
                     tooltipPlacement='top'
                     iconOnHover={curUserEntry ? <DeleteIcon /> : undefined}
                     onClick={() => {

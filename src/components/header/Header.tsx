@@ -7,8 +7,8 @@ import { UserContext } from "../../App";
 import { SheetContext } from "../SplitTheCost";
 
 export const Header: React.FC = () => {
-  const { sheetData } = useContext(SheetContext);
-  const { appUserData } = useContext(UserContext);
+  const { sheetState } = useContext(SheetContext);
+  const { userState } = useContext(UserContext);
 
   function logout() {
     fire.auth().signOut();
@@ -18,14 +18,14 @@ export const Header: React.FC = () => {
     <Grid className='header' container spacing={0}>
       <Grid className='headerItem' item xs={11}>
         <span className='leftMargin'>
-          split the cost | <b>{sheetData.title}</b>
+          split the cost | <b>{sheetState.title}</b>
         </span>
       </Grid>
       <Grid className='headerItem profileItem' item xs={1}>
-        {!!appUserData.curUser && (
+        {!!userState.curUser && (
           <UserAvatar
             className='rightMargin'
-            user={appUserData.curUser}
+            user={userState.curUser}
             tooltipPlacement={"bottom"}
             onClick={logout}
           />
