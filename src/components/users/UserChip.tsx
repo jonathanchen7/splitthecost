@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Avatar, Chip, Tooltip } from "@material-ui/core";
+import { Avatar, Chip } from "@material-ui/core";
 import { User } from "../../models/models";
 import { getAvatarColor } from "../../actions/sheetActions";
 

@@ -155,6 +155,19 @@ function updateEntry(state: SheetState, action: UpdateEntryAction): SheetState {
 
 // Add a user to the sheet.
 function addUser(state: SheetState, action: AddUserAction): SheetState {
+  let duplicateUser = false;
+  Object.entries(state.users).forEach((pair) => {
+    const user = pair[1];
+    if (
+      user.firstName === action.firstName &&
+      user.lastName === action.lastName
+    ) {
+      duplicateUser = true;
+    }
+  });
+
+  if (duplicateUser) return state;
+
   const newUser: User = {
     id: nanoid(),
     firstName: action.firstName,

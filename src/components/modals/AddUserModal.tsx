@@ -16,19 +16,21 @@ interface Props {
 }
 
 export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
-  const { sheetDispatch } = useContext(SheetContext);
+  const { sheetState, sheetDispatch } = useContext(SheetContext);
 
-  const [firstNameVal, setFirstNameVal] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [validFirstName, setValidFirstName] = useState(true);
-  const [lastNameVal, setLastNameVal] = useState("");
+  const [lastName, setLastName] = useState("");
   const [validLastName, setValidLastName] = useState(true);
+  const [uniqueUser, setUniqueUser] = useState(true);
 
   // Resets dialog inputs.
   function resetDialog() {
-    setFirstNameVal("");
-    setLastNameVal("");
+    setFirstName("");
+    setLastName("");
     setValidFirstName(true);
     setValidLastName(true);
+    setUniqueUser(true);
   }
 
   function handleClose() {
@@ -36,24 +38,40 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
     setOpen(false);
   }
 
-  function validateName(name: string): boolean {
-    return name.length > 0 && /^[a-zA-Z]+$/.test(name);
+  function validateNewUser(firstName: string, lastName: string): boolean {
+    const first = firstName.toLocaleLowerCase();
+    const last = lastName.toLocaleLowerCase();
+
+    const checkFirstName = first.length > 0 && /^[a-zA-Z]+$/.test(first);
+    const checkLastName = last.length > 0 && /^[a-zA-Z]+$/.test(last);
+    setValidFirstName(checkFirstName);
+    setValidLastName(checkLastName);
+
+    if (!checkFirstName || !checkLastName) return false;
+
+    let unique = true;
+    Object.entries(sheetState.users).forEach((pair) => {
+      const user = pair[1];
+      if (
+        user.firstName.toLocaleLowerCase() === first &&
+        user.lastName.toLocaleLowerCase() === last
+      ) {
+        unique = false;
+      }
+    });
+
+    setUniqueUser(unique);
+    return unique;
   }
 
   function confirmAddUser() {
-    // Validate first and last name.
-    const temp1 = validateName(firstNameVal);
-    const temp2 = validateName(lastNameVal);
-
-    setValidFirstName(temp1);
-    setValidLastName(temp2);
-
-    if (!temp1 || !temp2) return;
+    // Validate first/last name and check for duplicates.
+    if (!validateNewUser(firstName, lastName)) return;
 
     sheetDispatch({
       type: "addUser",
-      firstName: firstNameVal,
-      lastName: lastNameVal,
+      firstName: firstName,
+      lastName: lastName,
       email: "",
     });
 
@@ -69,18 +87,24 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
           <TextField
             className='halfWidthModalInput'
             label='First Name'
-            value={firstNameVal}
-            onChange={(e) => setFirstNameVal(e.target.value)}
-            error={!validFirstName}
-            helperText={!validFirstName && "Please enter a valid name."}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            error={!validFirstName || !uniqueUser}
+            helperText={
+              (!validFirstName && "Please enter a valid name.") ||
+              (!uniqueUser && "Duplicate users not allowed.")
+            }
           />
           <TextField
             className='halfWidthModalInput'
             label='Last Name'
-            value={lastNameVal}
-            onChange={(e) => setLastNameVal(e.target.value)}
-            error={!validLastName}
-            helperText={!validLastName && "Please enter a valid name."}
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            error={!validLastName || !uniqueUser}
+            helperText={
+              (!validLastName && "Please enter a valid name.") ||
+              (!uniqueUser && "Duplicate users not allowed.")
+            }
           />
         </div>
       </DialogContent>
