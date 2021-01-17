@@ -37,9 +37,9 @@ export const WhoAreYouModal: React.FC<Props> = ({ open }) => {
           const user = pair[1];
           return (
             <UserChip
-              className={`${
-                selectedUser?.id === user.id ? "selectedChip " : ""
-              } bottomMargin`}
+              className={`bottomMargin ${
+                selectedUser?.id === user.id && "selectedChip"
+              }`}
               user={user}
               onClick={setSelectedUser}
               key={user.id}

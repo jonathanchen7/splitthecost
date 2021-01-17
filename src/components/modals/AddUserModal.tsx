@@ -22,17 +22,13 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
   const [validFirstName, setValidFirstName] = useState(true);
   const [lastNameVal, setLastNameVal] = useState("");
   const [validLastName, setValidLastName] = useState(true);
-  const [emailVal, setEmailVal] = useState("");
-  const [validEmail, setValidEmail] = useState(true);
 
   // Resets dialog inputs.
   function resetDialog() {
     setFirstNameVal("");
     setLastNameVal("");
-    setEmailVal("");
     setValidFirstName(true);
     setValidLastName(true);
-    setValidEmail(true);
   }
 
   function handleClose() {
@@ -44,32 +40,21 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
     return name.length > 0 && /^[a-zA-Z]+$/.test(name);
   }
 
-  function validateEmail(email: string): boolean {
-    return (
-      email.length > 0 &&
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-        email
-      )
-    );
-  }
-
   function confirmAddUser() {
-    // Validate first name, last name, and email.
+    // Validate first and last name.
     const temp1 = validateName(firstNameVal);
     const temp2 = validateName(lastNameVal);
-    const temp3 = validateEmail(emailVal);
 
     setValidFirstName(temp1);
     setValidLastName(temp2);
-    setValidEmail(temp3);
 
-    if (!temp1 || !temp2 || !temp3) return;
+    if (!temp1 || !temp2) return;
 
     sheetDispatch({
       type: "addUser",
       firstName: firstNameVal,
       lastName: lastNameVal,
-      email: emailVal,
+      email: "",
     });
 
     resetDialog();
@@ -98,14 +83,6 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
             helperText={!validLastName && "Please enter a valid name."}
           />
         </div>
-        <TextField
-          fullWidth
-          label='Email'
-          value={emailVal}
-          onChange={(e) => setEmailVal(e.target.value)}
-          error={!validEmail}
-          helperText={!validEmail && "Please enter a valid email."}
-        />
       </DialogContent>
       <DialogActions className='modalActions'>
         <Button className='modalCancelButton' onClick={handleClose}>

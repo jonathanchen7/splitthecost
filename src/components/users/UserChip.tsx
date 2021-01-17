@@ -5,7 +5,6 @@ import { getAvatarColor } from "../../actions/sheetActions";
 
 interface Props {
   user: User;
-  hideTooltip?: boolean;
   onRemove?: (user: User) => void;
   onClick?: (user: User) => void;
   className?: string;
@@ -13,15 +12,16 @@ interface Props {
 
 export const UserChip: React.FC<Props> = ({
   user,
-  hideTooltip,
   onRemove,
   onClick,
   className,
 }) => {
-  function renderChip(user: User) {
-    return (
+  return (
+    <span onClick={!!onClick ? () => onClick(user) : undefined}>
       <Chip
-        className={`chip leftMarginSmall ${className}`}
+        className={`chip leftMarginSmall ${className} ${
+          !!onClick && "linkCursor"
+        }`}
         avatar={
           <Avatar
             className='smallAvatar'
@@ -34,21 +34,6 @@ export const UserChip: React.FC<Props> = ({
         onDelete={!!onRemove ? () => onRemove(user) : undefined}
         key={user.id}
       />
-    );
-  }
-
-  return hideTooltip ? (
-    renderChip(user)
-  ) : (
-    <Tooltip
-      className={className}
-      arrow
-      title={user.email}
-      placement='top'
-      onClick={!!onClick ? () => onClick(user) : undefined}
-      key={user.id}
-    >
-      {renderChip(user)}
-    </Tooltip>
+    </span>
   );
 };

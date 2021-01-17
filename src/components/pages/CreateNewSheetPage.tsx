@@ -17,7 +17,6 @@ import { nanoid } from "nanoid";
 enum CreateSheetStep {
   SheetName = 1,
   DisplayName = 2,
-  Email = 3,
 }
 
 export const CreateNewSheetPage: React.FC = () => {
@@ -30,7 +29,6 @@ export const CreateNewSheetPage: React.FC = () => {
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
 
   function createNewSheet() {
     const newUser: User = {
@@ -41,7 +39,7 @@ export const CreateNewSheetPage: React.FC = () => {
         0
       )}`.toLocaleUpperCase(),
       displayName: `${firstName} ${lastName}`,
-      email: email,
+      email: "",
     };
     userDispatch({ type: "updateCurUser", user: newUser });
     history.push("/sheet/new", { title: sheetName });
@@ -50,7 +48,7 @@ export const CreateNewSheetPage: React.FC = () => {
   function sheetNameStep() {
     return (
       <>
-        <div className='giantHeader'>Let's start with a sheet name:</div>
+        <div className='giantHeader'>Give your sheet a name:</div>
         <TextField
           className='giantTextField'
           fullWidth
@@ -77,7 +75,7 @@ export const CreateNewSheetPage: React.FC = () => {
           disabled={!agreeToTerms || !sheetName.trim()}
           onClick={() => setStep(CreateSheetStep.DisplayName)}
         >
-          Continue
+          continue
         </Button>
       </>
     );
@@ -86,7 +84,9 @@ export const CreateNewSheetPage: React.FC = () => {
   function displayNameStep() {
     return (
       <>
-        <div className='giantHeader'>Now, what's your name?</div>
+        <div className='giantHeader'>
+          Yup, we're basically done. What's your name?
+        </div>
         <div>
           <TextField
             className='giantTextField halfWidthModalInput'
@@ -111,50 +111,14 @@ export const CreateNewSheetPage: React.FC = () => {
         </div>
         <div>
           <Button className='continueButton' onClick={() => setStep(step - 1)}>
-            Previous
+            go back
           </Button>
           <Button
             className='leftMargin continueButton'
             disabled={!firstName.trim() || !lastName.trim()}
-            onClick={() => setStep(step + 1)}
+            onClick={createNewSheet}
           >
-            Continue
-          </Button>
-        </div>
-      </>
-    );
-  }
-
-  function emailStep() {
-    return (
-      <>
-        <div className='giantHeader'>
-          Finally, what's a good email to send the sheet link to?
-        </div>
-        <span className='giantHeaderSubtext'>
-          (your data is confidential and will NEVER be sold or used for
-          marketing purposes.)
-        </span>
-        <TextField
-          className='giantTextField'
-          fullWidth
-          placeholder='Email address'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          inputProps={{
-            className: "giantInput",
-          }}
-        />
-        <div>
-          <Button className='continueButton' onClick={() => setStep(step - 1)}>
-            Previous
-          </Button>
-          <Button
-            className='leftMargin continueButton'
-            disabled={!email.trim()}
-            onClick={() => createNewSheet()}
-          >
-            Finish
+            finish
           </Button>
         </div>
       </>
@@ -164,7 +128,6 @@ export const CreateNewSheetPage: React.FC = () => {
   function renderStep() {
     if (step === CreateSheetStep.SheetName) return sheetNameStep();
     if (step === CreateSheetStep.DisplayName) return displayNameStep();
-    if (step === CreateSheetStep.Email) return emailStep();
     return sheetNameStep();
   }
 
@@ -187,7 +150,7 @@ export const CreateNewSheetPage: React.FC = () => {
           </IconButton>
         </Link>
         <span className='leftMarginSmall'>
-          Create a sheet (Step {step} of 3)
+          Create a sheet (Step {step} of 2)
         </span>
       </div>
     </motion.div>

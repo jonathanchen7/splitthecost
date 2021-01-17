@@ -109,6 +109,10 @@
   background-color: #969696 !important;
 }
 
+.linkCursor:hover {
+  cursor: pointer;
+}
+
 .modalTitle {
   padding-top: 10px !important;
   padding-bottom: 5px !important;

@@ -139,6 +139,10 @@ $redArrowColor: #e74c3c;
   background-color: $selectedIconColor !important;
 }
 
+.linkCursor:hover {
+  cursor: pointer;
+}
+
 // ---------------- GENERAL - MODAL ----------------
 
 .modalTitle {

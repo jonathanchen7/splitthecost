@@ -3,18 +3,9 @@ import "./main.css";
 import { SplitTheCost } from "./components/SplitTheCost";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import { HomePage } from "./components/pages/HomePage";
-import { UserState, User } from "./models/models";
+import { UserState } from "./models/models";
 import { UserAction, userReducer } from "./actions/appUserActions";
 import { CreateNewSheetPage } from "./components/pages/CreateNewSheetPage";
-
-export const testUser: User = {
-  firstName: "Jonathan",
-  lastName: "Chen",
-  initials: "JC",
-  id: "testUserId",
-  email: "jonathanschen28@gmail.com",
-  displayName: "Jonathan Chen",
-};
 
 const initialUserState: UserState = {
   curUser: undefined,

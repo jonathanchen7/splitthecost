@@ -71,16 +71,14 @@ export const UsersBar: React.FC = () => {
               )
             );
           })}
-          {userState.curUser?.id === sheetState.createdBy && (
-            <Tooltip arrow title='Add User' placement='right'>
-              <IconButton
-                className='iconButton smallIconButton leftMargin'
-                onClick={openAddUserModal}
-              >
-                <AddRoundedIcon />
-              </IconButton>
-            </Tooltip>
-          )}
+          <Tooltip arrow title='Add User' placement='right'>
+            <IconButton
+              className='iconButton smallIconButton leftMargin'
+              onClick={openAddUserModal}
+            >
+              <AddRoundedIcon />
+            </IconButton>
+          </Tooltip>
         </Grid>
       </Grid>
       <AddUserModal open={openAddUser} setOpen={setOpenAddUser} />

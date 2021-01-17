@@ -349,8 +349,9 @@ export function getAvatarColor(user: User): string {
   ];
 
   var h = 0,
-    l = user.email.length,
+    l = user.displayName.length,
     i = 0;
-  if (l > 0) while (i < l) h = ((h << 5) - h + user.email.charCodeAt(i++)) | 0;
+  if (l > 0)
+    while (i < l) h = ((h << 5) - h + user.displayName.charCodeAt(i++)) | 0;
   return colors[Math.abs(h % colors.length)];
 }
