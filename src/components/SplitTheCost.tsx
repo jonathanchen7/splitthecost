@@ -13,12 +13,13 @@ import { WhoAreYouModal } from "./modals/WhoAreYouModal";
 import { nanoid } from "nanoid";
 
 var initialSheetData: SheetData = {
+  title: "Loading Sheet...",
   entries: [],
   users: {},
-  id: "testSheetId",
-  createdBy: "testUserId",
+  numUsers: 0,
+  createdBy: "",
   local: false,
-  title: "New Sheet",
+  id: "",
 };
 
 export const SheetContext = createContext<{
@@ -56,6 +57,7 @@ export const SplitTheCost: React.FC = () => {
       title: location.state.title,
       entries: [],
       users: { [appUserData.curUser.id]: appUserData.curUser },
+      numUsers: 0,
       createdBy: appUserData.curUser.id,
       local: true,
       id: nanoid(10),

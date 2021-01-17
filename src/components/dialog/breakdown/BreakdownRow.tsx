@@ -23,11 +23,9 @@ export const BreakdownRow: React.FC<Props> = ({ user, data, idx }) => {
 
   return (
     <Grid
-      className={
-        (idx === Object.keys(sheetData.users).length - 1
-          ? "roundedBottom "
-          : "") + (idx % 2 ? "oddIdx" : "evenIdx")
-      }
+      className={`${idx % 2 ? "lightRow" : "darkRow"}${
+        idx === sheetData.numUsers - 2 && " roundedBottom"
+      }`}
       container
       spacing={0}
     >

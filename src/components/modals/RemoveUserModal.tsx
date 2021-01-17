@@ -43,7 +43,8 @@ export const RemoveUserModal: React.FC<Props> = ({
     <Dialog fullWidth maxWidth='xs' onClose={handleClose} open={open}>
       <DialogTitle className='modalTitle'>Remove User</DialogTitle>
       <DialogContent dividers>
-        Are you sure you want to remove <b>{removeUser.displayName}</b>?
+        Are you sure you want to remove <b>{removeUser.displayName}</b> and all
+        associated items?
       </DialogContent>
       <DialogActions className='modalActions'>
         <Button className='modalCancelButton' onClick={handleClose}>

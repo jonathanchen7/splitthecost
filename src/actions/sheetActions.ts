@@ -110,7 +110,7 @@ function addEntry(state: SheetData, action: AddEntryAction): SheetData {
     createdBy: action.createdBy,
   };
 
-  const newSheetState = {
+  const newSheetState: SheetData = {
     ...state,
     entries: [...state.entries, newEntry],
   };
@@ -124,7 +124,7 @@ function removeEntry(state: SheetData, action: RemoveEntryAction): SheetData {
     (entry) => entry.id !== action.entryId
   );
 
-  const newSheetState = { ...state, entries: newEntries };
+  const newSheetState: SheetData = { ...state, entries: newEntries };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
 }
@@ -148,7 +148,7 @@ function updateEntry(state: SheetData, action: UpdateEntryAction): SheetData {
   const newEntries = [...state.entries];
   newEntries[newEntries.indexOf(entry)] = newEntry;
 
-  const newSheetState = { ...state, entries: newEntries };
+  const newSheetState: SheetData = { ...state, entries: newEntries };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
 }
@@ -166,9 +166,10 @@ function addUser(state: SheetData, action: AddUserAction): SheetData {
     email: action.email,
   };
 
-  const newSheetState = {
+  const newSheetState: SheetData = {
     ...state,
     users: { ...state.users, [newUser.id]: newUser },
+    numUsers: state.numUsers + 1,
   };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
@@ -196,7 +197,12 @@ function removeUser(state: SheetData, action: RemoveUserAction): SheetData {
     }
   });
 
-  const newSheetState = { ...state, entries: newEntries, users: newUsers };
+  const newSheetState: SheetData = {
+    ...state,
+    entries: newEntries,
+    users: newUsers,
+    numUsers: state.numUsers - 1,
+  };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
 }
@@ -213,7 +219,7 @@ function updatedExcludedUsers(
   const newEntries = [...state.entries];
   newEntries[newEntries.indexOf(action.entry)] = newEntry;
 
-  const newSheetState = { ...state, entries: newEntries };
+  const newSheetState: SheetData = { ...state, entries: newEntries };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
 }
@@ -230,7 +236,7 @@ function removeExcludedUser(
   const newEntries = [...state.entries];
   newEntries[newEntries.indexOf(action.entry)] = newEntry;
 
-  const newSheetState = { ...state, entries: newEntries };
+  const newSheetState: SheetData = { ...state, entries: newEntries };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
 }

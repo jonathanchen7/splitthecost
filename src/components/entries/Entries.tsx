@@ -12,10 +12,11 @@ export const Entries: React.FC = () => {
   return (
     <>
       <EntriesHeader />
-      {sheetData.entries.map((entry) => (
+      {sheetData.entries.map((entry, idx) => (
         <EntriesRow
           entry={entry}
           curUserEntry={appUserData.curUser?.id === entry.createdBy}
+          rowIdx={idx}
           key={entry.id}
         />
       ))}

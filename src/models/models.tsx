@@ -36,6 +36,7 @@ export interface SheetData {
   title: string;
   entries: Entry[];
   users: { [userId: string]: User };
+  numUsers: number;
   createdBy: string;
   local: boolean;
   id: string;

@@ -12,6 +12,7 @@ export const Breakdown: React.FC = () => {
   const { appUserData } = useContext(UserContext);
 
   const [breakdownData, setBreakdownData] = useState<UserBreakdownData>();
+  let rowIdx = 0;
 
   useEffect(() => {
     if (!!appUserData.curUser) {
@@ -25,21 +26,19 @@ export const Breakdown: React.FC = () => {
     }
   }, [appUserData.curUser, sheetData]);
 
-  return !appUserData.curUser ||
-    !breakdownData ||
-    Object.keys(sheetData.users).length < 2 ? (
+  return !appUserData.curUser || !breakdownData || sheetData.numUsers < 2 ? (
     <div className='noBreakdownData'>No data to break down. &#129396;</div>
   ) : (
     <>
       <BreakdownHeader />
-      {Object.entries(sheetData.users).map((pair, idx) => {
+      {Object.entries(sheetData.users).map((pair) => {
         let user = pair[1];
         return (
           user.id !== appUserData.curUser!.id && (
             <BreakdownRow
               user={user}
               data={breakdownData.userBreakdown[user.id]}
-              idx={idx}
+              idx={rowIdx++}
               key={user.id}
             />
           )

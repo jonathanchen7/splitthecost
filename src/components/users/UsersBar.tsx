@@ -65,11 +65,7 @@ export const UsersBar: React.FC = () => {
               (!appUserData.curUser || user.id !== appUserData.curUser.id) && (
                 <UserChip
                   user={user}
-                  onRemove={
-                    appUserData.curUser?.id === sheetData.createdBy
-                      ? openRemoveUserModal
-                      : undefined
-                  }
+                  onRemove={openRemoveUserModal}
                   key={user.id}
                 />
               )

@@ -17,11 +17,9 @@ export const OverviewRow: React.FC<Props> = ({ user, data, idx }) => {
 
   return (
     <Grid
-      className={
-        (idx === Object.keys(sheetData.users).length - 1
-          ? "roundedBottom "
-          : "") + (idx % 2 ? "evenIdx" : "oddIdx")
-      }
+      className={`${idx % 2 ? "lightRow" : "darkRow"} ${
+        idx === sheetData.numUsers - 1 && "roundedBottom"
+      }`}
       container
       spacing={0}
     >

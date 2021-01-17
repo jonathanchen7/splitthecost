@@ -15,9 +15,14 @@ import { SheetContext } from "../SplitTheCost";
 interface Props {
   entry: Entry;
   curUserEntry: boolean;
+  rowIdx: number;
 }
 
-export const EntriesRow: React.FC<Props> = ({ entry, curUserEntry }) => {
+export const EntriesRow: React.FC<Props> = ({
+  entry,
+  curUserEntry,
+  rowIdx,
+}) => {
   const { sheetData, sheetDispatch } = useContext(SheetContext);
 
   const [showDelete, setShowDelete] = useState(false);
@@ -60,7 +65,7 @@ export const EntriesRow: React.FC<Props> = ({ entry, curUserEntry }) => {
       key={entry.id}
     >
       <Grid
-        className={sheetData.entries.indexOf(entry) % 2 ? "oddIdx" : "evenIdx"}
+        className={rowIdx % 2 ? "lightRow" : "darkRow"}
         container
         spacing={0}
       >

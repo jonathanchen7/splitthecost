@@ -148,11 +148,11 @@
   font-weight: bold;
 }
 
-.oddIdx {
+.lightRow {
   background-color: #f6f6f6;
 }
 
-.evenIdx {
+.darkRow {
   background-color: #dedede;
 }
 
