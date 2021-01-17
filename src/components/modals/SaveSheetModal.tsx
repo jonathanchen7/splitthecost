@@ -44,10 +44,10 @@ export const SaveSheetModal: React.FC<Props> = ({ open, setOpen }) => {
         <DialogTitle className='modalTitle'>Save Sheet</DialogTitle>
         <DialogContent dividers>
           {sheetState.local ? (
-            "Would you like to save this sheet for future access?"
+            "Would you like to generate a shareable link for this sheet?"
           ) : (
             <div>
-              Share the link to this sheet:
+              Share this link:
               <Paper className='saveLinkPaper' elevation={3}>
                 splitthecost.com/sheet/{sheetState.id}
                 <Button color='primary' onClick={copySheetLink}>
@@ -58,7 +58,11 @@ export const SaveSheetModal: React.FC<Props> = ({ open, setOpen }) => {
           )}
         </DialogContent>
         <DialogActions className='modalActions'>
-          <Button className='modalCancelButton' onClick={handleClose}>
+          <Button
+            className='modalCancelButton'
+            color='primary'
+            onClick={handleClose}
+          >
             Close
           </Button>
           {sheetState.local && (
@@ -66,7 +70,7 @@ export const SaveSheetModal: React.FC<Props> = ({ open, setOpen }) => {
               className='modalConfirmButton rightMarginSmall'
               onClick={confirmSaveSheet}
             >
-              Confirm
+              GENERATE
             </Button>
           )}
         </DialogActions>
