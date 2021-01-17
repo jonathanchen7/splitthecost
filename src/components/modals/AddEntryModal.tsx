@@ -17,7 +17,7 @@ import {
 } from "@material-ui/core";
 import { useContext, useState } from "react";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
-// import NumberFormat from "react-number-format";
+import NumberFormat from "react-number-format";
 import { UserContext } from "../../App";
 import { SheetContext } from "../SplitTheCost";
 import { UserChip } from "../users/UserChip";
@@ -70,22 +70,21 @@ export const AddEntryModal: React.FC = () => {
               className='itemInput'
               fullWidth
               label='Item'
-              type='search'
               value={item}
               onChange={(e) => setItem(e.target.value)}
             />
             <TextField
               className='costInput'
               InputProps={{
-                // inputComponent: NumberFormat as any,
+                inputComponent: NumberFormat as any,
                 startAdornment: (
                   <InputAdornment position='start'>$</InputAdornment>
                 ),
               }}
-              // inputProps={{
-              //   decimalScale: 2,
-              //   allowNegative: false,
-              // }}
+              inputProps={{
+                decimalScale: 2,
+                allowNegative: false,
+              }}
               label='Cost'
               value={cost?.toFixed(2)}
               onChange={(e) => setCost(Number(e.target.value))}
@@ -129,7 +128,6 @@ export const AddEntryModal: React.FC = () => {
             multiline
             rowsMax={2}
             label='Note'
-            type='search'
             value={note}
             onChange={(e) => setNote(e.target.value)}
           />

@@ -84,7 +84,6 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
           <TextField
             className='halfWidthModalInput'
             label='First Name'
-            type='search'
             value={firstNameVal}
             onChange={(e) => setFirstNameVal(e.target.value)}
             error={!validFirstName}
@@ -93,7 +92,6 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
           <TextField
             className='halfWidthModalInput'
             label='Last Name'
-            type='search'
             value={lastNameVal}
             onChange={(e) => setLastNameVal(e.target.value)}
             error={!validLastName}
@@ -103,7 +101,6 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
         <TextField
           fullWidth
           label='Email'
-          type='search'
           value={emailVal}
           onChange={(e) => setEmailVal(e.target.value)}
           error={!validEmail}

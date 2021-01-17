@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Avatar, IconButton, Input, InputAdornment } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Entry } from "../../models/models";
-// import NumberFormat from "react-number-format";
+import NumberFormat from "react-number-format";
 import { UserAvatar } from "../users/UserAvatar";
 import { ExcludedUsersModal } from "../modals/ExcludedUsersModal";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
@@ -81,6 +81,7 @@ export const EntriesRow: React.FC<Props> = ({ entry, curUserEntry }) => {
               fullWidth
               readOnly={!curUserEntry}
               value={itemVal}
+              placeholder={"Enter item name here"}
               onChange={(e) => setItemVal(e.target.value)}
               onBlur={(e) => {
                 sheetDispatch({
@@ -107,12 +108,12 @@ export const EntriesRow: React.FC<Props> = ({ entry, curUserEntry }) => {
           <div className='entryDiv'>
             <Input
               className='sideMargins'
-              // inputComponent={NumberFormat as any}
-              // inputProps={{
-              //   decimalScale: 2,
-              //   allowNegative: false,
-              //   thousandSeparator: ",",
-              // }}
+              inputComponent={NumberFormat as any}
+              inputProps={{
+                decimalScale: 2,
+                allowNegative: false,
+                thousandSeparator: ",",
+              }}
               disableUnderline
               fullWidth
               readOnly={!curUserEntry}
