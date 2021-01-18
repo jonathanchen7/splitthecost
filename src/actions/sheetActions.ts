@@ -53,6 +53,10 @@ export type RemoveExcludedUserAction = {
   entry: Entry;
   local?: boolean;
 };
+export type ChangeSheetTitleAction = {
+  type: "changeSheetTitle";
+  title: string;
+};
 export type SaveSheetAction = {
   type: "saveSheet";
 };
@@ -69,6 +73,7 @@ export type SheetAction =
   | RemoveUserAction
   | UpdateExcludedUsersAction
   | RemoveExcludedUserAction
+  | ChangeSheetTitleAction
   | SaveSheetAction
   | UpdateSheetStateAction;
 
@@ -88,6 +93,8 @@ export function sheetReducer(state: SheetState, action: SheetAction) {
       return updatedExcludedUsers(state, action);
     case "removeExcludedUser":
       return removeExcludedUser(state, action);
+    case "changeSheetTitle":
+      return changeSheetTitle(state, action);
     case "saveSheet":
       return saveSheet(state, action);
     case "updateSheetState":
@@ -234,6 +241,15 @@ function updatedExcludedUsers(
 
   const newSheetState: SheetState = { ...state, entries: newEntries };
   updateFirestore(newSheetState, action.local);
+  return newSheetState;
+}
+
+function changeSheetTitle(
+  state: SheetState,
+  action: ChangeSheetTitleAction
+): SheetState {
+  const newSheetState: SheetState = { ...state, title: action.title };
+  updateFirestore(newSheetState);
   return newSheetState;
 }
 
