@@ -76,9 +76,9 @@ export const SplitTheCost: React.FC = () => {
       .withConverter(sheetStateConverter)
       .doc(sheetId)
       .get();
-    const testData = sheetRef.data();
-    if (testData) {
-      sheetDispatch({ type: "updateSheetState", sheetState: testData });
+    const response = sheetRef.data();
+    if (response) {
+      sheetDispatch({ type: "updateSheetState", sheetState: response });
     }
   }
 

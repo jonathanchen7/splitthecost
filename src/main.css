@@ -369,6 +369,16 @@
   left: 30px;
 }
 
+.addItemFab {
+  color: white !important;
+  background-color: #377cab !important;
+  font-weight: bold !important;
+}
+
+.addItemFab:hover {
+  background-color: #5f8ba9 !important;
+}
+
 .settingsDiv {
   display: -webkit-box !important;
   display: -ms-flexbox !important;
@@ -471,10 +481,6 @@
   font-size: 50px;
   color: #377cab;
   margin-bottom: 20px;
-}
-
-.test {
-  text-decoration: none !important;
 }
 
 .createNewButton {

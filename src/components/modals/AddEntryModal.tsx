@@ -111,7 +111,12 @@ export const AddEntryModal: React.FC = () => {
         </DialogActions>
       </Dialog>
       <div className='addItemFabDiv'>
-        <Fab variant='extended' size='medium' onClick={addEntry}>
+        <Fab
+          className='addItemFab'
+          variant='extended'
+          size='medium'
+          onClick={addEntry}
+        >
           <AddRoundedIcon />
           <span className='leftMarginSmall'>Add Item</span>
         </Fab>
