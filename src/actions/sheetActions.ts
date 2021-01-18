@@ -139,7 +139,7 @@ function updateEntry(state: SheetState, action: UpdateEntryAction): SheetState {
     if (entry.item === value) return state;
     newEntry = { ...entry, item: value };
   } else if (action.section === "cost") {
-    if (entry.cost === Number(value)) return state;
+    if (entry.cost === Number(value) && action.local) return state;
     newEntry = { ...entry, cost: Number(value) };
   } else {
     if (entry.note === value) return state;
@@ -350,7 +350,9 @@ export function calculateUserBreakdown(
 }
 
 // "Calculates" an avatar's color.
-export function getAvatarColor(user: User): string {
+export function getAvatarColor(user: User, placeholder?: boolean): string {
+  if (placeholder) return "#dedede";
+
   const colors = [
     "#1abc9c",
     "#f1c40f",

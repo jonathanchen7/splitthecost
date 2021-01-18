@@ -60,7 +60,7 @@ export const SplitTheCost: React.FC = () => {
       title: location.state.title,
       entries: [],
       users: { [userState.curUser.id]: userState.curUser },
-      numUsers: 0,
+      numUsers: 1,
       createdBy: userState.curUser.id,
       local: true,
       id: nanoid(10),

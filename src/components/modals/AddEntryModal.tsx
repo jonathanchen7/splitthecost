@@ -24,9 +24,20 @@ export const AddEntryModal: React.FC = () => {
   const [cost, setCost] = useState(0);
   const [note, setNote] = useState("");
 
-  function handleOpen() {
-    setOpen(true);
+  function addEntry() {
+    sheetDispatch({
+      type: "addEntry",
+      createdBy: userState.curUser!.id,
+      item: "",
+      cost: 0,
+      exclude: [],
+      note: "",
+    });
   }
+
+  // function handleOpen() {
+  //   setOpen(true);
+  // }
 
   function handleClose() {
     setItem("");
@@ -100,7 +111,7 @@ export const AddEntryModal: React.FC = () => {
         </DialogActions>
       </Dialog>
       <div className='addItemFabDiv'>
-        <Fab variant='extended' size='medium' onClick={handleOpen}>
+        <Fab variant='extended' size='medium' onClick={addEntry}>
           <AddRoundedIcon />
           <span className='leftMarginSmall'>Add Item</span>
         </Fab>

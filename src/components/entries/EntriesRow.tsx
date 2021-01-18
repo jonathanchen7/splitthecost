@@ -25,10 +25,14 @@ export const EntriesRow: React.FC<Props> = ({
 }) => {
   const { sheetState, sheetDispatch } = useContext(SheetContext);
 
+  const [emptyRow, setEmptyRow] = useState(
+    !entry.item && !entry.cost && !entry.note
+  );
+
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
-  const [itemVal, setItemVal] = useState(entry.item);
-  const [noteVal, setNoteVal] = useState(entry.note);
+  const [item, setItem] = useState(entry.item);
+  const [note, setNote] = useState(entry.note);
   const [showExcludeUsersModal, setShowExcludeUsersModal] = useState(false);
 
   const numExcludeUsersDisplay = curUserEntry ? 3 : 4;
@@ -57,12 +61,49 @@ export const EntriesRow: React.FC<Props> = ({
     }
   }
 
+  function updateEntry(value: string, section: "item" | "cost" | "note") {
+    if (!item && !entry.cost && !note) {
+      setEmptyRow(true);
+      setItem("");
+      setNote("");
+      return;
+    }
+
+    switch (section) {
+      case "item":
+        sheetDispatch({
+          type: "updateEntry",
+          entry: entry,
+          section: "item",
+          value: value,
+        });
+        break;
+      case "cost":
+        console.log("updating cost");
+        console.log(value);
+        sheetDispatch({
+          type: "updateEntry",
+          entry: entry,
+          section: "cost",
+          value: value,
+        });
+        break;
+      case "note":
+        sheetDispatch({
+          type: "updateEntry",
+          entry: entry,
+          section: "note",
+          value: value,
+        });
+        break;
+    }
+  }
+
   return (
     <motion.div
       animate={{ x: 0, opacity: 1 }}
       initial={{ x: -2000, opacity: 0 }}
       transition={{ type: "tween", duration: 0.5 }}
-      key={entry.id}
     >
       <Grid
         className={rowIdx % 2 ? "lightRow" : "darkRow"}
@@ -79,22 +120,19 @@ export const EntriesRow: React.FC<Props> = ({
               className='leftMargin'
               user={sheetState.users[entry.createdBy]}
               tooltipPlacement='top'
+              disabled={emptyRow}
             />
             <Input
               className='sideMargins'
               disableUnderline
               fullWidth
               readOnly={!curUserEntry}
-              value={itemVal}
-              placeholder={"Enter item name here"}
-              onChange={(e) => setItemVal(e.target.value)}
+              value={item}
+              placeholder={emptyRow ? "Enter item name here" : undefined}
+              onFocus={() => setEmptyRow(false)}
+              onChange={(e) => setItem(e.target.value)}
               onBlur={(e) => {
-                sheetDispatch({
-                  type: "updateEntry",
-                  entry: entry,
-                  section: "item",
-                  value: e.target.value,
-                });
+                updateEntry(e.target.value, "item");
               }}
             />
             {showDelete && (
@@ -123,6 +161,7 @@ export const EntriesRow: React.FC<Props> = ({
               fullWidth
               readOnly={!curUserEntry}
               value={entry.cost.toFixed(2)}
+              onFocus={() => setEmptyRow(false)}
               onChange={(e) => {
                 sheetDispatch({
                   type: "updateEntry",
@@ -133,12 +172,7 @@ export const EntriesRow: React.FC<Props> = ({
                 });
               }}
               onBlur={(e) => {
-                sheetDispatch({
-                  type: "updateEntry",
-                  entry: entry,
-                  section: "cost",
-                  value: e.target.value,
-                });
+                updateEntry(e.target.value, "cost");
               }}
               startAdornment={
                 <InputAdornment position='start'>$</InputAdornment>
@@ -201,15 +235,12 @@ export const EntriesRow: React.FC<Props> = ({
               disableUnderline
               fullWidth
               readOnly={!curUserEntry}
-              value={noteVal}
-              onChange={(e) => setNoteVal(e.target.value)}
+              value={note}
+              placeholder={emptyRow ? "Include a note here" : undefined}
+              onFocus={() => setEmptyRow(false)}
+              onChange={(e) => setNote(e.target.value)}
               onBlur={(e) => {
-                sheetDispatch({
-                  type: "updateEntry",
-                  entry: entry,
-                  section: "note",
-                  value: e.target.value,
-                });
+                updateEntry(e.target.value, "note");
               }}
             />
           </div>
