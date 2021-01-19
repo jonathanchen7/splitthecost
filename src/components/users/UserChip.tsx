@@ -17,10 +17,10 @@ export const UserChip: React.FC<Props> = ({
   className,
 }) => {
   return (
-    <span onClick={!!onClick ? () => onClick(user) : undefined}>
+    <span onClick={onClick && (() => onClick(user))}>
       <Chip
         className={`chip leftMarginSmall ${className} ${
-          !!onClick && "linkCursor"
+          onClick && "linkCursor"
         }`}
         avatar={
           <Avatar
@@ -31,7 +31,7 @@ export const UserChip: React.FC<Props> = ({
           </Avatar>
         }
         label={user.displayName}
-        onDelete={!!onRemove ? () => onRemove(user) : undefined}
+        onDelete={onRemove && (() => onRemove(user))}
         key={user.id}
       />
     </span>

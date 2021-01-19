@@ -18,7 +18,7 @@ var initialSheetState: SheetState = {
   users: {},
   numUsers: 0,
   createdBy: "",
-  local: false,
+  local: true,
   id: "",
 };
 
@@ -90,7 +90,7 @@ export const SplitTheCost: React.FC = () => {
       <UsersBar />
       <Entries />
       <SideDialog />
-      {!!userState.curUser && <AddEntryModal />}
+      {userState.curUser && <AddEntryModal />}
       <WhoAreYouModal open={!userState.curUser} />
     </SheetContext.Provider>
   );

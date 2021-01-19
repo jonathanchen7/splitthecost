@@ -15,9 +15,9 @@ export const Entries: React.FC = () => {
       {sheetState.entries.map(
         (entry, idx) =>
           (entry.createdBy === userState.curUser?.id ||
-            !!entry.item ||
-            !!entry.cost ||
-            !!entry.note) && (
+            entry.item ||
+            entry.cost ||
+            entry.note) && (
             <EntriesRow
               entry={entry}
               curUserEntry={userState.curUser?.id === entry.createdBy}

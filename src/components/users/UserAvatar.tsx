@@ -36,24 +36,12 @@ export const UserAvatar: React.FC<Props> = ({
 }) => {
   const [showIcon, setShowIcon] = useState(false);
 
-  function onHover() {
-    if (!!iconOnHover) {
-      setShowIcon(true);
-    }
-  }
-
-  function onLeave() {
-    if (!!iconOnHover) {
-      setShowIcon(false);
-    }
-  }
-
   return (
     <span
       className={className}
       onClick={onClick}
-      onMouseEnter={onHover}
-      onMouseLeave={onLeave}
+      onMouseEnter={() => setShowIcon(true && !!iconOnHover)}
+      onMouseLeave={() => setShowIcon(false)}
     >
       <Tooltip arrow title={user.displayName} placement={tooltipPlacement}>
         <Avatar

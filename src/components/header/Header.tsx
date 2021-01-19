@@ -22,7 +22,7 @@ export const Header: React.FC = () => {
         </span>
       </Grid>
       <Grid className='headerItem profileItem' item xs={1}>
-        {!!userState.curUser && (
+        {userState.curUser && (
           <UserAvatar
             className='rightMargin'
             user={userState.curUser}

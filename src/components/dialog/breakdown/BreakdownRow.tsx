@@ -17,7 +17,7 @@ export const BreakdownRow: React.FC<Props> = ({ user, data, idx }) => {
   const { sheetState } = useContext(SheetContext);
   const { userState } = useContext(UserContext);
 
-  const netCost = !!data ? data.theyOwe - data.youOwe : 0;
+  const netCost = data ? data.theyOwe - data.youOwe : 0;
   const debtedUser = netCost < 0 ? userState.curUser! : user;
   const owedUser = netCost < 0 ? user : userState.curUser!;
 

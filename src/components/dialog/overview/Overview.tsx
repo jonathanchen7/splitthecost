@@ -21,7 +21,7 @@ export const Overview: React.FC = () => {
   return (
     <>
       <OverviewHeader />
-      {!!userState.curUser && (
+      {userState.curUser && (
         <OverviewRow
           user={userState.curUser}
           data={overviewData[userState.curUser.id]}

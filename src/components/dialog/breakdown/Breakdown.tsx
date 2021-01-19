@@ -15,7 +15,7 @@ export const Breakdown: React.FC = () => {
   let rowIdx = 0;
 
   useEffect(() => {
-    if (!!userState.curUser) {
+    if (userState.curUser) {
       setBreakdownData(
         calculateUserBreakdown(
           userState.curUser,

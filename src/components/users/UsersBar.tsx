@@ -58,27 +58,29 @@ export const UsersBar: React.FC = () => {
           >
             <SettingsRoundedIcon />
           </IconButton>
-          {!!userState.curUser && <UserChip user={userState.curUser} />}
+          {userState.curUser && <UserChip user={userState.curUser} />}
           {Object.entries(sheetState.users).map((pair) => {
             const user = pair[1];
             return (
               (!userState.curUser || user.id !== userState.curUser.id) && (
                 <UserChip
                   user={user}
-                  onRemove={openRemoveUserModal}
+                  onRemove={userState.curUser && openRemoveUserModal}
                   key={user.id}
                 />
               )
             );
           })}
-          <Tooltip arrow title='Add User' placement='right'>
-            <IconButton
-              className='iconButton smallIconButton leftMargin'
-              onClick={openAddUserModal}
-            >
-              <AddRoundedIcon />
-            </IconButton>
-          </Tooltip>
+          {userState.curUser && (
+            <Tooltip arrow title='Add User' placement='right'>
+              <IconButton
+                className='iconButton smallIconButton leftMargin'
+                onClick={openAddUserModal}
+              >
+                <AddRoundedIcon />
+              </IconButton>
+            </Tooltip>
+          )}
         </Grid>
       </Grid>
       <AddUserModal open={openAddUser} setOpen={setOpenAddUser} />

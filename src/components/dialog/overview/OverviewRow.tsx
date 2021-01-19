@@ -42,7 +42,7 @@ export const OverviewRow: React.FC<Props> = ({ user, data, idx }) => {
           //   allowNegative: false,
           //   thousandSeparator: ",",
           // }}
-          value={!!data ? data?.totalSpent.toFixed(2) : 0}
+          value={data ? data?.totalSpent.toFixed(2) : 0}
           startAdornment={<InputAdornment position='start'>$</InputAdornment>}
         />
       </Grid>
@@ -59,7 +59,7 @@ export const OverviewRow: React.FC<Props> = ({ user, data, idx }) => {
             //   thousandSeparator: ",",
             // }}
             className='sideMargins'
-            value={!!data ? data?.totalOwed.toFixed(2) : 0}
+            value={data ? data?.totalOwed.toFixed(2) : 0}
             startAdornment={<InputAdornment position='start'>$</InputAdornment>}
           />
         </>

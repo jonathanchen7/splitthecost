@@ -1,6 +1,6 @@
 import * as React from "react";
 import Grid from "@material-ui/core/Grid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Avatar, IconButton, Input, InputAdornment } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Entry } from "../../models/models";
@@ -61,14 +61,11 @@ export const EntriesRow: React.FC<Props> = ({
     }
   }
 
-  function updateEntry(value: string, section: "item" | "cost" | "note") {
-    if (!item && !entry.cost && !note) {
-      setEmptyRow(true);
-      setItem("");
-      setNote("");
-      return;
-    }
-
+  function updateEntry(
+    value: string,
+    section: "item" | "cost" | "note",
+    local?: boolean
+  ) {
     switch (section) {
       case "item":
         sheetDispatch({
@@ -79,13 +76,12 @@ export const EntriesRow: React.FC<Props> = ({
         });
         break;
       case "cost":
-        console.log("updating cost");
-        console.log(value);
         sheetDispatch({
           type: "updateEntry",
           entry: entry,
           section: "cost",
           value: value,
+          local: local,
         });
         break;
       case "note":
@@ -163,13 +159,7 @@ export const EntriesRow: React.FC<Props> = ({
               value={entry.cost.toFixed(2)}
               onFocus={() => setEmptyRow(false)}
               onChange={(e) => {
-                sheetDispatch({
-                  type: "updateEntry",
-                  entry: entry,
-                  section: "cost",
-                  value: e.target.value,
-                  local: true,
-                });
+                updateEntry(e.target.value, "cost", true);
               }}
               onBlur={(e) => {
                 updateEntry(e.target.value, "cost");

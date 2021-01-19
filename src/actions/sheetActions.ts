@@ -110,10 +110,10 @@ export function sheetReducer(state: SheetState, action: SheetAction) {
 function addEntry(state: SheetState, action: AddEntryAction): SheetState {
   const newEntry: Entry = {
     id: nanoid(),
-    item: !!action.item ? action.item : "",
-    cost: !!action.cost ? action.cost : 0,
-    exclude: !!action.exclude ? action.exclude : [],
-    note: !!action.note ? action.note : "",
+    item: action.item ? action.item : "",
+    cost: action.cost ? action.cost : 0,
+    exclude: action.exclude ? action.exclude : [],
+    note: action.note ? action.note : "",
     createdBy: action.createdBy,
   };
 
@@ -146,7 +146,6 @@ function updateEntry(state: SheetState, action: UpdateEntryAction): SheetState {
     if (entry.item === value) return state;
     newEntry = { ...entry, item: value };
   } else if (action.section === "cost") {
-    if (entry.cost === Number(value) && action.local) return state;
     newEntry = { ...entry, cost: Number(value) };
   } else {
     if (entry.note === value) return state;
