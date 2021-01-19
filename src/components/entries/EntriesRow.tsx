@@ -1,6 +1,6 @@
 import * as React from "react";
 import Grid from "@material-ui/core/Grid";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Avatar, IconButton, Input, InputAdornment } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Entry } from "../../models/models";
@@ -36,30 +36,6 @@ export const EntriesRow: React.FC<Props> = ({
   const [showExcludeUsersModal, setShowExcludeUsersModal] = useState(false);
 
   const numExcludeUsersDisplay = curUserEntry ? 3 : 4;
-
-  function mouseOverItem(): void {
-    if (curUserEntry) {
-      setShowDelete(true);
-    }
-  }
-
-  function mouseLeaveItem(): void {
-    if (curUserEntry) {
-      setShowDelete(false);
-    }
-  }
-
-  function mouseOverExclude(): void {
-    if (curUserEntry) {
-      setShowEdit(true);
-    }
-  }
-
-  function mouseLeaveExclude(): void {
-    if (curUserEntry) {
-      setShowEdit(false);
-    }
-  }
 
   function updateEntry(
     value: string,
@@ -109,8 +85,8 @@ export const EntriesRow: React.FC<Props> = ({
         <Grid item xs={3}>
           <div
             className='entryDiv'
-            onMouseOver={mouseOverItem}
-            onMouseLeave={mouseLeaveItem}
+            onMouseOver={() => setShowDelete(curUserEntry && true)}
+            onMouseLeave={() => setShowDelete(false)}
           >
             <UserAvatar
               className='leftMargin'
@@ -173,8 +149,8 @@ export const EntriesRow: React.FC<Props> = ({
         <Grid item xs={2}>
           <div
             className='entryDiv'
-            onMouseOver={mouseOverExclude}
-            onMouseLeave={mouseLeaveExclude}
+            onMouseOver={() => setShowEdit(curUserEntry && true)}
+            onMouseLeave={() => setShowEdit(false)}
           >
             {entry.exclude.map((userId, idx) => {
               if (idx < numExcludeUsersDisplay) {
