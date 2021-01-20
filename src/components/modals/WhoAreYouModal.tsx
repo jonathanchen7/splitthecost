@@ -4,13 +4,13 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
 } from "@material-ui/core";
-import { SheetContext } from "../SplitTheCost";
+import { SheetContext } from "../pages/SplitTheCost";
 import { useContext, useState } from "react";
-import { UserChip } from "../users/UserChip";
+import { UserChip } from "../bits/UserChip";
 import { UserContext } from "../../App";
 import { User } from "../../models/models";
+import { ModalHeader } from "./ModalHeader";
 
 interface Props {
   open: boolean;
@@ -30,9 +30,14 @@ export const WhoAreYouModal: React.FC<Props> = ({ open }) => {
   }
 
   return (
-    <Dialog fullWidth maxWidth='xs' open={open}>
-      <DialogTitle className='modalTitle'>Who Are You?</DialogTitle>
-      <DialogContent dividers>
+    <Dialog
+      fullWidth
+      maxWidth='xs'
+      open={open}
+      PaperProps={{ className: "modal" }}
+    >
+      <ModalHeader title='Who are You?' />
+      <DialogContent>
         {Object.entries(sheetState.users).map((pair) => {
           const user = pair[1];
           return (

@@ -18,7 +18,8 @@ import {
   Droppable,
   DropResult,
 } from "react-beautiful-dnd";
-import { SheetContext } from "../SplitTheCost";
+import { SheetContext } from "../pages/SplitTheCost";
+import { ModalHeader } from "./ModalHeader";
 
 interface Props {
   open: boolean;
@@ -111,10 +112,8 @@ export const ExcludedUsersModal: React.FC<Props> = ({
 
   return (
     <Dialog fullWidth maxWidth='md' onClose={handleClose} open={open}>
-      <DialogTitle className='dialogTitle'>
-        Exclude Users | <b>{`${entry.item}`}</b>
-      </DialogTitle>
-      <DialogContent className='modalContent excludeModalContent' dividers>
+      <ModalHeader title='Exclude Users' onClose={handleClose} />
+      <DialogContent className='modalContent excludeModalContent'>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId={"includeDroppable"}>
             {(provided) => (
@@ -197,9 +196,6 @@ export const ExcludedUsersModal: React.FC<Props> = ({
         </DragDropContext>
       </DialogContent>
       <DialogActions className='modalActions'>
-        <Button className='modalCancelButton' onClick={handleClose}>
-          Cancel
-        </Button>
         <Button
           className='modalConfirmButton rightMarginSmall'
           onClick={confirmExcludeUsers}

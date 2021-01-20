@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import "./main.css";
-import { SplitTheCost } from "./components/SplitTheCost";
+import { SplitTheCost } from "./components/pages/SplitTheCost";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import { HomePage } from "./components/pages/HomePage";
 import { UserState } from "./models/models";

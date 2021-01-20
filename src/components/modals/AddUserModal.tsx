@@ -4,11 +4,11 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   TextField,
 } from "@material-ui/core";
 import { useContext, useState } from "react";
-import { SheetContext } from "../SplitTheCost";
+import { SheetContext } from "../pages/SplitTheCost";
+import { ModalHeader } from "./ModalHeader";
 
 interface Props {
   open: boolean;
@@ -80,9 +80,16 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
   }
 
   return (
-    <Dialog fullWidth maxWidth='xs' onClose={handleClose} open={open}>
-      <DialogTitle className='modalTitle'>Add User</DialogTitle>
-      <DialogContent className='modalContent' dividers>
+    <Dialog
+      fullWidth
+      maxWidth='xs'
+      onClose={handleClose}
+      open={open}
+      PaperProps={{ className: "modal" }}
+    >
+      <ModalHeader title='Add User' onClose={handleClose} />
+
+      <DialogContent className='modalContent'>
         <div className='modalInputRow'>
           <TextField
             className='halfWidthModalInput'
@@ -109,9 +116,6 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
         </div>
       </DialogContent>
       <DialogActions className='modalActions'>
-        <Button className='modalCancelButton' onClick={handleClose}>
-          Cancel
-        </Button>
         <Button
           className='modalConfirmButton rightMarginSmall'
           onClick={confirmAddUser}

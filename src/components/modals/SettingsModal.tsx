@@ -4,11 +4,11 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   TextField,
 } from "@material-ui/core";
 import { useContext, useEffect, useState } from "react";
-import { SheetContext } from "../SplitTheCost";
+import { SheetContext } from "../pages/SplitTheCost";
+import { ModalHeader } from "./ModalHeader";
 
 interface Props {
   open: boolean;
@@ -37,9 +37,15 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
   }
 
   return (
-    <Dialog fullWidth maxWidth='xs' onClose={handleClose} open={open}>
-      <DialogTitle className='modalTitle'>Settings</DialogTitle>
-      <DialogContent className='modalContent' dividers>
+    <Dialog
+      fullWidth
+      maxWidth='xs'
+      onClose={handleClose}
+      open={open}
+      PaperProps={{ className: "modal" }}
+    >
+      <ModalHeader title='Settings' onClose={handleClose} />
+      <DialogContent className='modalContent'>
         <div className='settingsDiv'>
           <TextField
             label={"Sheet Title"}
@@ -50,9 +56,6 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
         </div>
       </DialogContent>
       <DialogActions className='modalActions'>
-        <Button className='modalCancelButton' onClick={handleClose}>
-          Cancel
-        </Button>
         <Button
           className='modalConfirmButton rightMarginSmall'
           onClick={confirmSaveSettings}

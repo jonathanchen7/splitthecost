@@ -6,8 +6,8 @@ import { useState } from "react";
 import { SettingsModal } from "../modals/SettingsModal";
 import { useContext } from "react";
 import { UserContext } from "../../App";
-import { SheetContext } from "../SplitTheCost";
-import { UserChip } from "./UserChip";
+import { SheetContext } from "../pages/SplitTheCost";
+import { UserChip } from "../bits/UserChip";
 import { RemoveUserModal } from "../modals/RemoveUserModal";
 import { User } from "../../models/models";
 import { SaveSheetModal } from "../modals/SaveSheetModal";
@@ -53,7 +53,7 @@ export const UsersBar: React.FC = () => {
             <ReplyIcon />
           </IconButton>
           <IconButton
-            className='iconButton smallIconButton leftMargin'
+            className='iconButton smallIconButton sideMargins'
             onClick={openSettingsModal}
           >
             <SettingsRoundedIcon />

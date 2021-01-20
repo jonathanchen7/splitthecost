@@ -4,7 +4,7 @@ import { OverviewData } from "../../../models/models";
 import { OverviewHeader } from "./OverviewHeader";
 import { OverviewRow } from "./OverviewRow";
 import { calculateOverview } from "../../../actions/sheetActions";
-import { SheetContext } from "../../SplitTheCost";
+import { SheetContext } from "../../pages/SplitTheCost";
 import { UserContext } from "../../../App";
 
 export const Overview: React.FC = () => {

@@ -4,8 +4,8 @@ import { useContext } from "react";
 import NumberFormat from "react-number-format";
 import { UserContext } from "../../../App";
 import { User } from "../../../models/models";
-import { SheetContext } from "../../SplitTheCost";
-import { UserAvatar } from "../../users/UserAvatar";
+import { SheetContext } from "../../pages/SplitTheCost";
+import { UserAvatar } from "../../bits/UserAvatar";
 
 interface Props {
   user: User;

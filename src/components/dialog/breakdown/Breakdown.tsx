@@ -5,7 +5,7 @@ import { calculateUserBreakdown } from "../../../actions/sheetActions";
 import { BreakdownHeader } from "./BreakdownHeader";
 import { BreakdownRow } from "./BreakdownRow";
 import { UserContext } from "../../../App";
-import { SheetContext } from "../../SplitTheCost";
+import { SheetContext } from "../../pages/SplitTheCost";
 
 export const Breakdown: React.FC = () => {
   const { sheetState } = useContext(SheetContext);

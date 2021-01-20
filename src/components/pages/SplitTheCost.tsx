@@ -1,15 +1,15 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
-import { SheetState } from "../models/models";
-import { Entries } from "./entries/Entries";
-import { Header } from "./header/Header";
-import { UsersBar } from "./users/UsersBar";
-import { SideDialog } from "./dialog/SideDialog";
-import { AddEntryModal } from "./modals/AddEntryModal";
-import { SheetAction, sheetReducer } from "../actions/sheetActions";
-import { UserContext } from "../App";
-import { db, sheetStateConverter } from "../firebase";
+import { SheetState } from "../../models/models";
+import { Entries } from "../entries/Entries";
+import { Header } from "../header/Header";
+import { UsersBar } from "../users/UsersBar";
+import { SideDialog } from "../dialog/SideDialog";
+import { AddEntryModal } from "../modals/AddItemFab";
+import { SheetAction, sheetReducer } from "../../actions/sheetActions";
+import { UserContext } from "../../App";
+import { db, sheetStateConverter } from "../../firebase";
 import { useHistory, useLocation, useParams } from "react-router-dom";
-import { WhoAreYouModal } from "./modals/WhoAreYouModal";
+import { WhoAreYouModal } from "../modals/WhoAreYouModal";
 import { nanoid } from "nanoid";
 
 var initialSheetState: SheetState = {

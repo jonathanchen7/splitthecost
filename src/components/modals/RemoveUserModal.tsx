@@ -4,11 +4,11 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
 } from "@material-ui/core";
 import { useContext } from "react";
-import { SheetContext } from "../SplitTheCost";
+import { SheetContext } from "../pages/SplitTheCost";
 import { User } from "../../models/models";
+import { ModalHeader } from "./ModalHeader";
 
 interface Props {
   removeUser: User;
@@ -40,16 +40,19 @@ export const RemoveUserModal: React.FC<Props> = ({
   }
 
   return (
-    <Dialog fullWidth maxWidth='xs' onClose={handleClose} open={open}>
-      <DialogTitle className='modalTitle'>Remove User</DialogTitle>
-      <DialogContent dividers>
+    <Dialog
+      fullWidth
+      maxWidth='xs'
+      onClose={handleClose}
+      open={open}
+      PaperProps={{ className: "modal" }}
+    >
+      <ModalHeader title='Remove User' onClose={handleClose} />
+      <DialogContent>
         Are you sure you want to remove <b>{removeUser.displayName}</b> and all
         associated items?
       </DialogContent>
       <DialogActions className='modalActions'>
-        <Button className='modalCancelButton' onClick={handleClose}>
-          Cancel
-        </Button>
         <Button
           className='modalConfirmButton rightMarginSmall'
           onClick={confirmDeleteUser}

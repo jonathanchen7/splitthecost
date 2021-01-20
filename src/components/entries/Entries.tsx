@@ -2,7 +2,7 @@ import * as React from "react";
 import { EntriesRow } from "./EntriesRow";
 import { EntriesHeader } from "./EntriesHeader";
 import { useContext } from "react";
-import { SheetContext } from "../SplitTheCost";
+import { SheetContext } from "../pages/SplitTheCost";
 import { UserContext } from "../../App";
 
 export const Entries: React.FC = () => {

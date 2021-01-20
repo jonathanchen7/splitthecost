@@ -145,9 +145,14 @@ $redArrowColor: #e74c3c;
 
 // ---------------- GENERAL - MODAL ----------------
 
+.modal {
+  border-radius: 10px !important;
+}
+
 .modalTitle {
+  display: flex;
   padding-top: 10px !important;
-  padding-bottom: 5px !important;
+  padding-bottom: 0px !important;
 }
 
 .modalContent {
@@ -166,8 +171,14 @@ $redArrowColor: #e74c3c;
 }
 
 .modalActions {
-  margin-top: 5px !important;
+  padding-top: 0px !important;
   margin-bottom: 5px !important;
+}
+
+.modalClose {
+  position: absolute !important;
+  top: 10px;
+  right: 15px;
 }
 
 // ---------------- GENERAL - GRID ----------------
@@ -554,7 +565,6 @@ $redArrowColor: #e74c3c;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background-color: $gridHighlightColor;
   margin-top: 15px;
   padding: 10px;
 }

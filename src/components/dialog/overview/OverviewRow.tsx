@@ -2,8 +2,8 @@ import { Grid, Input, InputAdornment } from "@material-ui/core";
 import * as React from "react";
 // import NumberFormat from "react-number-format";
 import { User } from "../../../models/models";
-import { UserAvatar } from "../../users/UserAvatar";
-import { SheetContext } from "../../SplitTheCost";
+import { UserAvatar } from "../../bits/UserAvatar";
+import { SheetContext } from "../../pages/SplitTheCost";
 import { useContext } from "react";
 
 interface Props {

@@ -5,12 +5,12 @@ import { Avatar, IconButton, Input, InputAdornment } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Entry } from "../../models/models";
 import NumberFormat from "react-number-format";
-import { UserAvatar } from "../users/UserAvatar";
+import { UserAvatar } from "../bits/UserAvatar";
 import { ExcludedUsersModal } from "../modals/ExcludedUsersModal";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import { motion } from "framer-motion";
 import { useContext } from "react";
-import { SheetContext } from "../SplitTheCost";
+import { SheetContext } from "../pages/SplitTheCost";
 
 interface Props {
   entry: Entry;
