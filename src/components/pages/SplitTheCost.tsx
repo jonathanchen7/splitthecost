@@ -4,7 +4,7 @@ import { Entries } from "../entries/Entries";
 import { Header } from "../header/Header";
 import { UsersBar } from "../users/UsersBar";
 import { SideDialog } from "../dialog/SideDialog";
-import { AddEntryModal } from "../modals/AddItemFab";
+import { AddItemFab } from "../bits/AddItemFab";
 import { SheetAction, sheetReducer } from "../../actions/sheetActions";
 import { UserContext } from "../../App";
 import { db, sheetStateConverter } from "../../firebase";
@@ -90,7 +90,7 @@ export const SplitTheCost: React.FC = () => {
       <UsersBar />
       <Entries />
       <SideDialog />
-      {userState.curUser && <AddEntryModal />}
+      {userState.curUser && <AddItemFab />}
       <WhoAreYouModal open={!userState.curUser} />
     </SheetContext.Provider>
   );

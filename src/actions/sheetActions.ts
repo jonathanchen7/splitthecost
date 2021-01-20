@@ -161,6 +161,8 @@ function updateEntry(state: SheetState, action: UpdateEntryAction): SheetState {
 
 // Add a user to the sheet.
 function addUser(state: SheetState, action: AddUserAction): SheetState {
+  if (state.numUsers >= 10) return state;
+
   let duplicateUser = false;
   Object.entries(state.users).forEach((pair) => {
     const user = pair[1];
@@ -196,6 +198,8 @@ function addUser(state: SheetState, action: AddUserAction): SheetState {
 
 // Remove a user from the sheet.
 function removeUser(state: SheetState, action: RemoveUserAction): SheetState {
+  if (state.numUsers === 1) return state;
+
   // Remove user from users dictionary.
   const newUsers = { ...state.users };
   delete newUsers[action.userId];
@@ -270,6 +274,8 @@ function removeExcludedUser(
 }
 
 function saveSheet(state: SheetState, action: SaveSheetAction): SheetState {
+  if (!state.local) return state;
+
   const newSheetState = { ...state, local: false };
   updateFirestore(newSheetState);
   return newSheetState;

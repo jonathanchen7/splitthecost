@@ -50,6 +50,7 @@ export const EntriesRow: React.FC<Props> = ({
           section: "item",
           value: value,
         });
+        setEmptyRow(!item && !entry.cost && !note);
         break;
       case "cost":
         sheetDispatch({
@@ -59,6 +60,7 @@ export const EntriesRow: React.FC<Props> = ({
           value: value,
           local: local,
         });
+        setEmptyRow(!item && !Number(value) && !note);
         break;
       case "note":
         sheetDispatch({
@@ -67,6 +69,7 @@ export const EntriesRow: React.FC<Props> = ({
           section: "note",
           value: value,
         });
+        setEmptyRow(!item && !entry.cost && !note);
         break;
     }
   }
@@ -159,14 +162,6 @@ export const EntriesRow: React.FC<Props> = ({
                     className='leftMarginSmall'
                     user={sheetState.users[userId]}
                     tooltipPlacement='top'
-                    iconOnHover={curUserEntry ? <DeleteIcon /> : undefined}
-                    onClick={() => {
-                      sheetDispatch({
-                        type: "removeExcludedUser",
-                        userId: userId,
-                        entry: entry,
-                      });
-                    }}
                     key={userId}
                   />
                 );

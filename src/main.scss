@@ -80,15 +80,10 @@ $redArrowColor: #e74c3c;
   background-color: $defaultIconColor;
   height: $avatarDiameter !important;
   width: $avatarDiameter !important;
-  color: white;
   font-size: $avatarFontSize !important;
+  color: white;
   font-weight: bold;
   transition: 0.5s;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.35);
-    cursor: pointer;
-  }
 }
 
 .smallAvatar {
@@ -155,11 +150,6 @@ $redArrowColor: #e74c3c;
   padding-bottom: 0px !important;
 }
 
-.modalContent {
-  padding-top: 10px !important;
-  padding-bottom: 25px !important;
-}
-
 .modalInputRow {
   display: flex;
   justify-content: space-between;
@@ -222,6 +212,8 @@ $redArrowColor: #e74c3c;
 .usersBar {
   height: $usersBarHeight;
   align-items: center;
+  height: auto;
+  padding-top: $marginStandard;
   background-color: $usersBarColor;
 }
 
@@ -346,23 +338,20 @@ $redArrowColor: #e74c3c;
 
 .excludeModalContent {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  overflow: hidden !important;
+  justify-content: space-around;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
 }
 
-.excludeModalPaperHeader {
-  font-weight: bold;
-  margin-top: 10px;
-  margin-bottom: 10px;
+.excludeModalColumn {
+  display: flex;
+  flex-direction: column;
 }
 
-.excludeModalPaper {
-  border-radius: 15px !important;
-  background-color: $gridLightColor !important;
-  margin-top: 10px;
-  padding: 0px 10px 5px 10px;
-  width: 46%;
+.excludeModalUser {
+  display: flex;
+  align-items: center;
+  margin-bottom: $marginSmall;
 }
 
 // ---------------- ADD ITEM MODAL ----------------
@@ -565,6 +554,6 @@ $redArrowColor: #e74c3c;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-top: 15px;
+  margin-bottom: 10px;
   padding: 10px;
 }

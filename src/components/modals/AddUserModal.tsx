@@ -66,7 +66,9 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
 
   function confirmAddUser() {
     // Validate first/last name and check for duplicates.
-    if (!validateNewUser(firstName, lastName)) return;
+    if (sheetState.numUsers >= 10 || !validateNewUser(firstName, lastName)) {
+      return;
+    }
 
     sheetDispatch({
       type: "addUser",
@@ -87,9 +89,8 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
       open={open}
       PaperProps={{ className: "modal" }}
     >
-      <ModalHeader title='Add User' onClose={handleClose} />
-
-      <DialogContent className='modalContent'>
+      <ModalHeader title='Add a Friend' onClose={handleClose} />
+      <DialogContent>
         <div className='modalInputRow'>
           <TextField
             className='halfWidthModalInput'

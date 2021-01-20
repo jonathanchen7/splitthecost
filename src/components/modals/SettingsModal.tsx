@@ -45,7 +45,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
       PaperProps={{ className: "modal" }}
     >
       <ModalHeader title='Settings' onClose={handleClose} />
-      <DialogContent className='modalContent'>
+      <DialogContent>
         <div className='settingsDiv'>
           <TextField
             label={"Sheet Title"}

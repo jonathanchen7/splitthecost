@@ -10,7 +10,7 @@ import { SheetContext } from "../pages/SplitTheCost";
 import { UserChip } from "../bits/UserChip";
 import { RemoveUserModal } from "../modals/RemoveUserModal";
 import { User } from "../../models/models";
-import { SaveSheetModal } from "../modals/SaveSheetModal";
+import { ShareSheetModal } from "../modals/ShareSheetModal";
 import ReplyIcon from "@material-ui/icons/Reply";
 import SettingsRoundedIcon from "@material-ui/icons/SettingsRounded";
 
@@ -47,23 +47,26 @@ export const UsersBar: React.FC = () => {
       <Grid className='usersBar' container spacing={0}>
         <Grid item xs={12}>
           <IconButton
-            className='iconButton smallIconButton leftMargin'
+            className='iconButton smallIconButton leftMargin bottomMargin'
             onClick={openSaveSheetModal}
           >
             <ReplyIcon />
           </IconButton>
           <IconButton
-            className='iconButton smallIconButton sideMargins'
+            className='iconButton smallIconButton leftMargin bottomMargin'
             onClick={openSettingsModal}
           >
             <SettingsRoundedIcon />
           </IconButton>
-          {userState.curUser && <UserChip user={userState.curUser} />}
+          {userState.curUser && (
+            <UserChip className='bottomMargin' user={userState.curUser} />
+          )}
           {Object.entries(sheetState.users).map((pair) => {
             const user = pair[1];
             return (
               (!userState.curUser || user.id !== userState.curUser.id) && (
                 <UserChip
+                  className='bottomMargin leftMargin'
                   user={user}
                   onRemove={userState.curUser && openRemoveUserModal}
                   key={user.id}
@@ -74,7 +77,7 @@ export const UsersBar: React.FC = () => {
           {userState.curUser && (
             <Tooltip arrow title='Add User' placement='right'>
               <IconButton
-                className='iconButton smallIconButton leftMargin'
+                className='iconButton smallIconButton leftMargin bottomMargin'
                 onClick={openAddUserModal}
               >
                 <AddRoundedIcon />
@@ -93,7 +96,7 @@ export const UsersBar: React.FC = () => {
           setOpen={setOpenRemoveUser}
         />
       )}
-      <SaveSheetModal open={openSaveSheet} setOpen={setOpenSaveSheet} />
+      <ShareSheetModal open={openSaveSheet} setOpen={setOpenSaveSheet} />
     </>
   );
 };

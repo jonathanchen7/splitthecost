@@ -19,7 +19,7 @@ export const UserChip: React.FC<Props> = ({
   return (
     <span onClick={onClick && (() => onClick(user))}>
       <Chip
-        className={`chip rightMargin ${className} ${onClick && "linkCursor"}`}
+        className={`chip ${className} ${onClick && "linkCursor"}`}
         avatar={
           <Avatar
             className='smallAvatar'

@@ -32,7 +32,7 @@ export const WhoAreYouModal: React.FC<Props> = ({ open }) => {
   return (
     <Dialog
       fullWidth
-      maxWidth='xs'
+      maxWidth='sm'
       open={open}
       PaperProps={{ className: "modal" }}
     >
@@ -42,7 +42,7 @@ export const WhoAreYouModal: React.FC<Props> = ({ open }) => {
           const user = pair[1];
           return (
             <UserChip
-              className={`bottomMargin ${
+              className={`bottomMargin rightMargin ${
                 selectedUser?.id === user.id && "selectedChip"
               }`}
               user={user}

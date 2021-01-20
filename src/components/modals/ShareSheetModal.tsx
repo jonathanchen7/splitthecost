@@ -17,7 +17,7 @@ interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const SaveSheetModal: React.FC<Props> = ({ open, setOpen }) => {
+export const ShareSheetModal: React.FC<Props> = ({ open, setOpen }) => {
   const history = useHistory();
 
   const { sheetState, sheetDispatch } = useContext(SheetContext);
@@ -41,23 +41,25 @@ export const SaveSheetModal: React.FC<Props> = ({ open, setOpen }) => {
   return (
     <Dialog
       fullWidth
-      maxWidth='sm'
+      maxWidth='xs'
       onClose={handleClose}
       open={open}
       PaperProps={{ className: "modal" }}
     >
       <ModalHeader title='Share Sheet' onClose={handleClose} />
-      <DialogContent className='modalContent'>
-        {sheetState.local ? (
-          "Would you like to generate a shareable link for this sheet?"
-        ) : (
-          <Paper className='saveLinkPaper' elevation={3}>
-            splitthecost.com/sheet/{sheetState.id}
-            <Button color='primary' onClick={copySheetLink}>
-              {copyButtonText}
-            </Button>
-          </Paper>
-        )}
+      <DialogContent>
+        <Paper className='saveLinkPaper' elevation={3}>
+          {sheetState.local ? (
+            "Would you like to generate a shareable link?"
+          ) : (
+            <>
+              splitthecost.com/sheet/{sheetState.id}
+              <Button color='primary' onClick={copySheetLink}>
+                {copyButtonText}
+              </Button>
+            </>
+          )}
+        </Paper>
       </DialogContent>
       {sheetState.local && (
         <DialogActions className='modalActions'>

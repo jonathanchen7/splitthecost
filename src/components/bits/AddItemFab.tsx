@@ -5,7 +5,7 @@ import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import { UserContext } from "../../App";
 import { SheetContext } from "../pages/SplitTheCost";
 
-export const AddEntryModal: React.FC = () => {
+export const AddItemFab: React.FC = () => {
   const { sheetDispatch } = useContext(SheetContext);
   const { userState } = useContext(UserContext);
 
@@ -29,7 +29,7 @@ export const AddEntryModal: React.FC = () => {
         onClick={addEntry}
       >
         <AddRoundedIcon />
-        <span className='leftMarginSmall'>Add Item</span>
+        <span className='leftMarginSmall'>Add Expense</span>
       </Fab>
     </div>
   );
