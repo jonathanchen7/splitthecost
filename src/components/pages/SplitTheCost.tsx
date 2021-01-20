@@ -104,6 +104,7 @@ export const SplitTheCost: React.FC = () => {
           type: "updateSheetState",
           sheetState: customFetchedSheetState,
         });
+        return;
       }
     }
 

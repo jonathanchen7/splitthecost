@@ -1,9 +1,21 @@
 import * as React from "react";
-import { Button, Dialog, DialogContent, Input } from "@material-ui/core";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Input,
+} from "@material-ui/core";
 import { useContext, useEffect, useState } from "react";
 import { SheetContext } from "../pages/SplitTheCost";
 import { ModalHeader } from "./ModalHeader";
 import { db } from "../../firebase";
+
+enum SaveStates {
+  Save = 1,
+  Saving = 2,
+  Saved = 3,
+}
 
 interface Props {
   open: boolean;
@@ -22,6 +34,8 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
   const [editLink, setEditLink] = useState(false);
   const [validLink, setValidLink] = useState(true);
 
+  const [saveState, setSaveState] = useState(SaveStates.Save);
+
   useEffect(() => {
     setSheetTitle(sheetState.title);
     setSheetLink(sheetState.customLink ? sheetState.customLink : sheetState.id);
@@ -33,41 +47,41 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
     setEditLink(false);
     setValidLink(true);
     setSheetLink(sheetState.customLink ? sheetState.customLink : sheetState.id);
+    setSaveState(SaveStates.Save);
     setOpen(false);
   }
 
-  function handleTitleButtonClick() {
-    if (editTitle) {
-      sheetDispatch({ type: "changeSheetTitle", title: sheetTitle });
-      setEditTitle(false);
-    } else {
-      setEditTitle(true);
-    }
-  }
-
-  function validateSheetLink(link: string): boolean {
+  async function validateSheetLink(link: string): Promise<Boolean> {
     if (link.trim().length < 5 || link.length > 15) {
+      setValidLink(false);
       return false;
     }
+
+    const linkSnapshot = await db
+      .collection("customLinks")
+      .doc(sheetLink)
+      .get();
+    if (linkSnapshot.exists) {
+      setValidLink(false);
+      return false;
+    }
+
     return true;
   }
 
-  async function handleLinkButtonClick() {
-    if (editLink && sheetLink && validateSheetLink(sheetLink)) {
-      const linkSnapshot = await db
-        .collection("customLinks")
-        .doc(sheetLink)
-        .get();
-      if (linkSnapshot.exists) {
-        setValidLink(false);
-        return;
-      }
-
-      sheetDispatch({ type: "changeSheetLink", link: sheetLink });
-      setEditLink(false);
-    } else {
-      setEditLink(true);
+  async function saveSettings() {
+    setSaveState(SaveStates.Saving);
+    if (sheetTitle !== sheetState.title) {
+      sheetDispatch({ type: "changeSheetTitle", title: sheetTitle });
     }
+
+    if (sheetLink !== sheetState.id && sheetLink !== sheetState.customLink) {
+      if (await validateSheetLink(sheetLink)) {
+        sheetDispatch({ type: "changeSheetLink", link: sheetLink });
+      }
+    }
+    await new Promise((r) => setTimeout(r, 500));
+    setSaveState(SaveStates.Saved);
   }
 
   return (
@@ -90,8 +104,13 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
             value={sheetTitle}
             onChange={(e) => setSheetTitle(e.target.value)}
           />
-          <Button onClick={handleTitleButtonClick}>
-            {editTitle ? "CONFIRM" : "EDIT"}
+          <Button
+            onClick={() => {
+              setEditTitle(!editTitle);
+              setSaveState(SaveStates.Save);
+            }}
+          >
+            {editTitle ? "DONE" : "EDIT"}
           </Button>
         </div>
         <div className='settingsRow'>
@@ -106,11 +125,34 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
             startAdornment={<b>splitthecost.com/</b>}
             onChange={(e) => setSheetLink(e.target.value)}
           />
-          <Button onClick={handleLinkButtonClick}>
-            {editLink ? "CONFIRM" : "EDIT"}
+          <Button
+            onClick={() => {
+              setEditLink(!editLink);
+              setSaveState(SaveStates.Save);
+            }}
+          >
+            {editLink ? "DONE" : "EDIT"}
           </Button>
         </div>
       </DialogContent>
+      <DialogActions className='modalActions'>
+        <Button
+          className='modalConfirmButton rightMarginSmall'
+          disabled={
+            saveState === SaveStates.Saving ||
+            saveState === SaveStates.Saved ||
+            editLink ||
+            editTitle
+          }
+          onClick={saveSettings}
+        >
+          {saveState === SaveStates.Save
+            ? "Save"
+            : saveState === SaveStates.Saving
+            ? "Saving..."
+            : "Saved"}
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 };
