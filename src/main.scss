@@ -382,11 +382,16 @@ $redArrowColor: #e74c3c;
 
 // ---------------- SETTINGS MODAL ----------------
 
-.settingsDiv {
-  display: flex !important;
-  justify-items: center;
-  justify-content: center;
-  margin-top: 20px;
+.settingsModalContent {
+  padding-right: 10px !important;
+}
+
+.settingsRow {
+  margin-bottom: 10px;
+
+  button {
+    float: right;
+  }
 }
 
 // ---------------- LOGIN ----------------

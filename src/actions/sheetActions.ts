@@ -57,6 +57,10 @@ export type ChangeSheetTitleAction = {
   type: "changeSheetTitle";
   title: string;
 };
+export type ChangeSheetLinkAction = {
+  type: "changeSheetLink";
+  link: string;
+};
 export type SaveSheetAction = {
   type: "saveSheet";
 };
@@ -74,6 +78,7 @@ export type SheetAction =
   | UpdateExcludedUsersAction
   | RemoveExcludedUserAction
   | ChangeSheetTitleAction
+  | ChangeSheetLinkAction
   | SaveSheetAction
   | UpdateSheetStateAction;
 
@@ -95,6 +100,8 @@ export function sheetReducer(state: SheetState, action: SheetAction) {
       return removeExcludedUser(state, action);
     case "changeSheetTitle":
       return changeSheetTitle(state, action);
+    case "changeSheetLink":
+      return changeSheetLink(state, action);
     case "saveSheet":
       return saveSheet(state, action);
     case "updateSheetState":
@@ -247,15 +254,6 @@ function updatedExcludedUsers(
   return newSheetState;
 }
 
-function changeSheetTitle(
-  state: SheetState,
-  action: ChangeSheetTitleAction
-): SheetState {
-  const newSheetState: SheetState = { ...state, title: action.title };
-  updateFirestore(newSheetState);
-  return newSheetState;
-}
-
 // Remove an excluded user from a specific entry.
 function removeExcludedUser(
   state: SheetState,
@@ -270,6 +268,40 @@ function removeExcludedUser(
 
   const newSheetState: SheetState = { ...state, entries: newEntries };
   updateFirestore(newSheetState, action.local);
+  return newSheetState;
+}
+
+function changeSheetTitle(
+  state: SheetState,
+  action: ChangeSheetTitleAction
+): SheetState {
+  if (state.title === action.title) return state;
+
+  const newSheetState: SheetState = { ...state, title: action.title };
+  updateFirestore(newSheetState);
+  return newSheetState;
+}
+
+function changeSheetLink(
+  state: SheetState,
+  action: ChangeSheetLinkAction
+): SheetState {
+  if (
+    !action.link ||
+    state.customLink === action.link ||
+    action.link.length < 5
+  )
+    return state;
+
+  const newSheetState: SheetState = { ...state, customLink: action.link };
+  updateFirestore(newSheetState);
+
+  if (state.customLink) {
+    db.collection("customLinks").doc(state.customLink).delete();
+  }
+
+  const firebaseLink = { sheetId: state.id };
+  db.collection("customLinks").doc(action.link).set(firebaseLink);
   return newSheetState;
 }
 

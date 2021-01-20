@@ -53,7 +53,7 @@ export const UsersBar: React.FC = () => {
             <ReplyIcon />
           </IconButton>
           <IconButton
-            className='iconButton smallIconButton leftMargin bottomMargin'
+            className='iconButton smallIconButton sideMargins bottomMargin'
             onClick={openSettingsModal}
           >
             <SettingsRoundedIcon />

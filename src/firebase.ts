@@ -22,6 +22,7 @@ export const sheetStateConverter = {
       createdBy: sheetState.createdBy,
       local: sheetState.local,
       id: sheetState.id,
+      customLink: sheetState.customLink,
     };
   },
   fromFirestore(
@@ -37,6 +38,7 @@ export const sheetStateConverter = {
       createdBy: data.createdBy,
       local: data.local,
       id: data.id,
+      customLink: data.customLink,
     };
   },
 };

@@ -71,15 +71,43 @@ export const SplitTheCost: React.FC = () => {
   }
 
   async function fetchSheetState() {
-    const sheetRef = await db
+    const sheetSnapshot = await db
       .collection("sheets")
       .withConverter(sheetStateConverter)
       .doc(sheetId)
       .get();
-    const response = sheetRef.data();
-    if (response) {
-      sheetDispatch({ type: "updateSheetState", sheetState: response });
+    const fetchedSheetState = sheetSnapshot.data();
+    if (fetchedSheetState) {
+      sheetDispatch({
+        type: "updateSheetState",
+        sheetState: fetchedSheetState,
+      });
+      return;
     }
+
+    const customLinkSnapshot = await db
+      .collection("customLinks")
+      .doc(sheetId)
+      .get();
+
+    const customLink = customLinkSnapshot.data();
+    if (customLink) {
+      const actualSheetId = customLink["sheetId"];
+      const customSheetSnapshot = await db
+        .collection("sheets")
+        .withConverter(sheetStateConverter)
+        .doc(actualSheetId)
+        .get();
+      const customFetchedSheetState = customSheetSnapshot.data();
+      if (customFetchedSheetState) {
+        sheetDispatch({
+          type: "updateSheetState",
+          sheetState: customFetchedSheetState,
+        });
+      }
+    }
+
+    history.push("/create");
   }
 
   return (

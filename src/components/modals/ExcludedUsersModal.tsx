@@ -71,7 +71,7 @@ export const ExcludedUsersModal: React.FC<Props> = ({
             const user = pair[1];
             return (
               idx % 2 === 0 && (
-                <div className='excludeModalUser'>
+                <div className='excludeModalUser' key={user.id}>
                   <Checkbox
                     checked={!excludedUsers.includes(user.id)}
                     color='primary'
@@ -88,7 +88,7 @@ export const ExcludedUsersModal: React.FC<Props> = ({
             const user = pair[1];
             return (
               idx % 2 === 1 && (
-                <div className='excludeModalUser'>
+                <div className='excludeModalUser' key={user.id}>
                   <Checkbox
                     checked={!excludedUsers.includes(user.id)}
                     color='primary'

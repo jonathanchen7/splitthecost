@@ -40,6 +40,7 @@ export interface SheetState {
   createdBy: string;
   local: boolean;
   id: string;
+  customLink?: string;
 }
 
 export interface UserState {
