@@ -95,14 +95,21 @@ export function validateCustomSheetLink(link: string): boolean {
 }
 
 // "Calculates" an avatar's color.
-export function getAvatarColor(user: User, placeholder?: boolean): string {
+export function getAvatarColor(
+  user: User,
+  userIdx: number,
+  placeholder?: boolean
+): string {
   if (placeholder) return "#dedede";
 
   const colors = [
     "#AD1457",
+    "#F9A825",
     "#1565C0",
     "#6A1B9A",
     "#4527A0",
+    "#FF8F00",
+    "#D84315",
     "#283593",
     "#4E342E",
     "#00838F",
@@ -110,20 +117,12 @@ export function getAvatarColor(user: User, placeholder?: boolean): string {
     "#EF6C00",
     "#00695C",
     "#2E7D32",
-    "#F9A825",
     "#C62828",
     "#9E9D24",
     "#558B2F",
     "#37474F",
-    "#FF8F00",
     "#424242",
-    "#D84315",
   ];
 
-  var h = 0,
-    l = user.displayName.length,
-    i = 0;
-  if (l > 0)
-    while (i < l) h = ((h << 5) - h + user.displayName.charCodeAt(i++)) | 0;
-  return colors[Math.abs(h % colors.length)];
+  return colors[userIdx % colors.length];
 }

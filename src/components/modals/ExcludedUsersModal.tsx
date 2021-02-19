@@ -77,7 +77,11 @@ export const ExcludedUsersModal: React.FC<Props> = ({
                     color='primary'
                     onClick={() => handleClick(user.id)}
                   />
-                  <UserChip user={user} onClick={() => handleClick(user.id)} />
+                  <UserChip
+                    user={user}
+                    userIdx={Object.keys(sheetState.users).indexOf(user.id)}
+                    onClick={() => handleClick(user.id)}
+                  />
                 </div>
               )
             );
@@ -94,7 +98,11 @@ export const ExcludedUsersModal: React.FC<Props> = ({
                     color='primary'
                     onClick={() => handleClick(user.id)}
                   />
-                  <UserChip user={user} onClick={() => handleClick(user.id)} />
+                  <UserChip
+                    user={user}
+                    userIdx={Object.keys(sheetState.users).indexOf(user.id)}
+                    onClick={() => handleClick(user.id)}
+                  />
                 </div>
               )
             );

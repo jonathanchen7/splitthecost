@@ -94,6 +94,9 @@ export const EntriesRow: React.FC<Props> = ({
             <UserAvatar
               className='leftMargin'
               user={sheetState.users[entry.createdBy]}
+              userIdx={Object.keys(sheetState.users).indexOf(
+                sheetState.users[entry.createdBy].id
+              )}
               tooltipPlacement='top'
               disabled={emptyRow}
             />
@@ -161,6 +164,9 @@ export const EntriesRow: React.FC<Props> = ({
                   <UserAvatar
                     className='leftMarginSmall'
                     user={sheetState.users[userId]}
+                    userIdx={Object.keys(sheetState.users).indexOf(
+                      sheetState.users[userId].id
+                    )}
                     tooltipPlacement='top'
                     key={userId}
                   />

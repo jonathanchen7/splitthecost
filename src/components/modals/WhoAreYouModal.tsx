@@ -46,6 +46,7 @@ export const WhoAreYouModal: React.FC<Props> = ({ open }) => {
                 selectedUser?.id === user.id && "selectedChip"
               }`}
               user={user}
+              userIdx={Object.keys(sheetState.users).indexOf(user.id)}
               onClick={setSelectedUser}
               key={user.id}
             />

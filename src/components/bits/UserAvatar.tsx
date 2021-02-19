@@ -1,10 +1,11 @@
 import * as React from "react";
 import { Avatar, Tooltip } from "@material-ui/core";
 import { User } from "../../models/models";
-import { getAvatarColor } from "../../actions/sheetActions";
+import { getAvatarColor } from "../../logic/logic";
 
 interface Props {
   user: User;
+  userIdx: number;
   tooltipPlacement:
     | "top"
     | "left"
@@ -25,6 +26,7 @@ interface Props {
 
 export const UserAvatar: React.FC<Props> = ({
   user,
+  userIdx,
   tooltipPlacement,
   disabled,
   className,
@@ -39,7 +41,7 @@ export const UserAvatar: React.FC<Props> = ({
       <Avatar
         className='avatar'
         style={{
-          backgroundColor: getAvatarColor(user, disabled),
+          backgroundColor: getAvatarColor(user, userIdx, disabled),
         }}
       >
         {user.initials}

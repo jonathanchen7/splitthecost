@@ -21,6 +21,9 @@ export const Header: React.FC = () => {
           <UserAvatar
             className='rightMargin'
             user={userState.curUser}
+            userIdx={Object.keys(sheetState.users).indexOf(
+              userState.curUser.id
+            )}
             tooltipPlacement={"bottom"}
           />
         )}

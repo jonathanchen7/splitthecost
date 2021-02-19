@@ -1,10 +1,11 @@
 import * as React from "react";
 import { Avatar, Chip } from "@material-ui/core";
 import { User } from "../../models/models";
-import { getAvatarColor } from "../../actions/sheetActions";
+import { getAvatarColor } from "../../logic/logic";
 
 interface Props {
   user: User;
+  userIdx: number;
   onRemove?: (user: User) => void;
   onClick?: (user: User) => void;
   className?: string;
@@ -12,6 +13,7 @@ interface Props {
 
 export const UserChip: React.FC<Props> = ({
   user,
+  userIdx,
   onRemove,
   onClick,
   className,
@@ -23,7 +25,7 @@ export const UserChip: React.FC<Props> = ({
         avatar={
           <Avatar
             className='smallAvatar'
-            style={{ backgroundColor: getAvatarColor(user) }}
+            style={{ backgroundColor: getAvatarColor(user, userIdx) }}
           >
             {user.initials}
           </Avatar>

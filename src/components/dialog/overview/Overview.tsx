@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { OverviewData } from "../../../models/models";
 import { OverviewHeader } from "./OverviewHeader";
 import { OverviewRow } from "./OverviewRow";
-import { calculateOverview } from "../../../actions/sheetActions";
+import { calculateOverview } from "../../../logic/logic";
 import { SheetContext } from "../../pages/SplitTheCost";
 import { UserContext } from "../../../App";
 

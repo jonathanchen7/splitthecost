@@ -27,6 +27,7 @@ export const OverviewRow: React.FC<Props> = ({ user, data, idx }) => {
         <UserAvatar
           className='leftMargin'
           user={user}
+          userIdx={Object.keys(sheetState.users).indexOf(user.id)}
           tooltipPlacement='left'
         />
       </Grid>

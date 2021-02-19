@@ -59,7 +59,13 @@ export const UsersBar: React.FC = () => {
             <SettingsRoundedIcon />
           </IconButton>
           {userState.curUser && (
-            <UserChip className='bottomMargin' user={userState.curUser} />
+            <UserChip
+              className='bottomMargin'
+              user={userState.curUser}
+              userIdx={Object.keys(sheetState.users).indexOf(
+                userState.curUser.id
+              )}
+            />
           )}
           {Object.entries(sheetState.users).map((pair) => {
             const user = pair[1];
@@ -68,6 +74,7 @@ export const UsersBar: React.FC = () => {
                 <UserChip
                   className='bottomMargin leftMargin'
                   user={user}
+                  userIdx={Object.keys(sheetState.users).indexOf(user.id)}
                   onRemove={userState.curUser && openRemoveUserModal}
                   key={user.id}
                 />

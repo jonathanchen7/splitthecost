@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useEffect, useState, useContext } from "react";
 import { UserBreakdownData } from "../../../models/models";
-import { calculateUserBreakdown } from "../../../actions/sheetActions";
 import { BreakdownHeader } from "./BreakdownHeader";
 import { BreakdownRow } from "./BreakdownRow";
 import { UserContext } from "../../../App";
 import { SheetContext } from "../../pages/SplitTheCost";
+import { calculateUserBreakdown } from "../../../logic/logic";
 
 export const Breakdown: React.FC = () => {
   const { sheetState } = useContext(SheetContext);

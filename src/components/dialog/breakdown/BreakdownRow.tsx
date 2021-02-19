@@ -33,6 +33,7 @@ export const BreakdownRow: React.FC<Props> = ({ user, data, idx }) => {
         <UserAvatar
           className='leftMargin'
           user={debtedUser}
+          userIdx={Object.keys(sheetState.users).indexOf(debtedUser.id)}
           tooltipPlacement='left'
         />
       </Grid>
@@ -50,7 +51,11 @@ export const BreakdownRow: React.FC<Props> = ({ user, data, idx }) => {
         )}
       </Grid>
       <Grid className='sideDialogRow' item xs={2}>
-        <UserAvatar user={owedUser} tooltipPlacement='top' />
+        <UserAvatar
+          user={owedUser}
+          userIdx={Object.keys(sheetState.users).indexOf(owedUser.id)}
+          tooltipPlacement='top'
+        />
       </Grid>
       <Grid className='sideDialogRow' item xs={4}>
         <Input
