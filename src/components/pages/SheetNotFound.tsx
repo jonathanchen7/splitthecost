@@ -8,8 +8,8 @@ export const SheetNotFound: React.FC = () => {
   return (
     <div className='homePage'>
       <span className='welcomeHeader'>
-        <b>error</b> - we couldn't find a sheet with the id "
-        {location.state.sheetId}".
+        sorry, we couldn't find a sheet with the id "
+        <b>{location.state.sheetId}</b>".
       </span>
 
       <Link className='noTextDecoration' to='/create'>
