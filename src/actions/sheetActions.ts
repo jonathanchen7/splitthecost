@@ -1,12 +1,6 @@
 import { nanoid } from "nanoid";
 import { db, sheetStateConverter } from "../firebase";
-import {
-  Entry,
-  OverviewData,
-  SheetState,
-  User,
-  UserBreakdownData,
-} from "../models/models";
+import { Entry, SheetState, User } from "../models/models";
 
 export type AddEntryAction = {
   type: "addEntry";
@@ -271,6 +265,7 @@ function removeExcludedUser(
   return newSheetState;
 }
 
+// Update the sheet's title.
 function changeSheetTitle(
   state: SheetState,
   action: ChangeSheetTitleAction
@@ -282,6 +277,7 @@ function changeSheetTitle(
   return newSheetState;
 }
 
+// Update the sheet's custom link.
 function changeSheetLink(
   state: SheetState,
   action: ChangeSheetLinkAction
@@ -305,6 +301,7 @@ function changeSheetLink(
   return newSheetState;
 }
 
+// Save the sheet in Firestore and set the sheet to auto-update.
 function saveSheet(state: SheetState, action: SaveSheetAction): SheetState {
   if (!state.local) return state;
 
@@ -320,106 +317,4 @@ function updateFirestore(state: SheetState, local?: boolean) {
     .withConverter(sheetStateConverter)
     .doc(state.id)
     .set(state);
-}
-
-// ----------------- CALCULATIONS -----------------
-
-// Calculates and returns the overview data.
-export function calculateOverview(
-  entries: Entry[],
-  users: { [id: string]: User }
-): OverviewData {
-  let overviewData: OverviewData = {};
-
-  // Create entries for each user.
-  Object.entries(users).forEach((pair) => {
-    let user = pair[1];
-    overviewData[user.id] = { totalSpent: 0, totalOwed: 0 };
-  });
-
-  entries.forEach((entry) => {
-    overviewData[entry.createdBy].totalSpent += entry.cost;
-
-    const validUsers = Object.keys(users).filter(
-      (userId) => !entry.exclude.includes(userId)
-    );
-    const userCost = entry.cost / validUsers.length;
-
-    validUsers.forEach((userId) => {
-      if (userId !== entry.createdBy) {
-        overviewData[userId].totalOwed += userCost;
-      }
-    });
-  });
-
-  return overviewData;
-}
-
-// Calculates and returns the breakdown data.
-export function calculateUserBreakdown(
-  user: User,
-  entries: Entry[],
-  users: { [id: string]: User }
-): UserBreakdownData {
-  let breakdownData: UserBreakdownData = {
-    user: user,
-    totalSpent: 0,
-    totalOwed: 0,
-    userBreakdown: {},
-  };
-
-  Object.entries(users).forEach((pair) => {
-    let curUser = pair[1];
-    if (curUser !== user) {
-      breakdownData.userBreakdown[curUser.id] = { theyOwe: 0, youOwe: 0 };
-    }
-  });
-
-  entries.forEach((entry) => {
-    const numEntryUsers = Object.keys(users).length - entry.exclude.length;
-    if (entry.createdBy === user.id) {
-      // This is the current user's entry. Add the cost to totalSpent and
-      // increment "theyOwe" for all valid users.
-      breakdownData.totalSpent += entry.cost;
-
-      const validUsers = Object.keys(users).filter(
-        (userId) =>
-          !entry.exclude.includes(userId) && userId !== entry.createdBy
-      );
-      validUsers.forEach((userId) => {
-        breakdownData.userBreakdown[userId].theyOwe +=
-          entry.cost / numEntryUsers;
-      });
-    } else if (!entry.exclude.includes(user.id)) {
-      // This is another user's entry that you need to pay for. Add the cost to
-      // totalOwed and increment "youOwe" for this particular user.
-      breakdownData.totalOwed += entry.cost / numEntryUsers;
-      breakdownData.userBreakdown[entry.createdBy].youOwe +=
-        entry.cost / numEntryUsers;
-    }
-  });
-
-  return breakdownData;
-}
-
-// "Calculates" an avatar's color.
-export function getAvatarColor(user: User, placeholder?: boolean): string {
-  if (placeholder) return "#dedede";
-
-  const colors = [
-    "#1abc9c",
-    "#f1c40f",
-    "#f39c12",
-    "#c0392b",
-    "#2980b9",
-    "#8e44ad",
-    "#2c3e50",
-  ];
-
-  var h = 0,
-    l = user.displayName.length,
-    i = 0;
-  if (l > 0)
-    while (i < l) h = ((h << 5) - h + user.displayName.charCodeAt(i++)) | 0;
-  return colors[Math.abs(h % colors.length)];
 }

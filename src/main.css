@@ -403,14 +403,6 @@
   padding-right: 10px !important;
 }
 
-.settingsRow {
-  margin-bottom: 10px;
-}
-
-.settingsRow button {
-  float: right;
-}
-
 .auth {
   height: 100vh;
   display: -webkit-box;
