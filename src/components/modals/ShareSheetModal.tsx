@@ -23,12 +23,10 @@ export const ShareSheetModal: React.FC<Props> = ({ open, setOpen }) => {
   }, [sheetState.local]);
 
   function handleClose() {
-    setButtonText(sheetState.local ? "GENERATE" : "COPY");
     setOpen(false);
   }
 
   function confirmSaveSheet() {
-    setButtonText("COPY");
     sheetDispatch({ type: "saveSheet" });
     history.push(`/sheet/${sheetState.id}`);
   }
