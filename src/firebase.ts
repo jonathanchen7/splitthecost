@@ -22,7 +22,7 @@ export const sheetStateConverter = {
       createdBy: sheetState.createdBy,
       local: sheetState.local,
       id: sheetState.id,
-      customLink: sheetState.customLink,
+      customLink: sheetState.customLink ? sheetState.customLink : "",
     };
   },
   fromFirestore(

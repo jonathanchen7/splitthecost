@@ -50,7 +50,7 @@ export const UsersBar: React.FC = () => {
             className='iconButton smallIconButton leftMargin bottomMargin'
             onClick={openSaveSheetModal}
           >
-            <ReplyIcon />
+            <ReplyIcon id='shareIcon' />
           </IconButton>
           <IconButton
             className='iconButton smallIconButton sideMargins bottomMargin'

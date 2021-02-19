@@ -141,11 +141,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
       sheetDispatch({ type: "changeSheetTitle", title: sheetTitle });
     }
 
-    if (
-      sheetLink !== sheetState.id &&
-      sheetLink !== sheetState.customLink &&
-      validateSheetLink()
-    ) {
+    if (sheetLink !== sheetState.id && sheetLink !== sheetState.customLink) {
       sheetDispatch({ type: "changeSheetLink", link: sheetLink });
     }
     await new Promise((r) => setTimeout(r, 500));

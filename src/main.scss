@@ -231,6 +231,11 @@ $redArrowColor: #e74c3c;
   }
 }
 
+#shareIcon {
+  margin-bottom: 3px;
+  transform: scaleX(-1);
+}
+
 // ---------------- ENTRIES GRID ----------------
 
 .entryDiv {
