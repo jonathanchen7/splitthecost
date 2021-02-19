@@ -20,7 +20,6 @@ export const sheetStateConverter = {
       users: sheetState.users,
       numUsers: sheetState.numUsers,
       createdBy: sheetState.createdBy,
-      local: sheetState.local,
       id: sheetState.id,
       customLink: sheetState.customLink ? sheetState.customLink : "",
     };
@@ -36,7 +35,7 @@ export const sheetStateConverter = {
       users: data.users,
       numUsers: data.numUsers,
       createdBy: data.createdBy,
-      local: data.local,
+      local: false,
       id: data.id,
       customLink: data.customLink,
     };
