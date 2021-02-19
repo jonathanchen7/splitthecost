@@ -81,6 +81,10 @@
   width: 40px;
 }
 
+.modalContent {
+  padding-right: 15px !important;
+}
+
 .modalConfirmButton {
   color: white !important;
   background-color: #377cab !important;
@@ -403,10 +407,6 @@
 
 .addItemFab:hover {
   background-color: #5f8ba9 !important;
-}
-
-.settingsModalContent {
-  padding-right: 10px !important;
 }
 
 .auth {

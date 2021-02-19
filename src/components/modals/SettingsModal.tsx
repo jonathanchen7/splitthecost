@@ -157,7 +157,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
       PaperProps={{ className: "modal" }}
     >
       <ModalHeader title='Settings' onClose={handleClose} />
-      <DialogContent className='settingsModalContent'>
+      <DialogContent className='modalContent'>
         <Grid container spacing={0} alignItems='center'>
           <Grid item xs={8}>
             <TextField
@@ -185,35 +185,39 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
               {editTitle ? "DONE" : "EDIT"}
             </Button>
           </Grid>
-          <Grid item xs={8}>
-            <TextField
-              className='bottomMargin'
-              fullWidth
-              inputRef={(linkRef) => linkRef && editLink && linkRef.focus()}
-              value={sheetLink}
-              error={!validLink}
-              label='Custom Sheet Link'
-              onChange={(e) => setSheetLink(e.target.value)}
-              helperText={
-                validLink
-                  ? ""
-                  : uniqueLink
-                  ? "Link must be between 5-20 characters and contain only letters and numbers."
-                  : "This custom link is already in use."
-              }
-              InputProps={{
-                readOnly: !editLink,
-                disableUnderline: !editLink,
-                startAdornment: <b>splitthecost.net/</b>,
-              }}
-            />
-          </Grid>
-          <Grid item xs={2} />
-          <Grid container item xs={2} justify='flex-end'>
-            <Button onClick={handleCustomLinkClick}>
-              {editLink ? "DONE" : "EDIT"}
-            </Button>
-          </Grid>
+          {!sheetState.local && (
+            <>
+              <Grid item xs={8}>
+                <TextField
+                  className='bottomMargin'
+                  fullWidth
+                  inputRef={(linkRef) => linkRef && editLink && linkRef.focus()}
+                  value={sheetLink}
+                  error={!validLink}
+                  label='Custom Sheet Link'
+                  onChange={(e) => setSheetLink(e.target.value)}
+                  helperText={
+                    validLink
+                      ? ""
+                      : uniqueLink
+                      ? "Link must be between 5-20 characters and contain only letters and numbers."
+                      : "This custom link is already in use."
+                  }
+                  InputProps={{
+                    readOnly: !editLink,
+                    disableUnderline: !editLink,
+                    startAdornment: <b>splitthecost.net/</b>,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={2} />
+              <Grid container item xs={2} justify='flex-end'>
+                <Button onClick={handleCustomLinkClick}>
+                  {editLink ? "DONE" : "EDIT"}
+                </Button>
+              </Grid>
+            </>
+          )}
         </Grid>
       </DialogContent>
       <DialogActions className='modalActions'>

@@ -1,12 +1,6 @@
 import * as React from "react";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  Paper,
-} from "@material-ui/core";
-import { useContext, useState } from "react";
+import { Button, Dialog, DialogContent, Grid } from "@material-ui/core";
+import { useContext, useEffect, useState } from "react";
 // import NumberFormat from "react-number-format";
 import { SheetContext } from "../pages/SplitTheCost";
 import { useHistory } from "react-router-dom";
@@ -22,20 +16,26 @@ export const ShareSheetModal: React.FC<Props> = ({ open, setOpen }) => {
 
   const { sheetState, sheetDispatch } = useContext(SheetContext);
 
-  const [copyButtonText, setCopyButtonText] = useState("COPY");
+  const [buttonText, setButtonText] = useState("");
+
+  useEffect(() => {
+    setButtonText(sheetState.local ? "GENERATE" : "COPY");
+  }, [sheetState.local]);
 
   function handleClose() {
+    setButtonText(sheetState.local ? "GENERATE" : "COPY");
     setOpen(false);
   }
 
   function confirmSaveSheet() {
+    setButtonText("COPY");
     sheetDispatch({ type: "saveSheet" });
     history.push(`/sheet/${sheetState.id}`);
   }
 
   function copySheetLink() {
-    navigator.clipboard.writeText(`localhost:3000/sheet/${sheetState.id}`);
-    setCopyButtonText("COPIED");
+    navigator.clipboard.writeText(`splitthecost.net/sheet/${sheetState.id}`);
+    setButtonText("COPIED");
   }
 
   return (
@@ -47,30 +47,33 @@ export const ShareSheetModal: React.FC<Props> = ({ open, setOpen }) => {
       PaperProps={{ className: "modal" }}
     >
       <ModalHeader title='Share Sheet' onClose={handleClose} />
-      <DialogContent>
-        <Paper className='saveLinkPaper' elevation={3}>
-          {sheetState.local ? (
-            "Would you like to generate a shareable link?"
-          ) : (
-            <>
-              splitthecost.com/sheet/{sheetState.id}
-              <Button color='primary' onClick={copySheetLink}>
-                {copyButtonText}
-              </Button>
-            </>
-          )}
-        </Paper>
+      <DialogContent className='modalContent bottomMargin'>
+        <Grid container spacing={0} alignItems='center'>
+          <Grid item xs={8}>
+            {sheetState.local ? (
+              "Generate link to share with friends?"
+            ) : (
+              <>
+                splitthecost.com/sheet/
+                <b>
+                  {sheetState.customLink
+                    ? sheetState.customLink
+                    : sheetState.id}
+                </b>
+              </>
+            )}
+          </Grid>
+          <Grid item xs={1} />
+          <Grid container item xs={3} justify='flex-end'>
+            <Button
+              fullWidth={sheetState.local}
+              onClick={sheetState.local ? confirmSaveSheet : copySheetLink}
+            >
+              {buttonText}
+            </Button>
+          </Grid>
+        </Grid>
       </DialogContent>
-      {sheetState.local && (
-        <DialogActions className='modalActions'>
-          <Button
-            className='modalConfirmButton rightMarginSmall'
-            onClick={confirmSaveSheet}
-          >
-            GENERATE
-          </Button>
-        </DialogActions>
-      )}
     </Dialog>
   );
 };

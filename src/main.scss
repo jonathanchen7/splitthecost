@@ -113,6 +113,10 @@ $redArrowColor: #e74c3c;
   width: $avatarDiameter;
 }
 
+.modalContent {
+  padding-right: 15px !important;
+}
+
 .modalConfirmButton {
   color: white !important;
   background-color: $headerColor !important;
@@ -395,12 +399,6 @@ $redArrowColor: #e74c3c;
   &:hover {
     background-color: $headerColorLight !important;
   }
-}
-
-// ---------------- SETTINGS MODAL ----------------
-
-.settingsModalContent {
-  padding-right: 10px !important;
 }
 
 // ---------------- LOGIN ----------------
