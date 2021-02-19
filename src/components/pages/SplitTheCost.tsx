@@ -108,7 +108,7 @@ export const SplitTheCost: React.FC = () => {
       }
     }
 
-    history.push("/create");
+    history.push("/invalidsheet", { sheetId: sheetId });
   }
 
   return (

@@ -1,11 +1,13 @@
 import React, { createContext, useReducer } from "react";
 import "./main.css";
 import { SplitTheCost } from "./components/pages/SplitTheCost";
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { HomePage } from "./components/pages/HomePage";
 import { UserState } from "./models/models";
 import { UserAction, userReducer } from "./actions/appUserActions";
 import { CreateNewSheetPage } from "./components/pages/CreateNewSheetPage";
+import { PageNotFound } from "./components/pages/PageNotFound";
+import { SheetNotFound } from "./components/pages/SheetNotFound";
 
 const initialUserState: UserState = {
   curUser: undefined,
@@ -28,9 +30,13 @@ function App() {
       <UserContext.Provider
         value={{ userState: userState, userDispatch: userDispatch }}
       >
-        <Route path='/' exact component={HomePage} />
-        <Route path='/create' exact component={CreateNewSheetPage} />
-        <Route path='/sheet/:sheetId' component={SplitTheCost} />
+        <Switch>
+          <Route path='/' exact component={HomePage} />
+          <Route path='/create' exact component={CreateNewSheetPage} />
+          <Route path='/sheet/:sheetId' exact component={SplitTheCost} />
+          <Route path='/invalidsheet' exact component={SheetNotFound} />
+          <Route component={PageNotFound} />
+        </Switch>
       </UserContext.Provider>
     </Router>
   );

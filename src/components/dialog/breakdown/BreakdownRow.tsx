@@ -36,14 +36,20 @@ export const BreakdownRow: React.FC<Props> = ({ user, data, idx }) => {
           tooltipPlacement='left'
         />
       </Grid>
-      <Grid className='sideDialogRow' item xs={3}>
-        <div className={`arrow ${netCost < 0 ? "redArrow" : "greenArrow"}`}>
-          <span className='leftMargin'>
-            {netCost < 0 ? "YOU OWE" : "OWES YOU"}
-          </span>
-        </div>
+      <Grid className='sideDialogRow' item xs={4}>
+        {netCost === 0 ? (
+          <div className='leftMargin evenArrow'>
+            <span>EVEN</span>
+          </div>
+        ) : (
+          <div className={`arrow ${netCost < 0 ? "redArrow" : "greenArrow"}`}>
+            <span className='leftMarginSmall'>
+              {netCost < 0 ? "YOU OWE" : "OWES YOU"}
+            </span>
+          </div>
+        )}
       </Grid>
-      <Grid className='sideDialogRow' item xs={3}>
+      <Grid className='sideDialogRow' item xs={2}>
         <UserAvatar user={owedUser} tooltipPlacement='top' />
       </Grid>
       <Grid className='sideDialogRow' item xs={4}>

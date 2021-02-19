@@ -296,13 +296,14 @@ $redArrowColor: #e74c3c;
 // ---------------- BREAKDOWN ----------------
 
 .arrow {
+  text-align: center;
   font-size: 11px;
   font-weight: bold;
   height: 26px;
-  width: 75px;
+  width: 80px;
   line-height: 26px;
   position: relative;
-  margin-left: $marginStandard;
+  border-radius: 5px 0px 0px 5px;
 
   &:after {
     border-top: 13px solid transparent;
@@ -311,6 +312,17 @@ $redArrowColor: #e74c3c;
     position: absolute;
     right: -13px;
   }
+}
+
+.evenArrow {
+  text-align: center;
+  font-size: 11px;
+  font-weight: bold;
+  height: 26px;
+  width: 93px;
+  line-height: 26px;
+  background-color: $headerColorLight;
+  border-radius: 20px;
 }
 
 .greenArrow {
@@ -562,3 +574,5 @@ $redArrowColor: #e74c3c;
   margin-bottom: 10px;
   padding: 10px;
 }
+
+// ---------------- 404 PAGE ----------------
