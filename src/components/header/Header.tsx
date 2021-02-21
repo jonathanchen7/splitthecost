@@ -10,23 +10,11 @@ export const Header: React.FC = () => {
   const { userState } = useContext(UserContext);
 
   return (
-    <Grid className='header' container spacing={0}>
-      <Grid className='headerItem' item xs={11}>
+    <Grid container spacing={0}>
+      <Grid className='header' item xs={12}>
         <span className='leftMargin'>
           split the cost | <b>{sheetState.title}</b>
         </span>
-      </Grid>
-      <Grid className='headerItem profileItem' item xs={1}>
-        {userState.curUser && (
-          <UserAvatar
-            className='rightMargin'
-            user={userState.curUser}
-            userIdx={Object.keys(sheetState.users).indexOf(
-              userState.curUser.id
-            )}
-            tooltipPlacement={"bottom"}
-          />
-        )}
       </Grid>
     </Grid>
   );

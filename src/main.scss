@@ -198,17 +198,10 @@ $redArrowColor: #e74c3c;
 .header {
   height: $headerHeight;
   background-color: $headerColor;
-}
-
-.headerItem {
   display: flex;
   align-items: center;
   color: white;
   font-size: 20px;
-}
-
-.profileItem {
-  justify-content: flex-end;
 }
 
 // ---------------- USERS BAR ----------------
