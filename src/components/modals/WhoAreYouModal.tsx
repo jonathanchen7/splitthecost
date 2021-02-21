@@ -32,6 +32,7 @@ export const WhoAreYouModal: React.FC<Props> = ({ open }) => {
   return (
     <Dialog
       fullWidth
+      disableBackdropClick
       maxWidth='sm'
       open={open}
       PaperProps={{ className: "modal" }}

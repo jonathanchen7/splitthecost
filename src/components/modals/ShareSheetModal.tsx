@@ -39,6 +39,7 @@ export const ShareSheetModal: React.FC<Props> = ({ open, setOpen }) => {
   return (
     <Dialog
       fullWidth
+      disableBackdropClick
       maxWidth='xs'
       onClose={handleClose}
       open={open}

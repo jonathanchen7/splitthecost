@@ -84,6 +84,7 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
   return (
     <Dialog
       fullWidth
+      disableBackdropClick
       maxWidth='xs'
       onClose={handleClose}
       open={open}
@@ -94,6 +95,7 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
         <div className='modalInputRow'>
           <TextField
             className='halfWidthModalInput'
+            autoFocus
             label='First Name'
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}

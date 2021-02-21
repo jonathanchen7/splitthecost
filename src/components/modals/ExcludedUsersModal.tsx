@@ -59,6 +59,7 @@ export const ExcludedUsersModal: React.FC<Props> = ({
   return (
     <Dialog
       fullWidth
+      disableBackdropClick
       maxWidth='xs'
       onClose={handleClose}
       open={open}

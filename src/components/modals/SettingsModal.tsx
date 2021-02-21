@@ -151,6 +151,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
   return (
     <Dialog
       fullWidth
+      disableBackdropClick
       maxWidth='sm'
       onClose={handleClose}
       open={open}
