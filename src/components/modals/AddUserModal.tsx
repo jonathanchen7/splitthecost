@@ -9,6 +9,7 @@ import {
 import { useContext, useState } from "react";
 import { SheetContext } from "../pages/SplitTheCost";
 import { ModalHeader } from "./ModalHeader";
+import { handleKeyPress } from "../../logic/logic";
 
 interface Props {
   open: boolean;
@@ -88,6 +89,7 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
       maxWidth='xs'
       onClose={handleClose}
       open={open}
+      onKeyPress={(e) => handleKeyPress(e, "enter", confirmAddUser)}
       PaperProps={{ className: "modal" }}
     >
       <ModalHeader title='Add a Friend' onClose={handleClose} />

@@ -126,3 +126,13 @@ export function getAvatarColor(
 
   return colors[userIdx % colors.length];
 }
+
+export function handleKeyPress(
+  e: React.KeyboardEvent,
+  target: string,
+  action: () => void
+) {
+  if (e.key.toLowerCase() === target) {
+    action();
+  }
+}
