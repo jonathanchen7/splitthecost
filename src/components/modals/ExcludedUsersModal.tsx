@@ -11,6 +11,7 @@ import { useState, useContext, useEffect } from "react";
 import { SheetContext } from "../pages/SplitTheCost";
 import { ModalHeader } from "./ModalHeader";
 import { UserChip } from "../bits/UserChip";
+import { handleKeyPress } from "../../logic/logic";
 
 interface Props {
   open: boolean;
@@ -63,6 +64,7 @@ export const ExcludedUsersModal: React.FC<Props> = ({
       maxWidth='xs'
       onClose={handleClose}
       open={open}
+      onKeyPress={(e) => handleKeyPress(e, "enter", confirmExcludeUsers)}
       PaperProps={{ className: "modal" }}
     >
       <ModalHeader title='Included Friends' onClose={handleClose} />

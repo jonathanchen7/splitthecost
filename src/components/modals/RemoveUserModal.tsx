@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { SheetContext } from "../pages/SplitTheCost";
 import { User } from "../../models/models";
 import { ModalHeader } from "./ModalHeader";
+import { handleKeyPress } from "../../logic/logic";
 
 interface Props {
   removeUser: User;
@@ -46,6 +47,7 @@ export const RemoveUserModal: React.FC<Props> = ({
       maxWidth='xs'
       onClose={handleClose}
       open={open}
+      onKeyPress={(e) => handleKeyPress(e, "enter", confirmDeleteUser)}
       PaperProps={{ className: "modal" }}
     >
       <ModalHeader title='Remove User' onClose={handleClose} />

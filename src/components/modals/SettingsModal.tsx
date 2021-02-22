@@ -11,6 +11,7 @@ import { useContext, useEffect, useState } from "react";
 import { SheetContext } from "../pages/SplitTheCost";
 import { ModalHeader } from "./ModalHeader";
 import { db } from "../../firebase";
+import { handleKeyPress } from "../../logic/logic";
 
 enum SaveStates {
   Save = 1,
@@ -155,6 +156,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
       maxWidth='sm'
       onClose={handleClose}
       open={open}
+      onKeyPress={(e) => handleKeyPress(e, "enter", saveSettings)}
       PaperProps={{ className: "modal" }}
     >
       <ModalHeader title='Settings' onClose={handleClose} />

@@ -11,6 +11,7 @@ import { UserChip } from "../bits/UserChip";
 import { UserContext } from "../../App";
 import { User } from "../../models/models";
 import { ModalHeader } from "./ModalHeader";
+import { handleKeyPress } from "../../logic/logic";
 
 interface Props {
   open: boolean;
@@ -35,6 +36,7 @@ export const WhoAreYouModal: React.FC<Props> = ({ open }) => {
       disableBackdropClick
       maxWidth='sm'
       open={open}
+      onKeyPress={(e) => handleKeyPress(e, "enter", confirmUser)}
       PaperProps={{ className: "modal" }}
     >
       <ModalHeader title='Who are You?' />
