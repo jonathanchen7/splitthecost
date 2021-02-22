@@ -11,8 +11,9 @@ import { UserChip } from "../bits/UserChip";
 import { RemoveUserModal } from "../modals/RemoveUserModal";
 import { User } from "../../models/models";
 import { ShareSheetModal } from "../modals/ShareSheetModal";
-import ReplyIcon from "@material-ui/icons/Reply";
+import ReplyRoundedIcon from "@material-ui/icons/ReplyRounded";
 import SettingsRoundedIcon from "@material-ui/icons/SettingsRounded";
+// import LinkRoundedIcon from "@material-ui/icons/LinkRounded";
 
 export const UsersBar: React.FC = () => {
   const { userState } = useContext(UserContext);
@@ -45,22 +46,10 @@ export const UsersBar: React.FC = () => {
   return (
     <>
       <Grid className='usersBar' container spacing={0}>
-        <Grid item xs={12}>
-          <IconButton
-            className='iconButton smallIconButton leftMargin bottomMargin'
-            onClick={openSaveSheetModal}
-          >
-            <ReplyIcon id='shareIcon' />
-          </IconButton>
-          <IconButton
-            className='iconButton smallIconButton sideMargins bottomMargin'
-            onClick={openSettingsModal}
-          >
-            <SettingsRoundedIcon />
-          </IconButton>
+        <Grid item container xs={11} alignItems='center'>
           {userState.curUser && (
             <UserChip
-              className='bottomMargin'
+              className='leftMargin bottomMargin'
               user={userState.curUser}
               userIdx={Object.keys(sheetState.users).indexOf(
                 userState.curUser.id
@@ -72,7 +61,7 @@ export const UsersBar: React.FC = () => {
             return (
               (!userState.curUser || user.id !== userState.curUser.id) && (
                 <UserChip
-                  className='bottomMargin leftMargin'
+                  className='leftMargin bottomMargin'
                   user={user}
                   userIdx={Object.keys(sheetState.users).indexOf(user.id)}
                   onRemove={userState.curUser && openRemoveUserModal}
@@ -90,6 +79,28 @@ export const UsersBar: React.FC = () => {
                 <AddRoundedIcon />
               </IconButton>
             </Tooltip>
+          )}
+        </Grid>
+        <Grid item container xs={1} justify='flex-end' alignItems='center'>
+          <IconButton
+            className='iconButton smallIconButton rightMargin bottomMargin'
+            onClick={openSaveSheetModal}
+          >
+            <ReplyRoundedIcon id='shareIcon' />
+          </IconButton>
+          {/* <IconButton
+            className='iconButton smallIconButton leftMargin bottomMargin'
+            onClick={openSaveSheetModal}
+          >
+            <LinkRoundedIcon />
+          </IconButton> */}
+          {userState.curUser?.id === sheetState.createdBy && (
+            <IconButton
+              className='iconButton smallIconButton rightMargin bottomMargin'
+              onClick={openSettingsModal}
+            >
+              <SettingsRoundedIcon />
+            </IconButton>
           )}
         </Grid>
       </Grid>

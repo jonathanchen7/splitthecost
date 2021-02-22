@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import CloseIcon from "@material-ui/icons/Close";
+import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import { motion } from "framer-motion";
 import { UserContext } from "../../App";
 import { User } from "../../models/models";
@@ -146,7 +146,7 @@ export const CreateNewSheetPage: React.FC = () => {
       <div className='stepIndicator'>
         <Link to='/'>
           <IconButton size='small'>
-            <CloseIcon />
+            <CloseRoundedIcon />
           </IconButton>
         </Link>
         <span className='leftMarginSmall'>

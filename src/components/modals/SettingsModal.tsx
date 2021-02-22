@@ -6,12 +6,18 @@ import {
   DialogContent,
   Grid,
   TextField,
+  IconButton,
 } from "@material-ui/core";
 import { useContext, useEffect, useState } from "react";
 import { SheetContext } from "../pages/SplitTheCost";
 import { ModalHeader } from "./ModalHeader";
 import { db } from "../../firebase";
 import { handleKeyPress } from "../../logic/logic";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditRoundedIcon from "@material-ui/icons/EditRounded";
+import DoneRoundedIcon from "@material-ui/icons/DoneRounded";
+import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
+import { useHistory } from "react-router-dom";
 
 enum SaveStates {
   Save = 1,
@@ -26,6 +32,7 @@ interface Props {
 
 export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
   const { sheetState, sheetDispatch } = useContext(SheetContext);
+  const history = useHistory();
 
   const [sheetTitle, setSheetTitle] = useState(sheetState.title);
   const [editTitle, setEditTitle] = useState(false);
@@ -37,6 +44,10 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
   const [editLink, setEditLink] = useState(false);
   const [validLink, setValidLink] = useState(true);
   const [uniqueLink, setUniqueLink] = useState(true);
+
+  const [deleteText, setDeleteText] = useState("");
+  const [editDelete, setEditDelete] = useState(false);
+  const [deleteError, setDeleteError] = useState(false);
 
   const [saveState, setSaveState] = useState(SaveStates.Save);
 
@@ -54,6 +65,9 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
     setSheetLink(sheetState.customLink ? sheetState.customLink : sheetState.id);
     setSaveState(SaveStates.Save);
     setOpen(false);
+    setDeleteError(false);
+    setDeleteText("");
+    setEditDelete(false);
   }
 
   function handleCustomLinkClick() {
@@ -136,6 +150,31 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
     return true;
   }
 
+  function handleDeleteSheet() {
+    if (!editDelete) {
+      setEditDelete(true);
+    } else {
+      confirmDeleteSheet();
+    }
+  }
+
+  function cancelDeleteSheet() {
+    setDeleteError(false);
+    setEditDelete(false);
+    setDeleteText("");
+  }
+
+  async function confirmDeleteSheet() {
+    if (deleteText !== sheetState.title) {
+      setDeleteError(true);
+      return;
+    }
+
+    await new Promise((r) => setTimeout(r, 500));
+    history.push("/");
+    setEditDelete(false);
+  }
+
   async function saveSettings() {
     setSaveState(SaveStates.Saving);
     if (sheetTitle !== sheetState.title && validateSheetTitle()) {
@@ -162,9 +201,8 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
       <ModalHeader title='Settings' onClose={handleClose} />
       <DialogContent className='modalContent'>
         <Grid container spacing={0} alignItems='center'>
-          <Grid item xs={8}>
+          <Grid className='bottomMargin' item xs={8}>
             <TextField
-              className='bottomMargin'
               fullWidth
               inputRef={(titleRef) => titleRef && editTitle && titleRef.focus()}
               value={sheetTitle}
@@ -184,15 +222,14 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
           </Grid>
           <Grid item xs={2} />
           <Grid container item xs={2} justify='flex-end'>
-            <Button onClick={handleSheetTitleClick}>
-              {editTitle ? "DONE" : "EDIT"}
-            </Button>
+            <IconButton onClick={handleSheetTitleClick}>
+              {editTitle ? <DoneRoundedIcon /> : <EditRoundedIcon />}
+            </IconButton>
           </Grid>
           {!sheetState.local && (
             <>
-              <Grid item xs={8}>
+              <Grid className='bottomMargin' item xs={8}>
                 <TextField
-                  className='bottomMargin'
                   fullWidth
                   inputRef={(linkRef) => linkRef && editLink && linkRef.focus()}
                   value={sheetLink}
@@ -215,12 +252,44 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
               </Grid>
               <Grid item xs={2} />
               <Grid container item xs={2} justify='flex-end'>
-                <Button onClick={handleCustomLinkClick}>
-                  {editLink ? "DONE" : "EDIT"}
-                </Button>
+                <IconButton onClick={handleCustomLinkClick}>
+                  {editLink ? <DoneRoundedIcon /> : <EditRoundedIcon />}
+                </IconButton>
               </Grid>
             </>
           )}
+          <Grid className='bottomMargin' item xs={8}>
+            <TextField
+              fullWidth
+              inputRef={(deleteRef) =>
+                deleteRef && editDelete && deleteRef.focus()
+              }
+              value={deleteText}
+              placeholder='Enter sheet name to confirm deletion.'
+              error={deleteError}
+              label='Delete Sheet'
+              onChange={(e) => setDeleteText(e.target.value)}
+              helperText={
+                deleteError
+                  ? `Please enter the sheet name correctly (${sheetState.title})`
+                  : ""
+              }
+              InputProps={{
+                readOnly: !editDelete,
+                disableUnderline: !editDelete,
+              }}
+            />
+          </Grid>
+          <Grid container item xs={4} justify='flex-end'>
+            {editDelete && (
+              <IconButton onClick={cancelDeleteSheet}>
+                <CloseRoundedIcon />
+              </IconButton>
+            )}
+            <IconButton onClick={handleDeleteSheet}>
+              {editDelete ? <DoneRoundedIcon /> : <DeleteIcon />}
+            </IconButton>
+          </Grid>
         </Grid>
       </DialogContent>
       <DialogActions className='modalActions'>
