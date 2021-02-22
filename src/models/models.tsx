@@ -12,6 +12,7 @@ export interface Entry {
   item: string;
   cost: number;
   exclude: string[];
+  user: string;
   createdBy: string;
   note: string;
 }

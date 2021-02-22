@@ -19,7 +19,7 @@ export type RemoveEntryAction = {
 export type UpdateEntryAction = {
   type: "updateEntry";
   entry: Entry;
-  section: "item" | "cost" | "note";
+  section: "item" | "cost" | "note" | "user";
   value: string;
   local?: boolean;
 };
@@ -58,6 +58,9 @@ export type ChangeSheetLinkAction = {
 export type SaveSheetAction = {
   type: "saveSheet";
 };
+export type DeleteSheetAction = {
+  type: "deleteSheet";
+};
 export type UpdateSheetStateAction = {
   type: "updateSheetState";
   sheetState: SheetState;
@@ -74,6 +77,7 @@ export type SheetAction =
   | ChangeSheetTitleAction
   | ChangeSheetLinkAction
   | SaveSheetAction
+  | DeleteSheetAction
   | UpdateSheetStateAction;
 
 export function sheetReducer(state: SheetState, action: SheetAction) {
@@ -98,6 +102,8 @@ export function sheetReducer(state: SheetState, action: SheetAction) {
       return changeSheetLink(state, action);
     case "saveSheet":
       return saveSheet(state, action);
+    case "deleteSheet":
+      return deleteSheet(state, action);
     case "updateSheetState":
       return action.sheetState;
     default:
@@ -115,6 +121,7 @@ function addEntry(state: SheetState, action: AddEntryAction): SheetState {
     cost: action.cost ? action.cost : 0,
     exclude: action.exclude ? action.exclude : [],
     note: action.note ? action.note : "",
+    user: action.createdBy,
     createdBy: action.createdBy,
   };
 
@@ -148,6 +155,8 @@ function updateEntry(state: SheetState, action: UpdateEntryAction): SheetState {
     newEntry = { ...entry, item: value };
   } else if (action.section === "cost") {
     newEntry = { ...entry, cost: Number(value) };
+  } else if (action.section === "user") {
+    newEntry = { ...entry, user: value };
   } else {
     if (entry.note === value) return state;
     newEntry = { ...entry, note: value };
@@ -308,6 +317,27 @@ function saveSheet(state: SheetState, action: SaveSheetAction): SheetState {
   const newSheetState = { ...state, local: false };
   updateFirestore(newSheetState);
   return newSheetState;
+}
+
+function deleteSheet(state: SheetState, action: DeleteSheetAction): SheetState {
+  if (state.local) {
+    return state;
+  }
+
+  db.collection("deletedSheets")
+    .withConverter(sheetStateConverter)
+    .doc(state.id)
+    .set(state);
+  db.collection("sheets").doc(state.id).delete();
+
+  if (state.customLink) {
+    db.collection("deletedCustomLinks")
+      .doc(state.customLink)
+      .set({ sheetId: state.id });
+    db.collection("customLinks").doc(state.customLink).delete();
+  }
+
+  return state;
 }
 
 function updateFirestore(state: SheetState, local?: boolean) {

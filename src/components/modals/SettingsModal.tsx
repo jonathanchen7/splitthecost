@@ -170,6 +170,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
       return;
     }
 
+    sheetDispatch({ type: "deleteSheet" });
     await new Promise((r) => setTimeout(r, 500));
     history.push("/");
     setEditDelete(false);
