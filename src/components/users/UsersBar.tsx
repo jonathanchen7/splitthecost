@@ -71,7 +71,7 @@ export const UsersBar: React.FC = () => {
             );
           })}
           {userState.curUser && (
-            <Tooltip arrow title='Add User' placement='right'>
+            <Tooltip arrow title='Add Friend' placement='right'>
               <IconButton
                 className='iconButton smallIconButton leftMargin bottomMargin'
                 onClick={openAddUserModal}
@@ -109,7 +109,6 @@ export const UsersBar: React.FC = () => {
       {removeUser && (
         <RemoveUserModal
           removeUser={removeUser}
-          setRemoveUser={setRemoveUser}
           open={openRemoveUser}
           setOpen={setOpenRemoveUser}
         />

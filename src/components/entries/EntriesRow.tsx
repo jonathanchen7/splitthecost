@@ -11,6 +11,8 @@ import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import { SheetContext } from "../pages/SplitTheCost";
+import { EntryUserModal } from "../modals/EntryUserModal";
+import { RemoveEntryModal } from "../modals/RemoveEntryModal";
 
 interface Props {
   entry: Entry;
@@ -34,6 +36,8 @@ export const EntriesRow: React.FC<Props> = ({
   const [item, setItem] = useState(entry.item);
   const [note, setNote] = useState(entry.note);
   const [showExcludeUsersModal, setShowExcludeUsersModal] = useState(false);
+  const [showEntryUserModal, setShowEntryUserModal] = useState(false);
+  const [showRemoveEntryModal, setShowRemoveEntryModal] = useState(false);
 
   const numExcludeUsersDisplay = curUserEntry ? 3 : 4;
 
@@ -95,10 +99,11 @@ export const EntriesRow: React.FC<Props> = ({
               className='leftMargin'
               user={sheetState.users[entry.user]}
               userIdx={Object.keys(sheetState.users).indexOf(
-                sheetState.users[entry.createdBy].id
+                sheetState.users[entry.user].id
               )}
               tooltipPlacement='top'
               disabled={emptyRow}
+              onClick={() => setShowEntryUserModal(true)}
             />
             <Input
               className='sideMargins'
@@ -116,9 +121,7 @@ export const EntriesRow: React.FC<Props> = ({
             {showDelete && (
               <IconButton
                 className='iconButton largeIconButton rightMargin'
-                onClick={() =>
-                  sheetDispatch({ type: "removeEntry", entryId: entry.id })
-                }
+                onClick={() => setShowRemoveEntryModal(true)}
               >
                 <DeleteIcon />
               </IconButton>
@@ -216,6 +219,16 @@ export const EntriesRow: React.FC<Props> = ({
       <ExcludedUsersModal
         open={showExcludeUsersModal}
         setOpen={setShowExcludeUsersModal}
+        entry={entry}
+      />
+      <EntryUserModal
+        open={showEntryUserModal}
+        setOpen={setShowEntryUserModal}
+        entry={entry}
+      />
+      <RemoveEntryModal
+        open={showRemoveEntryModal}
+        setOpen={setShowRemoveEntryModal}
         entry={entry}
       />
     </motion.div>

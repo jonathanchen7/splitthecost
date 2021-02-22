@@ -20,6 +20,7 @@ interface Props {
     | "top-end"
     | "top-start"
     | undefined;
+  onClick?: () => void;
   disabled?: boolean;
   className?: string;
 }
@@ -28,6 +29,7 @@ export const UserAvatar: React.FC<Props> = ({
   user,
   userIdx,
   tooltipPlacement,
+  onClick,
   disabled,
   className,
 }) => {
@@ -37,11 +39,13 @@ export const UserAvatar: React.FC<Props> = ({
       arrow
       title={user.displayName}
       placement={tooltipPlacement}
+      onClick={onClick}
     >
       <Avatar
         className='avatar'
         style={{
           backgroundColor: getAvatarColor(user, userIdx, disabled),
+          cursor: onClick ? "pointer" : "default",
         }}
       >
         {user.initials}

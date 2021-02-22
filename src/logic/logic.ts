@@ -22,14 +22,13 @@ export function calculateUserBreakdown(
 
   entries.forEach((entry) => {
     const numEntryUsers = Object.keys(users).length - entry.exclude.length;
-    if (entry.createdBy === user.id) {
+    if (entry.user === user.id) {
       // This is the current user's entry. Add the cost to totalSpent and
       // increment "theyOwe" for all valid users.
       breakdownData.totalSpent += entry.cost;
 
       const validUsers = Object.keys(users).filter(
-        (userId) =>
-          !entry.exclude.includes(userId) && userId !== entry.createdBy
+        (userId) => !entry.exclude.includes(userId) && userId !== entry.user
       );
       validUsers.forEach((userId) => {
         breakdownData.userBreakdown[userId].theyOwe +=
@@ -39,7 +38,7 @@ export function calculateUserBreakdown(
       // This is another user's entry that you need to pay for. Add the cost to
       // totalOwed and increment "youOwe" for this particular user.
       breakdownData.totalOwed += entry.cost / numEntryUsers;
-      breakdownData.userBreakdown[entry.createdBy].youOwe +=
+      breakdownData.userBreakdown[entry.user].youOwe +=
         entry.cost / numEntryUsers;
     }
   });
@@ -61,7 +60,7 @@ export function calculateOverview(
   });
 
   entries.forEach((entry) => {
-    overviewData[entry.createdBy].totalSpent += entry.cost;
+    overviewData[entry.user].totalSpent += entry.cost;
 
     const validUsers = Object.keys(users).filter(
       (userId) => !entry.exclude.includes(userId)
@@ -69,7 +68,7 @@ export function calculateOverview(
     const userCost = entry.cost / validUsers.length;
 
     validUsers.forEach((userId) => {
-      if (userId !== entry.createdBy) {
+      if (userId !== entry.user) {
         overviewData[userId].totalOwed += userCost;
       }
     });

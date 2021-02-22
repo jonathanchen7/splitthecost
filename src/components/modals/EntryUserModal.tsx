@@ -1,10 +1,10 @@
 import * as React from "react";
 import {
   Button,
-  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
+  Radio,
 } from "@material-ui/core";
 import { Entry } from "../../models/models";
 import { useState, useContext, useEffect } from "react";
@@ -19,25 +19,22 @@ interface Props {
   entry: Entry;
 }
 
-export const ExcludedUsersModal: React.FC<Props> = ({
-  open,
-  setOpen,
-  entry,
-}) => {
+export const EntryUserModal: React.FC<Props> = ({ open, setOpen, entry }) => {
   const { sheetState, sheetDispatch } = useContext(SheetContext);
 
-  const [excludedUsers, setExcludedUsers] = useState<string[]>(entry.exclude);
+  const [entryUser, setEntryUser] = useState(entry.user);
 
   useEffect(() => {
-    setExcludedUsers(entry.exclude);
-  }, [entry.exclude]);
+    setEntryUser(entry.user);
+  }, [entry.user]);
 
-  function confirmExcludeUsers() {
-    if (entry.exclude !== excludedUsers) {
+  function confirmEntryUser() {
+    if (entryUser !== entry.user) {
       sheetDispatch({
-        type: "updateExcludedUsers",
-        exclude: excludedUsers,
+        type: "updateEntry",
         entry: entry,
+        section: "user",
+        value: entryUser,
       });
     }
 
@@ -45,15 +42,11 @@ export const ExcludedUsersModal: React.FC<Props> = ({
   }
 
   function handleClick(userId: string) {
-    if (excludedUsers.includes(userId)) {
-      setExcludedUsers(excludedUsers.filter((id) => id !== userId));
-    } else {
-      setExcludedUsers([...excludedUsers, userId]);
-    }
+    setEntryUser(userId);
   }
 
   function handleClose() {
-    setExcludedUsers(entry.exclude);
+    setEntryUser(entry.user);
     setOpen(false);
   }
 
@@ -64,11 +57,11 @@ export const ExcludedUsersModal: React.FC<Props> = ({
       maxWidth='xs'
       onClose={handleClose}
       open={open}
-      onKeyPress={(e) => handleKeyPress(e, "enter", confirmExcludeUsers)}
+      onKeyPress={(e) => handleKeyPress(e, "enter", confirmEntryUser)}
       PaperProps={{ className: "modal" }}
     >
       <ModalHeader
-        title='Included Friends'
+        title='Who Paid?'
         subtitle={entry.item}
         onClose={handleClose}
       />
@@ -79,10 +72,9 @@ export const ExcludedUsersModal: React.FC<Props> = ({
             return (
               idx % 2 === 0 && (
                 <div className='excludeModalUser' key={user.id}>
-                  <Checkbox
-                    checked={!excludedUsers.includes(user.id)}
-                    color='primary'
-                    onClick={() => handleClick(user.id)}
+                  <Radio
+                    checked={entryUser === user.id}
+                    onChange={(e) => handleClick(e.target.value)}
                   />
                   <UserChip
                     user={user}
@@ -100,9 +92,8 @@ export const ExcludedUsersModal: React.FC<Props> = ({
             return (
               idx % 2 === 1 && (
                 <div className='excludeModalUser' key={user.id}>
-                  <Checkbox
-                    checked={!excludedUsers.includes(user.id)}
-                    color='primary'
+                  <Radio
+                    checked={entryUser === user.id}
                     onClick={() => handleClick(user.id)}
                   />
                   <UserChip
@@ -118,15 +109,8 @@ export const ExcludedUsersModal: React.FC<Props> = ({
       </DialogContent>
       <DialogActions className='modalActions'>
         <Button
-          className='rightMarginSmall'
-          color='primary'
-          onClick={() => setExcludedUsers([])}
-        >
-          Include All
-        </Button>
-        <Button
           className='modalConfirmButton rightMarginSmall'
-          onClick={confirmExcludeUsers}
+          onClick={confirmEntryUser}
         >
           Confirm
         </Button>
