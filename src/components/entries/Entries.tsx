@@ -18,12 +18,7 @@ export const Entries: React.FC = () => {
             entry.item ||
             entry.cost ||
             entry.note) && (
-            <EntriesRow
-              entry={entry}
-              curUserEntry={userState.curUser?.id === entry.createdBy}
-              rowIdx={idx}
-              key={entry.id}
-            />
+            <EntriesRow entry={entry} rowIdx={idx} key={entry.id} />
           )
       )}
     </>

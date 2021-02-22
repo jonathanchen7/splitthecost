@@ -16,15 +16,10 @@ import { RemoveEntryModal } from "../modals/RemoveEntryModal";
 
 interface Props {
   entry: Entry;
-  curUserEntry: boolean;
   rowIdx: number;
 }
 
-export const EntriesRow: React.FC<Props> = ({
-  entry,
-  curUserEntry,
-  rowIdx,
-}) => {
+export const EntriesRow: React.FC<Props> = ({ entry, rowIdx }) => {
   const { sheetState, sheetDispatch } = useContext(SheetContext);
 
   const [emptyRow, setEmptyRow] = useState(
@@ -39,7 +34,7 @@ export const EntriesRow: React.FC<Props> = ({
   const [showEntryUserModal, setShowEntryUserModal] = useState(false);
   const [showRemoveEntryModal, setShowRemoveEntryModal] = useState(false);
 
-  const numExcludeUsersDisplay = curUserEntry ? 3 : 4;
+  const numExcludeUsersDisplay = 3;
 
   function updateEntry(
     value: string,
@@ -92,7 +87,7 @@ export const EntriesRow: React.FC<Props> = ({
         <Grid item xs={3}>
           <div
             className='entryDiv'
-            onMouseOver={() => setShowDelete(curUserEntry && true)}
+            onMouseOver={() => setShowDelete(true)}
             onMouseLeave={() => setShowDelete(false)}
           >
             <UserAvatar
@@ -109,7 +104,6 @@ export const EntriesRow: React.FC<Props> = ({
               className='sideMargins'
               disableUnderline
               fullWidth
-              readOnly={!curUserEntry}
               value={item}
               placeholder={emptyRow ? "Enter item name here" : undefined}
               onFocus={() => setEmptyRow(false)}
@@ -140,7 +134,6 @@ export const EntriesRow: React.FC<Props> = ({
               }}
               disableUnderline
               fullWidth
-              readOnly={!curUserEntry}
               value={entry.cost.toFixed(2)}
               onFocus={() => setEmptyRow(false)}
               onChange={(e) => {
@@ -158,7 +151,7 @@ export const EntriesRow: React.FC<Props> = ({
         <Grid item xs={2}>
           <div
             className='entryDiv'
-            onMouseOver={() => setShowEdit(curUserEntry && true)}
+            onMouseOver={() => setShowEdit(true)}
             onMouseLeave={() => setShowEdit(false)}
           >
             {entry.exclude.map((userId, idx) => {
@@ -204,7 +197,6 @@ export const EntriesRow: React.FC<Props> = ({
               className='sideMargins'
               disableUnderline
               fullWidth
-              readOnly={!curUserEntry}
               value={note}
               placeholder={emptyRow ? "Include a note here" : undefined}
               onFocus={() => setEmptyRow(false)}
