@@ -6,7 +6,7 @@ import {
   IconButton,
   TextField,
 } from "@material-ui/core";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import { motion } from "framer-motion";
@@ -25,10 +25,21 @@ export const CreateNewSheetPage: React.FC = () => {
 
   const [step, setStep] = useState(CreateSheetStep.SheetName);
 
-  const [sheetName, setSheetName] = useState("");
+  const [sheetTitle, setSheetTitle] = useState("");
+  const [validTitle, setValidTitle] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+
+  useEffect(() => {
+    setValidTitle(
+      !(
+        sheetTitle.trim().length < 5 ||
+        sheetTitle.length > 20 ||
+        sheetTitle.match(/[~`%^#@*+=\-[\]\\';,/{}|\\"<>]/)
+      )
+    );
+  }, [sheetTitle]);
 
   function createNewSheet() {
     const newUser: User = {
@@ -42,7 +53,7 @@ export const CreateNewSheetPage: React.FC = () => {
       email: "",
     };
     userDispatch({ type: "updateCurUser", user: newUser });
-    history.push("/sheet/new", { title: sheetName });
+    history.push("/sheet/new", { title: sheetTitle });
   }
 
   function sheetNameStep() {
@@ -53,8 +64,8 @@ export const CreateNewSheetPage: React.FC = () => {
           className='giantTextField'
           fullWidth
           placeholder='Sheet name'
-          value={sheetName}
-          onChange={(e) => setSheetName(e.target.value)}
+          value={sheetTitle}
+          onChange={(e) => setSheetTitle(e.target.value)}
           inputProps={{
             className: "giantInput",
           }}
@@ -68,11 +79,15 @@ export const CreateNewSheetPage: React.FC = () => {
               color='primary'
             />
           }
-          label={`I accept the splitthecost terms.`}
+          label={
+            <>
+              I accept the SplitTheCost <Link to='/tos'>terms</Link>.
+            </>
+          }
         />
         <Button
           className='continueButton'
-          disabled={!agreeToTerms || !sheetName.trim()}
+          disabled={!agreeToTerms || !validTitle}
           onClick={() => setStep(CreateSheetStep.DisplayName)}
         >
           continue

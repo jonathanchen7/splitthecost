@@ -394,65 +394,6 @@ $redArrowColor: #e74c3c;
   }
 }
 
-// ---------------- LOGIN ----------------
-
-.auth {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-items: center;
-  justify-content: center;
-}
-
-.authPaper {
-  border-radius: 15px !important;
-  width: 370px;
-  padding: 20px;
-}
-
-.authDiv {
-  display: flex;
-  flex-direction: column;
-}
-
-.authHeader {
-  font-size: 30px;
-}
-
-.authInput {
-  margin-top: 25px !important;
-}
-
-.authSubtext {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.authSwitchViewText {
-  color: $headerColor;
-  cursor: pointer;
-
-  &:hover {
-    color: $headerColorLight;
-  }
-}
-
-.authButton {
-  color: white !important;
-  background-color: $headerColor !important;
-  transition: 0.5s;
-
-  &:hover {
-    background-color: $headerColorLight !important;
-  }
-}
-
-.googleButton {
-  background-color: $gridLightColor !important;
-  margin-bottom: 15px !important;
-}
-
 // ---------------- HOME PAGE ----------------
 
 .homePage {
@@ -485,6 +426,16 @@ $redArrowColor: #e74c3c;
   }
   &:disabled {
     background-color: $gridDarkColor !important;
+  }
+}
+
+// ---------------- TERMS OF SERVICE ----------------
+
+#tos {
+  margin: $marginStandard;
+
+  h2 {
+    color: $headerColor;
   }
 }
 

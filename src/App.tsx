@@ -8,6 +8,7 @@ import { UserAction, userReducer } from "./actions/appUserActions";
 import { CreateNewSheetPage } from "./components/pages/CreateNewSheetPage";
 import { PageNotFound } from "./components/pages/PageNotFound";
 import { SheetNotFound } from "./components/pages/SheetNotFound";
+import { TermsOfService } from "./components/pages/TermsOfService";
 
 const initialUserState: UserState = {
   curUser: undefined,
@@ -35,6 +36,7 @@ function App() {
           <Route path='/create' exact component={CreateNewSheetPage} />
           <Route path='/sheet/:sheetId' exact component={SplitTheCost} />
           <Route path='/invalidsheet' exact component={SheetNotFound} />
+          <Route path='/tos' exact component={TermsOfService} />
           <Route component={PageNotFound} />
         </Switch>
       </UserContext.Provider>
