@@ -15,12 +15,15 @@ const fire = firebase.initializeApp({
 export const sheetStateConverter = {
   toFirestore(sheetState: SheetState): firebase.firestore.DocumentData {
     return {
+      id: sheetState.id,
+      timestamp: sheetState.timestamp,
+      lastAccessed: sheetState.lastAccessed,
+      lastEdited: sheetState.lastEdited,
       title: sheetState.title,
       entries: sheetState.entries,
       users: sheetState.users,
       numUsers: sheetState.numUsers,
       createdBy: sheetState.createdBy,
-      id: sheetState.id,
       customLink: sheetState.customLink ? sheetState.customLink : "",
     };
   },
@@ -30,13 +33,16 @@ export const sheetStateConverter = {
   ): SheetState {
     const data = snapshot.data(options)!;
     return {
+      id: data.id,
+      timestamp: data.timestamp,
+      lastAccessed: data.lastAccessed,
+      lastEdited: data.lastEdited,
       title: data.title,
       entries: data.entries,
       users: data.users,
       numUsers: data.numUsers,
       createdBy: data.createdBy,
       local: false,
-      id: data.id,
       customLink: data.customLink,
     };
   },

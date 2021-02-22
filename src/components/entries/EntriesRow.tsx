@@ -93,7 +93,7 @@ export const EntriesRow: React.FC<Props> = ({
           >
             <UserAvatar
               className='leftMargin'
-              user={sheetState.users[entry.createdBy]}
+              user={sheetState.users[entry.user]}
               userIdx={Object.keys(sheetState.users).indexOf(
                 sheetState.users[entry.createdBy].id
               )}

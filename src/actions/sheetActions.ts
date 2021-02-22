@@ -117,6 +117,8 @@ export function sheetReducer(state: SheetState, action: SheetAction) {
 function addEntry(state: SheetState, action: AddEntryAction): SheetState {
   const newEntry: Entry = {
     id: nanoid(),
+    timestamp: new Date(Date.now()).toUTCString(),
+    lastEdited: Date.now(),
     item: action.item ? action.item : "",
     cost: action.cost ? action.cost : 0,
     exclude: action.exclude ? action.exclude : [],
@@ -128,6 +130,7 @@ function addEntry(state: SheetState, action: AddEntryAction): SheetState {
   const newSheetState: SheetState = {
     ...state,
     entries: [...state.entries, newEntry],
+    lastEdited: Date.now(),
   };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
@@ -139,7 +142,11 @@ function removeEntry(state: SheetState, action: RemoveEntryAction): SheetState {
     (entry) => entry.id !== action.entryId
   );
 
-  const newSheetState: SheetState = { ...state, entries: newEntries };
+  const newSheetState: SheetState = {
+    ...state,
+    entries: newEntries,
+    lastEdited: Date.now(),
+  };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
 }
@@ -148,23 +155,28 @@ function removeEntry(state: SheetState, action: RemoveEntryAction): SheetState {
 function updateEntry(state: SheetState, action: UpdateEntryAction): SheetState {
   const entry = action.entry;
   const value = action.value;
-  let newEntry: Entry;
+  let newEntry: Entry = { ...entry, lastEdited: Date.now() };
 
   if (action.section === "item") {
     if (entry.item === value) return state;
-    newEntry = { ...entry, item: value };
+    newEntry = { ...newEntry, item: value };
   } else if (action.section === "cost") {
-    newEntry = { ...entry, cost: Number(value) };
+    newEntry = { ...newEntry, cost: Number(value) };
   } else if (action.section === "user") {
-    newEntry = { ...entry, user: value };
+    if (entry.user === value) return state;
+    newEntry = { ...newEntry, user: value };
   } else {
     if (entry.note === value) return state;
-    newEntry = { ...entry, note: value };
+    newEntry = { ...newEntry, note: value };
   }
   const newEntries = [...state.entries];
   newEntries[newEntries.indexOf(entry)] = newEntry;
 
-  const newSheetState: SheetState = { ...state, entries: newEntries };
+  const newSheetState: SheetState = {
+    ...state,
+    entries: newEntries,
+    lastEdited: Date.now(),
+  };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
 }
@@ -201,6 +213,7 @@ function addUser(state: SheetState, action: AddUserAction): SheetState {
     ...state,
     users: { ...state.users, [newUser.id]: newUser },
     numUsers: state.numUsers + 1,
+    lastEdited: Date.now(),
   };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
@@ -235,6 +248,7 @@ function removeUser(state: SheetState, action: RemoveUserAction): SheetState {
     entries: newEntries,
     users: newUsers,
     numUsers: state.numUsers - 1,
+    lastEdited: Date.now(),
   };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
@@ -252,7 +266,11 @@ function updatedExcludedUsers(
   const newEntries = [...state.entries];
   newEntries[newEntries.indexOf(action.entry)] = newEntry;
 
-  const newSheetState: SheetState = { ...state, entries: newEntries };
+  const newSheetState: SheetState = {
+    ...state,
+    entries: newEntries,
+    lastEdited: Date.now(),
+  };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
 }
@@ -269,7 +287,11 @@ function removeExcludedUser(
   const newEntries = [...state.entries];
   newEntries[newEntries.indexOf(action.entry)] = newEntry;
 
-  const newSheetState: SheetState = { ...state, entries: newEntries };
+  const newSheetState: SheetState = {
+    ...state,
+    entries: newEntries,
+    lastEdited: Date.now(),
+  };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
 }
@@ -281,7 +303,11 @@ function changeSheetTitle(
 ): SheetState {
   if (state.title === action.title) return state;
 
-  const newSheetState: SheetState = { ...state, title: action.title };
+  const newSheetState: SheetState = {
+    ...state,
+    title: action.title,
+    lastEdited: Date.now(),
+  };
   updateFirestore(newSheetState);
   return newSheetState;
 }
@@ -298,7 +324,11 @@ function changeSheetLink(
   )
     return state;
 
-  const newSheetState: SheetState = { ...state, customLink: action.link };
+  const newSheetState: SheetState = {
+    ...state,
+    customLink: action.link,
+    lastEdited: Date.now(),
+  };
   updateFirestore(newSheetState);
 
   if (state.customLink) {
@@ -314,7 +344,7 @@ function changeSheetLink(
 function saveSheet(state: SheetState, action: SaveSheetAction): SheetState {
   if (!state.local) return state;
 
-  const newSheetState = { ...state, local: false };
+  const newSheetState = { ...state, local: false, lastEdited: Date.now() };
   updateFirestore(newSheetState);
   return newSheetState;
 }

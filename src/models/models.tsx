@@ -9,6 +9,8 @@ export interface User {
 
 export interface Entry {
   id: string;
+  timestamp: string;
+  lastEdited: number;
   item: string;
   cost: number;
   exclude: string[];
@@ -34,13 +36,16 @@ export interface SheetSettings {
 }
 
 export interface SheetState {
+  id: string;
+  timestamp: string;
+  lastAccessed: number;
+  lastEdited: number;
   title: string;
   entries: Entry[];
   users: { [userId: string]: User };
   numUsers: number;
   createdBy: string;
   local: boolean;
-  id: string;
   customLink?: string;
 }
 

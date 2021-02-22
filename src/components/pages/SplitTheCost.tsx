@@ -14,6 +14,9 @@ import { nanoid } from "nanoid";
 
 var initialSheetState: SheetState = {
   title: "Loading Sheet...",
+  timestamp: "",
+  lastAccessed: 0,
+  lastEdited: 0,
   entries: [],
   users: {},
   numUsers: 0,
@@ -57,13 +60,16 @@ export const SplitTheCost: React.FC = () => {
     }
 
     const newSheetState: SheetState = {
+      id: nanoid(10),
+      timestamp: new Date(Date.now()).toUTCString(),
+      lastAccessed: Date.now(),
+      lastEdited: Date.now(),
       title: location.state.title,
       entries: [],
       users: { [userState.curUser.id]: userState.curUser },
       numUsers: 1,
       createdBy: userState.curUser.id,
       local: true,
-      id: nanoid(10),
     };
 
     sheetDispatch({ type: "updateSheetState", sheetState: newSheetState });
@@ -80,7 +86,10 @@ export const SplitTheCost: React.FC = () => {
     if (fetchedSheetState) {
       sheetDispatch({
         type: "updateSheetState",
-        sheetState: fetchedSheetState,
+        sheetState: {
+          ...fetchedSheetState,
+          lastAccessed: Date.now(),
+        },
       });
       return;
     }
@@ -102,7 +111,10 @@ export const SplitTheCost: React.FC = () => {
       if (customFetchedSheetState) {
         sheetDispatch({
           type: "updateSheetState",
-          sheetState: customFetchedSheetState,
+          sheetState: {
+            ...customFetchedSheetState,
+            lastAccessed: Date.now(),
+          },
         });
         return;
       }
