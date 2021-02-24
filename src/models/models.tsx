@@ -46,6 +46,7 @@ export interface SheetState {
   numUsers: number;
   createdBy: string;
   local: boolean;
+  readOnly: boolean;
   customLink?: string;
 }
 

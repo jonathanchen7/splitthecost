@@ -24,6 +24,7 @@ export const sheetStateConverter = {
       users: sheetState.users,
       numUsers: sheetState.numUsers,
       createdBy: sheetState.createdBy,
+      readOnly: sheetState.readOnly ? sheetState.readOnly : false,
       customLink: sheetState.customLink ? sheetState.customLink : "",
     };
   },
@@ -43,6 +44,7 @@ export const sheetStateConverter = {
       numUsers: data.numUsers,
       createdBy: data.createdBy,
       local: false,
+      readOnly: data.readOnly,
       customLink: data.customLink,
     };
   },

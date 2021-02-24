@@ -7,6 +7,8 @@ import {
   Grid,
   TextField,
   IconButton,
+  FormControlLabel,
+  Switch,
 } from "@material-ui/core";
 import { useContext, useEffect, useState } from "react";
 import { SheetContext } from "../pages/SplitTheCost";
@@ -45,6 +47,8 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
   const [validLink, setValidLink] = useState(true);
   const [uniqueLink, setUniqueLink] = useState(true);
 
+  const [readOnly, setReadOnly] = useState(sheetState.readOnly);
+
   const [deleteText, setDeleteText] = useState("");
   const [editDelete, setEditDelete] = useState(false);
   const [deleteError, setDeleteError] = useState(false);
@@ -68,6 +72,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
     setDeleteError(false);
     setDeleteText("");
     setEditDelete(false);
+    setReadOnly(sheetState.readOnly);
   }
 
   function handleCustomLinkClick() {
@@ -150,6 +155,11 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
     return true;
   }
 
+  function handleReadOnly(e: React.ChangeEvent<HTMLInputElement>) {
+    setSaveState(SaveState.Save);
+    setReadOnly(e.target.checked);
+  }
+
   function handleDeleteSheet() {
     if (!editDelete) {
       setEditDelete(true);
@@ -184,6 +194,10 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
 
     if (sheetLink !== sheetState.id && sheetLink !== sheetState.customLink) {
       sheetDispatch({ type: "changeSheetLink", link: sheetLink });
+    }
+
+    if (readOnly !== sheetState.readOnly) {
+      sheetDispatch({ type: "updateReadOnly", readOnly: readOnly });
     }
     await new Promise((r) => setTimeout(r, 500));
     setSaveState(SaveState.Saved);
@@ -259,6 +273,18 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
               </Grid>
             </>
           )}
+          <Grid item xs={12}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={readOnly}
+                  onChange={handleReadOnly}
+                  color='primary'
+                />
+              }
+              label='Read Only'
+            />
+          </Grid>
           <Grid className='bottomMargin' item xs={8}>
             <TextField
               fullWidth

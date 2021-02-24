@@ -22,6 +22,7 @@ var initialSheetState: SheetState = {
   numUsers: 0,
   createdBy: "",
   local: true,
+  readOnly: true,
   id: "",
 };
 
@@ -80,6 +81,7 @@ export const SplitTheCost: React.FC = () => {
       numUsers: 1,
       createdBy: userState.curUser.id,
       local: true,
+      readOnly: false,
     };
 
     sheetDispatch({ type: "updateSheetState", sheetState: newSheetState });
@@ -99,6 +101,7 @@ export const SplitTheCost: React.FC = () => {
         sheetState: {
           ...fetchedSheetState,
           lastAccessed: Date.now(),
+          readOnly: false,
         },
       });
       return;
@@ -141,7 +144,7 @@ export const SplitTheCost: React.FC = () => {
       <UsersBar />
       <Entries />
       <SideDialog />
-      {userState.curUser && <AddItemFab />}
+      {!sheetState.readOnly && userState.curUser && <AddItemFab />}
       <WhoAreYouModal open={!userState.curUser} />
     </SheetContext.Provider>
   );

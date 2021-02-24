@@ -13,7 +13,6 @@ import { User } from "../../models/models";
 import { ShareSheetModal } from "../modals/ShareSheetModal";
 import ReplyRoundedIcon from "@material-ui/icons/ReplyRounded";
 import SettingsRoundedIcon from "@material-ui/icons/SettingsRounded";
-// import LinkRoundedIcon from "@material-ui/icons/LinkRounded";
 
 export const UsersBar: React.FC = () => {
   const { userState } = useContext(UserContext);
@@ -64,13 +63,17 @@ export const UsersBar: React.FC = () => {
                   className='leftMargin bottomMargin'
                   user={user}
                   userIdx={Object.keys(sheetState.users).indexOf(user.id)}
-                  onRemove={userState.curUser && openRemoveUserModal}
+                  onRemove={
+                    !sheetState.readOnly && userState.curUser
+                      ? openRemoveUserModal
+                      : undefined
+                  }
                   key={user.id}
                 />
               )
             );
           })}
-          {userState.curUser && (
+          {!sheetState.readOnly && userState.curUser && (
             <Tooltip arrow title='Add Friend' placement='right'>
               <IconButton
                 className='iconButton smallIconButton leftMargin bottomMargin'
@@ -88,12 +91,6 @@ export const UsersBar: React.FC = () => {
           >
             <ReplyRoundedIcon id='shareIcon' />
           </IconButton>
-          {/* <IconButton
-            className='iconButton smallIconButton leftMargin bottomMargin'
-            onClick={openSaveSheetModal}
-          >
-            <LinkRoundedIcon />
-          </IconButton> */}
           {userState.curUser?.id === sheetState.createdBy && (
             <IconButton
               className='iconButton smallIconButton rightMargin bottomMargin'

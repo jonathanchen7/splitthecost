@@ -55,6 +55,10 @@ export type ChangeSheetLinkAction = {
   type: "changeSheetLink";
   link: string;
 };
+export type UpdateReadOnlyAction = {
+  type: "updateReadOnly";
+  readOnly: boolean;
+};
 export type SaveSheetAction = {
   type: "saveSheet";
 };
@@ -81,6 +85,7 @@ export type SheetAction =
   | ChangeSheetLinkAction
   | SaveSheetAction
   | AutosaveSheetAction
+  | UpdateReadOnlyAction
   | DeleteSheetAction
   | UpdateSheetStateAction;
 
@@ -108,6 +113,8 @@ export function sheetReducer(state: SheetState, action: SheetAction) {
       return saveSheet(state, action);
     case "autosaveSheet":
       return autosaveSheet(state, action);
+    case "updateReadOnly":
+      return updateReadOnly(state, action);
     case "deleteSheet":
       return deleteSheet(state, action);
     case "updateSheetState":
@@ -137,6 +144,7 @@ function addEntry(state: SheetState, action: AddEntryAction): SheetState {
     ...state,
     entries: [...state.entries, newEntry],
     lastEdited: Date.now(),
+    readOnly: false,
   };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
@@ -364,6 +372,15 @@ function autosaveSheet(
   }
 
   return state;
+}
+
+function updateReadOnly(
+  state: SheetState,
+  action: UpdateReadOnlyAction
+): SheetState {
+  const newSheetState = { ...state, readOnly: action.readOnly };
+  updateFirestore(newSheetState);
+  return newSheetState;
 }
 
 function deleteSheet(state: SheetState, action: DeleteSheetAction): SheetState {

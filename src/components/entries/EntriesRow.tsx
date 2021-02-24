@@ -98,12 +98,17 @@ export const EntriesRow: React.FC<Props> = ({ entry, rowIdx }) => {
               )}
               tooltipPlacement='top'
               disabled={emptyRow}
-              onClick={() => setShowEntryUserModal(true)}
+              onClick={
+                !sheetState.readOnly
+                  ? () => setShowEntryUserModal(true)
+                  : undefined
+              }
             />
             <Input
               className='sideMargins'
               disableUnderline
               fullWidth
+              readOnly={sheetState.readOnly}
               value={item}
               placeholder={emptyRow ? "Enter item name here" : undefined}
               onFocus={() => setEmptyRow(false)}
@@ -112,7 +117,7 @@ export const EntriesRow: React.FC<Props> = ({ entry, rowIdx }) => {
                 updateEntry(e.target.value, "item");
               }}
             />
-            {showDelete && (
+            {!sheetState.readOnly && showDelete && (
               <IconButton
                 className='iconButton largeIconButton rightMargin'
                 onClick={() => setShowRemoveEntryModal(true)}
@@ -126,14 +131,9 @@ export const EntriesRow: React.FC<Props> = ({ entry, rowIdx }) => {
           <div className='entryDiv'>
             <Input
               className='sideMargins'
-              inputComponent={NumberFormat as any}
-              inputProps={{
-                decimalScale: 2,
-                allowNegative: false,
-                thousandSeparator: ",",
-              }}
               disableUnderline
               fullWidth
+              readOnly={sheetState.readOnly}
               value={entry.cost.toFixed(2)}
               onFocus={() => setEmptyRow(false)}
               onChange={(e) => {
@@ -145,6 +145,12 @@ export const EntriesRow: React.FC<Props> = ({ entry, rowIdx }) => {
               startAdornment={
                 <InputAdornment position='start'>$</InputAdornment>
               }
+              inputComponent={NumberFormat as any}
+              inputProps={{
+                decimalScale: 2,
+                allowNegative: false,
+                thousandSeparator: ",",
+              }}
             />
           </div>
         </Grid>
@@ -181,7 +187,7 @@ export const EntriesRow: React.FC<Props> = ({ entry, rowIdx }) => {
               }
             })}
 
-            {showEdit && (
+            {!sheetState.readOnly && showEdit && (
               <IconButton
                 className='iconButton largeIconButton leftMarginSmall'
                 onClick={() => setShowExcludeUsersModal(true)}
@@ -197,6 +203,7 @@ export const EntriesRow: React.FC<Props> = ({ entry, rowIdx }) => {
               className='sideMargins'
               disableUnderline
               fullWidth
+              readOnly={sheetState.readOnly}
               value={note}
               placeholder={emptyRow ? "Include a note here" : undefined}
               onFocus={() => setEmptyRow(false)}
