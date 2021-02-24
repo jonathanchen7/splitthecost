@@ -2,6 +2,7 @@ import * as React from "react";
 import Grid from "@material-ui/core/Grid";
 import { useContext } from "react";
 import { SheetContext } from "../pages/SplitTheCost";
+import { AutosaveMessage } from "../bits/AutosaveMessage";
 
 export const Header: React.FC = () => {
   const { sheetState } = useContext(SheetContext);
@@ -12,6 +13,7 @@ export const Header: React.FC = () => {
         <span className='leftMargin'>
           split the cost | <b>{sheetState.title}</b>
         </span>
+        {!sheetState.local && <AutosaveMessage />}
       </Grid>
     </Grid>
   );

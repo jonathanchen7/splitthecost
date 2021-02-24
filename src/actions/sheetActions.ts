@@ -58,6 +58,9 @@ export type ChangeSheetLinkAction = {
 export type SaveSheetAction = {
   type: "saveSheet";
 };
+export type AutosaveSheetAction = {
+  type: "autosaveSheet";
+};
 export type DeleteSheetAction = {
   type: "deleteSheet";
 };
@@ -77,6 +80,7 @@ export type SheetAction =
   | ChangeSheetTitleAction
   | ChangeSheetLinkAction
   | SaveSheetAction
+  | AutosaveSheetAction
   | DeleteSheetAction
   | UpdateSheetStateAction;
 
@@ -102,6 +106,8 @@ export function sheetReducer(state: SheetState, action: SheetAction) {
       return changeSheetLink(state, action);
     case "saveSheet":
       return saveSheet(state, action);
+    case "autosaveSheet":
+      return autosaveSheet(state, action);
     case "deleteSheet":
       return deleteSheet(state, action);
     case "updateSheetState":
@@ -177,7 +183,7 @@ function updateEntry(state: SheetState, action: UpdateEntryAction): SheetState {
     entries: newEntries,
     lastEdited: Date.now(),
   };
-  updateFirestore(newSheetState, action.local);
+  // updateFirestore(newSheetState, action.local);
   return newSheetState;
 }
 
@@ -347,6 +353,17 @@ function saveSheet(state: SheetState, action: SaveSheetAction): SheetState {
   const newSheetState = { ...state, local: false, lastEdited: Date.now() };
   updateFirestore(newSheetState);
   return newSheetState;
+}
+
+function autosaveSheet(
+  state: SheetState,
+  action: AutosaveSheetAction
+): SheetState {
+  if (Date.now() - state.lastEdited < 12000) {
+    updateFirestore(state);
+  }
+
+  return state;
 }
 
 function deleteSheet(state: SheetState, action: DeleteSheetAction): SheetState {

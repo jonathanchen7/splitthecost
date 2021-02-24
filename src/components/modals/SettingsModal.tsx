@@ -19,7 +19,7 @@ import DoneRoundedIcon from "@material-ui/icons/DoneRounded";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import { useHistory } from "react-router-dom";
 
-enum SaveStates {
+enum SaveState {
   Save = 1,
   Saving = 2,
   Saved = 3,
@@ -49,7 +49,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
   const [editDelete, setEditDelete] = useState(false);
   const [deleteError, setDeleteError] = useState(false);
 
-  const [saveState, setSaveState] = useState(SaveStates.Save);
+  const [saveState, setSaveState] = useState(SaveState.Save);
 
   useEffect(() => {
     setSheetTitle(sheetState.title);
@@ -63,7 +63,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
     setValidLink(true);
     setUniqueLink(true);
     setSheetLink(sheetState.customLink ? sheetState.customLink : sheetState.id);
-    setSaveState(SaveStates.Save);
+    setSaveState(SaveState.Save);
     setOpen(false);
     setDeleteError(false);
     setDeleteText("");
@@ -111,7 +111,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
       return false;
     }
 
-    setSaveState(SaveStates.Save);
+    setSaveState(SaveState.Save);
     setEditLink(false);
     setValidLink(true);
     setUniqueLink(true);
@@ -143,7 +143,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
       return false;
     }
 
-    setSaveState(SaveStates.Save);
+    setSaveState(SaveState.Save);
     setEditTitle(false);
     setValidTitle(true);
 
@@ -177,7 +177,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
   }
 
   async function saveSettings() {
-    setSaveState(SaveStates.Saving);
+    setSaveState(SaveState.Saving);
     if (sheetTitle !== sheetState.title && validateSheetTitle()) {
       sheetDispatch({ type: "changeSheetTitle", title: sheetTitle });
     }
@@ -186,7 +186,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
       sheetDispatch({ type: "changeSheetLink", link: sheetLink });
     }
     await new Promise((r) => setTimeout(r, 500));
-    setSaveState(SaveStates.Saved);
+    setSaveState(SaveState.Saved);
   }
 
   return (
@@ -297,16 +297,16 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
         <Button
           className='modalConfirmButton rightMarginSmall'
           disabled={
-            saveState === SaveStates.Saving ||
-            saveState === SaveStates.Saved ||
+            saveState === SaveState.Saving ||
+            saveState === SaveState.Saved ||
             editLink ||
             editTitle
           }
           onClick={saveSettings}
         >
-          {saveState === SaveStates.Save
+          {saveState === SaveState.Save
             ? "Save"
-            : saveState === SaveStates.Saving
+            : saveState === SaveState.Saving
             ? "Saving..."
             : "Saved"}
         </Button>

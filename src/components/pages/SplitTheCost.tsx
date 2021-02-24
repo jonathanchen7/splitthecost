@@ -53,6 +53,16 @@ export const SplitTheCost: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    const saveInterval = setInterval(() => {
+      if (!sheetState.local) {
+        sheetDispatch({ type: "autosaveSheet" });
+      }
+    }, 10000);
+
+    return () => clearInterval(saveInterval);
+  }, [sheetState.local]);
+
   function generateNewSheetState() {
     if (!userState.curUser || !location.state.title) {
       history.push("/create");

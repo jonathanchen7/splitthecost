@@ -204,6 +204,13 @@ $redArrowColor: #e74c3c;
   font-size: 20px;
 }
 
+#autosaveMessage {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+  font-size: 13px;
+}
+
 // ---------------- USERS BAR ----------------
 
 .usersBar {
