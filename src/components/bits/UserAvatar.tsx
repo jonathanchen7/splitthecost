@@ -2,6 +2,7 @@ import * as React from "react";
 import { Avatar, Tooltip } from "@material-ui/core";
 import { User } from "../../models/models";
 import { getAvatarColor } from "../../logic/logic";
+import { useState } from "react";
 
 interface Props {
   user: User;
@@ -21,6 +22,7 @@ interface Props {
     | "top-start"
     | undefined;
   onClick?: () => void;
+  iconOnHover?: JSX.Element;
   disabled?: boolean;
   className?: string;
 }
@@ -30,9 +32,12 @@ export const UserAvatar: React.FC<Props> = ({
   userIdx,
   tooltipPlacement,
   onClick,
+  iconOnHover,
   disabled,
   className,
 }) => {
+  const [hover, setHover] = useState(false);
+
   return (
     <Tooltip
       className={className}
@@ -48,7 +53,12 @@ export const UserAvatar: React.FC<Props> = ({
           cursor: onClick ? "pointer" : "default",
         }}
       >
-        {user.initials}
+        <span
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        >
+          {hover ? (iconOnHover ? iconOnHover : user.initials) : user.initials}
+        </span>
       </Avatar>
     </Tooltip>
   );

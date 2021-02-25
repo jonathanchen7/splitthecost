@@ -103,6 +103,7 @@ export const EntriesRow: React.FC<Props> = ({ entry, rowIdx }) => {
                   ? () => setShowEntryUserModal(true)
                   : undefined
               }
+              iconOnHover={<EditRoundedIcon />}
             />
             <Input
               className='sideMargins'
