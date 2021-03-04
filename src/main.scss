@@ -403,18 +403,57 @@ $redArrowColor: #e74c3c;
 
 // ---------------- HOME PAGE ----------------
 
-.homePage {
-  display: flex;
-  height: 90vh;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+#homepageHeader {
+  height: 60px;
+  // background-color: blue;
 }
 
-.welcomeHeader {
-  font-size: 50px;
+.homepage {
+  height: 85vh;
+  perspective: 1500px;
+}
+
+#homepageBlob {
+  position: absolute;
+  top: 50%;
+  margin-top: -23vw;
+  width: 55vw;
+}
+
+#homepageImg {
+  margin-left: 1vw;
+  transform: rotateY(15deg);
+  width: 52vw;
+  opacity: 95%;
+  z-index: 1;
+  border-radius: 10px;
+  transition: all 0.5s;
+
+  &:hover {
+    transform: rotateY(0deg);
+    transform: scale(1.1);
+  }
+}
+
+#homepageText {
+  display: flex;
+  flex-direction: column;
+}
+
+#homepageTitle {
+  font-size: 2.5vw;
+  font-weight: bold;
+}
+
+#homepageSubtitle {
+  font-size: 1vw;
+  margin-bottom: 25px;
+}
+
+.homepageLink {
+  font-weight: bold;
+  margin-right: 40px;
   color: $headerColor;
-  margin-bottom: 20px;
 }
 
 .createNewButton {

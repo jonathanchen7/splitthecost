@@ -411,27 +411,66 @@
   background-color: #5f8ba9 !important;
 }
 
-.homePage {
+#homepageHeader {
+  height: 60px;
+}
+
+.homepage {
+  height: 85vh;
+  -webkit-perspective: 1500px;
+          perspective: 1500px;
+}
+
+#homepageBlob {
+  position: absolute;
+  top: 50%;
+  margin-top: -23vw;
+  width: 55vw;
+}
+
+#homepageImg {
+  margin-left: 1vw;
+  -webkit-transform: rotateY(15deg);
+          transform: rotateY(15deg);
+  width: 52vw;
+  opacity: 95%;
+  z-index: 1;
+  border-radius: 10px;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+#homepageImg:hover {
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+#homepageText {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 90vh;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 
-.welcomeHeader {
-  font-size: 50px;
+#homepageTitle {
+  font-size: 2.5vw;
+  font-weight: bold;
+}
+
+#homepageSubtitle {
+  font-size: 1vw;
+  margin-bottom: 25px;
+}
+
+.homepageLink {
+  font-weight: bold;
+  margin-right: 40px;
   color: #377cab;
-  margin-bottom: 20px;
 }
 
 .createNewButton {

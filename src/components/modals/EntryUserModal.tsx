@@ -29,16 +29,15 @@ export const EntryUserModal: React.FC<Props> = ({ open, setOpen, entry }) => {
   }, [entry.user]);
 
   function confirmEntryUser() {
-    if (entryUser !== entry.user) {
+    if (entryUser && entryUser !== entry.user) {
       sheetDispatch({
         type: "updateEntry",
         entry: entry,
         section: "user",
         value: entryUser,
       });
+      handleClose();
     }
-
-    handleClose();
   }
 
   function handleClick(userId: string) {

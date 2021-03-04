@@ -22,17 +22,19 @@ export const RemoveUserModal: React.FC<Props> = ({
   open,
   setOpen,
 }) => {
-  const { sheetDispatch } = useContext(SheetContext);
+  const { sheetState, sheetDispatch } = useContext(SheetContext);
 
   function handleClose() {
     setOpen(false);
   }
 
   function confirmRemoveUser() {
-    sheetDispatch({
-      type: "removeUser",
-      userId: removeUser.id,
-    });
+    if (removeUser.id !== sheetState.createdBy) {
+      sheetDispatch({
+        type: "removeUser",
+        userId: removeUser.id,
+      });
+    }
 
     setOpen(false);
   }

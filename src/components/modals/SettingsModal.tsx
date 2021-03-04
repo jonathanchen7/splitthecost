@@ -58,7 +58,13 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
   useEffect(() => {
     setSheetTitle(sheetState.title);
     setSheetLink(sheetState.customLink ? sheetState.customLink : sheetState.id);
-  }, [sheetState.title, sheetState.customLink, sheetState.id]);
+    setReadOnly(sheetState.readOnly);
+  }, [
+    sheetState.title,
+    sheetState.customLink,
+    sheetState.id,
+    sheetState.readOnly,
+  ]);
 
   function handleClose() {
     setEditTitle(false);

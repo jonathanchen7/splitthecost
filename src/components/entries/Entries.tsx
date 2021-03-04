@@ -8,17 +8,18 @@ import { UserContext } from "../../App";
 export const Entries: React.FC = () => {
   const { userState } = useContext(UserContext);
   const { sheetState } = useContext(SheetContext);
+  let rowIdx = 0;
 
   return (
     <>
       <EntriesHeader />
       {sheetState.entries.map(
-        (entry, idx) =>
-          (entry.createdBy === userState.curUser?.id ||
+        (entry) =>
+          (entry.user === userState.curUser?.id ||
             entry.item ||
             entry.cost ||
             entry.note) && (
-            <EntriesRow entry={entry} rowIdx={idx} key={entry.id} />
+            <EntriesRow entry={entry} rowIdx={rowIdx++} key={entry.id} />
           )
       )}
     </>

@@ -64,7 +64,9 @@ export const UsersBar: React.FC = () => {
                   user={user}
                   userIdx={Object.keys(sheetState.users).indexOf(user.id)}
                   onRemove={
-                    !sheetState.readOnly && userState.curUser
+                    !sheetState.readOnly &&
+                    userState.curUser &&
+                    sheetState.createdBy !== user.id
                       ? openRemoveUserModal
                       : undefined
                   }
