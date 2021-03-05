@@ -447,7 +447,7 @@ $redArrowColor: #e74c3c;
 
 #homepageSubtitle {
   font-size: 1vw;
-  margin-bottom: 25px;
+  margin: 0px 10px 20px 0px;
 }
 
 .homepageLink {
@@ -473,6 +473,26 @@ $redArrowColor: #e74c3c;
   &:disabled {
     background-color: $gridDarkColor !important;
   }
+}
+
+// ---------------- ERROR PAGE ----------------
+
+.errorPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+
+.errorPageHeader {
+  font-size: 50px;
+  color: $headerColor;
+  margin-bottom: 15px;
+}
+
+.errorPageSubtitle {
+  margin: 0px 20px 0px 20px;
 }
 
 // ---------------- TERMS OF SERVICE ----------------

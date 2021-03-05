@@ -19,7 +19,7 @@ enum CreateSheetStep {
   DisplayName = 2,
 }
 
-export const CreateNewSheetPage: React.FC = () => {
+export const CreateNewSheet: React.FC = () => {
   const { userDispatch } = useContext(UserContext);
   const history = useHistory();
 

@@ -6,10 +6,10 @@ export const SheetNotFound: React.FC = () => {
   const location = useLocation<{ sheetId: string }>();
 
   return (
-    <div className='homePage'>
-      <span className='welcomeHeader'>
-        sorry, we couldn't find a sheet with the id "
-        <b>{location.state.sheetId}</b>".
+    <div className='errorPage'>
+      <span className='errorPageHeader'>
+        sorry, we couldn't find a sheet with id "<b>{location.state.sheetId}</b>
+        ".
       </span>
 
       <Link className='noTextDecoration' to='/create'>

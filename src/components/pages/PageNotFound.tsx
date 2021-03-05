@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 export const PageNotFound: React.FC = () => {
   return (
-    <div className='homePage'>
-      <span className='welcomeHeader'>
+    <div className='errorPage'>
+      <span className='errorPageHeader'>
         <b>404</b> - this page doesn't exist.
       </span>
 

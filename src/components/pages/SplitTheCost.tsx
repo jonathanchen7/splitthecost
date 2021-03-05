@@ -11,6 +11,7 @@ import { db, sheetStateConverter } from "../../firebase";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { WhoAreYouModal } from "../modals/WhoAreYouModal";
 import { nanoid } from "nanoid";
+import { ViewOnDesktop } from "./ViewOnDesktop";
 
 var initialSheetState: SheetState = {
   title: "Loading Sheet...",
@@ -35,6 +36,7 @@ export const SheetContext = createContext<{
 });
 
 export const SplitTheCost: React.FC = () => {
+  const isMobile = window.innerWidth <= 1000;
   const history = useHistory();
   const location = useLocation<{ title: string }>();
   const { sheetId } = useParams<{ sheetId: string }>();
@@ -136,16 +138,28 @@ export const SplitTheCost: React.FC = () => {
     history.push("/invalidsheet", { sheetId: sheetId });
   }
 
+  function renderDeviceView(): JSX.Element {
+    if (isMobile) {
+      return <ViewOnDesktop />;
+    } else {
+      return (
+        <>
+          <Header />
+          <UsersBar />
+          <Entries />
+          <SideDialog />
+          {!sheetState.readOnly && userState.curUser && <AddItemFab />}
+          <WhoAreYouModal open={!userState.curUser} />
+        </>
+      );
+    }
+  }
+
   return (
     <SheetContext.Provider
       value={{ sheetState: sheetState, sheetDispatch: sheetDispatch }}
     >
-      <Header />
-      <UsersBar />
-      <Entries />
-      <SideDialog />
-      {!sheetState.readOnly && userState.curUser && <AddItemFab />}
-      <WhoAreYouModal open={!userState.curUser} />
+      {renderDeviceView()}
     </SheetContext.Provider>
   );
 };
