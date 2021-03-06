@@ -54,3 +54,9 @@ export interface UserState {
   curUser: User | undefined;
   darkMode: boolean;
 }
+
+export enum SaveState {
+  Unsaved = 1,
+  Saving = 2,
+  Saved = 3,
+}

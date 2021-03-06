@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
-import { SheetState } from "../../models/models";
+import { SaveState, SheetState } from "../../models/models";
 import { Entries } from "../entries/Entries";
 import { Header } from "../header/Header";
 import { UsersBar } from "../users/UsersBar";
@@ -12,6 +12,7 @@ import { useHistory, useLocation, useParams } from "react-router-dom";
 import { WhoAreYouModal } from "../modals/WhoAreYouModal";
 import { nanoid } from "nanoid";
 import { ViewOnDesktop } from "./ViewOnDesktop";
+import { useState } from "react";
 
 var initialSheetState: SheetState = {
   title: "Loading Sheet...",
@@ -47,6 +48,10 @@ export const SplitTheCost: React.FC = () => {
   );
   const { userState } = useContext(UserContext);
 
+  const [autosaveState, setAutosaveState] = useState(
+    sheetState.local ? SaveState.Unsaved : SaveState.Saved
+  );
+
   useEffect(() => {
     if (!sheetId || sheetId === "new") {
       generateNewSheetState();
@@ -57,14 +62,25 @@ export const SplitTheCost: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    setAutosaveState(sheetState.local ? SaveState.Unsaved : SaveState.Saved);
     const saveInterval = setInterval(() => {
-      if (!sheetState.local) {
-        sheetDispatch({ type: "autosaveSheet" });
-      }
+      autosaveSheet();
     }, 10000);
 
     return () => clearInterval(saveInterval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sheetState.local]);
+
+  async function autosaveSheet() {
+    if (!sheetState.local) {
+      sheetDispatch({
+        type: "autosaveSheet",
+        setAutosaveState: setAutosaveState,
+      });
+      await new Promise((r) => setTimeout(r, 1500));
+      setAutosaveState(SaveState.Saved);
+    }
+  }
 
   function generateNewSheetState() {
     if (!userState.curUser || !location.state.title) {
@@ -144,7 +160,7 @@ export const SplitTheCost: React.FC = () => {
     } else {
       return (
         <>
-          <Header />
+          <Header saveState={autosaveState} />
           <UsersBar />
           <Entries />
           <SideDialog />

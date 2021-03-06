@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { db, sheetStateConverter } from "../firebase";
-import { Entry, SheetState, User } from "../models/models";
+import { Entry, SaveState, SheetState, User } from "../models/models";
 
 export type AddEntryAction = {
   type: "addEntry";
@@ -64,6 +64,7 @@ export type SaveSheetAction = {
 };
 export type AutosaveSheetAction = {
   type: "autosaveSheet";
+  setAutosaveState: React.Dispatch<React.SetStateAction<SaveState>>;
 };
 export type DeleteSheetAction = {
   type: "deleteSheet";
@@ -367,7 +368,8 @@ function autosaveSheet(
   state: SheetState,
   action: AutosaveSheetAction
 ): SheetState {
-  if (Date.now() - state.lastEdited < 12000) {
+  if (Date.now() - state.lastEdited < 11000) {
+    action.setAutosaveState(SaveState.Saving);
     updateFirestore(state);
   }
 

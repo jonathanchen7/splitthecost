@@ -20,12 +20,7 @@ import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import DoneRoundedIcon from "@material-ui/icons/DoneRounded";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import { useHistory } from "react-router-dom";
-
-enum SaveState {
-  Save = 1,
-  Saving = 2,
-  Saved = 3,
-}
+import { SaveState } from "../../models/models";
 
 interface Props {
   open: boolean;
@@ -53,7 +48,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
   const [editDelete, setEditDelete] = useState(false);
   const [deleteError, setDeleteError] = useState(false);
 
-  const [saveState, setSaveState] = useState(SaveState.Save);
+  const [saveState, setSaveState] = useState(SaveState.Unsaved);
 
   useEffect(() => {
     setSheetTitle(sheetState.title);
@@ -73,7 +68,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
     setValidLink(true);
     setUniqueLink(true);
     setSheetLink(sheetState.customLink ? sheetState.customLink : sheetState.id);
-    setSaveState(SaveState.Save);
+    setSaveState(SaveState.Unsaved);
     setOpen(false);
     setDeleteError(false);
     setDeleteText("");
@@ -122,7 +117,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
       return false;
     }
 
-    setSaveState(SaveState.Save);
+    setSaveState(SaveState.Unsaved);
     setEditLink(false);
     setValidLink(true);
     setUniqueLink(true);
@@ -154,7 +149,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
       return false;
     }
 
-    setSaveState(SaveState.Save);
+    setSaveState(SaveState.Unsaved);
     setEditTitle(false);
     setValidTitle(true);
 
@@ -162,7 +157,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
   }
 
   function handleReadOnly(e: React.ChangeEvent<HTMLInputElement>) {
-    setSaveState(SaveState.Save);
+    setSaveState(SaveState.Unsaved);
     setReadOnly(e.target.checked);
   }
 
@@ -336,7 +331,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
           }
           onClick={saveSettings}
         >
-          {saveState === SaveState.Save
+          {saveState === SaveState.Unsaved
             ? "Save"
             : saveState === SaveState.Saving
             ? "Saving..."
