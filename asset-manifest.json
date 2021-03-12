@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/splitthecost/static/css/main.7c03aa11.chunk.css",
-    "main.js": "/splitthecost/static/js/main.4b580ffd.chunk.js",
-    "main.js.map": "/splitthecost/static/js/main.4b580ffd.chunk.js.map",
-    "runtime-main.js": "/splitthecost/static/js/runtime-main.8e4a824f.js",
-    "runtime-main.js.map": "/splitthecost/static/js/runtime-main.8e4a824f.js.map",
-    "static/js/2.4710a788.chunk.js": "/splitthecost/static/js/2.4710a788.chunk.js",
-    "static/js/2.4710a788.chunk.js.map": "/splitthecost/static/js/2.4710a788.chunk.js.map",
-    "static/js/3.656ecd4b.chunk.js": "/splitthecost/static/js/3.656ecd4b.chunk.js",
-    "static/js/3.656ecd4b.chunk.js.map": "/splitthecost/static/js/3.656ecd4b.chunk.js.map",
-    "index.html": "/splitthecost/index.html",
-    "static/css/main.7c03aa11.chunk.css.map": "/splitthecost/static/css/main.7c03aa11.chunk.css.map",
-    "static/js/2.4710a788.chunk.js.LICENSE.txt": "/splitthecost/static/js/2.4710a788.chunk.js.LICENSE.txt",
-    "static/media/blob.244efd39.svg": "/splitthecost/static/media/blob.244efd39.svg",
-    "static/media/homepage.d372b9ab.png": "/splitthecost/static/media/homepage.d372b9ab.png"
+    "main.css": "/static/css/main.7c03aa11.chunk.css",
+    "main.js": "/static/js/main.f76a674c.chunk.js",
+    "main.js.map": "/static/js/main.f76a674c.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.1705fdda.js",
+    "runtime-main.js.map": "/static/js/runtime-main.1705fdda.js.map",
+    "static/js/2.3b14af08.chunk.js": "/static/js/2.3b14af08.chunk.js",
+    "static/js/2.3b14af08.chunk.js.map": "/static/js/2.3b14af08.chunk.js.map",
+    "static/js/3.656ecd4b.chunk.js": "/static/js/3.656ecd4b.chunk.js",
+    "static/js/3.656ecd4b.chunk.js.map": "/static/js/3.656ecd4b.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.7c03aa11.chunk.css.map": "/static/css/main.7c03aa11.chunk.css.map",
+    "static/js/2.3b14af08.chunk.js.LICENSE.txt": "/static/js/2.3b14af08.chunk.js.LICENSE.txt",
+    "static/media/blob.244efd39.svg": "/static/media/blob.244efd39.svg",
+    "static/media/homepage.d372b9ab.png": "/static/media/homepage.d372b9ab.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.8e4a824f.js",
-    "static/js/2.4710a788.chunk.js",
+    "static/js/runtime-main.1705fdda.js",
+    "static/js/2.3b14af08.chunk.js",
     "static/css/main.7c03aa11.chunk.css",
-    "static/js/main.4b580ffd.chunk.js"
+    "static/js/main.f76a674c.chunk.js"
   ]
 }
