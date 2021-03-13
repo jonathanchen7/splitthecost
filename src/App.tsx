@@ -27,7 +27,7 @@ function App() {
   const [userState, userDispatch] = useReducer(userReducer, initialUserState);
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <UserContext.Provider
         value={{ userState: userState, userDispatch: userDispatch }}
       >
