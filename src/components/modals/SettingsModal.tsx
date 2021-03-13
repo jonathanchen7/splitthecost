@@ -262,7 +262,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
                   InputProps={{
                     readOnly: !editLink,
                     disableUnderline: !editLink,
-                    startAdornment: <b>splitthecost.net/</b>,
+                    startAdornment: <b>splitthecost.net/#/</b>,
                   }}
                 />
               </Grid>

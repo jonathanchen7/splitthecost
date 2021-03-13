@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from "react";
 import "./main.css";
 import { SplitTheCost } from "./components/pages/SplitTheCost";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Route, HashRouter as Router, Switch } from "react-router-dom";
 import { HomePage } from "./components/pages/HomePage";
 import { UserState } from "./models/models";
 import { UserAction, userReducer } from "./actions/appUserActions";
@@ -27,7 +27,7 @@ function App() {
   const [userState, userDispatch] = useReducer(userReducer, initialUserState);
 
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router>
       <UserContext.Provider
         value={{ userState: userState, userDispatch: userDispatch }}
       >

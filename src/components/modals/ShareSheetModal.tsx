@@ -32,7 +32,7 @@ export const ShareSheetModal: React.FC<Props> = ({ open, setOpen }) => {
   }
 
   function copySheetLink() {
-    navigator.clipboard.writeText(`splitthecost.net/sheet/${sheetState.id}`);
+    navigator.clipboard.writeText(`splitthecost.net/#/sheet/${sheetState.id}`);
     setButtonText("COPIED");
   }
 
