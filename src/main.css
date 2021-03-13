@@ -434,7 +434,6 @@
   -webkit-transform: rotateY(15deg);
           transform: rotateY(15deg);
   width: 52vw;
-  opacity: 95%;
   z-index: 1;
   border-radius: 10px;
   -webkit-transition: all 0.5s;
