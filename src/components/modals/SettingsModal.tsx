@@ -195,6 +195,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
 
     if (sheetLink !== sheetState.id && sheetLink !== sheetState.customLink) {
       sheetDispatch({ type: "changeSheetLink", link: sheetLink });
+      history.push(`/sheet/${sheetLink}`);
     }
 
     if (readOnly !== sheetState.readOnly) {
