@@ -151,6 +151,7 @@ export const EntriesRow: React.FC<Props> = ({ entry, rowIdx }) => {
                 decimalScale: 2,
                 allowNegative: false,
                 thousandSeparator: ",",
+                allowLeadingZeros: true,
               }}
             />
           </div>

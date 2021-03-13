@@ -73,7 +73,7 @@ export const EntryUserModal: React.FC<Props> = ({ open, setOpen, entry }) => {
                 <div className='excludeModalUser' key={user.id}>
                   <Radio
                     checked={entryUser === user.id}
-                    onChange={(e) => handleClick(e.target.value)}
+                    onClick={() => handleClick(user.id)}
                   />
                   <UserChip
                     user={user}

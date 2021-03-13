@@ -176,7 +176,7 @@ function updateEntry(state: SheetState, action: UpdateEntryAction): SheetState {
     if (entry.item === value) return state;
     newEntry = { ...newEntry, item: value };
   } else if (action.section === "cost") {
-    newEntry = { ...newEntry, cost: Number(value) };
+    newEntry = { ...newEntry, cost: Number(value.replaceAll(",", "")) };
   } else if (action.section === "user") {
     if (entry.user === value) return state;
     newEntry = { ...newEntry, user: value };
@@ -242,9 +242,9 @@ function removeUser(state: SheetState, action: RemoveUserAction): SheetState {
   const newUsers = { ...state.users };
   delete newUsers[action.userId];
 
-  // Remove entries created by the user.
+  // Remove entries created by the user and/or associated with the user.
   const newEntries = state.entries.filter(
-    (entry) => entry.createdBy !== action.userId
+    (entry) => entry.createdBy !== action.userId && entry.id !== action.userId
   );
 
   // Remove user from any excluded user lists.
