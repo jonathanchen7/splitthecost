@@ -53,7 +53,7 @@ export const CreateNewSheet: React.FC = () => {
       email: "",
     };
     userDispatch({ type: "updateCurUser", user: newUser });
-    history.push("/sheet/new", { title: sheetTitle });
+    history.push({ pathname: "/sheet/new", state: { title: sheetTitle } });
   }
 
   function sheetNameStep() {

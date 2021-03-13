@@ -151,7 +151,7 @@ export const SplitTheCost: React.FC = () => {
       }
     }
 
-    history.push("/invalidsheet", { sheetId: sheetId });
+    history.push({ pathname: "/invalidsheet", state: { sheetId: sheetId } });
   }
 
   function renderDeviceView(): JSX.Element {
