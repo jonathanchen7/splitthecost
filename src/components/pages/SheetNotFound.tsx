@@ -8,7 +8,8 @@ export const SheetNotFound: React.FC = () => {
   return (
     <div className='errorPage'>
       <span className='errorPageHeader'>
-        sorry, we couldn't find a sheet with id "<b>{location.state.sheetId}</b>
+        sorry, we couldn't find a sheet with id "
+        <b>{location.state?.sheetId}</b>
         ".
       </span>
 

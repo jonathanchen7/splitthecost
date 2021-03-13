@@ -94,7 +94,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
     if (
       sheetLink.trim().length < 5 ||
       sheetLink.length > 20 ||
-      !sheetLink.match(/^[0-9a-z]+$/)
+      !sheetLink.match(/^[0-9a-zA-Z]+$/)
     ) {
       setValidLink(false);
       return false;
