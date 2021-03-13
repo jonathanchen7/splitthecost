@@ -244,7 +244,7 @@ function removeUser(state: SheetState, action: RemoveUserAction): SheetState {
 
   // Remove entries created by the user and/or associated with the user.
   const newEntries = state.entries.filter(
-    (entry) => entry.createdBy !== action.userId && entry.id !== action.userId
+    (entry) => entry.createdBy !== action.userId && entry.user !== action.userId
   );
 
   // Remove user from any excluded user lists.
