@@ -198,7 +198,7 @@ function updateEntry(state: SheetState, action: UpdateEntryAction): SheetState {
 
 // Add a user to the sheet.
 function addUser(state: SheetState, action: AddUserAction): SheetState {
-  if (state.numUsers > 10) return state;
+  if (state.numUsers >= 10) return state;
 
   let duplicateUser = false;
   Object.entries(state.users).forEach((pair) => {

@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -41,20 +42,26 @@ export const WhoAreYouModal: React.FC<Props> = ({ open }) => {
     >
       <ModalHeader title='Who are You?' />
       <DialogContent>
-        {Object.entries(sheetState.users).map((pair) => {
-          const user = pair[1];
-          return (
-            <UserChip
-              className={`bottomMargin rightMargin ${
-                selectedUser?.id === user.id && "selectedChip"
-              }`}
-              user={user}
-              userIdx={Object.keys(sheetState.users).indexOf(user.id)}
-              onClick={setSelectedUser}
-              key={user.id}
-            />
-          );
-        })}
+        {!Object.keys(sheetState.users).length ? (
+          <div className='trueCenter'>
+            <CircularProgress />
+          </div>
+        ) : (
+          Object.entries(sheetState.users).map((pair) => {
+            const user = pair[1];
+            return (
+              <UserChip
+                className={`bottomMargin rightMargin ${
+                  selectedUser?.id === user.id && "selectedChip"
+                }`}
+                user={user}
+                userIdx={Object.keys(sheetState.users).indexOf(user.id)}
+                onClick={setSelectedUser}
+                key={user.id}
+              />
+            );
+          })
+        )}
       </DialogContent>
       <DialogActions className='modalActions'>
         <Button

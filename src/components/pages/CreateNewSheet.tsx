@@ -6,13 +6,14 @@ import {
   IconButton,
   TextField,
 } from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import { motion } from "framer-motion";
 import { UserContext } from "../../App";
 import { User } from "../../models/models";
 import { nanoid } from "nanoid";
+import { validateName, validateSheetTitle } from "../../logic/logic";
 
 enum CreateSheetStep {
   SheetName = 1,
@@ -26,30 +27,42 @@ export const CreateNewSheet: React.FC = () => {
   const [step, setStep] = useState(CreateSheetStep.SheetName);
 
   const [sheetTitle, setSheetTitle] = useState("");
-  const [validTitle, setValidTitle] = useState(false);
+  const [validTitle, setValidTitle] = useState(true);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [firstName, setFirstName] = useState("");
+  const [validFirstName, setValidFirstName] = useState(true);
   const [lastName, setLastName] = useState("");
+  const [validLastName, setValidLastName] = useState(true);
 
-  useEffect(() => {
-    setValidTitle(
-      !(
-        sheetTitle.trim().length < 5 ||
-        sheetTitle.length > 20 ||
-        sheetTitle.match(/[~`%^#@*+=\-[\]\\';,/{}|\\"<>]/)
-      )
-    );
-  }, [sheetTitle]);
+  function handleTitleButton() {
+    const temp = validateSheetTitle(sheetTitle);
+    setValidTitle(temp);
+    if (temp) {
+      setStep(CreateSheetStep.DisplayName);
+    }
+  }
+
+  function handleNameButton() {
+    const validFirst = validateName(firstName.trim());
+    const validLast = validateName(lastName.trim());
+    setValidFirstName(validFirst);
+    setValidLastName(validLast);
+
+    if (validFirst && validLast) {
+      createNewSheet();
+    }
+  }
 
   function createNewSheet() {
+    const first = firstName.trim();
+    const last = lastName.trim();
+
     const newUser: User = {
       id: nanoid(),
-      firstName: firstName,
-      lastName: lastName,
-      initials: `${firstName.charAt(0)}${lastName.charAt(
-        0
-      )}`.toLocaleUpperCase(),
-      displayName: `${firstName} ${lastName}`,
+      firstName: first,
+      lastName: last,
+      initials: `${first.charAt(0)}${last.charAt(0)}`.toLocaleUpperCase(),
+      displayName: `${first} ${last}`,
       email: "",
     };
     userDispatch({ type: "updateCurUser", user: newUser });
@@ -57,6 +70,7 @@ export const CreateNewSheet: React.FC = () => {
   }
 
   function sheetNameStep() {
+    console.log(agreeToTerms);
     return (
       <>
         <div className='giantHeader'>Give your sheet a name:</div>
@@ -66,15 +80,23 @@ export const CreateNewSheet: React.FC = () => {
           placeholder='Sheet name'
           value={sheetTitle}
           onChange={(e) => setSheetTitle(e.target.value)}
+          helperText={
+            validTitle
+              ? ""
+              : "Title must be between 3-20 characters (select special characters are allowed)."
+          }
           inputProps={{
             className: "giantInput",
+          }}
+          FormHelperTextProps={{
+            className: "giantInputHelperText",
           }}
         />
         <FormControlLabel
           className='termsAndConditions'
           control={
             <Checkbox
-              value={agreeToTerms}
+              checked={agreeToTerms}
               onClick={() => setAgreeToTerms(!agreeToTerms)}
               color='primary'
             />
@@ -87,8 +109,8 @@ export const CreateNewSheet: React.FC = () => {
         />
         <Button
           className='continueButton'
-          disabled={!agreeToTerms || !validTitle}
-          onClick={() => setStep(CreateSheetStep.DisplayName)}
+          disabled={!agreeToTerms}
+          onClick={handleTitleButton}
         >
           continue
         </Button>
@@ -109,8 +131,14 @@ export const CreateNewSheet: React.FC = () => {
             placeholder='First name'
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            helperText={
+              validFirstName ? "" : "Please enter a valid first name."
+            }
             inputProps={{
               className: "giantInput",
+            }}
+            FormHelperTextProps={{
+              className: "giantInputHelperText",
             }}
           />
           <TextField
@@ -119,19 +147,27 @@ export const CreateNewSheet: React.FC = () => {
             placeholder='Last name'
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+            helperText={validLastName ? "" : "Please enter a valid last name."}
             inputProps={{
               className: "giantInput",
+            }}
+            FormHelperTextProps={{
+              className: "giantInputHelperText",
             }}
           />
         </div>
         <div>
-          <Button className='continueButton' onClick={() => setStep(step - 1)}>
+          <Button
+            className='continueButton'
+            onClick={() => {
+              setStep(step - 1);
+            }}
+          >
             go back
           </Button>
           <Button
             className='leftMargin continueButton'
-            disabled={!firstName.trim() || !lastName.trim()}
-            onClick={createNewSheet}
+            onClick={handleNameButton}
           >
             finish
           </Button>

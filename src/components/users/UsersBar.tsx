@@ -75,16 +75,18 @@ export const UsersBar: React.FC = () => {
               )
             );
           })}
-          {!sheetState.readOnly && userState.curUser && (
-            <Tooltip arrow title='Add Friend' placement='right'>
-              <IconButton
-                className='iconButton smallIconButton leftMargin bottomMargin'
-                onClick={openAddUserModal}
-              >
-                <AddRoundedIcon />
-              </IconButton>
-            </Tooltip>
-          )}
+          {!sheetState.readOnly &&
+            userState.curUser &&
+            Object.keys(sheetState.users).length <= 10 && (
+              <Tooltip arrow title='Add Friend' placement='right'>
+                <IconButton
+                  className='iconButton smallIconButton leftMargin bottomMargin'
+                  onClick={openAddUserModal}
+                >
+                  <AddRoundedIcon />
+                </IconButton>
+              </Tooltip>
+            )}
         </Grid>
         <Grid item container xs={1} justify='flex-end' alignItems='center'>
           <IconButton

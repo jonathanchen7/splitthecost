@@ -14,7 +14,11 @@ import { useContext, useEffect, useState } from "react";
 import { SheetContext } from "../pages/SplitTheCost";
 import { ModalHeader } from "./ModalHeader";
 import { db } from "../../firebase";
-import { handleKeyPress } from "../../logic/logic";
+import {
+  handleKeyPress,
+  validateCustomSheetLink,
+  validateSheetTitle,
+} from "../../logic/logic";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import DoneRoundedIcon from "@material-ui/icons/DoneRounded";
@@ -85,24 +89,24 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
   }
 
   async function validateSheetLink(): Promise<Boolean> {
-    if (sheetLink === sheetState.customLink || sheetLink === sheetState.id) {
+    const linkTrimmed = sheetLink.trim();
+    if (
+      linkTrimmed === sheetState.customLink ||
+      linkTrimmed === sheetState.id
+    ) {
       setEditLink(false);
       setValidLink(true);
       return true;
     }
 
-    if (
-      sheetLink.trim().length < 5 ||
-      sheetLink.length > 20 ||
-      !sheetLink.match(/^[0-9a-zA-Z]+$/)
-    ) {
+    if (!validateCustomSheetLink(linkTrimmed)) {
       setValidLink(false);
       return false;
     }
 
     const linkSnapshot = await db
       .collection("customLinks")
-      .doc(sheetLink)
+      .doc(linkTrimmed)
       .get();
     if (linkSnapshot.exists) {
       setValidLink(false);
@@ -110,7 +114,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
       return false;
     }
 
-    const idSnapshot = await db.collection("sheets").doc(sheetLink).get();
+    const idSnapshot = await db.collection("sheets").doc(linkTrimmed).get();
     if (idSnapshot.exists) {
       setValidLink(false);
       setUniqueLink(false);
@@ -129,22 +133,18 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
     if (!editTitle) {
       setEditTitle(true);
     } else {
-      validateSheetTitle();
+      validateNewSheetTitle();
     }
   }
 
-  function validateSheetTitle() {
+  function validateNewSheetTitle() {
     if (sheetTitle === sheetState.title) {
       setEditTitle(false);
       setValidTitle(true);
       return true;
     }
 
-    if (
-      sheetTitle.trim().length < 5 ||
-      sheetTitle.length > 20 ||
-      sheetTitle.match(/[~`%^#@*+=\-[\]\\';,/{}|\\"<>]/)
-    ) {
+    if (validateSheetTitle(sheetTitle.trim())) {
       setValidTitle(false);
       return false;
     }
@@ -189,12 +189,12 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
 
   async function saveSettings() {
     setSaveState(SaveState.Saving);
-    if (sheetTitle !== sheetState.title && validateSheetTitle()) {
-      sheetDispatch({ type: "changeSheetTitle", title: sheetTitle });
+    if (sheetTitle !== sheetState.title && validateNewSheetTitle()) {
+      sheetDispatch({ type: "changeSheetTitle", title: sheetTitle.trim() });
     }
 
     if (sheetLink !== sheetState.id && sheetLink !== sheetState.customLink) {
-      sheetDispatch({ type: "changeSheetLink", link: sheetLink });
+      sheetDispatch({ type: "changeSheetLink", link: sheetLink.trim() });
       history.push(`/sheet/${sheetLink}`);
     }
 
@@ -229,7 +229,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
               helperText={
                 validTitle
                   ? ""
-                  : "Title must be between 5-20 alphanumeric characters (select special characters are allowed)."
+                  : "Title must be between 3-20 characters (select special characters are allowed)."
               }
               InputProps={{
                 readOnly: !editTitle,

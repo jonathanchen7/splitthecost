@@ -9,7 +9,7 @@ import {
 import { useContext, useState } from "react";
 import { SheetContext } from "../pages/SplitTheCost";
 import { ModalHeader } from "./ModalHeader";
-import { handleKeyPress } from "../../logic/logic";
+import { handleKeyPress, validateName } from "../../logic/logic";
 
 interface Props {
   open: boolean;
@@ -40,11 +40,11 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
   }
 
   function validateNewUser(firstName: string, lastName: string): boolean {
-    const first = firstName.toLocaleLowerCase();
-    const last = lastName.toLocaleLowerCase();
+    const first = firstName.trim().toLocaleLowerCase();
+    const last = lastName.trim().toLocaleLowerCase();
 
-    const checkFirstName = first.length > 0 && /^[a-zA-Z]+$/.test(first);
-    const checkLastName = last.length > 0 && /^[a-zA-Z]+$/.test(last);
+    const checkFirstName = validateName(first);
+    const checkLastName = validateName(last);
     setValidFirstName(checkFirstName);
     setValidLastName(checkLastName);
 
@@ -73,8 +73,8 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
 
     sheetDispatch({
       type: "addUser",
-      firstName: firstName,
-      lastName: lastName,
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
       email: "",
     });
 

@@ -74,6 +74,12 @@ $redArrowColor: #e74c3c;
   text-decoration: none !important;
 }
 
+.trueCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 // ---------------- GENERAL ----------------
 
 .avatar {
@@ -537,6 +543,11 @@ $redArrowColor: #e74c3c;
   color: $headerColor !important;
   font-size: 50px !important;
   height: 60px !important;
+}
+
+.giantInputHelperText {
+  font-size: 15px !important;
+  color: $redArrowColor !important;
 }
 
 .termsAndConditions {

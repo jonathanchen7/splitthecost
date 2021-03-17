@@ -77,20 +77,24 @@ export function calculateOverview(
   return overviewData;
 }
 
+// Returns true if a name is valid, false otherwise.
+// Assumes the name has no leading/trailing whitespace.
+export function validateName(name: string): boolean {
+  return name.length > 0 && name.length < 21 && /^[a-zA-Z'-\s]+$/.test(name);
+}
+
+// Returns true if a sheet title is valid, false otherwise.
+// Assumes the title has no leading/trailing whitespace.
 export function validateSheetTitle(title: string): boolean {
-  return !(
-    title.trim().length < 5 ||
-    title.length > 20 ||
-    title.match(/[~`%^#@*+=\-[\]\\';,/{}|\\"<>]/)
+  return (
+    title.length > 2 && title.length < 21 && /^[0-9a-zA-Z!@#'-\s]+$/.test(title)
   );
 }
 
+// Returns true if a custom sheet link is valid, false otherwise.
+// Assumes the title has no leading/trailing whitespace.
 export function validateCustomSheetLink(link: string): boolean {
-  return !(
-    link.trim().length < 5 ||
-    link.length > 20 ||
-    link.match(/^[0-9a-z]+$/)
-  );
+  return link.length > 4 && link.length < 21 && /^[0-9a-zA-Z]+$/.test(link);
 }
 
 // "Calculates" an avatar's color.
