@@ -11,7 +11,7 @@ export const Entries: React.FC = () => {
   let rowIdx = 0;
 
   return (
-    <>
+    <div className='entries'>
       <EntriesHeader />
       {sheetState.entries.map(
         (entry) =>
@@ -23,6 +23,6 @@ export const Entries: React.FC = () => {
             <EntriesRow entry={entry} rowIdx={rowIdx++} key={entry.id} />
           )
       )}
-    </>
+    </div>
   );
 };

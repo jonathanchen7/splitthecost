@@ -199,6 +199,10 @@ $redArrowColor: #e74c3c;
   background-color: $gridDarkColor;
 }
 
+.entries {
+  margin-bottom: $entryHeight * 2;
+}
+
 // ---------------- HEADER ----------------
 
 .header {

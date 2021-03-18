@@ -179,6 +179,10 @@
   background-color: #dedede;
 }
 
+.entries {
+  margin-bottom: 100px;
+}
+
 .header {
   height: 60px;
   background-color: #377cab;

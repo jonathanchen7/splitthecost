@@ -80,7 +80,7 @@ export function calculateOverview(
 // Returns true if a name is valid, false otherwise.
 // Assumes the name has no leading/trailing whitespace.
 export function validateName(name: string): boolean {
-  return name.length > 0 && name.length < 21 && /^[a-zA-Z'-\s]+$/.test(name);
+  return name.length > 0 && name.length < 21 && /^[a-zA-Z'-\s.()]+$/.test(name);
 }
 
 // Returns true if a sheet title is valid, false otherwise.
