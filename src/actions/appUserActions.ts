@@ -10,7 +10,15 @@ export type SetDarkModeAction = {
   darkMode: boolean;
 };
 
-export type UserAction = UpdateCurUserAction | SetDarkModeAction;
+export type SetAuthStatusAction = {
+  type: "setAuthStatus";
+  authenticated: boolean;
+};
+
+export type UserAction =
+  | UpdateCurUserAction
+  | SetDarkModeAction
+  | SetAuthStatusAction;
 
 export function userReducer(state: UserState, action: UserAction) {
   switch (action.type) {
@@ -18,6 +26,8 @@ export function userReducer(state: UserState, action: UserAction) {
       return updateCurUser(state, action);
     case "setDarkMode":
       return setDarkMode(state, action);
+    case "setAuthStatus":
+      return setAuthStatus(state, action);
     default:
       return state;
   }
@@ -36,4 +46,12 @@ function updateCurUser(
 // Remove an entry from the sheet.
 function setDarkMode(state: UserState, action: SetDarkModeAction): UserState {
   return { ...state, darkMode: action.darkMode };
+}
+
+// Set the authentication status for the current sheet.
+function setAuthStatus(
+  state: UserState,
+  action: SetAuthStatusAction
+): UserState {
+  return { ...state, authenticated: action.authenticated };
 }

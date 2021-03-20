@@ -80,21 +80,35 @@ export function calculateOverview(
 // Returns true if a name is valid, false otherwise.
 // Assumes the name has no leading/trailing whitespace.
 export function validateName(name: string): boolean {
-  return name.length > 0 && name.length < 21 && /^[a-zA-Z'-\s.()]+$/.test(name);
+  return (
+    name.length >= 1 && name.length <= 20 && /^[a-zA-Z'-\s.()]+$/.test(name)
+  );
 }
 
 // Returns true if a sheet title is valid, false otherwise.
 // Assumes the title has no leading/trailing whitespace.
 export function validateSheetTitle(title: string): boolean {
   return (
-    title.length > 2 && title.length < 21 && /^[0-9a-zA-Z!@#'-\s]+$/.test(title)
+    title.length >= 3 &&
+    title.length <= 41 &&
+    /^[0-9a-zA-Z!@#'-\s]+$/.test(title)
   );
 }
 
 // Returns true if a custom sheet link is valid, false otherwise.
 // Assumes the title has no leading/trailing whitespace.
 export function validateCustomSheetLink(link: string): boolean {
-  return link.length > 4 && link.length < 21 && /^[0-9a-zA-Z]+$/.test(link);
+  return link.length >= 5 && link.length <= 20 && /^[0-9a-zA-Z]+$/.test(link);
+}
+
+// Returns true if a sheet password is valid, false otherwise.
+// Assumes the password has no leading/trailing whitespace.
+export function validatePassword(password: string): boolean {
+  return (
+    password.length >= 4 &&
+    password.length <= 25 &&
+    /^[0-9a-zA-Z!@#$?]+$/.test(password)
+  );
 }
 
 // "Calculates" an avatar's color.

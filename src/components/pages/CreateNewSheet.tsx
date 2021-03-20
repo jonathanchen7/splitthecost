@@ -66,6 +66,7 @@ export const CreateNewSheet: React.FC = () => {
       email: "",
     };
     userDispatch({ type: "updateCurUser", user: newUser });
+    userDispatch({ type: "setAuthStatus", authenticated: true });
     history.push({ pathname: "/sheet/new", state: { title: sheetTitle } });
   }
 
@@ -83,7 +84,7 @@ export const CreateNewSheet: React.FC = () => {
           helperText={
             validTitle
               ? ""
-              : "Title must be between 3-20 characters (select special characters are allowed)."
+              : "Title must be between 3-40 characters (select special characters are allowed)."
           }
           inputProps={{
             className: "giantInput",

@@ -9,7 +9,7 @@ import { SheetAction, sheetReducer } from "../../actions/sheetActions";
 import { UserContext } from "../../App";
 import { db, sheetStateConverter } from "../../firebase";
 import { useHistory, useLocation, useParams } from "react-router-dom";
-import { WhoAreYouModal } from "../modals/WhoAreYouModal";
+import { PasswordUserModal } from "../modals/PasswordUserModal";
 import { nanoid } from "nanoid";
 import { ViewOnDesktop } from "./ViewOnDesktop";
 import { useState } from "react";
@@ -46,7 +46,7 @@ export const SplitTheCost: React.FC = () => {
     sheetReducer,
     initialSheetState
   );
-  const { userState } = useContext(UserContext);
+  const { userState, userDispatch } = useContext(UserContext);
 
   const [autosaveState, setAutosaveState] = useState(
     sheetState.local ? SaveState.Unsaved : SaveState.Saved
@@ -122,6 +122,10 @@ export const SplitTheCost: React.FC = () => {
           readOnly: false,
         },
       });
+      userDispatch({
+        type: "setAuthStatus",
+        authenticated: !fetchedSheetState.password,
+      });
       return;
     }
 
@@ -147,6 +151,10 @@ export const SplitTheCost: React.FC = () => {
             lastAccessed: Date.now(),
           },
         });
+        userDispatch({
+          type: "setAuthStatus",
+          authenticated: !customFetchedSheetState.password,
+        });
         return;
       }
     }
@@ -163,9 +171,9 @@ export const SplitTheCost: React.FC = () => {
           <Header saveState={autosaveState} />
           <UsersBar />
           <Entries />
-          <SideDialog />
+          {userState.authenticated && <SideDialog />}
           {!sheetState.readOnly && userState.curUser && <AddItemFab />}
-          <WhoAreYouModal open={!userState.curUser} />
+          <PasswordUserModal open={!userState.curUser} />
         </>
       );
     }

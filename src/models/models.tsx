@@ -48,11 +48,13 @@ export interface SheetState {
   local: boolean;
   readOnly: boolean;
   customLink?: string;
+  password?: string;
 }
 
 export interface UserState {
   curUser: User | undefined;
   darkMode: boolean;
+  authenticated: boolean;
 }
 
 export enum SaveState {

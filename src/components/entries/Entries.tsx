@@ -13,16 +13,17 @@ export const Entries: React.FC = () => {
   return (
     <div className='entries'>
       <EntriesHeader />
-      {sheetState.entries.map(
-        (entry) =>
-          (entry.user === userState.curUser?.id ||
-            entry.createdBy === userState.curUser?.id ||
-            entry.item ||
-            entry.cost ||
-            entry.note) && (
-            <EntriesRow entry={entry} rowIdx={rowIdx++} key={entry.id} />
-          )
-      )}
+      {userState.authenticated &&
+        sheetState.entries.map(
+          (entry) =>
+            (entry.user === userState.curUser?.id ||
+              entry.createdBy === userState.curUser?.id ||
+              entry.item ||
+              entry.cost ||
+              entry.note) && (
+              <EntriesRow entry={entry} rowIdx={rowIdx++} key={entry.id} />
+            )
+        )}
     </div>
   );
 };

@@ -42,51 +42,59 @@ export const UsersBar: React.FC = () => {
     setOpenSaveSheet(true);
   }
 
+  function renderUsers(): JSX.Element {
+    return (
+      <>
+        {userState.curUser && (
+          <UserChip
+            className='leftMargin bottomMargin'
+            user={userState.curUser}
+            userIdx={Object.keys(sheetState.users).indexOf(
+              userState.curUser.id
+            )}
+          />
+        )}
+        {Object.entries(sheetState.users).map((pair) => {
+          const user = pair[1];
+          return (
+            (!userState.curUser || user.id !== userState.curUser.id) && (
+              <UserChip
+                className='leftMargin bottomMargin'
+                user={user}
+                userIdx={Object.keys(sheetState.users).indexOf(user.id)}
+                onRemove={
+                  !sheetState.readOnly &&
+                  userState.curUser &&
+                  sheetState.createdBy !== user.id
+                    ? openRemoveUserModal
+                    : undefined
+                }
+                key={user.id}
+              />
+            )
+          );
+        })}
+        {!sheetState.readOnly &&
+          userState.curUser &&
+          Object.keys(sheetState.users).length <= 10 && (
+            <Tooltip arrow title='Add Friend' placement='right'>
+              <IconButton
+                className='iconButton smallIconButton leftMargin bottomMargin'
+                onClick={openAddUserModal}
+              >
+                <AddRoundedIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+      </>
+    );
+  }
+
   return (
     <>
       <Grid className='usersBar' container spacing={0}>
         <Grid item container xs={11} alignItems='center'>
-          {userState.curUser && (
-            <UserChip
-              className='leftMargin bottomMargin'
-              user={userState.curUser}
-              userIdx={Object.keys(sheetState.users).indexOf(
-                userState.curUser.id
-              )}
-            />
-          )}
-          {Object.entries(sheetState.users).map((pair) => {
-            const user = pair[1];
-            return (
-              (!userState.curUser || user.id !== userState.curUser.id) && (
-                <UserChip
-                  className='leftMargin bottomMargin'
-                  user={user}
-                  userIdx={Object.keys(sheetState.users).indexOf(user.id)}
-                  onRemove={
-                    !sheetState.readOnly &&
-                    userState.curUser &&
-                    sheetState.createdBy !== user.id
-                      ? openRemoveUserModal
-                      : undefined
-                  }
-                  key={user.id}
-                />
-              )
-            );
-          })}
-          {!sheetState.readOnly &&
-            userState.curUser &&
-            Object.keys(sheetState.users).length <= 10 && (
-              <Tooltip arrow title='Add Friend' placement='right'>
-                <IconButton
-                  className='iconButton smallIconButton leftMargin bottomMargin'
-                  onClick={openAddUserModal}
-                >
-                  <AddRoundedIcon />
-                </IconButton>
-              </Tooltip>
-            )}
+          {userState.authenticated && renderUsers()}
         </Grid>
         <Grid item container xs={1} justify='flex-end' alignItems='center'>
           <IconButton

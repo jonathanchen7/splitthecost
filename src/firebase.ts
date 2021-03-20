@@ -26,6 +26,7 @@ export const sheetStateConverter = {
       createdBy: sheetState.createdBy,
       readOnly: sheetState.readOnly ? sheetState.readOnly : false,
       customLink: sheetState.customLink ? sheetState.customLink : "",
+      password: sheetState.password ? sheetState.password : "",
     };
   },
   fromFirestore(
@@ -46,6 +47,7 @@ export const sheetStateConverter = {
       local: false,
       readOnly: data.readOnly,
       customLink: data.customLink,
+      password: data.password ? data.password : "",
     };
   },
 };

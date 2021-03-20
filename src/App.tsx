@@ -13,6 +13,7 @@ import { TermsOfService } from "./components/pages/TermsOfService";
 const initialUserState: UserState = {
   curUser: undefined,
   darkMode: false,
+  authenticated: false,
 };
 
 export const UserContext = createContext<{

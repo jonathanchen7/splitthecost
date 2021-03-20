@@ -1,8 +1,6 @@
 import * as React from "react";
 import {
-  Button,
   Dialog,
-  DialogActions,
   DialogContent,
   Grid,
   TextField,
@@ -15,16 +13,17 @@ import { SheetContext } from "../pages/SplitTheCost";
 import { ModalHeader } from "./ModalHeader";
 import { db } from "../../firebase";
 import {
-  handleKeyPress,
   validateCustomSheetLink,
+  validatePassword,
   validateSheetTitle,
 } from "../../logic/logic";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import DoneRoundedIcon from "@material-ui/icons/DoneRounded";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import { useHistory } from "react-router-dom";
-import { SaveState } from "../../models/models";
 
 interface Props {
   open: boolean;
@@ -35,10 +34,12 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
   const { sheetState, sheetDispatch } = useContext(SheetContext);
   const history = useHistory();
 
+  // Sheet title state
   const [sheetTitle, setSheetTitle] = useState(sheetState.title);
   const [editTitle, setEditTitle] = useState(false);
   const [validTitle, setValidTitle] = useState(true);
 
+  // Custom sheet link state
   const [sheetLink, setSheetLink] = useState(
     sheetState.customLink ? sheetState.customLink : sheetState.id
   );
@@ -46,13 +47,22 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
   const [validLink, setValidLink] = useState(true);
   const [uniqueLink, setUniqueLink] = useState(true);
 
+  // Read only state
   const [readOnly, setReadOnly] = useState(sheetState.readOnly);
 
+  // Sheet password state
+  const [password, setPassword] = useState("");
+  const [editPassword, setEditPassword] = useState(false);
+  const [validPassword, setValidPassword] = useState(true);
+  const [viewPassword, setViewPassword] = useState(false);
+
+  const [password2, setPassword2] = useState("");
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+
+  // Delete sheet state
   const [deleteText, setDeleteText] = useState("");
   const [editDelete, setEditDelete] = useState(false);
   const [deleteError, setDeleteError] = useState(false);
-
-  const [saveState, setSaveState] = useState(SaveState.Unsaved);
 
   useEffect(() => {
     setSheetTitle(sheetState.title);
@@ -66,42 +76,144 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
   ]);
 
   function handleClose() {
-    setEditTitle(false);
-    setSheetTitle(sheetState.title);
-    setEditLink(false);
-    setValidLink(true);
-    setUniqueLink(true);
-    setSheetLink(sheetState.customLink ? sheetState.customLink : sheetState.id);
-    setSaveState(SaveState.Unsaved);
     setOpen(false);
-    setDeleteError(false);
-    setDeleteText("");
-    setEditDelete(false);
-    setReadOnly(sheetState.readOnly);
+    cancelSheetTitle();
+    cancelCustomLink();
+    cancelPassword();
+    cancelDeleteSheet();
   }
 
-  function handleCustomLinkClick() {
-    if (!editLink) {
-      setEditLink(true);
+  // ----------------- SHEET TITLE -----------------
+
+  function renderSheetTitleSetting(): JSX.Element {
+    return (
+      <>
+        <Grid className='bottomMargin' item xs={8}>
+          <TextField
+            fullWidth
+            inputRef={(titleRef) => titleRef && editTitle && titleRef.focus()}
+            value={sheetTitle}
+            error={!validTitle}
+            label='Sheet Title'
+            onChange={(e) => setSheetTitle(e.target.value)}
+            helperText={
+              validTitle
+                ? ""
+                : "Title must be between 3-40 characters (select special characters are allowed)."
+            }
+            InputProps={{
+              readOnly: !editTitle,
+              disableUnderline: !editTitle,
+            }}
+          />
+        </Grid>
+        <Grid container item xs={4} justify='flex-end'>
+          {editTitle && (
+            <IconButton onClick={cancelSheetTitle}>
+              <CloseRoundedIcon />
+            </IconButton>
+          )}
+          <IconButton onClick={handleEditSheetTitle}>
+            {editTitle ? <DoneRoundedIcon /> : <EditRoundedIcon />}
+          </IconButton>
+        </Grid>
+      </>
+    );
+  }
+
+  function handleEditSheetTitle() {
+    if (!editTitle) {
+      setEditTitle(true);
     } else {
-      validateSheetLink();
+      confirmSheetTitle();
     }
   }
 
-  async function validateSheetLink(): Promise<Boolean> {
+  function confirmSheetTitle() {
+    if (sheetTitle.trim() === sheetState.title) {
+      cancelSheetTitle();
+      return;
+    }
+
+    if (!validateSheetTitle(sheetTitle.trim())) {
+      setValidTitle(false);
+      return;
+    }
+
+    setEditTitle(false);
+    setValidTitle(true);
+    sheetDispatch({ type: "changeSheetTitle", title: sheetTitle.trim() });
+  }
+
+  function cancelSheetTitle() {
+    setEditTitle(false);
+    setValidTitle(true);
+    setSheetTitle(sheetState.title);
+  }
+
+  // ----------------- CUSTOM SHEET LINK -----------------
+
+  function renderCustomLinkSetting(): JSX.Element {
+    return (
+      <>
+        <Grid className='bottomMargin' item xs={8}>
+          <TextField
+            fullWidth
+            inputRef={(linkRef) => linkRef && editLink && linkRef.focus()}
+            value={sheetLink}
+            error={!validLink || !uniqueLink}
+            label='Custom Sheet Link'
+            onChange={(e) => setSheetLink(e.target.value)}
+            helperText={
+              validLink
+                ? uniqueLink
+                  ? ""
+                  : "This custom link is already in use."
+                : "Link must be between 5-20 characters and contain only letters and numbers."
+            }
+            InputProps={{
+              readOnly: !editLink,
+              disableUnderline: !editLink,
+              startAdornment: <b>splitthecost.net/#/</b>,
+            }}
+          />
+        </Grid>
+        <Grid container item xs={4} justify='flex-end'>
+          {editLink && (
+            <IconButton onClick={cancelCustomLink}>
+              <CloseRoundedIcon />
+            </IconButton>
+          )}
+          <IconButton onClick={handleEditCustomLink}>
+            {editLink ? <DoneRoundedIcon /> : <EditRoundedIcon />}
+          </IconButton>
+        </Grid>
+      </>
+    );
+  }
+
+  function handleEditCustomLink() {
+    if (!editLink) {
+      setEditLink(true);
+    } else {
+      confirmCustomLink();
+    }
+  }
+
+  async function confirmCustomLink() {
     const linkTrimmed = sheetLink.trim();
     if (
       linkTrimmed === sheetState.customLink ||
       linkTrimmed === sheetState.id
     ) {
-      setEditLink(false);
-      setValidLink(true);
-      return true;
+      cancelCustomLink();
+      return;
     }
 
-    if (!validateCustomSheetLink(linkTrimmed)) {
-      setValidLink(false);
-      return false;
+    const temp = validateCustomSheetLink(linkTrimmed);
+    setValidLink(temp);
+    if (!temp) {
+      return;
     }
 
     const linkSnapshot = await db
@@ -109,56 +221,185 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
       .doc(linkTrimmed)
       .get();
     if (linkSnapshot.exists) {
-      setValidLink(false);
       setUniqueLink(false);
-      return false;
+      return;
     }
 
     const idSnapshot = await db.collection("sheets").doc(linkTrimmed).get();
     if (idSnapshot.exists) {
-      setValidLink(false);
       setUniqueLink(false);
-      return false;
+      return;
     }
 
-    setSaveState(SaveState.Unsaved);
     setEditLink(false);
     setValidLink(true);
     setUniqueLink(true);
-
-    return true;
+    sheetDispatch({ type: "changeSheetLink", link: linkTrimmed });
+    history.push(`/sheet/${sheetLink}`);
   }
 
-  function handleSheetTitleClick() {
-    if (!editTitle) {
-      setEditTitle(true);
+  function cancelCustomLink() {
+    setEditLink(false);
+    setValidLink(true);
+    setUniqueLink(true);
+    setSheetLink(sheetState.customLink ? sheetState.customLink : sheetState.id);
+  }
+
+  // ----------------- TOGGLES -----------------
+
+  function renderToggleSettings(): JSX.Element {
+    return (
+      <Grid item xs={12}>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={readOnly}
+              onChange={handleEditReadOnly}
+              color='primary'
+            />
+          }
+          label='Read Only'
+        />
+      </Grid>
+    );
+  }
+
+  function handleEditReadOnly(e: React.ChangeEvent<HTMLInputElement>) {
+    sheetDispatch({ type: "updateReadOnly", readOnly: e.target.checked });
+  }
+
+  // ----------------- SHEET PASSWORD -----------------
+
+  function renderSheetPasswordSetting(): JSX.Element {
+    return (
+      <>
+        <Grid className='bottomMargin' item xs={8}>
+          <TextField
+            fullWidth
+            value={password}
+            error={!validPassword}
+            label='Sheet Password'
+            placeholder='Enter new sheet password here'
+            onChange={(e) => setPassword(e.target.value)}
+            helperText={
+              validPassword
+                ? ""
+                : "Password must be between 5-25 characters and can only contain these special characters (!, @, #, $, %)."
+            }
+            InputProps={{
+              readOnly: !editPassword,
+              disableUnderline: !editPassword,
+              type: viewPassword ? "default" : "password",
+            }}
+          />
+        </Grid>
+        <Grid container item xs={4} justify='flex-end'>
+          <IconButton onClick={() => setViewPassword(!viewPassword)}>
+            {viewPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+          </IconButton>
+          {editPassword && (
+            <IconButton onClick={cancelPassword}>
+              <CloseRoundedIcon />
+            </IconButton>
+          )}
+          <IconButton onClick={handleEditPassword}>
+            {editPassword ? <DoneRoundedIcon /> : <EditRoundedIcon />}
+          </IconButton>
+        </Grid>
+
+        {editPassword && (
+          <Grid className='bottomMargin' item xs={8}>
+            <TextField
+              fullWidth
+              value={password2}
+              error={!passwordsMatch}
+              placeholder='Confirm password'
+              onChange={(e) => setPassword2(e.target.value)}
+              helperText={passwordsMatch ? "" : "Passwords don't match."}
+              InputProps={{
+                readOnly: !editPassword,
+                disableUnderline: !editPassword,
+                type: viewPassword ? "default" : "password",
+              }}
+            />
+          </Grid>
+        )}
+      </>
+    );
+  }
+
+  function handleEditPassword() {
+    if (!editPassword) {
+      setEditPassword(true);
     } else {
-      validateNewSheetTitle();
+      confirmPassword();
     }
   }
 
-  function validateNewSheetTitle() {
-    if (sheetTitle === sheetState.title) {
-      setEditTitle(false);
-      setValidTitle(true);
-      return true;
+  function confirmPassword() {
+    if (!password) {
+      cancelPassword();
+      return;
     }
 
-    if (validateSheetTitle(sheetTitle.trim())) {
-      setValidTitle(false);
-      return false;
-    }
+    setValidPassword(validatePassword(password));
+    if (!validatePassword(password)) return;
 
-    setSaveState(SaveState.Unsaved);
-    setEditTitle(false);
-    setValidTitle(true);
+    setPasswordsMatch(password === password2);
+    if (password !== password2) return;
 
-    return true;
+    console.log("UPDATING PASSWORD TO " + password);
+    sheetDispatch({ type: "updateSheetPassword", password: password });
+    cancelPassword();
   }
 
-  function handleReadOnly(e: React.ChangeEvent<HTMLInputElement>) {
-    setSaveState(SaveState.Unsaved);
-    setReadOnly(e.target.checked);
+  function cancelPassword() {
+    setEditPassword(false);
+    setPasswordsMatch(true);
+    setValidPassword(true);
+    setPassword("");
+    setPassword2("");
+  }
+
+  // ----------------- DELETE SHEET -----------------
+
+  function renderDeleteSheetSetting(): JSX.Element {
+    return (
+      <>
+        <Grid className='bottomMargin' item xs={8}>
+          <TextField
+            fullWidth
+            inputRef={(deleteRef) =>
+              deleteRef && editDelete && deleteRef.focus()
+            }
+            value={deleteText}
+            placeholder='Enter sheet name to confirm deletion.'
+            error={deleteError}
+            label='Delete Sheet'
+            onChange={(e) => setDeleteText(e.target.value)}
+            helperText={
+              deleteError
+                ? `Please enter the sheet name correctly (${sheetState.title})`
+                : ""
+            }
+            InputProps={{
+              readOnly: !editDelete,
+              disableUnderline: !editDelete,
+            }}
+          />
+        </Grid>
+        <Grid container item xs={4} justify='flex-end'>
+          {editDelete && (
+            <IconButton onClick={cancelDeleteSheet}>
+              <CloseRoundedIcon />
+            </IconButton>
+          )}
+          <IconButton onClick={handleDeleteSheet}>
+            {editDelete ? <DoneRoundedIcon /> : <DeleteIcon />}
+          </IconButton>
+        </Grid>
+      </>
+    );
   }
 
   function handleDeleteSheet() {
@@ -169,40 +410,26 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
     }
   }
 
-  function cancelDeleteSheet() {
-    setDeleteError(false);
-    setEditDelete(false);
-    setDeleteText("");
-  }
-
   async function confirmDeleteSheet() {
+    if (!deleteText.trim()) {
+      cancelDeleteSheet();
+      return;
+    }
+
     if (deleteText !== sheetState.title) {
       setDeleteError(true);
       return;
     }
 
     sheetDispatch({ type: "deleteSheet" });
-    await new Promise((r) => setTimeout(r, 500));
     history.push("/");
-    setEditDelete(false);
+    cancelDeleteSheet();
   }
 
-  async function saveSettings() {
-    setSaveState(SaveState.Saving);
-    if (sheetTitle !== sheetState.title && validateNewSheetTitle()) {
-      sheetDispatch({ type: "changeSheetTitle", title: sheetTitle.trim() });
-    }
-
-    if (sheetLink !== sheetState.id && sheetLink !== sheetState.customLink) {
-      sheetDispatch({ type: "changeSheetLink", link: sheetLink.trim() });
-      history.push(`/sheet/${sheetLink}`);
-    }
-
-    if (readOnly !== sheetState.readOnly) {
-      sheetDispatch({ type: "updateReadOnly", readOnly: readOnly });
-    }
-    await new Promise((r) => setTimeout(r, 500));
-    setSaveState(SaveState.Saved);
+  function cancelDeleteSheet() {
+    setDeleteError(false);
+    setEditDelete(false);
+    setDeleteText("");
   }
 
   return (
@@ -212,133 +439,18 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
       maxWidth='sm'
       onClose={handleClose}
       open={open}
-      onKeyPress={(e) => handleKeyPress(e, "enter", saveSettings)}
       PaperProps={{ className: "modal" }}
     >
       <ModalHeader title='Settings' onClose={handleClose} />
       <DialogContent className='modalContent'>
         <Grid container spacing={0} alignItems='center'>
-          <Grid className='bottomMargin' item xs={8}>
-            <TextField
-              fullWidth
-              inputRef={(titleRef) => titleRef && editTitle && titleRef.focus()}
-              value={sheetTitle}
-              error={!validTitle}
-              label='Sheet Title'
-              onChange={(e) => setSheetTitle(e.target.value)}
-              helperText={
-                validTitle
-                  ? ""
-                  : "Title must be between 3-20 characters (select special characters are allowed)."
-              }
-              InputProps={{
-                readOnly: !editTitle,
-                disableUnderline: !editTitle,
-              }}
-            />
-          </Grid>
-          <Grid item xs={2} />
-          <Grid container item xs={2} justify='flex-end'>
-            <IconButton onClick={handleSheetTitleClick}>
-              {editTitle ? <DoneRoundedIcon /> : <EditRoundedIcon />}
-            </IconButton>
-          </Grid>
-          {!sheetState.local && (
-            <>
-              <Grid className='bottomMargin' item xs={8}>
-                <TextField
-                  fullWidth
-                  inputRef={(linkRef) => linkRef && editLink && linkRef.focus()}
-                  value={sheetLink}
-                  error={!validLink}
-                  label='Custom Sheet Link'
-                  onChange={(e) => setSheetLink(e.target.value)}
-                  helperText={
-                    validLink
-                      ? ""
-                      : uniqueLink
-                      ? "Link must be between 5-20 characters and contain only letters and numbers."
-                      : "This custom link is already in use."
-                  }
-                  InputProps={{
-                    readOnly: !editLink,
-                    disableUnderline: !editLink,
-                    startAdornment: <b>splitthecost.net/#/</b>,
-                  }}
-                />
-              </Grid>
-              <Grid item xs={2} />
-              <Grid container item xs={2} justify='flex-end'>
-                <IconButton onClick={handleCustomLinkClick}>
-                  {editLink ? <DoneRoundedIcon /> : <EditRoundedIcon />}
-                </IconButton>
-              </Grid>
-            </>
-          )}
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={readOnly}
-                  onChange={handleReadOnly}
-                  color='primary'
-                />
-              }
-              label='Read Only'
-            />
-          </Grid>
-          <Grid className='bottomMargin' item xs={8}>
-            <TextField
-              fullWidth
-              inputRef={(deleteRef) =>
-                deleteRef && editDelete && deleteRef.focus()
-              }
-              value={deleteText}
-              placeholder='Enter sheet name to confirm deletion.'
-              error={deleteError}
-              label='Delete Sheet'
-              onChange={(e) => setDeleteText(e.target.value)}
-              helperText={
-                deleteError
-                  ? `Please enter the sheet name correctly (${sheetState.title})`
-                  : ""
-              }
-              InputProps={{
-                readOnly: !editDelete,
-                disableUnderline: !editDelete,
-              }}
-            />
-          </Grid>
-          <Grid container item xs={4} justify='flex-end'>
-            {editDelete && (
-              <IconButton onClick={cancelDeleteSheet}>
-                <CloseRoundedIcon />
-              </IconButton>
-            )}
-            <IconButton onClick={handleDeleteSheet}>
-              {editDelete ? <DoneRoundedIcon /> : <DeleteIcon />}
-            </IconButton>
-          </Grid>
+          {renderSheetTitleSetting()}
+          {!sheetState.local && renderCustomLinkSetting()}
+          {renderToggleSettings()}
+          {!sheetState.local && renderSheetPasswordSetting()}
+          {!sheetState.local && renderDeleteSheetSetting()}
         </Grid>
       </DialogContent>
-      <DialogActions className='modalActions'>
-        <Button
-          className='modalConfirmButton rightMarginSmall'
-          disabled={
-            saveState === SaveState.Saving ||
-            saveState === SaveState.Saved ||
-            editLink ||
-            editTitle
-          }
-          onClick={saveSettings}
-        >
-          {saveState === SaveState.Unsaved
-            ? "Save"
-            : saveState === SaveState.Saving
-            ? "Saving..."
-            : "Saved"}
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 };

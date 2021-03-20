@@ -59,6 +59,10 @@ export type UpdateReadOnlyAction = {
   type: "updateReadOnly";
   readOnly: boolean;
 };
+export type UpdateSheetPasswordAction = {
+  type: "updateSheetPassword";
+  password: string;
+};
 export type SaveSheetAction = {
   type: "saveSheet";
 };
@@ -84,6 +88,7 @@ export type SheetAction =
   | RemoveExcludedUserAction
   | ChangeSheetTitleAction
   | ChangeSheetLinkAction
+  | UpdateSheetPasswordAction
   | SaveSheetAction
   | AutosaveSheetAction
   | UpdateReadOnlyAction
@@ -110,6 +115,8 @@ export function sheetReducer(state: SheetState, action: SheetAction) {
       return changeSheetTitle(state, action);
     case "changeSheetLink":
       return changeSheetLink(state, action);
+    case "updateSheetPassword":
+      return updateSheetPassword(state, action);
     case "saveSheet":
       return saveSheet(state, action);
     case "autosaveSheet":
@@ -353,6 +360,25 @@ function changeSheetLink(
   const firebaseLink = { sheetId: state.id };
   db.collection("customLinks").doc(action.link).set(firebaseLink);
   return newSheetState;
+}
+
+function updateSheetPassword(
+  state: SheetState,
+  action: UpdateSheetPasswordAction
+): SheetState {
+  if (state.local) return state;
+
+  const bcrypt = require("bcryptjs");
+  const saltRounds = 10;
+
+  bcrypt.hash(action.password, saltRounds, function (err: Error, hash: string) {
+    if (!err) {
+      const newSheetState = { ...state, password: hash };
+      updateFirestore(newSheetState);
+    }
+  });
+
+  return state;
 }
 
 // Save the sheet in Firestore and set the sheet to auto-update.
