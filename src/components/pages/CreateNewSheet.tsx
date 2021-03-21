@@ -71,7 +71,6 @@ export const CreateNewSheet: React.FC = () => {
   }
 
   function sheetNameStep() {
-    console.log(agreeToTerms);
     return (
       <>
         <div className='giantHeader'>Give your sheet a name:</div>
@@ -104,7 +103,11 @@ export const CreateNewSheet: React.FC = () => {
           }
           label={
             <>
-              I accept the SplitTheCost <Link to='/tos'>terms</Link>.
+              I accept the SplitTheCost{" "}
+              <Link to='/tos' target='_blank'>
+                terms
+              </Link>
+              .
             </>
           }
         />

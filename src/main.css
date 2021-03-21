@@ -233,12 +233,6 @@
           box-shadow: none;
 }
 
-#shareIcon {
-  margin-bottom: 3px;
-  -webkit-transform: scaleX(-1);
-          transform: scaleX(-1);
-}
-
 .entryDiv {
   height: 50px;
   display: -webkit-box;

@@ -7,6 +7,7 @@ import {
   IconButton,
   FormControlLabel,
   Switch,
+  Tooltip,
 } from "@material-ui/core";
 import { useContext, useEffect, useState } from "react";
 import { SheetContext } from "../pages/SplitTheCost";
@@ -17,13 +18,14 @@ import {
   validatePassword,
   validateSheetTitle,
 } from "../../logic/logic";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { useHistory } from "react-router-dom";
+import DeleteIcon from "@material-ui/icons/DeleteRounded";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import DoneRoundedIcon from "@material-ui/icons/DoneRounded";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
-import { useHistory } from "react-router-dom";
+import FilterNoneRoundedIcon from "@material-ui/icons/FilterNoneRounded";
 
 interface Props {
   open: boolean;
@@ -179,6 +181,11 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
           />
         </Grid>
         <Grid container item xs={4} justify='flex-end'>
+          <Tooltip arrow title='Copy Link' placement='left'>
+            <IconButton onClick={copySheetLink}>
+              <FilterNoneRoundedIcon />
+            </IconButton>
+          </Tooltip>
           {editLink && (
             <IconButton onClick={cancelCustomLink}>
               <CloseRoundedIcon />
@@ -245,6 +252,14 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
     setSheetLink(sheetState.customLink ? sheetState.customLink : sheetState.id);
   }
 
+  function copySheetLink() {
+    navigator.clipboard.writeText(
+      `splitthecost.net/#/sheet/${
+        sheetState.customLink ? sheetState.customLink : sheetState.id
+      }`
+    );
+  }
+
   // ----------------- TOGGLES -----------------
 
   function renderToggleSettings(): JSX.Element {
@@ -294,9 +309,15 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
           />
         </Grid>
         <Grid container item xs={4} justify='flex-end'>
-          <IconButton onClick={() => setViewPassword(!viewPassword)}>
-            {viewPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-          </IconButton>
+          <Tooltip
+            arrow
+            title={viewPassword ? "Hide Password" : "View Password"}
+            placement='left'
+          >
+            <IconButton onClick={() => setViewPassword(!viewPassword)}>
+              {viewPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+            </IconButton>
+          </Tooltip>
           {editPassword && (
             <IconButton onClick={cancelPassword}>
               <CloseRoundedIcon />
@@ -348,7 +369,6 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
     setPasswordsMatch(password === password2);
     if (password !== password2) return;
 
-    console.log("UPDATING PASSWORD TO " + password);
     sheetDispatch({ type: "updateSheetPassword", password: password });
     cancelPassword();
   }

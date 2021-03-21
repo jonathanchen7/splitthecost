@@ -29,6 +29,11 @@ export const PasswordUserModal: React.FC<Props> = ({ open }) => {
   const [validPassword, setValidPassword] = useState(true);
 
   function validatePassword() {
+    if (!password) {
+      setValidPassword(false);
+      return;
+    }
+
     if (!sheetState.password) {
       userDispatch({ type: "setAuthStatus", authenticated: true });
       return;
@@ -50,10 +55,20 @@ export const PasswordUserModal: React.FC<Props> = ({ open }) => {
   }
 
   function confirmUser() {
-    userDispatch({
-      type: "updateCurUser",
-      user: selectedUser!,
-    });
+    if (selectedUser) {
+      userDispatch({
+        type: "updateCurUser",
+        user: selectedUser!,
+      });
+    }
+  }
+
+  function handleEnter() {
+    if (!userState.authenticated) {
+      validatePassword();
+    } else {
+      confirmUser();
+    }
   }
 
   function renderPasswordPrompt(): JSX.Element {
@@ -129,7 +144,7 @@ export const PasswordUserModal: React.FC<Props> = ({ open }) => {
       disableBackdropClick
       maxWidth='sm'
       open={open}
-      onKeyPress={(e) => handleKeyPress(e, "enter", confirmUser)}
+      onKeyPress={(e) => handleKeyPress(e, "enter", handleEnter)}
       PaperProps={{ className: "modal" }}
     >
       <ModalHeader
