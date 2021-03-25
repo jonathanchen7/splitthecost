@@ -67,7 +67,7 @@ export const AddUserModal: React.FC<Props> = ({ open, setOpen }) => {
 
   function confirmAddUser() {
     // Validate first/last name and check for duplicates.
-    if (sheetState.numUsers > 10 || !validateNewUser(firstName, lastName)) {
+    if (sheetState.numUsers >= 10 || !validateNewUser(firstName, lastName)) {
       return;
     }
 

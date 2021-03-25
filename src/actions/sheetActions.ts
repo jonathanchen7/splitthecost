@@ -63,6 +63,9 @@ export type UpdateSheetPasswordAction = {
   type: "updateSheetPassword";
   password: string;
 };
+export type RemoveSheetPasswordAction = {
+  type: "removeSheetPassword";
+};
 export type SaveSheetAction = {
   type: "saveSheet";
 };
@@ -89,6 +92,7 @@ export type SheetAction =
   | ChangeSheetTitleAction
   | ChangeSheetLinkAction
   | UpdateSheetPasswordAction
+  | RemoveSheetPasswordAction
   | SaveSheetAction
   | AutosaveSheetAction
   | UpdateReadOnlyAction
@@ -108,7 +112,7 @@ export function sheetReducer(state: SheetState, action: SheetAction) {
     case "removeUser":
       return removeUser(state, action);
     case "updateExcludedUsers":
-      return updatedExcludedUsers(state, action);
+      return updateExcludedUsers(state, action);
     case "removeExcludedUser":
       return removeExcludedUser(state, action);
     case "changeSheetTitle":
@@ -117,6 +121,8 @@ export function sheetReducer(state: SheetState, action: SheetAction) {
       return changeSheetLink(state, action);
     case "updateSheetPassword":
       return updateSheetPassword(state, action);
+    case "removeSheetPassword":
+      return removeSheetPassword(state, action);
     case "saveSheet":
       return saveSheet(state, action);
     case "autosaveSheet":
@@ -152,7 +158,6 @@ function addEntry(state: SheetState, action: AddEntryAction): SheetState {
     ...state,
     entries: [...state.entries, newEntry],
     lastEdited: Date.now(),
-    readOnly: false,
   };
   updateFirestore(newSheetState, action.local);
   return newSheetState;
@@ -199,7 +204,6 @@ function updateEntry(state: SheetState, action: UpdateEntryAction): SheetState {
     entries: newEntries,
     lastEdited: Date.now(),
   };
-  // updateFirestore(newSheetState, action.local);
   return newSheetState;
 }
 
@@ -277,7 +281,7 @@ function removeUser(state: SheetState, action: RemoveUserAction): SheetState {
 }
 
 // Update the excluded userIds for a specific entry.
-function updatedExcludedUsers(
+function updateExcludedUsers(
   state: SheetState,
   action: UpdateExcludedUsersAction
 ): SheetState {
@@ -346,19 +350,21 @@ function changeSheetLink(
   )
     return state;
 
+  // Remove any existing custom links from Firestore.
+  if (state.customLink) {
+    db.collection("customLinks").doc(state.customLink).delete();
+  }
+
+  // Add the new custom link to Firestore.
+  const firebaseLink = { sheetId: state.id };
+  db.collection("customLinks").doc(action.link).set(firebaseLink);
+
   const newSheetState: SheetState = {
     ...state,
     customLink: action.link,
     lastEdited: Date.now(),
   };
   updateFirestore(newSheetState);
-
-  if (state.customLink) {
-    db.collection("customLinks").doc(state.customLink).delete();
-  }
-
-  const firebaseLink = { sheetId: state.id };
-  db.collection("customLinks").doc(action.link).set(firebaseLink);
   return newSheetState;
 }
 
@@ -373,10 +379,29 @@ function updateSheetPassword(
 
   bcrypt.hash(action.password, saltRounds, function (err: Error, hash: string) {
     if (!err) {
-      const newSheetState = { ...state, password: hash };
+      const newSheetState = {
+        ...state,
+        password: hash,
+        lastEdited: Date.now(),
+      };
       updateFirestore(newSheetState);
+      return newSheetState;
     }
   });
+
+  return state;
+}
+
+// Remove the current sheet's password (if one exists).
+function removeSheetPassword(
+  state: SheetState,
+  action: RemoveSheetPasswordAction
+): SheetState {
+  if (state.password) {
+    const newSheetState = { ...state, password: "", lastEdited: Date.now() };
+    updateFirestore(newSheetState);
+    return newSheetState;
+  }
 
   return state;
 }
@@ -406,7 +431,11 @@ function updateReadOnly(
   state: SheetState,
   action: UpdateReadOnlyAction
 ): SheetState {
-  const newSheetState = { ...state, readOnly: action.readOnly };
+  const newSheetState = {
+    ...state,
+    readOnly: action.readOnly,
+    lastEdited: Date.now(),
+  };
   updateFirestore(newSheetState);
   return newSheetState;
 }

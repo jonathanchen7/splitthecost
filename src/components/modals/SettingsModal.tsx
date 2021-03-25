@@ -8,6 +8,7 @@ import {
   FormControlLabel,
   Switch,
   Tooltip,
+  Button,
 } from "@material-ui/core";
 import { useContext, useEffect, useState } from "react";
 import { SheetContext } from "../pages/SplitTheCost";
@@ -285,7 +286,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
 
   // ----------------- SHEET PASSWORD -----------------
 
-  function renderSheetPasswordSetting(): JSX.Element {
+  function renderPasswordSetting(): JSX.Element {
     return (
       <>
         <Grid className='bottomMargin' item xs={8}>
@@ -329,21 +330,34 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
         </Grid>
 
         {editPassword && (
-          <Grid className='bottomMargin' item xs={8}>
-            <TextField
-              fullWidth
-              value={password2}
-              error={!passwordsMatch}
-              placeholder='Confirm password'
-              onChange={(e) => setPassword2(e.target.value)}
-              helperText={passwordsMatch ? "" : "Passwords don't match."}
-              InputProps={{
-                readOnly: !editPassword,
-                disableUnderline: !editPassword,
-                type: viewPassword ? "default" : "password",
-              }}
-            />
-          </Grid>
+          <>
+            <Grid className='bottomMargin' item xs={8}>
+              <TextField
+                fullWidth
+                value={password2}
+                error={!passwordsMatch}
+                placeholder='Confirm Password'
+                onChange={(e) => setPassword2(e.target.value)}
+                helperText={passwordsMatch ? "" : "Passwords don't match."}
+                InputProps={{
+                  readOnly: !editPassword,
+                  disableUnderline: !editPassword,
+                  type: viewPassword ? "default" : "password",
+                }}
+              />
+            </Grid>
+            <Grid
+              className='bottomMargin'
+              container
+              item
+              xs={4}
+              justify='flex-end'
+            >
+              <Button color='secondary' onClick={removePassword}>
+                REMOVE PASSWORD
+              </Button>
+            </Grid>
+          </>
         )}
       </>
     );
@@ -379,6 +393,13 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
     setValidPassword(true);
     setPassword("");
     setPassword2("");
+  }
+
+  function removePassword() {
+    if (sheetState.password) {
+      sheetDispatch({ type: "removeSheetPassword" });
+    }
+    cancelPassword();
   }
 
   // ----------------- DELETE SHEET -----------------
@@ -467,7 +488,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
           {renderSheetTitleSetting()}
           {!sheetState.local && renderCustomLinkSetting()}
           {renderToggleSettings()}
-          {!sheetState.local && renderSheetPasswordSetting()}
+          {!sheetState.local && renderPasswordSetting()}
           {!sheetState.local && renderDeleteSheetSetting()}
         </Grid>
       </DialogContent>

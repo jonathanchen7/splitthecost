@@ -76,7 +76,7 @@ export const UsersBar: React.FC = () => {
         })}
         {!sheetState.readOnly &&
           userState.curUser &&
-          Object.keys(sheetState.users).length <= 10 && (
+          Object.keys(sheetState.users).length < 10 && (
             <Tooltip arrow title='Add Friend' placement='right'>
               <IconButton
                 className='iconButton smallIconButton leftMargin bottomMargin'
