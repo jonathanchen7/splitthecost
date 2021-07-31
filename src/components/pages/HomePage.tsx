@@ -13,16 +13,6 @@ export const HomePage: React.FC = () => {
   } else {
     return (
       <>
-        <Grid id='homepageHeader' container alignContent='center'>
-          <Grid item container xs={12} justify='flex-end'>
-            <Link className='noTextDecoration' to='/'>
-              <span className='homepageLink'>about</span>
-            </Link>
-            <Link className='noTextDecoration' to='/'>
-              <span className='homepageLink'>contact</span>
-            </Link>
-          </Grid>
-        </Grid>
         <Grid className='homepage' container spacing={0} alignContent='center'>
           <Grid item container xs={8} justify='center'>
             <img id='homepageBlob' src={blob} alt='blob' />

@@ -426,6 +426,7 @@
 }
 
 .homepage {
+  margin-top: 60px;
   height: 85vh;
   -webkit-perspective: 1500px;
           perspective: 1500px;
