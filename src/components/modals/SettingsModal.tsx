@@ -310,6 +310,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
           />
         </Grid>
         <Grid container item xs={4} justify='flex-end'>
+        {editPassword && (
           <Tooltip
             arrow
             title={viewPassword ? "Hide Password" : "View Password"}
@@ -319,6 +320,7 @@ export const SettingsModal: React.FC<Props> = ({ open, setOpen }) => {
               {viewPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
             </IconButton>
           </Tooltip>
+        )}
           {editPassword && (
             <IconButton onClick={cancelPassword}>
               <CloseRoundedIcon />

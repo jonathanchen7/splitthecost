@@ -13,9 +13,11 @@ import { SaveSheetModal } from "../modals/SaveSheetModal";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import SettingsRoundedIcon from "@material-ui/icons/SettingsRounded";
 import SaveRoundedIcon from "@material-ui/icons/SaveRounded";
+import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
+import Brightness4RoundedIcon from '@material-ui/icons/Brightness4Rounded';
 
 export const UsersBar: React.FC = () => {
-  const { userState } = useContext(UserContext);
+  const { userState, userDispatch } = useContext(UserContext);
   const { sheetState } = useContext(SheetContext);
 
   const [openAddUser, setOpenAddUser] = useState(false);
@@ -40,6 +42,10 @@ export const UsersBar: React.FC = () => {
 
   function openSaveSheetModal() {
     setOpenSaveSheet(true);
+  }
+
+  function changeUser() {
+    userDispatch({ type: "removeCurUser" })
   }
 
   function renderUsers(): JSX.Element {
@@ -94,9 +100,27 @@ export const UsersBar: React.FC = () => {
     <>
       <Grid className='usersBar' container spacing={0}>
         <Grid item container xs={11} alignItems='center'>
+          {userState.curUser && (
+            <Tooltip arrow title='Change User' placement='right'>
+              <IconButton
+                className='iconButton smallIconButton leftMargin bottomMargin'
+                onClick={changeUser}
+              >
+                <PersonRoundedIcon />
+              </IconButton>
+            </Tooltip>
+          )}
           {userState.authenticated && renderUsers()}
         </Grid>
         <Grid item container xs={1} justify='flex-end' alignItems='center'>
+            <Tooltip arrow title='Toggle Dark Mode' placement='left'>
+              <IconButton
+                className='iconButton smallIconButton rightMargin bottomMargin'
+                onClick={() => userDispatch({ type: "setDarkMode", darkMode: !userState.darkMode })}
+              >
+                <Brightness4RoundedIcon />
+              </IconButton>
+            </Tooltip>
           {sheetState.local && (
             <Tooltip arrow title='Save Sheet' placement='left'>
               <IconButton

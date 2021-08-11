@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useEffect, useReducer } from "react";
 import "./main.css";
 import { SplitTheCost } from "./components/pages/SplitTheCost";
 import { Route, HashRouter as Router, Switch } from "react-router-dom";
@@ -9,6 +9,7 @@ import { CreateNewSheet } from "./components/pages/CreateNewSheet";
 import { PageNotFound } from "./components/pages/PageNotFound";
 import { SheetNotFound } from "./components/pages/SheetNotFound";
 import { TermsOfService } from "./components/pages/TermsOfService";
+import { enable as enableDarkMode, disable as disableDarkMode } from 'darkreader';
 
 const initialUserState: UserState = {
   curUser: undefined,
@@ -26,6 +27,20 @@ export const UserContext = createContext<{
 
 function App() {
   const [userState, userDispatch] = useReducer(userReducer, initialUserState);
+
+  useEffect(() => {
+    if (userState.darkMode) {
+      enableDarkMode({
+        brightness: 100,
+        contrast: 100,
+        sepia: 0
+      });
+    } else {
+      disableDarkMode();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userState.darkMode]);
 
   return (
     <Router>

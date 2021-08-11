@@ -1,5 +1,9 @@
 import { UserState, User } from "../models/models";
 
+export type RemoveCurUserAction = {
+  type: "removeCurUser";
+}
+
 export type UpdateCurUserAction = {
   type: "updateCurUser";
   user: User;
@@ -16,12 +20,15 @@ export type SetAuthStatusAction = {
 };
 
 export type UserAction =
+  | RemoveCurUserAction
   | UpdateCurUserAction
   | SetDarkModeAction
   | SetAuthStatusAction;
 
 export function userReducer(state: UserState, action: UserAction) {
   switch (action.type) {
+    case "removeCurUser":
+      return removeCurUser(state, action);
     case "updateCurUser":
       return updateCurUser(state, action);
     case "setDarkMode":
@@ -36,6 +43,14 @@ export function userReducer(state: UserState, action: UserAction) {
 // ----------------- APP USER ACTIONS -----------------
 
 // Update the current user.
+function removeCurUser(
+  state: UserState,
+  action: RemoveCurUserAction
+): UserState {
+  return { ...state, curUser: undefined };
+}
+
+// Update the current user.
 function updateCurUser(
   state: UserState,
   action: UpdateCurUserAction
@@ -43,7 +58,7 @@ function updateCurUser(
   return { ...state, curUser: action.user };
 }
 
-// Remove an entry from the sheet.
+// Set dark mode.
 function setDarkMode(state: UserState, action: SetDarkModeAction): UserState {
   return { ...state, darkMode: action.darkMode };
 }
